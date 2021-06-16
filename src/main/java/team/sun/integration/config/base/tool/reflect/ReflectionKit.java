@@ -1,7 +1,6 @@
-package team.sun.integration.modules.base.tool.reflect;
+package team.sun.integration.config.base.tool.reflect;
 
 import cn.hutool.core.lang.Assert;
-import org.apache.commons.lang3.exception.ExceptionUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import team.sun.integration.modules.sys.user.model.entity.User;
@@ -277,12 +276,58 @@ public final class ReflectionKit {
         return (clazz.isPrimitive() || PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(clazz));
     }
 
+    public static String baseTypeDistinguish(Object o) {
+        //java.lang.String
+        //java.lang.Integer
+        //java.lang.Double
+        //java.lang.Boolean
+        //java.util.Date
+        //java.lang.Short
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        //
+        if (o instanceof Boolean) {
+            return "boolean";
+        } else if (o instanceof Character) {
+            return "character";
+        } else if (o instanceof Byte) {
+            return "byte";
+        } else if (o instanceof Short) {
+            return "short";
+        } else if (o instanceof Integer) {
+            return "integer";
+        } else if (o instanceof Long) {
+            return "long";
+        } else if (o instanceof Float) {
+            return "float";
+        } else if (o instanceof Double) {
+            return "double";
+        }
+        return "not base type";
+    }
+
     public static void main(String[] args) {
         User user = new User();
         user.setEmail("123");
-        Field[] field = user.getClass().getFields();
-        System.out.println(field.length);
-        System.out.println(1);
+        user.setGender(true);
+        Field[] field = user.getClass().getDeclaredFields();
+        for (int i = 0; i < field.length; i++) {
+            System.out.println(field[i].getName()+"------------"+field[i].getType().getName());
+
+            System.out.println(field[i].getGenericType().toString());
+            if(PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(field[i].getClass())){
+                System.out.println(field[i].getName());
+                System.out.println(PRIMITIVE_WRAPPER_TYPE_MAP.get(field[i]).getTypeName());
+            }
+        }
+
     }
 
 }

@@ -3,7 +3,7 @@ package team.sun.integration.modules.sys.security.handler;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.stereotype.Component;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

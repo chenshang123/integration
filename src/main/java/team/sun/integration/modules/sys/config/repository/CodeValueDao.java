@@ -2,7 +2,7 @@ package team.sun.integration.modules.sys.config.repository;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.config.model.entity.CodeValue;
 import team.sun.integration.modules.sys.config.model.vo.CodeValueVO;
 

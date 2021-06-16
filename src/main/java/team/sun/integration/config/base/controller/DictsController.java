@@ -1,9 +1,9 @@
-package team.sun.integration.modules.base.controller;
+package team.sun.integration.config.base.controller;
 
 
-import team.sun.integration.modules.base.enums.dict.DefaultEnumDict;
-import team.sun.integration.modules.base.enums.dict.EnumDict;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.config.base.enums.dict.DefaultEnumDict;
+import team.sun.integration.config.base.enums.dict.EnumDict;
+import team.sun.integration.config.base.model.vo.Ret;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;

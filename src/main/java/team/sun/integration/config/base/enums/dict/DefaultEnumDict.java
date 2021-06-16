@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.enums.dict;
+package team.sun.integration.config.base.enums.dict;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

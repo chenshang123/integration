@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.controller;
+package team.sun.integration.config.base.controller;
 
 import team.sun.integration.common.exception.DownloadException;
 import org.springframework.http.MediaType;

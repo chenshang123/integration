@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.model.dto;
+package team.sun.integration.config.base.model.dto;
 
 
 import java.util.List;

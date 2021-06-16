@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.enums.ret;
+package team.sun.integration.config.base.enums.ret;
 
 /**
  * 常用错误码

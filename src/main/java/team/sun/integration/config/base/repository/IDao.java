@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.repository;
+package team.sun.integration.config.base.repository;
 
 import org.springframework.data.querydsl.QuerydslPredicateExecutor;
 import org.springframework.data.repository.CrudRepository;

@@ -1,10 +1,9 @@
 package team.sun.integration.modules.sys.user.repository;
 
-import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.user.model.entity.User;
 import org.springframework.data.jpa.repository.Query;
 
-import java.io.Serializable;
 import java.util.List;
 
 public interface UserDao extends IDao<User, String> {

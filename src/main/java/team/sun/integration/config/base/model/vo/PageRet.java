@@ -1,4 +1,4 @@
-package team.sun.integration.modules.base.model.vo;
+package team.sun.integration.config.base.model.vo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;

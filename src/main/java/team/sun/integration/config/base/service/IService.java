@@ -1,9 +1,7 @@
-package team.sun.integration.modules.base.service;
+package team.sun.integration.config.base.service;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import org.springframework.data.domain.Pageable;
-import team.sun.integration.modules.base.model.vo.PageRet;
 
 import java.util.Collection;
 import java.util.Optional;

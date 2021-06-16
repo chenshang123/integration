@@ -1,6 +1,6 @@
 package team.sun.integration.modules.sys.resource.repository;
 
-import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 
 /**

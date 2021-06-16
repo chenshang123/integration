@@ -13,8 +13,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
+import team.sun.integration.config.base.model.vo.Ret;
 import team.sun.integration.modules.sys.security.utils.JwtTokenUtil;
 
 /**

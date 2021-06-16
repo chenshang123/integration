@@ -1,13 +1,13 @@
-package team.sun.integration.modules.base.service.impl;
+package team.sun.integration.config.base.service.impl;
 
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
-import team.sun.integration.modules.base.repository.IDao;
-import team.sun.integration.modules.base.service.IService;
-import team.sun.integration.modules.base.tool.reflect.ReflectionKit;
+import team.sun.integration.config.base.repository.IDao;
+import team.sun.integration.config.base.service.IService;
+import team.sun.integration.config.base.tool.reflect.ReflectionKit;
 
 import java.util.Collection;
 import java.util.Optional;

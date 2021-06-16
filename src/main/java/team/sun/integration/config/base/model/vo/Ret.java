@@ -1,11 +1,11 @@
-package team.sun.integration.modules.base.model.vo;
+package team.sun.integration.config.base.model.vo;
 
 
 import java.io.Serializable;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import team.sun.integration.modules.base.enums.ret.BaseKeyValue;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
+import team.sun.integration.config.base.enums.ret.BaseKeyValue;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;

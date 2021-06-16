@@ -1,7 +1,7 @@
 package team.sun.integration.modules.sys.permission.repository;
 
 import org.springframework.data.jpa.repository.Query;
-import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.permission.model.entity.Permission;
 
 /**

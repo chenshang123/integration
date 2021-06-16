@@ -1,20 +1,16 @@
 package team.sun.integration.modules.sys.user.controller;
 
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.BeanPath;
-import com.querydsl.jpa.impl.JPAQuery;
 import io.swagger.annotations.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.web.bind.annotation.*;
-import team.sun.integration.modules.base.model.dto.PageDTO;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.config.base.model.dto.PageDTO;
+import team.sun.integration.config.base.model.vo.Ret;
 import team.sun.integration.modules.sys.user.model.dto.query.UserQueryDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
-import team.sun.integration.modules.sys.user.model.entity.User;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.service.UserService;
 

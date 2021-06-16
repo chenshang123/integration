@@ -3,7 +3,7 @@ package team.sun.integration.common.exception;
 import java.util.Iterator;
 import java.util.Set;
 
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.config.base.model.vo.Ret;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

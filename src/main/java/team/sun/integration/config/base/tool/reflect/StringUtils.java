@@ -1,12 +1,8 @@
-package team.sun.integration.modules.base.tool.reflect;
+package team.sun.integration.config.base.tool.reflect;
 
-import java.nio.charset.StandardCharsets;
-import java.sql.Blob;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static java.util.stream.Collectors.joining;

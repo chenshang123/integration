@@ -20,7 +20,7 @@ import javax.sql.DataSource;
  * 参考：https://stackoverflow.com/questions/47558017/error-starting-a-spring-application-initialization-of-bean-failed-nested-excep
  * 搭配方案：spring4+spring-data-jpa1.x或spring5+spring-data-jpa2.x
  */
-@Configuration
+//@Configuration
 // 借助spring data实现自动化的jpa repository，只需编写接口无需编写实现类
 // 相当于xml配置的<jpa:repositories base-package="com.example.repository" />
 // repositoryImplementationPostfix默认就是Impl
