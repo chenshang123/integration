@@ -1,16 +1,18 @@
 package team.sun.integration.modules.sys.user.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.google.common.collect.Sets;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.util.ReflectionUtils;
-import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
 import team.sun.integration.config.base.tool.reflect.ReflectionKit;
+import team.sun.integration.config.base.tool.reflect.TestVo;
+import team.sun.integration.modules.bulldozer.extend.querydsl.criteria.SearchCriteria;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
@@ -43,7 +45,6 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     private final RoleDao roleDao;
     private final PasswordEncoder passwordEncoder;
-    private int num2;
 
     @Autowired
     public UserServiceImpl(RoleDao roleDao) {
@@ -73,21 +74,21 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public PageRet<UserPageVo> page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
-        QUser user = QUser.user;
-        JPAQuery<User> jpaQuery = jpaQueryFactory.selectFrom(user).where(predicate).orderBy(user.id.asc().nullsLast());
 
+        QUser user = QUser.user;
+        BlazeJPAQuery<User> jpaQuery = new BlazeJPAQuery<User>(entityManager, criteriaBuilderFactory)
+                .from(user)
+                .where(predicate).orderBy(user.id.asc().nullsLast());
         List<UserPageVo> data = new ArrayList<>();
         Optional.ofNullable(
                 jpaQuery.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch()
-        ).orElseGet(() -> {
-            return new ArrayList<>();
-        }).stream().filter(Objects::nonNull).forEach(o -> {
+        ).orElseGet(ArrayList::new).stream().filter(Objects::nonNull).forEach(o -> {
             UserPageVo vo = new UserPageVo();
             BeanUtils.copyProperties(o, vo);
             data.add(vo);
         });
         long count = jpaQuery.fetchCount();
-        return new PageRet<UserPageVo>(data, count);
+        return new PageRet<>(data, count);
     }
 
     @Override
@@ -145,16 +146,23 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     public static void main(String[] args) {
-        Integer num = 1;
-        int num2 = 2;
+        String[] values = {"a", "b"};
+        SearchCriteria searchCriteria = new SearchCriteria("", "", "", values);
+        //Criteria criteria = new Criteria( "", "", values);
+        //Predicate searchPredicate = new Predicate(criteria);
+        //searchPredicate.getPredicate();
 
-
-        Set<Field> fields = ReflectionUtils.getFields(User.class);
+        User user = new User();
+        user.setEmail("email");
+        System.out.println(Boolean.class.getTypeName());
+        Set<Field> fields = ReflectionUtils.getFields(TestVo.class);
         fields.stream().filter(Objects::nonNull).forEach(o->{
             System.out.print(o.getName()+"-----------------------");
-            System.out.print(o.getType()+"-----------------------");
+            System.out.print(o.getType()+"-----------------------"+o.getAnnotatedType()+"-----------");
             System.out.println(ReflectionKit.isPrimitiveOrWrapper(o.getType()));
         });
+
+
     }
 
 

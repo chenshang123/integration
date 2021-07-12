@@ -37,7 +37,7 @@ public class BuriedCableProtocol {
         protocol.add(16, "4_threshold_for_end_30_sensor");//阈值1 (循环30次 ,集合名称：sensor)字段长度_字段名称
         protocol.add(17, "4_null");//预留3
         protocol.add(18, "4_null");//预留4
-//		profile = Collections.unmodifiableMap(protocal);
+//		profile = Collections.unmodifiableMap(protocol);
         profile = ProfileConvert.getFieldAndLength(protocol);
     }
 

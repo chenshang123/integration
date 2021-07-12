@@ -24,14 +24,14 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * @Author: CipherCui
- * @Description:
- * @Date: Created in 9:15 2018/10/18
+ * Author: CipherCui
+ * Description:
+ * Created in 9:15 2018/10/18
  */
 public class ClassScanner implements ResourceLoaderAware {
 
-    private final List<TypeFilter> includeFilters = new LinkedList<TypeFilter>();
-    private final List<TypeFilter> excludeFilters = new LinkedList<TypeFilter>();
+    private final List<TypeFilter> includeFilters = new LinkedList<>();
+    private final List<TypeFilter> excludeFilters = new LinkedList<>();
 
     private ResourcePatternResolver resourcePatternResolver = new PathMatchingResourcePatternResolver();
     private MetadataReaderFactory metadataReaderFactory = new CachingMetadataReaderFactory(this.resourcePatternResolver);
@@ -41,8 +41,8 @@ public class ClassScanner implements ResourceLoaderAware {
         ClassScanner cs = new ClassScanner();
 
         if (ArrayUtils.isNotEmpty(annotations)) {
-            for (Class anno : annotations) {
-                cs.addIncludeFilter(new AnnotationTypeFilter(anno));
+            for (Class annotation : annotations) {
+                cs.addIncludeFilter(new AnnotationTypeFilter(annotation));
             }
         }
 
@@ -95,8 +95,7 @@ public class ClassScanner implements ResourceLoaderAware {
             Resource[] resources = this.resourcePatternResolver
                     .getResources(packageSearchPath);
 
-            for (int i = 0; i < resources.length; i++) {
-                Resource resource = resources[i];
+            for (Resource resource : resources) {
                 if (resource.isReadable()) {
                     MetadataReader metadataReader = this.metadataReaderFactory.getMetadataReader(resource);
                     if ((includeFilters.size() == 0 && excludeFilters.size() == 0) || matches(metadataReader)) {

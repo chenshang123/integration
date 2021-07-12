@@ -99,7 +99,7 @@ public final class StringUtils {
      *
      * @param name 属性名称
      * @param type 属性类型
-     * @return 返回猜测的名称
+     * @return 返回猜测的名称*
      * @deprecated 3.3.2
      */
     @Deprecated

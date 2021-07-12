@@ -1,11 +1,9 @@
 package team.sun.integration.test;
 
+import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.*;
-import com.querydsl.core.util.ReflectionUtils;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.jpa.domain.Specification;
 import team.sun.integration.modules.sys.config.service.CodeValueService;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
@@ -25,8 +23,7 @@ import team.sun.integration.modules.sys.user.model.entity.User;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.service.UserService;
 
-import java.lang.reflect.Field;
-import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -52,11 +49,64 @@ public class ServiceTestTest {
     public void testModelServiceServiceImpl() {
         QUser quser = QUser.user;
 
+        quser.petName.eq("");//字段相等
+        quser.petName.ne("");//字段不相等
+        quser.petName.gt("");//字段大于
+        quser.petName.goe("");//字段大于等于
+        quser.petName.lt("");//字段小于
+        quser.petName.loe("");//字段小于等于
+        quser.petName.between("", "");//字段属于两个值之间
+        quser.petName.notBetween("", "");//字段不属于两个值之间
+        quser.petName.in("");//字段属于集合
+        quser.petName.notIn("", "");//字段不属于集合
+        quser.petName.like("");//模糊匹配
+        quser.petName.notLike("");//排除模糊匹配结果
+        quser.petName.likeIgnoreCase("");//模糊匹配忽略大小写
+        quser.petName.startsWith("");//以开始值模糊匹配
+        quser.petName.startsWithIgnoreCase("");//以开始值模糊匹配-忽略大小写
+        quser.petName.endsWith("");//以结尾值模糊匹配
+        quser.petName.endsWithIgnoreCase("");//以结尾值模糊匹配-忽略大小写
+
+        quser.petName.asc().nullsLast();//字段升序-空值在后
+        quser.petName.asc().nullsFirst();//字段升序-空值在前
+        quser.petName.desc().nullsFirst();
+        quser.petName.desc().nullsLast();
+
+        quser.petName.max();//字段最大值
+        quser.petName.min();//字段最小值
+
+        quser.petName.matches("");
+        quser.allowNotAccess.coalesce(null, LocalDateTime.now());//coalesce(a,b,c);
+        //参数说明：如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。
+        quser.dataAuthorityType.add(1);//加法
+        quser.dataAuthorityType.subtract(1);//减法
+        quser.dataAuthorityType.multiply(1);//乘法
+        quser.dataAuthorityType.divide(2);//除法
+        quser.dataAuthorityType.sqrt();//平方根
+        quser.dataAuthorityType.mod(1);//余数
+        quser.dataAuthorityType.abs();//绝对值
+
+        quser.dataAuthorityType.avg();//平均值
+
+        quser.dataAuthorityType.ceil();//123.45  124.00 / -123.45  -123.00
+        quser.dataAuthorityType.negate();
+        quser.dataAuthorityType.round();//函数用于把数值字段舍入为指定的小数位数。
+
+        quser.allowNotAccess.after(LocalDateTime.now());
+        quser.allowNotAccess.before(LocalDateTime.now());
+
+
+
+
+
+
+        new BlazeJPAQuery<>();
+
         PathBuilder<User> entityPath = new PathBuilder<User>(User.class, "user");
         SetPath<Org, PathBuilder<Org>> a = entityPath.getSet("org", Org.class);
 
-
         //StringPath petName = entityPath.getString("org");
+
 
         BooleanExpression param = Expressions.asBoolean(true).isTrue();
         param = param.and(quser.org.id.eq("1"));

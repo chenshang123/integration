@@ -1,11 +1,14 @@
 package team.sun.integration.config.base.tool.reflect;
 
 import cn.hutool.core.lang.Assert;
+import com.querydsl.core.types.dsl.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
+import org.jetbrains.annotations.NotNull;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import java.lang.reflect.*;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
@@ -136,34 +139,6 @@ public final class ReflectionKit {
         return getMethodValue(entity.getClass(), entity, str);
     }
 
-    /**
-     * <p>
-     * 反射对象获取泛型
-     * </p>
-     *
-     * @param clazz 对象
-     * @param index 泛型所在位置
-     * @return Class
-     */
-    public static Class<?> getSuperClassGenericType(final Class<?> clazz, final int index) {
-        Type genType = clazz.getGenericSuperclass();
-        if (!(genType instanceof ParameterizedType)) {
-            logger.warn(String.format("Warn: %s's superclass not ParameterizedType", clazz.getSimpleName()));
-            return Object.class;
-        }
-        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
-        if (index >= params.length || index < 0) {
-            logger.warn(String.format("Warn: Index: %s, Size of %s's Parameterized Type: %s .", index,
-                    clazz.getSimpleName(), params.length));
-            return Object.class;
-        }
-        if (!(params[index] instanceof Class)) {
-            logger.warn(String.format("Warn: %s not set the actual class on superclass generic parameter",
-                    clazz.getSimpleName()));
-            return Object.class;
-        }
-        return (Class<?>) params[index];
-    }
 
     /**
      * <p>
@@ -276,54 +251,98 @@ public final class ReflectionKit {
         return (clazz.isPrimitive() || PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(clazz));
     }
 
-    public static String baseTypeDistinguish(Object o) {
-        //java.lang.String
-        //java.lang.Integer
-        //java.lang.Double
-        //java.lang.Boolean
-        //java.util.Date
-        //java.lang.Short
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        //
-        if (o instanceof Boolean) {
-            return "boolean";
-        } else if (o instanceof Character) {
-            return "character";
-        } else if (o instanceof Byte) {
-            return "byte";
-        } else if (o instanceof Short) {
-            return "short";
-        } else if (o instanceof Integer) {
-            return "integer";
-        } else if (o instanceof Long) {
-            return "long";
-        } else if (o instanceof Float) {
-            return "float";
-        } else if (o instanceof Double) {
-            return "double";
+    /**
+     * <p>
+     * 反射对象获取泛型
+     * </p>
+     *
+     * @param clazz 对象
+     * @param index 泛型所在位置
+     * @return Class
+     */
+    public static Class<?> getSuperClassGenericType(final Class<?> clazz, final int index) {
+        Type genType = clazz.getGenericSuperclass();
+        if (!(genType instanceof ParameterizedType)) {
+            logger.warn(String.format("Warn: %s's superclass not ParameterizedType", clazz.getSimpleName()));
+            return Object.class;
         }
+        Type[] params = ((ParameterizedType) genType).getActualTypeArguments();
+        if (index >= params.length || index < 0) {
+            logger.warn(String.format("Warn: Index: %s, Size of %s's Parameterized Type: %s .", index,
+                    clazz.getSimpleName(), params.length));
+            return Object.class;
+        }
+        if (!(params[index] instanceof Class)) {
+            logger.warn(String.format("Warn: %s not set the actual class on superclass generic parameter",
+                    clazz.getSimpleName()));
+            return Object.class;
+        }
+        return (Class<?>) params[index];
+    }
+
+
+    public static String baseTypeDistinguish(@NotNull String fileType) {
+        Integer.class.getTypeName();
+        Short.class.getTypeName();
+        Long.class.getTypeName();
+        Double.class.getTypeName();
+        Float.class.getTypeName();
+        Character.class.getTypeName();
+        Byte.class.getTypeName();
+        Boolean.class.getTypeName();
+
+        BigDecimal.class.getTypeName();
+        String.class.getTypeName();
+        Collection.class.getTypeName();
+        List.class.getTypeName();
+        Set.class.getTypeName();
+
+        if(fileType.equals("123")){
+
+        }
+        int a = 0;
+        Integer b = 1;
+
+
+
+
+
+
+
+
+//        if (o instanceof Boolean) {
+//            return "boolean";
+//        } else if (o instanceof Character) {
+//            return "character";
+//        } else if (o instanceof Byte) {
+//            return "byte";
+//        } else if (o instanceof Short) {
+//            return "short";
+//        } else if (o instanceof Integer) {
+//            return "integer";
+//        } else if (o instanceof Long) {
+//            return "long";
+//        } else if (o instanceof Float) {
+//            return "float";
+//        } else if (o instanceof Double) {
+//            return "double";
+//        }
         return "not base type";
+    }
+
+    private static void getPValue(){
+
     }
 
     public static void main(String[] args) {
         User user = new User();
         user.setEmail("123");
         user.setGender(true);
-        Field[] field = user.getClass().getDeclaredFields();
+        Field[] field = TestVo.class.getDeclaredFields();
         for (int i = 0; i < field.length; i++) {
-            System.out.println(field[i].getName()+"------------"+field[i].getType().getName());
-
-            System.out.println(field[i].getGenericType().toString());
+            System.out.println(field[i].getName()+"--------------"+field[i].getAnnotatedType().toString());
             if(PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(field[i].getClass())){
-                System.out.println(field[i].getName());
+                System.out.println(field[i].getName()+"--------------");
                 System.out.println(PRIMITIVE_WRAPPER_TYPE_MAP.get(field[i]).getTypeName());
             }
         }

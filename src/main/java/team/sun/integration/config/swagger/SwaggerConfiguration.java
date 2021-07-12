@@ -3,6 +3,7 @@ package team.sun.integration.config.swagger;
 import io.swagger.models.auth.In;
 import org.apache.commons.lang3.reflect.FieldUtils;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringBootVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -25,8 +26,9 @@ import java.util.*;
 @EnableOpenApi
 @Configuration
 public class SwaggerConfiguration implements WebMvcConfigurer {
-    private final SwaggerProperties swaggerProperties;
 
+    private final SwaggerProperties swaggerProperties;
+    @Autowired(required=false)
     public SwaggerConfiguration(SwaggerProperties swaggerProperties) {
         this.swaggerProperties = swaggerProperties;
     }

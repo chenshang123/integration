@@ -1,5 +1,6 @@
 package team.sun.integration.config.base.service.impl;
 
+import com.blazebit.persistence.CriteriaBuilderFactory;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -7,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.config.base.service.IService;
-import team.sun.integration.config.base.tool.reflect.ReflectionKit;
 
+import javax.persistence.EntityManager;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -20,17 +21,15 @@ public class ServiceImpl<M extends IDao<T, String>, T> implements IService<T, St
     protected M dao;
 
     protected JPAQueryFactory jpaQueryFactory;
-    protected Class<?> entityClass = currentModelClass();
+    protected CriteriaBuilderFactory criteriaBuilderFactory;
+    protected EntityManager entityManager;
 
     @Autowired
-    public void init(JPAQueryFactory jpaQueryFactory) {
+    public void init(CriteriaBuilderFactory criteriaBuilderFactory, EntityManager entityManager, JPAQueryFactory jpaQueryFactory) {
+        this.criteriaBuilderFactory = criteriaBuilderFactory;
+        this.entityManager = entityManager;
         this.jpaQueryFactory = jpaQueryFactory;
     }
-
-    protected Class<T> currentModelClass() {
-        return (Class<T>) ReflectionKit.getSuperClassGenericType(getClass(), 1);
-    }
-
 
     @Override
     public Optional<T> getById(String s) {

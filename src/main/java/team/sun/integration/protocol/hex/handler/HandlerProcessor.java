@@ -11,7 +11,7 @@ import java.util.Map;
 @Component
 public class HandlerProcessor implements BeanFactoryPostProcessor {
 
-    private static final String HANDLER_PACKAGE = "indi.sun.integration.protocol.hex.profile.etm";
+    private static final String HANDLER_PACKAGE = "team.sun.integration.protocol.hex.profile.etm";
 
     /**
      * 扫描@HandlerType，初始化HandlerContext，将其注册到spring容器
