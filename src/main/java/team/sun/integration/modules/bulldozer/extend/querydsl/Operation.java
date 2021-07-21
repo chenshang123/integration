@@ -2,10 +2,9 @@ package team.sun.integration.modules.bulldozer.extend.querydsl;
 
 
 import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Path;
 import com.querydsl.core.types.dsl.*;
 import org.springframework.util.StringUtils;
-
-import java.util.List;
 
 public class Operation {
     /**
@@ -162,19 +161,7 @@ public class Operation {
             }else if("abs".equals(operation)){
                 path.abs();
             }
-            if("asc".equals(operation)){
 
-            }else if("desc".equals(operation)){
-
-            }else if("asc_nullsLast".equals(operation)){
-
-            }else if("asc_nullsFirst".equals(operation)){
-
-            }else if("desc_nullsLast".equals(operation)){
-
-            }else if("desc_nullsFirst".equals(operation)){
-
-            }
         }
         return null;
     }
@@ -226,7 +213,7 @@ public class Operation {
     /**
      * order-操作类型
      */
-    public static OrderSpecifier orderOperation(StringPath path, String operation){
+    public static OrderSpecifier orderOperation(Path<?> path, String operation){
         if(null != path && StringUtils.hasLength(operation)){
             if("asc".equals(operation)){
 

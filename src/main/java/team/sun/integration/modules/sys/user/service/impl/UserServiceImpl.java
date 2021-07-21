@@ -6,6 +6,7 @@ import com.google.common.collect.Sets;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.util.ReflectionUtils;
+import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import team.sun.integration.config.base.model.vo.PageRet;
@@ -88,6 +89,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             data.add(vo);
         });
         long count = jpaQuery.fetchCount();
+        JPAQuery<User> query = jpaQueryFactory.selectFrom(user).where(predicate);
         return new PageRet<>(data, count);
     }
 

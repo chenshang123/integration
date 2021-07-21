@@ -11,7 +11,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.*;
-@Entity
+
 public class TestVo implements Serializable {
 
     private static final long serialVersionUID = 1L;

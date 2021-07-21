@@ -1,6 +1,5 @@
 package team.sun.integration.modules.bulldozer.extend.querydsl;
 
-import cn.hutool.core.lang.Assert;
 import org.reflections8.Reflections;
 import org.reflections8.scanners.TypeAnnotationsScanner;
 import team.sun.integration.config.base.tool.reflect.TestVo;
@@ -125,7 +124,6 @@ public class ReflectionKit {
      * @return 是否基本类型或基本包装类型
      */
     public static boolean isPrimitiveOrWrapper(Field field) {
-        Assert.notNull(field, "Class must not be null");
         for (String s : PRIMITIVE_AND_WRAPPER_TYPE_LIST) {
             if (field.getAnnotatedType().toString().contains(s)) {
                 return true;

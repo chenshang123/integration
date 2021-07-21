@@ -1,4 +1,4 @@
-package team.sun.integration.modules.bulldozer.common.enums;
+package team.sun.integration.modules.bulldozer.enums;
 
 import team.sun.integration.config.base.enums.ret.BaseKeyValue;
 

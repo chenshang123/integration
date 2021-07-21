@@ -25,10 +25,10 @@ public class ServiceImpl<M extends IDao<T, String>, T> implements IService<T, St
     protected EntityManager entityManager;
 
     @Autowired
-    public void init(CriteriaBuilderFactory criteriaBuilderFactory, EntityManager entityManager, JPAQueryFactory jpaQueryFactory) {
+    public void init(JPAQueryFactory jpaQueryFactory, CriteriaBuilderFactory criteriaBuilderFactory, EntityManager entityManager) {
+        this.jpaQueryFactory = jpaQueryFactory;
         this.criteriaBuilderFactory = criteriaBuilderFactory;
         this.entityManager = entityManager;
-        this.jpaQueryFactory = jpaQueryFactory;
     }
 
     @Override

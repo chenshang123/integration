@@ -1,10 +1,9 @@
 package team.sun.integration.config.base.tool.reflect;
 
-import cn.hutool.core.lang.Assert;
-import com.querydsl.core.types.dsl.*;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.util.Assert;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import java.lang.reflect.*;
@@ -77,7 +76,6 @@ public final class ReflectionKit {
     public static Object getMethodValue(Class<?> cls, Object entity, String str) {
         Map<String, Field> fieldMaps = getFieldMap(cls);
         try {
-            Assert.notEmpty(fieldMaps, "Error: NoSuchField in %s for %s.  Cause:", cls.getSimpleName(), str);
             Method method = cls.getMethod(guessGetterName(fieldMaps.get(str), str));
             return method.invoke(entity);
         } catch (NoSuchMethodException e) {
@@ -101,7 +99,6 @@ public final class ReflectionKit {
         Map<String, Field> fieldMaps = getFieldMap(cls);
         try {
             Field field = fieldMaps.get(fieldName);
-            Assert.notNull(field, "Error: NoSuchField in %s for %s.  Cause:", cls.getSimpleName(), fieldName);
             field.setAccessible(true);
             return field.get(entity);
         } catch (ReflectiveOperationException e) {
@@ -303,30 +300,6 @@ public final class ReflectionKit {
         int a = 0;
         Integer b = 1;
 
-
-
-
-
-
-
-
-//        if (o instanceof Boolean) {
-//            return "boolean";
-//        } else if (o instanceof Character) {
-//            return "character";
-//        } else if (o instanceof Byte) {
-//            return "byte";
-//        } else if (o instanceof Short) {
-//            return "short";
-//        } else if (o instanceof Integer) {
-//            return "integer";
-//        } else if (o instanceof Long) {
-//            return "long";
-//        } else if (o instanceof Float) {
-//            return "float";
-//        } else if (o instanceof Double) {
-//            return "double";
-//        }
         return "not base type";
     }
 

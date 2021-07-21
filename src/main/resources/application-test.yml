@@ -1,0 +1,72 @@
+# ===== 自定义 本机服务端口 配置 ===== #
+server:
+  port: 8086
+  ssl:
+    enabled: true
+    key-store-password: HtiqO4Ua
+    key-store: classpath:5944182_etm.net.cn.pfx
+    #key-store-type: JKS
+
+spring:
+  application:
+    name:
+  jpa:
+    #jpa 配置
+    #jdatabase-platform: org.hibernate.dialect.MySQL8Dialect
+    # 是否开启生成表结构
+    generate-ddl: false
+    # 在日志中打印SQL语句
+    show-sql: true
+    properties:
+      hibernate:
+        # 格式化日志中的SQL语句
+        format_sql: true
+        # 日志级别 ALL < TRACE < DEBUG < INFO < WARN < ERROR < FATAL < OFF
+        type: INFO
+        # 是否在SQL语句中输出便于调试的注释信息，show_sql=true时有效
+        use_sql_comments: true
+        # 在一个session中累计多少条SQL之后批量提交，提交后session会清除缓存并关闭
+        jdbc.batch_size: 50
+        # 通过实体类生成表的策略
+        ddl-auto: none
+        #dialect: org.hibernate.dialect.MySQL8Dialect
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://47.108.147.88:3306/integration?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Hongkong
+    username: root
+    password: SIHAN123
+    #192.168.252.129 root mysql129
+    # Hikari连接池的设置
+    type: com.zaxxer.hikari.HikariDataSource
+    hikari:
+      #连接池名
+      pool-name: DatebookHikariCP
+      #最小连接
+      minimum-idle: 5
+      #最大连接
+      maximum-pool-size: 15
+      #自动提交
+      auto-commit: true
+      #最大空闲时常
+      idle-timeout: 30000
+      #连接超时时间
+      connection-timeout: 30000
+      #最大生命周期
+      max-lifetime: 900000
+      #心跳检测
+      connection-test-query: SELECT 1
+  devtools:
+    restart:
+      enabled: true
+# ===== 自定义swagger配置 ===== #
+swagger:
+  enable: true
+  application-name: ${spring.application.name}
+  application-version: 1.0
+  application-description: springfox swagger 3.0整合Demo
+  try-host: http://localhost:${server.port}
+# ===== 自定义Logger Config配置 ===== #
+logging:
+  level:
+    team.sun.integration: debug

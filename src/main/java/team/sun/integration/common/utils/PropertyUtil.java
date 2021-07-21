@@ -22,7 +22,6 @@ public class PropertyUtil {
         InputStream in = null;
         try {
             in = PropertyUtil.class.getResourceAsStream("/conf.properties");
-//	            in = PropertyUtil.class.getClassLoader().getResourceAsStream("conf.properties");
             props.load(in);
         } catch (FileNotFoundException e) {
             logger.error("config.properties文件未找到");
