@@ -7,7 +7,6 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
-import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -28,11 +27,15 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
+    public final StringPath creatorId = createString("creatorId");
+
     public final BooleanPath delFlag = createBoolean("delFlag");
 
-    public final StringPath firstFloorId = createString("firstFloorId");
+    public final StringPath departmentId = createString("departmentId");
 
-    public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> groups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("groups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
+    public final StringPath explain = createString("explain");
+
+    public final StringPath firstFloorId = createString("firstFloorId");
 
     public final StringPath hiddenCode = createString("hiddenCode");
 
@@ -44,17 +47,15 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final StringPath parentId = createString("parentId");
 
-    public final StringPath profile = createString("profile");
-
     public final BooleanPath relationSys = createBoolean("relationSys");
 
     public final NumberPath<Integer> sort = createNumber("sort", Integer.class);
 
+    public final StringPath tenantId = createString("tenantId");
+
     public final NumberPath<Integer> unitType = createNumber("unitType", Integer.class);
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
-
-    public final SetPath<team.sun.integration.modules.sys.user.model.entity.User, team.sun.integration.modules.sys.user.model.entity.QUser> users = this.<team.sun.integration.modules.sys.user.model.entity.User, team.sun.integration.modules.sys.user.model.entity.QUser>createSet("users", team.sun.integration.modules.sys.user.model.entity.User.class, team.sun.integration.modules.sys.user.model.entity.QUser.class, PathInits.DIRECT2);
 
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 

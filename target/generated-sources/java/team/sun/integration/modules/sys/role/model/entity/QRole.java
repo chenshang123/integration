@@ -18,6 +18,8 @@ public class QRole extends EntityPathBase<Role> {
 
     private static final long serialVersionUID = -911251079L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QRole role = new QRole("role");
 
     public final BooleanPath available = createBoolean("available");
@@ -26,7 +28,11 @@ public class QRole extends EntityPathBase<Role> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
+    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
+
     public final BooleanPath delFlag = createBoolean("delFlag");
+
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
 
     public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> groups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("groups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
 
@@ -36,7 +42,11 @@ public class QRole extends EntityPathBase<Role> {
 
     public final StringPath remarks = createString("remarks");
 
-    public final SetPath<team.sun.integration.modules.sys.permission.model.entity.Permission, team.sun.integration.modules.sys.permission.model.entity.QPermission> rolePermissions = this.<team.sun.integration.modules.sys.permission.model.entity.Permission, team.sun.integration.modules.sys.permission.model.entity.QPermission>createSet("rolePermissions", team.sun.integration.modules.sys.permission.model.entity.Permission.class, team.sun.integration.modules.sys.permission.model.entity.QPermission.class, PathInits.DIRECT2);
+    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement> roleElements = this.<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement>createSet("roleElements", team.sun.integration.modules.sys.resource.model.entity.Element.class, team.sun.integration.modules.sys.resource.model.entity.QElement.class, PathInits.DIRECT2);
+
+    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource> roleResources = this.<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource>createSet("roleResources", team.sun.integration.modules.sys.resource.model.entity.Resource.class, team.sun.integration.modules.sys.resource.model.entity.QResource.class, PathInits.DIRECT2);
+
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
@@ -45,15 +55,26 @@ public class QRole extends EntityPathBase<Role> {
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 
     public QRole(String variable) {
-        super(Role.class, forVariable(variable));
+        this(Role.class, forVariable(variable), INITS);
     }
 
     public QRole(Path<? extends Role> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QRole(PathMetadata metadata) {
-        super(Role.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QRole(PathMetadata metadata, PathInits inits) {
+        this(Role.class, metadata, inits);
+    }
+
+    public QRole(Class<? extends Role> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
+        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department")) : null;
+        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
     }
 
 }

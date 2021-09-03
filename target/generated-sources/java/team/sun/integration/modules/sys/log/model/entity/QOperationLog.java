@@ -7,6 +7,7 @@ import com.querydsl.core.types.dsl.*;
 import com.querydsl.core.types.PathMetadata;
 import javax.annotation.processing.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
@@ -17,29 +18,33 @@ public class QOperationLog extends EntityPathBase<OperationLog> {
 
     private static final long serialVersionUID = -202102236L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QOperationLog operationLog = new QOperationLog("operationLog");
 
     public final StringPath content = createString("content");
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final StringPath createUser = createString("createUser");
+    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
 
     public final BooleanPath delFlag = createBoolean("delFlag");
 
-    public final StringPath fkMenuPageId = createString("fkMenuPageId");
-
-    public final StringPath fkOperationId = createString("fkOperationId");
-
-    public final StringPath fkOperationUserId = createString("fkOperationUserId");
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
 
     public final StringPath id = createString("id");
 
-    public final StringPath methodName = createString("methodName");
+    public final StringPath ip = createString("ip");
 
-    public final StringPath operation = createString("operation");
+    public final StringPath name = createString("name");
+
+    public final StringPath parameter = createString("parameter");
+
+    public final StringPath resourceId = createString("resourceId");
 
     public final BooleanPath state = createBoolean("state");
+
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
 
     public final NumberPath<Integer> type = createNumber("type", Integer.class);
 
@@ -48,15 +53,26 @@ public class QOperationLog extends EntityPathBase<OperationLog> {
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 
     public QOperationLog(String variable) {
-        super(OperationLog.class, forVariable(variable));
+        this(OperationLog.class, forVariable(variable), INITS);
     }
 
     public QOperationLog(Path<? extends OperationLog> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QOperationLog(PathMetadata metadata) {
-        super(OperationLog.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QOperationLog(PathMetadata metadata, PathInits inits) {
+        this(OperationLog.class, metadata, inits);
+    }
+
+    public QOperationLog(Class<? extends OperationLog> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
+        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department")) : null;
+        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
     }
 
 }

@@ -18,13 +18,19 @@ public class QGroup extends EntityPathBase<Group> {
 
     private static final long serialVersionUID = 1092362813L;
 
+    private static final PathInits INITS = PathInits.DIRECT2;
+
     public static final QGroup group = new QGroup("group1");
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
+    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
+
     public final BooleanPath delFlag = createBoolean("delFlag");
 
-    public final SetPath<team.sun.integration.modules.sys.org.model.entity.Org, team.sun.integration.modules.sys.org.model.entity.QOrg> groupDataNodes = this.<team.sun.integration.modules.sys.org.model.entity.Org, team.sun.integration.modules.sys.org.model.entity.QOrg>createSet("groupDataNodes", team.sun.integration.modules.sys.org.model.entity.Org.class, team.sun.integration.modules.sys.org.model.entity.QOrg.class, PathInits.DIRECT2);
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
+
+    public final StringPath explain = createString("explain");
 
     public final SetPath<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole> groupRoles = this.<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole>createSet("groupRoles", team.sun.integration.modules.sys.role.model.entity.Role.class, team.sun.integration.modules.sys.role.model.entity.QRole.class, PathInits.DIRECT2);
 
@@ -34,20 +40,33 @@ public class QGroup extends EntityPathBase<Group> {
 
     public final StringPath name = createString("name");
 
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
+
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 
     public QGroup(String variable) {
-        super(Group.class, forVariable(variable));
+        this(Group.class, forVariable(variable), INITS);
     }
 
     public QGroup(Path<? extends Group> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QGroup(PathMetadata metadata) {
-        super(Group.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QGroup(PathMetadata metadata, PathInits inits) {
+        this(Group.class, metadata, inits);
+    }
+
+    public QGroup(Class<? extends Group> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
+        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department")) : null;
+        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
     }
 
 }

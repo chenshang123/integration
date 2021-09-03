@@ -28,9 +28,13 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
+    public final QUser creator;
+
     public final NumberPath<Integer> dataAuthorityType = createNumber("dataAuthorityType", Integer.class);
 
     public final BooleanPath delFlag = createBoolean("delFlag");
+
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
 
     public final StringPath email = createString("email");
 
@@ -64,6 +68,8 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath phone = createString("phone");
 
+    public final SetPath<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition> positions = this.<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition>createSet("positions", team.sun.integration.modules.sys.position.model.entity.Position.class, team.sun.integration.modules.sys.position.model.entity.QPosition.class, PathInits.DIRECT2);
+
     public final StringPath pwd = createString("pwd");
 
     public final StringPath salt = createString("salt");
@@ -72,13 +78,13 @@ public class QUser extends EntityPathBase<User> {
 
     public final BooleanPath state = createBoolean("state");
 
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
+
     public final BooleanPath unitType = createBoolean("unitType");
 
     public final DateTimePath<java.time.LocalDateTime> updatePwdTime = createDateTime("updatePwdTime", java.time.LocalDateTime.class);
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
-
-    public final SetPath<team.sun.integration.modules.sys.org.model.entity.Org, team.sun.integration.modules.sys.org.model.entity.QOrg> userDataNodes = this.<team.sun.integration.modules.sys.org.model.entity.Org, team.sun.integration.modules.sys.org.model.entity.QOrg>createSet("userDataNodes", team.sun.integration.modules.sys.org.model.entity.Org.class, team.sun.integration.modules.sys.org.model.entity.QOrg.class, PathInits.DIRECT2);
 
     public final StringPath username = createString("username");
 
@@ -106,7 +112,10 @@ public class QUser extends EntityPathBase<User> {
 
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
+        this.creator = inits.isInitialized("creator") ? new QUser(forProperty("creator"), inits.get("creator")) : null;
+        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department")) : null;
         this.org = inits.isInitialized("org") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("org")) : null;
+        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
     }
 
 }
