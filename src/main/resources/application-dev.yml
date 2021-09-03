@@ -17,6 +17,8 @@ spring:
     generate-ddl: false
     # 在日志中打印SQL语句
     show-sql: true
+    #在controller层session开闭（建议关闭）
+    open-in-view: false
     properties:
       hibernate:
         # 格式化日志中的SQL语句
@@ -30,12 +32,13 @@ spring:
         # 通过实体类生成表的策略
         ddl-auto: none
         #dialect: org.hibernate.dialect.MySQL8Dialect
+        #enable_lazy_load_no_trans: true
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     #com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://47.108.147.88:3306/integration?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Hongkong
+    url: jdbc:mysql://127.0.0.1:3306/integration?useUnicode=true&characterEncoding=gbk&useSSL=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Hongkong
     username: root
-    password: SIHAN123
+    password: root
     #192.168.252.129 root mysql129
     # Hikari连接池的设置
     type: com.zaxxer.hikari.HikariDataSource

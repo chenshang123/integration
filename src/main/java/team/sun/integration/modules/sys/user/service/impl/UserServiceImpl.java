@@ -5,23 +5,20 @@ import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.google.common.collect.Sets;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.util.ReflectionUtils;
-import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
-import team.sun.integration.config.base.tool.reflect.ReflectionKit;
-import team.sun.integration.config.base.tool.reflect.TestVo;
-import team.sun.integration.modules.bulldozer.extend.querydsl.criteria.SearchCriteria;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
+import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
+import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
 import team.sun.integration.modules.sys.user.model.entity.User;
-import team.sun.integration.modules.sys.user.model.vo.UserRoleVO;
+import team.sun.integration.modules.sys.user.model.vo.login.UserLoginVO;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.repository.UserDao;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -30,7 +27,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team.sun.integration.modules.sys.user.service.UserService;
 
-import java.lang.reflect.Field;
 import java.util.*;
 
 /**
@@ -54,30 +50,29 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     @Override
-    public User save(User entity) {
-        if (StringUtils.isBlank(entity.getPwd())) {
-            entity.setPwd(RandomUtil.randomString(6));
-        }
+    public User save(UserSaveDTO dto) {
+        User entity = new User();
+        BeanUtils.copyProperties(dto, entity);
         this.generatePassword(entity);
         return dao.save(entity);
     }
 
     @Override
-    public User update(User entity) {
-        if (StringUtils.isNotBlank(entity.getPwd())) {
-            generatePassword(entity);
-        } else {
-            entity.setPwd(null);
-        }
-        entity.setUsername(null);//禁止修改用户名
-        return dao.save(entity);
+    public User update(UserUpdateDTO dto) {
+        User entity = new User();
+        BeanUtils.copyProperties(dto, entity);
+        Optional<User> optional = this.getById(dto.getId());
+        optional.ifPresent(user -> {
+            generatePassword(optional.get());
+            dao.save(optional.get());});
+        return optional.orElse(null);
     }
 
     @Override
-    public PageRet<UserPageVo> page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
-
+    public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QUser user = QUser.user;
         BlazeJPAQuery<User> jpaQuery = new BlazeJPAQuery<User>(entityManager, criteriaBuilderFactory)
+                .select(user)
                 .from(user)
                 .where(predicate).orderBy(user.id.asc().nullsLast());
         List<UserPageVo> data = new ArrayList<>();
@@ -89,8 +84,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             data.add(vo);
         });
         long count = jpaQuery.fetchCount();
-        JPAQuery<User> query = jpaQueryFactory.selectFrom(user).where(predicate);
-        return new PageRet<>(data, count);
+        return new PageRet(data, count);
     }
 
     @Override
@@ -117,16 +111,16 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     @Override
-    public UserRoleVO getByUsername(String userName, boolean withRoles) {
-        if (StringUtils.isBlank(userName)) {
+    public UserLoginVO getByUsername(String userName, boolean withRoles) {
+        if (!StringUtils.hasLength(userName)) {
             return null;
         }
-        List<User> users = dao.findByUsername(userName);
-        UserRoleVO vo = new UserRoleVO();
-        if (!users.isEmpty()) {
-            vo.setUser(users.get(0));
-            if (withRoles && null != users.get(0).getUserRoles()) {
-                users.get(0).getUserRoles().forEach((mid) -> vo.getRoleIds().add(mid.getId()));
+        User user = dao.findByUsername(userName);
+        UserLoginVO vo = new UserLoginVO();
+        if (user != null) {
+            vo.setUser(user);
+            if (withRoles && null != user.getUserRoles()) {
+                user.getUserRoles().forEach((mid) -> vo.getRoleIds().add(mid.getId()));
             }
         }
         return vo;
@@ -134,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
 
     @Override
     public boolean verifyPassword(String password, String rawPassword) {
-        if (StringUtils.isNotBlank(password) && StringUtils.isNotBlank(rawPassword)) {
+        if (StringUtils.hasLength(password) && StringUtils.hasLength(rawPassword)) {
             String salt = password.substring(0, 29);
             rawPassword = BCrypt.hashpw(rawPassword, salt);
             return password.equals(rawPassword);
@@ -143,29 +137,12 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     private void generatePassword(User user) {
-        String encodePassword = passwordEncoder.encode(user.getPwd());
-        user.setPwd(encodePassword);
+        if (StringUtils.hasLength(user.getPwd())) {
+            String encodePassword = passwordEncoder.encode(user.getPwd());
+            user.setPwd(encodePassword);
+        } else {
+            user.setPwd(RandomUtil.randomString(6));
+        }
     }
-
-    public static void main(String[] args) {
-        String[] values = {"a", "b"};
-        SearchCriteria searchCriteria = new SearchCriteria("", "", "", values);
-        //Criteria criteria = new Criteria( "", "", values);
-        //Predicate searchPredicate = new Predicate(criteria);
-        //searchPredicate.getPredicate();
-
-        User user = new User();
-        user.setEmail("email");
-        System.out.println(Boolean.class.getTypeName());
-        Set<Field> fields = ReflectionUtils.getFields(TestVo.class);
-        fields.stream().filter(Objects::nonNull).forEach(o->{
-            System.out.print(o.getName()+"-----------------------");
-            System.out.print(o.getType()+"-----------------------"+o.getAnnotatedType()+"-----------");
-            System.out.println(ReflectionKit.isPrimitiveOrWrapper(o.getType()));
-        });
-
-
-    }
-
 
 }

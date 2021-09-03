@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -17,9 +18,10 @@ import java.time.LocalDateTime;
  * @since 2021-02-02
  */
 
-@ApiModel(value = "Role对象", description = "系统-角色：	角色关联单位")
+@ApiModel(value = "RoleSave对象", description = "系统-角色：保存")
 public class RoleSaveDTO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String id;
@@ -35,6 +37,15 @@ public class RoleSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "备注说明")
     private String remarks;
+
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
+
+    @ApiModelProperty(value = "所属部门")
+    private String departmentId;
+
+    @ApiModelProperty(value = "所属租户")
+    private String tenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -86,6 +97,30 @@ public class RoleSaveDTO implements Serializable {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public LocalDateTime getCreateTime() {

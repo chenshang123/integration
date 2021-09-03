@@ -1,8 +1,12 @@
 package team.sun.integration.modules.sys.role.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -12,8 +16,9 @@ import team.sun.integration.modules.sys.role.model.entity.Role;
  * @author auto generator
  * @since 2021-02-02
  */
+@Repository
 public interface RoleDao extends IDao<Role, String> {
 
-    @Query(value = "delete from sys_role_permission_mid where role_id = ?1", nativeQuery = true)
-    void deletePermissionMid(String userId);
+    @EntityGraph("Role-relation")
+    Optional<Role> findRoleById(String id);
 }

@@ -40,7 +40,7 @@ public class LoginController {
 
     @GetMapping("/getUserDetailByToken")
     @ApiOperation(value = "根据token得到用户信息")
-    public Ret<UserDetails> getUserDetailByToken(HttpServletRequest request, HttpServletResponse response) {
+    public Ret getUserDetailByToken(HttpServletRequest request, HttpServletResponse response) {
         String token = request.getHeader(JwtTokenUtil.TOKEN_HEADER);
         response.setContentType("application/json;charset=UTF-8");
         if (token != null && StringUtils.startsWith(token, JwtTokenUtil.TOKEN_PREFIX)) {

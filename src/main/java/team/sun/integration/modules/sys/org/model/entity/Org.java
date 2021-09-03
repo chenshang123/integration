@@ -1,17 +1,17 @@
 package team.sun.integration.modules.sys.org.model.entity;
 
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
-import team.sun.integration.modules.sys.group.model.entity.Group;
-import team.sun.integration.modules.sys.user.model.entity.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -28,23 +28,13 @@ import java.util.Set;
 @Where(clause = "del_flag = false")
 public class Org implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(generator = "system_uuid")
+    @GenericGenerator(name = "system_uuid", strategy = "uuid")
     private String id;
-
-    /**
-     * 多对多：用户-单位（数据查看权限）
-     **/
-    @ManyToMany(mappedBy = "userDataNodes", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
-
-    /**
-     * 多对多：用户组-单位（数据查看权限）
-     **/
-    @ManyToMany(mappedBy = "groupDataNodes", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Group> groups = new HashSet<>();
 
     /**
      * 首层id
@@ -115,8 +105,28 @@ public class Org implements Serializable {
     /**
      * 相关说明
      */
-    @Column(name = "profile")
-    private String profile;
+    @Column(name = "explain")
+    private String explain;
+
+    /**
+     * 一对一： 创建人
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", unique = true)
+    private User creator;
+    /**
+     * 一对一： 创建人所属部门
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", unique = true)
+    private Org department;
+
+    /**
+     * 一对一： 创建人所属租户
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", unique = true)
+    private Tenant tenant;
 
     /**
      * 创建时间
@@ -149,8 +159,6 @@ public class Org implements Serializable {
     public String toString() {
         return "Org{" +
                 "id='" + id + '\'' +
-                //", users=" + users +
-                //", groups=" + groups +
                 ", firstFloorId='" + firstFloorId + '\'' +
                 ", parentId='" + parentId + '\'' +
                 ", layer=" + layer +
@@ -162,7 +170,10 @@ public class Org implements Serializable {
                 ", name='" + name + '\'' +
                 ", code='" + code + '\'' +
                 ", address='" + address + '\'' +
-                ", profile='" + profile + '\'' +
+                ", explain='" + explain + '\'' +
+                ", creator=" + creator +
+                ", department=" + department +
+                ", tenant=" + tenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -176,22 +187,6 @@ public class Org implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
-    }
-
-    public Set<Group> getGroups() {
-        return groups;
-    }
-
-    public void setGroups(Set<Group> groups) {
-        this.groups = groups;
     }
 
     public String getFirstFloorId() {
@@ -282,12 +277,36 @@ public class Org implements Serializable {
         this.address = address;
     }
 
-    public String getProfile() {
-        return profile;
+    public String getExplain() {
+        return explain;
     }
 
-    public void setProfile(String profile) {
-        this.profile = profile;
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Org getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Org department) {
+        this.department = department;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public LocalDateTime getCreateTime() {
@@ -321,4 +340,5 @@ public class Org implements Serializable {
     public void setVersion(Integer version) {
         this.version = version;
     }
+
 }

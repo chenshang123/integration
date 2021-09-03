@@ -1,11 +1,28 @@
 package team.sun.integration.modules.sys.role.controller;
 
+import com.querydsl.core.types.Predicate;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
+import team.sun.integration.config.base.model.dto.PageDTO;
+import team.sun.integration.config.base.model.vo.PageRet;
+import team.sun.integration.config.base.model.vo.Ret;
+import team.sun.integration.modules.sys.role.model.dto.query.RoleQueryDTO;
+import team.sun.integration.modules.sys.role.model.dto.save.RoleSaveDTO;
+import team.sun.integration.modules.sys.role.model.dto.update.RoleUpdateDTO;
+import team.sun.integration.modules.sys.role.model.entity.QRole;
+import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.service.RoleService;
 
 import io.swagger.annotations.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -27,59 +44,53 @@ public class RoleController {
         this.roleService = roleService;
     }
 
-    /*@ApiOperation(value = "分页查询")
+    @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO,@Valid @ModelAttribute RoleQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute RoleQueryDTO queryDTO){
+        Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
+        QRole qRole = QRole.role;
         Role entity = new Role();
         BeanUtils.copyProperties(queryDTO, entity);
-        Wrapper<Role> wrapper = Wrappers.lambdaQuery(entity);
-        IPage<Role> page = new Page<>(pageDTO.getCurrent(), pageDTO.getSize());
-        if(pageDTO.getOrders().size()>0)page.orders().addAll(pageDTO.getOrders());
-        roleService.page(page, wrapper);
-        return Ret.success(page);
+
+        Predicate predicate = qRole.isNotNull().or(qRole.isNull());
+        PageRet pageRet = roleService.page(pageable, predicate, null);
+        return Ret.success(pageRet);
     }
 
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
     public Ret save(@Valid @RequestBody RoleSaveDTO dto){
-        Role entity = new Role();
-        BeanUtils.copyProperties(dto, entity);
-        boolean state = roleService.save(entity);
-        return Ret.successOrFail(state);
+        roleService.save(dto);
+        return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
     public Ret update(@Valid @RequestBody RoleUpdateDTO dto){
-        Role entity = new Role();
-        BeanUtils.copyProperties(dto, entity);
-        boolean state = roleService.updateById(entity);
-        return Ret.successOrFail(state);
+        roleService.update(dto);
+        return Ret.success();
     }
 
 
     @ApiOperation(value = "详情", response = Role.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam Long id){
-        Role entity = roleService.getById(id);
-        if(null == entity){
-            return Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL);
-        }
-        return Ret.success(entity);
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+        Optional<Role> entity = roleService.getById(id);
+        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }
 
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
-    public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam Long id) {
-        boolean state = roleService.removeById(id);
-        return Ret.successOrFail(state);
+    public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
+        roleService.removeById(id);
+        return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
-    public Ret batchDelete(@RequestBody List<Long> ids) {
-        boolean state = roleService.removeByIds(ids);
-        return Ret.successOrFail(state);
-    }*/
+    public Ret batchDelete(@RequestBody List<String> ids) {
+        roleService.removeAllByIds(ids);
+        return Ret.success();
+    }
 }

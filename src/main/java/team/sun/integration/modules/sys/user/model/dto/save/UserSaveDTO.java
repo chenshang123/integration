@@ -4,6 +4,7 @@ package team.sun.integration.modules.sys.user.model.dto.save;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -16,12 +17,16 @@ import java.time.LocalDateTime;
  * @since 2021-02-01
  */
 
-@ApiModel(value = "User对象", description = "系统-用户")
+@ApiModel(value = "UserSave对象", description = "系统-用户-保存")
 public class UserSaveDTO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String id;
+
+    @ApiModelProperty(value = "所属单位")
+    private String orgId;
 
     @ApiModelProperty(value = "昵称")
     private String petName;
@@ -74,10 +79,10 @@ public class UserSaveDTO implements Serializable {
     @ApiModelProperty(value = "登录失败次数")
     private Integer loginFail;
 
-    @ApiModelProperty(value = "允许访问时间段")
+    @ApiModelProperty(value = "允许访问时间段-开始")
     private LocalDateTime allowAccess;
 
-    @ApiModelProperty(value = "允许访问时间段")
+    @ApiModelProperty(value = "允许访问时间段-结束")
     private LocalDateTime allowNotAccess;
 
     @ApiModelProperty(value = "是否被锁定：0 未锁定 1锁定 ")
@@ -85,9 +90,6 @@ public class UserSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "单位类型")
     private Boolean unitType;
-
-    @ApiModelProperty(value = "所属单位")
-    private String fkOrgId;
 
     @ApiModelProperty(value = "数据权限类型（查询单位表，本级、本级及下级、自定义）")
     private Integer dataAuthorityType;
@@ -97,6 +99,15 @@ public class UserSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "固定ip (格式为*.*.*.* 星号只能是固定值0-255)")
     private String loginIp;
+
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
+
+    @ApiModelProperty(value = "所属部门")
+    private String departmentId;
+
+    @ApiModelProperty(value = "所属租户")
+    private String tenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -116,6 +127,14 @@ public class UserSaveDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public String getOrgId() {
+        return orgId;
+    }
+
+    public void setOrgId(String orgId) {
+        this.orgId = orgId;
     }
 
     public String getPetName() {
@@ -286,14 +305,6 @@ public class UserSaveDTO implements Serializable {
         this.unitType = unitType;
     }
 
-    public String getFkOrgId() {
-        return fkOrgId;
-    }
-
-    public void setFkOrgId(String fkOrgId) {
-        this.fkOrgId = fkOrgId;
-    }
-
     public Integer getDataAuthorityType() {
         return dataAuthorityType;
     }
@@ -316,6 +327,30 @@ public class UserSaveDTO implements Serializable {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public LocalDateTime getCreateTime() {

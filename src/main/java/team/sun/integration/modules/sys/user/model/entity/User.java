@@ -1,15 +1,20 @@
 package team.sun.integration.modules.sys.user.model.entity;
 
+import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import team.sun.integration.modules.sys.group.model.entity.Group;
 import team.sun.integration.modules.sys.org.model.entity.Org;
+import team.sun.integration.modules.sys.position.model.entity.Position;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import org.hibernate.annotations.GenericGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,8 +33,15 @@ import java.util.Set;
 @Table(name = "sys_user")
 @SQLDelete(sql = "update sys_user set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
+@NamedEntityGraphs(@NamedEntityGraph(name = "User-relation", attributeNodes = {
+        @NamedAttributeNode("groups"),
+        @NamedAttributeNode("userRoles"),
+        @NamedAttributeNode("positions"),
+        @NamedAttributeNode("org")
+}))
 public class User implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(generator = "system_uuid")
@@ -42,35 +54,35 @@ public class User implements Serializable {
     @ManyToMany(mappedBy = "groupUsers", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Group> groups = new HashSet<>();
 
-
     /**
      * 多对多：用户-角色
      **/
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, targetEntity = Role.class, fetch = FetchType.LAZY)
     @JoinTable(
             name = "sys_user_role_mid",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonBackReference
     private Set<Role> userRoles = new HashSet<>();
 
     /**
-     * 多对多：用户-单位（数据查看权限）
+     * 多对多：用户-职位
      **/
-    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_user_data_node_mid",
+            name = "sys_user_position_mid",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "org_id")
+            inverseJoinColumns = @JoinColumn(name = "position_id")
     )
-    private Set<Org> userDataNodes = new HashSet<>();
-
+    @JsonBackReference
+    private Set<Position> positions = new HashSet<>();
 
     /**
      * 一对一： 用户-单位 ：所属单位
      */
-    @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
-    @JoinColumn(name = "fk_org_id", unique = true)
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "org_id", unique = true)
     private Org org;
 
     /**
@@ -101,6 +113,7 @@ public class User implements Serializable {
      * 密码
      */
     @Column(name = "pwd")
+    @JSONField(serialize = false)
     private String pwd;
 
     /**
@@ -218,6 +231,26 @@ public class User implements Serializable {
     private String loginIp;
 
     /**
+     * 一对一： 创建人
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false,fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", unique = true)
+    private User creator;
+    /**
+     * 一对一： 创建人所属部门
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", unique = true)
+    private Org department;
+
+    /**
+     * 一对一： 创建人所属租户
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", unique = true)
+    private Tenant tenant;
+
+    /**
      * 创建时间
      */
     @CreatedDate
@@ -244,13 +277,16 @@ public class User implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    public User() {
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                //", groups=" + groups +
+                ", groups=" + groups +
                 ", userRoles=" + userRoles +
-                ", userDataNodes=" + userDataNodes +
+                ", positions=" + positions +
                 ", org=" + org +
                 ", petName='" + petName + '\'' +
                 ", username='" + username + '\'' +
@@ -269,13 +305,16 @@ public class User implements Serializable {
                 ", sleepTime=" + sleepTime +
                 ", lockTime=" + lockTime +
                 ", loginFail=" + loginFail +
-                ", accessStart=" + allowAccess +
+                ", allowAccess=" + allowAccess +
                 ", allowNotAccess=" + allowNotAccess +
                 ", locked=" + locked +
                 ", unitType=" + unitType +
                 ", dataAuthorityType=" + dataAuthorityType +
                 ", icCard='" + icCard + '\'' +
                 ", loginIp='" + loginIp + '\'' +
+                ", creator=" + creator +
+                ", department=" + department +
+                ", tenant=" + tenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -307,12 +346,12 @@ public class User implements Serializable {
         this.userRoles = userRoles;
     }
 
-    public Set<Org> getUserDataNodes() {
-        return userDataNodes;
+    public Set<Position> getPositions() {
+        return positions;
     }
 
-    public void setUserDataNodes(Set<Org> userDataNodes) {
-        this.userDataNodes = userDataNodes;
+    public void setPositions(Set<Position> positions) {
+        this.positions = positions;
     }
 
     public Org getOrg() {
@@ -513,6 +552,30 @@ public class User implements Serializable {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Org getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Org department) {
+        this.department = department;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public LocalDateTime getCreateTime() {

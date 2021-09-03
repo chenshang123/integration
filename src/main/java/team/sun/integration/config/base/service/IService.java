@@ -24,6 +24,8 @@ public interface IService<T, ID> {
 
     void removeById(ID id);
 
+    void removeAllByIds(Collection<String> entities);
+
     void removeByIds(Collection<T> entities);
 
 }

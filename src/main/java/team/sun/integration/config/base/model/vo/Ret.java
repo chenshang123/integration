@@ -18,7 +18,7 @@ import io.swagger.annotations.ApiModelProperty;
  */
 @Api("返回结果")
 @JsonIgnoreProperties(value = {"handler", "hibernateLazyInitializer", "fieldHandler"})
-public class Ret<T> implements Serializable {
+public class Ret implements Serializable {
     /**
      * 错误码
      */
@@ -35,45 +35,45 @@ public class Ret<T> implements Serializable {
      * 数据对象
      */
     @ApiModelProperty("数据对象")
-    private T data;
+    private Object data;
 
     public Ret(BaseKeyValue<String, String> enumData) {
         this.code = enumData.getKey();
         this.msg = enumData.getValue();
     }
 
-    public Ret(T data, BaseKeyValue<String, String> enumData) {
+    public Ret(Object data, BaseKeyValue<String, String> enumData) {
         this.data = data;
         this.code = enumData.getKey();
         this.msg = enumData.getValue();
     }
 
-    public static <T> Ret<T> success() {
-        return new Ret<>(BusRetEnum.SUCCESS);
+    public static Ret success() {
+        return new Ret(BusRetEnum.SUCCESS);
     }
 
-    public static <T> Ret<T> success(T data) {
+    public static Ret success(Object data) {
         return new Ret(data, BusRetEnum.SUCCESS);
     }
 
-    public static <T> Ret<T> fail() {
-        return new Ret<>(BusRetEnum.FAIL);
+    public static Ret fail() {
+        return new Ret(BusRetEnum.FAIL);
     }
 
-    public static <T> Ret<T> fail(T data) {
-        return new Ret<>(data, BusRetEnum.FAIL);
+    public static Ret fail(Object data) {
+        return new Ret(data, BusRetEnum.FAIL);
     }
 
-    public static <T> Ret<T> fail(BusRetEnum busRetEnum) {
-        return new Ret<>(BusRetEnum.FAIL);
+    public static Ret fail(BusRetEnum busRetEnum) {
+        return new Ret(BusRetEnum.FAIL);
     }
 
-    public static <T> Ret<T> successOrFail(boolean successes) {
+    public static Ret successOrFail(boolean successes) {
         BaseKeyValue<String, String> enumData = BusRetEnum.SUCCESS;
         if (!successes) {
             enumData = BusRetEnum.FAIL;
         }
-        return new Ret<>(enumData);
+        return new Ret(enumData);
     }
 
     public String getCode() {
@@ -93,11 +93,11 @@ public class Ret<T> implements Serializable {
         this.msg = msg;
     }
 
-    public T getData() {
+    public Object getData() {
         return data;
     }
 
-    public void setData(T data) {
+    public void setData(Object data) {
         this.data = data;
     }
 }

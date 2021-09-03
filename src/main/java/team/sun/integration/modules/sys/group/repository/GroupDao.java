@@ -1,8 +1,11 @@
 package team.sun.integration.modules.sys.group.repository;
 
-import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.group.model.entity.Group;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -12,16 +15,9 @@ import team.sun.integration.modules.sys.group.model.entity.Group;
  * @author auto generator
  * @since 2021-02-01
  */
-
+@Repository
 public interface GroupDao extends IDao<Group, String> {
 
-    @Query(value = "delete from sys_group_data_node_mid where group_id = ?1", nativeQuery = true)
-    void deleteDataNodeMid(String groupId);
-
-    @Query(value = "delete from sys_group_role_mid where group_id = ?1", nativeQuery = true)
-    void deleteRoleMid(String groupId);
-
-    @Query(value = "delete from sys_group_user_mid where group_id = ?1", nativeQuery = true)
-    void deleteUserMid(String groupId);
-
+    @EntityGraph("Group-relation")
+    Optional<Group> findGroupById(String id);
 }

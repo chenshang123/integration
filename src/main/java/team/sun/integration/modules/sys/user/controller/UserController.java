@@ -3,18 +3,25 @@ package team.sun.integration.modules.sys.user.controller;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.*;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
+import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.model.vo.Ret;
 import team.sun.integration.modules.sys.user.model.dto.query.UserQueryDTO;
+import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
+import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
-import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
+import team.sun.integration.modules.sys.user.model.entity.User;
 import team.sun.integration.modules.sys.user.service.UserService;
 
 import javax.validation.Valid;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -38,62 +45,51 @@ public class UserController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret<UserPageVo> page(PageDTO pageDTO,@Valid @ModelAttribute UserQueryDTO queryDTO) {
-        Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getSize());
-        QUser user = QUser.user;
-        Predicate predicate = user.isNotNull().or(user.isNull());
-
-
-        /*User entity = new User();
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute UserQueryDTO queryDTO){
+        Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
+        QUser qUser = QUser.user;
+        User entity = new User();
         BeanUtils.copyProperties(queryDTO, entity);
-        Wrapper<User> wrapper = Wrappers.lambdaQuery(entity);
-        IPage<User> page = new Page<>(pageDTO.getCurrent(), pageDTO.getSize());
-        if(pageDTO.getOrders().size()>0)page.orders().addAll(pageDTO.getOrders());
-        userService.page(page, wrapper);*/
-        return Ret.success();
+
+        Predicate predicate = qUser.isNotNull().or(qUser.isNull());
+        PageRet pageRet = userService.page(pageable, predicate, null);
+        return Ret.success(pageRet);
     }
 
 
-    /*@ApiOperation(value = "保存")
+    @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret<BusRetEnum> save(@Valid @RequestBody UserSaveDTO dto){
-        User entity = new User();
-        BeanUtils.copyProperties(dto, entity);
-        boolean state = userService.add(entity);
-        return Ret.successOrFail(state);
+    public Ret save(@Valid @RequestBody UserSaveDTO dto){
+        userService.save(dto);
+        return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret<BusRetEnum> update(@Valid @RequestBody UserUpdateDTO dto){
-        User entity = new User();
-        BeanUtils.copyProperties(dto, entity);
-        boolean state = userService.updateById(entity);
-        return Ret.successOrFail(state);
+    public Ret update(@Valid @RequestBody UserUpdateDTO dto){
+        userService.update(dto);
+        return Ret.success();
     }
 
 
     @ApiOperation(value = "详情", response = User.class)
     @GetMapping("/dtl")
-    public Ret<User> Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
-        User entity = userService.getById(id);
-        if(null == entity){
-            return Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL);
-        }
-        return Ret.success(entity);
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+        Optional<User> entity = userService.getById(id);
+        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }
 
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
-    public Ret<BusRetEnum> delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        boolean state = userService.removeById(id);
-        return Ret.successOrFail(state);
+    public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
+        userService.removeById(id);
+        return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
-    public Ret<BusRetEnum> batchDelete(@RequestBody List<String> ids) {
-        boolean state = userService.removeByIds(ids);
-        return Ret.successOrFail(state);
-    }*/
+    public Ret batchDelete(@RequestBody List<String> ids) {
+        userService.removeAllByIds(ids);
+        return Ret.success();
+    }
 }

@@ -3,8 +3,12 @@ package team.sun.integration.modules.sys.resource.model.dto.save;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import team.sun.integration.modules.sys.resource.model.enums.ResourceType;
+import team.sun.integration.modules.sys.resource.model.enums.ResourceVisitType;
 
 
+import javax.persistence.Convert;
+import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
@@ -20,6 +24,7 @@ import java.time.LocalDateTime;
 @ApiModel(value = "Resource对象", description = "系统-菜单：")
 public class ResourceSaveDTO implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     private String id;
@@ -34,7 +39,7 @@ public class ResourceSaveDTO implements Serializable {
     private Integer layer;
 
     @ApiModelProperty(value = "顺序")
-    private Integer sort;
+    private Integer weight;
 
     @ApiModelProperty(value = "隐藏编号（id1_id2_id3_...当前层级以上节点id）")
     private String hiddenCode;
@@ -48,14 +53,27 @@ public class ResourceSaveDTO implements Serializable {
     @ApiModelProperty(value = "权限代码")
     private String permission;
 
-    @ApiModelProperty(value = "前端路径")
+    @ApiModelProperty(value = "接口地址")
     private String path;
 
     @ApiModelProperty(value = "前端组件路径")
     private String component;
 
-    @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App、）")
-    private Integer type;
+    @ApiModelProperty(value = "类型（按钮、菜单）")
+    @Convert(converter = ResourceVisitType.Convert.class)
+    private ResourceType type;
+
+    @Convert(converter = ResourceVisitType.Convert.class)
+    private ResourceVisitType visitType;
+
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
+
+    @ApiModelProperty(value = "所属部门")
+    private String departmentId;
+
+    @ApiModelProperty(value = "所属租户")
+    private String tenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -101,12 +119,12 @@ public class ResourceSaveDTO implements Serializable {
         this.layer = layer;
     }
 
-    public Integer getSort() {
-        return sort;
+    public Integer getWeight() {
+        return weight;
     }
 
-    public void setSort(Integer sort) {
-        this.sort = sort;
+    public void setWeight(Integer weight) {
+        this.weight = weight;
     }
 
     public String getHiddenCode() {
@@ -157,12 +175,44 @@ public class ResourceSaveDTO implements Serializable {
         this.component = component;
     }
 
-    public Integer getType() {
+    public ResourceType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ResourceType type) {
         this.type = type;
+    }
+
+    public ResourceVisitType getVisitType() {
+        return visitType;
+    }
+
+    public void setVisitType(ResourceVisitType visitType) {
+        this.visitType = visitType;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public String getDepartmentId() {
+        return departmentId;
+    }
+
+    public void setDepartmentId(String departmentId) {
+        this.departmentId = departmentId;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
     }
 
     public LocalDateTime getCreateTime() {

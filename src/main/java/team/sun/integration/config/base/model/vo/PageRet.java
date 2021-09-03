@@ -11,7 +11,7 @@ import java.util.List;
  * 分页请求对象
  */
 @Api("分页查询返回对象")
-public class PageRet<T> implements Serializable {
+public class PageRet implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -24,10 +24,10 @@ public class PageRet<T> implements Serializable {
      * 分页数据
      */
     @ApiModelProperty(value = "分页数据")
-    private List<T> data = Collections.emptyList();
+    private List<?> data = Collections.emptyList();
 
 
-    public PageRet(List<T> data, long count) {
+    public PageRet(List<?> data, long count) {
         this.data = data;
         this.count = count;
     }
@@ -40,7 +40,7 @@ public class PageRet<T> implements Serializable {
         return count;
     }
 
-    public List<T> getData() {
+    public List<?> getData() {
         return data;
     }
 }

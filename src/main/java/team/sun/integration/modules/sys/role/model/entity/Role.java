@@ -6,10 +6,14 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.group.model.entity.Group;
-import team.sun.integration.modules.sys.permission.model.entity.Permission;
+import team.sun.integration.modules.sys.org.model.entity.Org;
+import team.sun.integration.modules.sys.resource.model.entity.Element;
+import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -28,8 +32,15 @@ import java.util.Set;
 @Table(name = "sys_role")
 @SQLDelete(sql = "update sys_role set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
+@NamedEntityGraphs(@NamedEntityGraph(name = "Role-relation", attributeNodes = {
+        @NamedAttributeNode("roleResources"),
+        @NamedAttributeNode("roleElements"),
+        @NamedAttributeNode("users"),
+        @NamedAttributeNode("groups")
+}))
 public class Role implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -38,24 +49,36 @@ public class Role implements Serializable {
     private String id;
 
     /**
-     * 多对多：角色-权限
+     * 多对多：角色-菜单
      **/
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_role_permission_mid",
+            name = "sys_role_resource_mid",
             joinColumns = @JoinColumn(name = "role_id"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
+            inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
-    private Set<Permission> rolePermissions = new HashSet<>();
+    private Set<Resource> roleResources = new HashSet<>();
 
     /**
-     * 多对多：用户-角色
+     * 多对多：角色-菜单页面元素
+     **/
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "sys_role_element_mid",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "element_id")
+    )
+    private Set<Element> roleElements = new HashSet<>();
+
+
+    /**
+     * 多对多：角色-用户
      **/
     @ManyToMany(mappedBy = "userRoles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
     /**
-     * 多对多：用户组-角色
+     * 多对多：角色-用户组
      **/
     @ManyToMany(mappedBy = "groupRoles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Group> groups = new HashSet<>();
@@ -86,6 +109,26 @@ public class Role implements Serializable {
     private String remarks;
 
     /**
+     * 一对一： 创建人
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", unique = true)
+    private User creator;
+    /**
+     * 一对一： 创建人所属部门
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", unique = true)
+    private Org department;
+
+    /**
+     * 一对一： 创建人所属租户
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", unique = true)
+    private Tenant tenant;
+
+    /**
      * 创建时间
      */
     @CreatedDate
@@ -112,17 +155,24 @@ public class Role implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    public Role() {
+    }
+
     @Override
     public String toString() {
         return "Role{" +
                 "id='" + id + '\'' +
-                ", rolePermissions=" + rolePermissions +
-                //", users=" + users +
-                //", groups=" + groups +
+                ", roleResources=" + roleResources +
+                ", RoleElements=" + roleElements +
+                ", users=" + users +
+                ", groups=" + groups +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", available=" + available +
                 ", remarks='" + remarks + '\'' +
+                ", creator=" + creator +
+                ", department=" + department +
+                ", tenant=" + tenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -138,12 +188,20 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public Set<Permission> getRolePermissions() {
-        return rolePermissions;
+    public Set<Resource> getRoleResources() {
+        return roleResources;
     }
 
-    public void setRolePermissions(Set<Permission> rolePermissions) {
-        this.rolePermissions = rolePermissions;
+    public void setRoleResources(Set<Resource> roleResources) {
+        this.roleResources = roleResources;
+    }
+
+    public Set<Element> getRoleElements() {
+        return roleElements;
+    }
+
+    public void setRoleElements(Set<Element> roleElements) {
+        roleElements = roleElements;
     }
 
     public Set<User> getUsers() {
@@ -192,6 +250,30 @@ public class Role implements Serializable {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Org getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Org department) {
+        this.department = department;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public LocalDateTime getCreateTime() {

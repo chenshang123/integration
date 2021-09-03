@@ -52,7 +52,7 @@ public class PermissionService {
                 .collect(Collectors.toList());
 
         //TODO 此处需要加缓存
-        List<String> permissions = roleService.findPermissionIds(roleIds);
+        List<String> permissions = roleService.findResourceIds(roleIds);
         return permissions.contains(permission);
     }
 }

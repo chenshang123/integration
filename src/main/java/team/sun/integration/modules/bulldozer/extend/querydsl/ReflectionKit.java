@@ -1,11 +1,14 @@
 package team.sun.integration.modules.bulldozer.extend.querydsl;
 
+import cn.hutool.core.util.ArrayUtil;
 import org.reflections8.Reflections;
 import org.reflections8.scanners.TypeAnnotationsScanner;
+import org.springframework.util.NumberUtils;
 import team.sun.integration.config.base.tool.reflect.TestVo;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.Table;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.*;
@@ -132,13 +135,30 @@ public class ReflectionKit {
         return false;
     }
 
+    /**
+     * 字符串数组转其他类型数组
+     * @param values
+     * @param targetClass
+     * @param <T>
+     * @return
+     */
+    public static <T extends Number> T[] parseNumber(String[] values, Class<T> targetClass){
+        if(!ArrayUtil.isEmpty(values) && null != targetClass){
+            T[] result =  (T[]) Array.newInstance(targetClass, values.length);
+            for (int i = 0; i < values.length; i++) {
+                result[i] = NumberUtils.parseNumber("123", targetClass);
+            }
+            return result;
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         User user = new User();
         user.setEmail("123");
         TestVo testVo = new TestVo();
         testVo.setBaseInteger(1);
         CLASS_FIELD_CACHE.get(user.getClass()).forEach(o->
-
                 System.out.println(o.getName()+"-------------"+o.getAnnotatedType()+"---------------"+ReflectionKit.isPrimitiveOrWrapper(o))
         );
 

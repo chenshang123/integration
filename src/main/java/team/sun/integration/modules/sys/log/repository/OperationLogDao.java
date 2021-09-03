@@ -1,7 +1,11 @@
 package team.sun.integration.modules.sys.log.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.log.model.entity.OperationLog;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -11,6 +15,9 @@ import team.sun.integration.modules.sys.log.model.entity.OperationLog;
  * @author auto generator
  * @since 2021-02-02
  */
+@Repository
 public interface OperationLogDao extends IDao<OperationLog, String> {
 
+    @EntityGraph("OperationLog-relation")
+    Optional<OperationLog> findOperationLogById(String id);
 }

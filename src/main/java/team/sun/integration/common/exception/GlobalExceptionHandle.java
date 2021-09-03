@@ -81,7 +81,7 @@ public class GlobalExceptionHandle {
      * Hibernate Validator参数校验异常处理
      */
     @ExceptionHandler({MethodArgumentNotValidException.class, BindException.class})
-    public Ret<String> bindException(Exception e) {
+    public Ret bindException(Exception e) {
         BindingResult bindingResult;
         if (e instanceof BindException) {
             bindingResult = ((BindException) e).getBindingResult();
@@ -107,7 +107,7 @@ public class GlobalExceptionHandle {
      */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
-    public Ret<String> handler(ConstraintViolationException e) {
+    public Ret handler(ConstraintViolationException e) {
         Set<ConstraintViolation<?>> constraintViolations = e.getConstraintViolations();
         for (ConstraintViolation<?> constraintViolation : constraintViolations) {
             String message = constraintViolation.getMessage();
@@ -121,7 +121,7 @@ public class GlobalExceptionHandle {
 
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
-    public Ret<String> httpMessageNotReadableException() {
+    public Ret httpMessageNotReadableException() {
         return Ret.fail("传入数据有误");
     }
 
@@ -130,7 +130,7 @@ public class GlobalExceptionHandle {
      * 业务异常
      */
     @ExceptionHandler(BusinessException.class)
-    public Ret<String> businessException(BusinessException e) {
+    public Ret businessException(BusinessException e) {
         log.error("[全局异常] - 业务异常", e);
         return Ret.fail(e.getMessage());
     }
@@ -139,7 +139,7 @@ public class GlobalExceptionHandle {
      * 空指针异常
      */
     @ExceptionHandler(NullPointerException.class)
-    public Ret<String> nullPointerException(NullPointerException e) {
+    public Ret nullPointerException(NullPointerException e) {
         log.error("[全局异常] - 空指针异常", e);
         return Ret.fail("空指针异常,请联系管理员");
     }
@@ -148,7 +148,7 @@ public class GlobalExceptionHandle {
      * 运行时异常
      */
     @ExceptionHandler(RuntimeException.class)
-    public Ret<String> runtimeException(RuntimeException e) {
+    public Ret runtimeException(RuntimeException e) {
         log.error("[全局异常] - 运行时异常", e);
         return Ret.fail(e.getMessage());
     }
@@ -158,7 +158,7 @@ public class GlobalExceptionHandle {
      * 未知异常
      */
     @ExceptionHandler(Exception.class)
-    public Ret<String> exception(Exception e) {
+    public Ret exception(Exception e) {
         log.error("[全局异常] - 未知异常", e);
         return Ret.fail(e.getMessage());
     }

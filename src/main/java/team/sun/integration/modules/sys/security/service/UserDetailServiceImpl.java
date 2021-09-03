@@ -13,7 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.sys.user.model.vo.UserRoleVO;
+import team.sun.integration.modules.sys.user.model.vo.login.UserLoginVO;
 import team.sun.integration.modules.sys.user.service.UserService;
 
 /**
@@ -37,7 +37,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserRoleVO vo = userService.getByUsername(username, true);
+        UserLoginVO vo = userService.getByUsername(username, true);
         // 根据用户名去查找用户信息
         if (vo == null) {
             throw new UsernameNotFoundException(String.format("Not user Found with '%s'", username));

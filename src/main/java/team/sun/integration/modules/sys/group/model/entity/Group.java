@@ -1,14 +1,18 @@
 package team.sun.integration.modules.sys.group.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import java.io.Serial;
 import java.time.LocalDateTime;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -27,45 +31,43 @@ import java.util.Set;
 @Table(name = "sys_group")
 @SQLDelete(sql = "update sys_group set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
+@NamedEntityGraphs(@NamedEntityGraph(name = "Group-relation", attributeNodes = {
+        @NamedAttributeNode("groupRoles"),
+        @NamedAttributeNode("groupUsers")
+}))
 public class Group implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(generator = "system_uuid")
+    @GenericGenerator(name = "system_uuid", strategy = "uuid")
     private String id;
 
-    /**
-     * 多对多：用户组-单位（数据权限）
-     **/
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "sys_group_data_node_mid",
-            joinColumns = @JoinColumn(name = "group_id"),
-            inverseJoinColumns = @JoinColumn(name = "org_id")
-    )
-    private Set<Org> groupDataNodes = new HashSet<>();
 
     /**
      * 多对多：用户组-角色
      **/
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "sys_group_role_mid",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
+    @JsonBackReference
     private Set<Role> groupRoles = new HashSet<>();
 
     /**
      * 多对多：用户组-用户
      **/
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "sys_group_user_mid",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
+    @JsonBackReference
     private Set<User> groupUsers = new HashSet<>();
 
     /**
@@ -73,6 +75,32 @@ public class Group implements Serializable {
      */
     @Column(name = "name")
     private String name;
+
+    /**
+     * 说明
+     */
+    @Column(name = "explain")
+    private String explain;
+
+    /**
+     * 一对一： 创建人
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "creator_id", unique = true)
+    private User creator;
+    /**
+     * 一对一： 创建人所属部门
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "department_id", unique = true)
+    private Org department;
+
+    /**
+     * 一对一： 创建人所属租户
+     */
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", unique = true)
+    private Tenant tenant;
 
     /**
      * 创建时间
@@ -105,10 +133,13 @@ public class Group implements Serializable {
     public String toString() {
         return "Group{" +
                 "id='" + id + '\'' +
-                ", groupDataNodes=" + groupDataNodes +
                 ", groupRoles=" + groupRoles +
                 ", groupUsers=" + groupUsers +
                 ", name='" + name + '\'' +
+                ", explain='" + explain + '\'' +
+                ", creator=" + creator +
+                ", department=" + department +
+                ", tenant=" + tenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -122,14 +153,6 @@ public class Group implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Set<Org> getGroupDataNodes() {
-        return groupDataNodes;
-    }
-
-    public void setGroupDataNodes(Set<Org> groupDataNodes) {
-        this.groupDataNodes = groupDataNodes;
     }
 
     public Set<Role> getGroupRoles() {
@@ -154,6 +177,38 @@ public class Group implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
+
+    public User getCreator() {
+        return creator;
+    }
+
+    public void setCreator(User creator) {
+        this.creator = creator;
+    }
+
+    public Org getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Org department) {
+        this.department = department;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public LocalDateTime getCreateTime() {

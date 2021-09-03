@@ -19,17 +19,17 @@ public class ReadDoc {
         InputStream is = new FileInputStream(path);
         HWPFDocument doc = new HWPFDocument(is);
         //输出书签信息
-        this.printInfo(doc.getBookmarks());
+        //this.printInfo(doc.getBookmarks());
         //输出文本
-        System.out.println(doc.getDocumentText());
+        //System.out.println(doc.getDocumentText());
         Range range = doc.getRange();
-        this.printInfo(range);
+        //this.printInfo(range);
         //读表格
         this.readTable(range);
         //读列表
-        this.readList(range);
+        //this.readList(range);
         //把当前HWPFDocument写到输出流中
-        doc.write(new FileOutputStream("D:\\test.doc"));
+        //doc.write(new FileOutputStream("D:\\test.txt"));
         is.close();
     }
 

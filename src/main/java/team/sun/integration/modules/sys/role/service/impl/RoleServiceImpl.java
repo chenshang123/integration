@@ -1,9 +1,20 @@
 package team.sun.integration.modules.sys.role.service.impl;
 
+import com.blazebit.persistence.PagedList;
+import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import team.sun.integration.modules.sys.permission.model.entity.Permission;
-import team.sun.integration.modules.sys.permission.repository.PermissionDao;
+import com.querydsl.core.types.OrderSpecifier;
+import com.querydsl.core.types.Predicate;
+import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Pageable;
+import team.sun.integration.config.base.model.vo.PageRet;
+import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.resource.repository.ResourceDao;
+import team.sun.integration.modules.sys.role.model.dto.save.RoleSaveDTO;
+import team.sun.integration.modules.sys.role.model.dto.update.RoleUpdateDTO;
+import team.sun.integration.modules.sys.role.model.entity.QRole;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
 import team.sun.integration.modules.sys.role.service.RoleService;
@@ -24,25 +35,25 @@ import java.util.Optional;
  * @since 2021-02-02
  */
 @Service
-public class RoleServiceImpl implements RoleService {
+public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleService {
 
     private final RoleDao roleDao;
-    private final PermissionDao permissionDao;
+    private final ResourceDao resourceDao;
 
-    public RoleServiceImpl(RoleDao roleDao, PermissionDao permissionDao) {
+    public RoleServiceImpl(RoleDao roleDao, ResourceDao resourceDao) {
         this.roleDao = roleDao;
-        this.permissionDao = permissionDao;
+        this.resourceDao = resourceDao;
     }
 
     @Override
-    public void authZ(String roleId, List<String> permissionIds) {
+    public void authZ(String roleId, List<String> resourceIds) {
         Optional<Role> role = roleDao.findById(roleId);
         role.ifPresent(o -> {
-            //删除: 多对多关系-角色权限
-            roleDao.deletePermissionMid(roleId);
-            //添加: 多对多关系-角色权限
-            Iterable<Permission> permissions = permissionDao.findAllById(permissionIds);
-            o.setRolePermissions(Sets.newHashSet(permissions));
+            //删除: 多对多关系-角色资源权限
+            o.getRoleResources().clear();
+            //添加: 多对多关系-角色资源权限
+            Iterable<Resource> resources = resourceDao.findAllById(resourceIds);
+            o.setRoleResources(Sets.newHashSet(resources));
             roleDao.save(o);
         });
     }
@@ -53,11 +64,40 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public List<String> findPermissionIds(List<String> roleIds) {
-        List<String> permissionIds = new ArrayList<>();
+    public List<String> findResourceIds(List<String> roleIds) {
+        List<String> resourceIds = new ArrayList<>();
         Iterable<Role> roles = roleDao.findAllById(roleIds);
-        roles.forEach(role -> role.getRolePermissions().
-                forEach(permission -> permissionIds.add(permission.getId())));
-        return permissionIds;
+        roles.forEach(role -> role.getRoleResources().
+                forEach(resource -> resourceIds.add(resource.getId())));
+        return resourceIds;
+    }
+
+    @Override
+    public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
+        QRole qRole = QRole.role;
+        BlazeJPAQuery<Role> blazeJPAQuery = new BlazeJPAQuery<Role>(entityManager, criteriaBuilderFactory)
+                .from(qRole)
+                .select(qRole)
+                .where(predicate).orderBy(qRole.id.asc().nullsLast());
+        PagedList<Role> Roles = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+
+        return new PageRet(Roles, Roles.getTotalSize());
+    }
+
+    @Override
+    public Role save(RoleSaveDTO dto) {
+        Role entity = new Role();
+        BeanUtils.copyProperties(dto, entity);
+        return this.dao.save(entity);
+    }
+
+    @Override
+    public Role update(RoleUpdateDTO dto) {
+        Optional<Role> optional = this.getById(dto.getId());
+        optional.ifPresent(role -> {
+            BeanUtils.copyProperties(dto, role);
+            this.dao.save(role);
+        });
+        return optional.orElse(null);
     }
 }
