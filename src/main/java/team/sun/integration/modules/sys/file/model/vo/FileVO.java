@@ -22,7 +22,7 @@ import java.time.LocalDateTime;
  * @since 2021-08-13
  */
 
-@ApiModel(value="FileEntityPageVO", description="系统-文件-分页")
+@ApiModel(value = "FileEntityPageVO", description = "系统-文件-分页")
 public class FileVO implements Serializable {
 
     @Serial

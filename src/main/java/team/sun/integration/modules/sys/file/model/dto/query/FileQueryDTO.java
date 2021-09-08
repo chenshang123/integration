@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-* 系统-文件
-* </p>
-*
-* @author auto generator
-* @since 2021-08-13
-*/
+ * <p>
+ * 系统-文件
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-13
+ */
 
-@ApiModel(value="File-query", description="查询-传参对象")
-public class FileQueryDTO implements Serializable{
+@ApiModel(value = "File-query", description = "查询-传参对象")
+public class FileQueryDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

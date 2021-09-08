@@ -46,7 +46,7 @@ public class RegionController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute RegionQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute RegionQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QRegion qRegion = QRegion.region;
         Region entity = new Region();
@@ -60,14 +60,14 @@ public class RegionController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody RegionSaveDTO dto){
+    public Ret save(@Valid @RequestBody RegionSaveDTO dto) {
         regionService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody RegionUpdateDTO dto){
+    public Ret update(@Valid @RequestBody RegionUpdateDTO dto) {
         regionService.update(dto);
         return Ret.success();
     }
@@ -75,7 +75,7 @@ public class RegionController {
 
     @ApiOperation(value = "详情", response = Region.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Region> entity = regionService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

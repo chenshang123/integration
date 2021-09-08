@@ -27,7 +27,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 
-@ApiModel(value="ResourcePageVO", description="系统-菜单：分页")
+@ApiModel(value = "ResourcePageVO", description = "系统-菜单：分页")
 public class ResourcePageVO implements Serializable {
 
     @Serial

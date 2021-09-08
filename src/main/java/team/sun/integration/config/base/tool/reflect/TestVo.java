@@ -74,7 +74,6 @@ public class TestVo implements Serializable {
     //public final DateTimePath<java.time.LocalDateTime> localDateTime = createDateTime("localDateTime", java.time.LocalDateTime.class);
 
 
-
     public BigDecimal getPackageBigDecimal() {
         return packageBigDecimal;
     }

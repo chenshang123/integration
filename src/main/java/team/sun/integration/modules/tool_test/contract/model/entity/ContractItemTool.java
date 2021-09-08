@@ -24,7 +24,7 @@ import java.time.LocalDateTime;
  *
  * @author auto generator
  * @since 2021-08-13
-*/
+ */
 
 @Entity
 @Table(name = "test_contract_item_tool")
@@ -42,34 +42,34 @@ public class ContractItemTool implements Serializable {
 
     /**
      * 多对一：合同
-    */
-    @ManyToOne(cascade={CascadeType.MERGE, CascadeType.DETACH},fetch= FetchType.LAZY)
-    @JoinColumn(name="contract_id",referencedColumnName="id")
+     */
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "contract_id", referencedColumnName = "id")
     @JsonBackReference
     private Contract toolItemContract;
 
     /**
      * 工器具分类
-    */
+     */
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     @JoinColumn(name = "tool_classify_id", unique = true)
     private ToolClassify toolClassify;
 
     /**
      * 总额
-    */
+     */
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
     /**
      * 数量
-    */
+     */
     @Column(name = "number")
     private Integer number;
 
     /**
      * 状态
-    */
+     */
     @Column(name = "state")
     private Integer state;
 

@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-* 系统-行政区域
-* </p>
-*
-* @author auto generator
-* @since 2021-08-13
-*/
+ * <p>
+ * 系统-行政区域
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-13
+ */
 
-@ApiModel(value="Region-update", description="修改-传参对象")
-public class RegionUpdateDTO implements Serializable{
+@ApiModel(value = "Region-update", description = "修改-传参对象")
+public class RegionUpdateDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

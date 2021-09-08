@@ -22,7 +22,10 @@ import java.util.Optional;
 public interface ApplicationService extends IService<Application, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Application save(ApplicationSaveDTO entity);
+
     Application update(ApplicationUpdateDTO entity);
+
     Optional<Application> getApplicationById(String id);
 }

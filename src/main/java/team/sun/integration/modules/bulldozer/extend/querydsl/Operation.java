@@ -9,30 +9,31 @@ public class Operation {
     /**
      * Quant-操作类型
      */
-    public static BooleanExpression quantOperation(StringPath path, String operation){
-        if(null != path && StringUtils.hasLength(operation)){
-            if("avg_max_col".equals(operation)){
+    public static BooleanExpression quantOperation(StringPath path, String operation) {
+        if (null != path && StringUtils.hasLength(operation)) {
+            if ("avg_max_col".equals(operation)) {
 
-            }else if("avg_min_col".equals(operation)){
+            } else if ("avg_min_col".equals(operation)) {
 
-            }else if("avg_avg_col".equals(operation)){
+            } else if ("avg_avg_col".equals(operation)) {
 
             }
         }
         return null;
     }
+
     /**
      * Agg-操作类型
      */
-    public static BooleanExpression aggOperation(StringPath path, String operation){
-        if(null != path && StringUtils.hasLength(operation)){
-            if("agg_sum".equals(operation)){
+    public static BooleanExpression aggOperation(StringPath path, String operation) {
+        if (null != path && StringUtils.hasLength(operation)) {
+            if ("agg_sum".equals(operation)) {
 
-            }else if("agg_max".equals(operation)){
+            } else if ("agg_max".equals(operation)) {
 
-            }else if("agg_min".equals(operation)){
+            } else if ("agg_min".equals(operation)) {
 
-            }else if("agg_avg".equals(operation)){
+            } else if ("agg_avg".equals(operation)) {
 
             }
         }

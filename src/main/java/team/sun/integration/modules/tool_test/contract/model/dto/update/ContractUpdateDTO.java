@@ -9,16 +9,16 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-* 合同
-* </p>
-*
-* @author auto generator
-* @since 2021-08-13
-*/
+ * <p>
+ * 合同
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-13
+ */
 
-@ApiModel(value="Contract-Update", description="修改-传参对象")
-public class ContractUpdateDTO implements Serializable{
+@ApiModel(value = "Contract-Update", description = "修改-传参对象")
+public class ContractUpdateDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

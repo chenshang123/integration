@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-* 中间表：租户-应用
-* </p>
-*
-* @author auto generator
-* @since 2021-08-23
-*/
+ * <p>
+ * 中间表：租户-应用
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-23
+ */
 
-@ApiModel(value="TenantApplicationMid-query", description="查询-传参对象")
-public class TenantApplicationQueryDTO implements Serializable{
+@ApiModel(value = "TenantApplicationMid-query", description = "查询-传参对象")
+public class TenantApplicationQueryDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

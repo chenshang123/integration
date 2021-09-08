@@ -23,7 +23,9 @@ import java.util.List;
 public interface UserService extends IService<User, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     User save(UserSaveDTO dto);
+
     User update(UserUpdateDTO dto);
 
     List<String> getRoleIds(String userId);

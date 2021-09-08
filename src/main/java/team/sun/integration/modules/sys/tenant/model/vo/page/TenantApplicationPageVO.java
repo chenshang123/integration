@@ -16,7 +16,7 @@ import java.time.LocalDateTime;
  * @since 2021-08-23
  */
 
-@ApiModel(value="TenantApplicationPageVO", description="租户-应用：分页")
+@ApiModel(value = "TenantApplicationPageVO", description = "租户-应用：分页")
 public class TenantApplicationPageVO implements Serializable {
 
     @Serial

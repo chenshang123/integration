@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.config.model.entity.SecurityParam;
 public interface SecurityParamService extends IService<SecurityParam, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     SecurityParam save(SecurityParamSaveDTO entity);
+
     SecurityParam update(SecurityParamUpdateDTO entity);
 }

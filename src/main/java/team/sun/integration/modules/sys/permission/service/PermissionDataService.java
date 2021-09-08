@@ -30,6 +30,8 @@ public interface PermissionDataService extends IService<PermissionData, String> 
     List<PermissionData> getPermissionList();
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     PermissionData save(PermissionDataSaveDTO entity);
+
     PermissionData update(PermissionDataUpdateDTO entity);
 }

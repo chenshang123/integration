@@ -46,7 +46,7 @@ public class OrgController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute OrgQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute OrgQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QOrg qOrg = QOrg.org;
         Org entity = new Org();
@@ -60,14 +60,14 @@ public class OrgController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody OrgSaveDTO dto){
+    public Ret save(@Valid @RequestBody OrgSaveDTO dto) {
         orgService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody OrgUpdateDTO dto){
+    public Ret update(@Valid @RequestBody OrgUpdateDTO dto) {
         orgService.update(dto);
         return Ret.success();
     }
@@ -75,7 +75,7 @@ public class OrgController {
 
     @ApiOperation(value = "详情", response = Org.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Org> entity = orgService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

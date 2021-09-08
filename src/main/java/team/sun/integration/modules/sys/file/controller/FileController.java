@@ -52,8 +52,8 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @RequestMapping(value="/media/", method=RequestMethod.GET)
-    public void getDownload(String fileId, HttpServletRequest request, HttpServletResponse response){
+    @RequestMapping(value = "/media/", method = RequestMethod.GET)
+    public void getDownload(String fileId, HttpServletRequest request, HttpServletResponse response) {
         // Get your file stream from wherever.
         String fullPath = "E:.rmvb";
         fullPath = "C:\\Users\\SH0033\\Desktop\\abcd.doc";
@@ -92,7 +92,7 @@ public class FileController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute FileQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute FileQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QFileEntity qFileEntity = QFileEntity.fileEntity;
         FileEntity entity = new FileEntity();
@@ -106,14 +106,14 @@ public class FileController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody FileSaveDTO dto){
+    public Ret save(@Valid @RequestBody FileSaveDTO dto) {
         fileService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody FileUpdateDTO dto){
+    public Ret update(@Valid @RequestBody FileUpdateDTO dto) {
         fileService.update(dto);
         return Ret.success();
     }
@@ -121,7 +121,7 @@ public class FileController {
 
     @ApiOperation(value = "详情", response = File.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<FileEntity> entity = fileService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

@@ -18,6 +18,7 @@ import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSa
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
 import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.application.model.entity.QApplication;
+import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
 import team.sun.integration.modules.sys.application.service.ApplicationService;
 
 import javax.validation.Valid;
@@ -46,7 +47,7 @@ public class ApplicationController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute ApplicationQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute ApplicationQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QApplication qApplication = QApplication.application;
         Application entity = new Application();
@@ -60,21 +61,21 @@ public class ApplicationController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody ApplicationSaveDTO dto){
+    public Ret save(@Valid @RequestBody ApplicationSaveDTO dto) {
         applicationService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody ApplicationUpdateDTO dto){
+    public Ret update(@Valid @RequestBody ApplicationUpdateDTO dto) {
         applicationService.update(dto);
         return Ret.success();
     }
 
-    @ApiOperation(value = "详情", response = Application.class)
+    @ApiOperation(value = "详情", response = ApplicationVO.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Application> entity = applicationService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

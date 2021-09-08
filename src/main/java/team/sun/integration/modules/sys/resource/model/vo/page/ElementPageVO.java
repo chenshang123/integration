@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
  * @since 2021-02-02
  */
 
-@ApiModel(value="ElementPageVO", description="系统-菜单页面元素：分页")
+@ApiModel(value = "ElementPageVO", description = "系统-菜单页面元素：分页")
 public class ElementPageVO implements Serializable {
 
     @Serial

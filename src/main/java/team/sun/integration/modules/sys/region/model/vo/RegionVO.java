@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
+ * <p>
  * 系统-行政区域：详情
  * </p>
  *
  * @author auto generator
  * @since 2021-08-13
-*/
+ */
 
-@ApiModel(value="RegionVO", description="系统-行政区域：详情")
-public class RegionVO implements Serializable{
+@ApiModel(value = "RegionVO", description = "系统-行政区域：详情")
+public class RegionVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

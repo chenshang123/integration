@@ -19,47 +19,47 @@ public class BooleanExpressionPredicate {
     }
 
     public BooleanExpression getBooleanExpression(Criteria criteria, String keyType, PathBuilder<?> entityPath) {
-        if(StringUtils.hasLength(keyType) && StringUtils.hasLength(criteria.getKey())){
-            if(keyType.equals(java.lang.Integer.class.getTypeName()) || keyType.equals(int.class.getTypeName())){
+        if (StringUtils.hasLength(keyType) && StringUtils.hasLength(criteria.getKey())) {
+            if (keyType.equals(java.lang.Integer.class.getTypeName()) || keyType.equals(int.class.getTypeName())) {
                 NumberPath<Integer> path = entityPath.getNumber(criteria.getKey(), java.lang.Integer.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Integer.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Short.class.getTypeName()) || keyType.equals(short.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Short.class.getTypeName()) || keyType.equals(short.class.getTypeName())) {
                 NumberPath<Short> path = entityPath.getNumber(criteria.getKey(), java.lang.Short.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Short.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Long.class.getTypeName()) || keyType.equals(long.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Long.class.getTypeName()) || keyType.equals(long.class.getTypeName())) {
                 NumberPath<Long> path = entityPath.getNumber(criteria.getKey(), java.lang.Long.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Long.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Double.class.getTypeName()) || keyType.equals(double.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Double.class.getTypeName()) || keyType.equals(double.class.getTypeName())) {
                 NumberPath<Double> path = entityPath.getNumber(criteria.getKey(), java.lang.Double.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Double.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Float.class.getTypeName()) || keyType.equals(float.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Float.class.getTypeName()) || keyType.equals(float.class.getTypeName())) {
                 NumberPath<Float> path = entityPath.getNumber(criteria.getKey(), java.lang.Float.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Float.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Character.class.getTypeName()) || keyType.equals(char.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Character.class.getTypeName()) || keyType.equals(char.class.getTypeName())) {
                 ComparablePath<Character> path = entityPath.getComparable(criteria.getKey(), java.lang.Character.class);
-            }else if(keyType.equals(java.lang.Byte.class.getTypeName()) || keyType.equals(byte.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Byte.class.getTypeName()) || keyType.equals(byte.class.getTypeName())) {
                 NumberPath<Byte> path = entityPath.getNumber(criteria.getKey(), java.lang.Byte.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.lang.Byte.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.Boolean.class.getTypeName()) || keyType.equals(boolean.class.getTypeName())){
+            } else if (keyType.equals(java.lang.Boolean.class.getTypeName()) || keyType.equals(boolean.class.getTypeName())) {
                 BooleanPath path = entityPath.getBoolean(criteria.getKey());
 
-            }else if(keyType.equals(java.math.BigDecimal.class.getTypeName())){
+            } else if (keyType.equals(java.math.BigDecimal.class.getTypeName())) {
                 NumberPath<BigDecimal> path = entityPath.getNumber(criteria.getKey(), java.math.BigDecimal.class);
                 return NumberOperation.booleanOperation(path, criteria.getOperation(), java.math.BigDecimal.class, criteria.getValues());
-            }else if(keyType.equals(java.lang.String.class.getTypeName())){
+            } else if (keyType.equals(java.lang.String.class.getTypeName())) {
                 StringPath path = entityPath.getString(criteria.getKey());
                 StringOperation.booleanOperation(path, criteria.getOperation(), criteria.getValues());
-            }else if(keyType.equals(java.time.LocalDateTime.class.getTypeName())){
+            } else if (keyType.equals(java.time.LocalDateTime.class.getTypeName())) {
                 DateTimePath<LocalDateTime> path = entityPath.getDateTime(criteria.getKey(), java.time.LocalDateTime.class);
 
-            }else if(keyType.equals(java.util.Date.class.getTypeName())){
+            } else if (keyType.equals(java.util.Date.class.getTypeName())) {
                 DateTimePath<Date> path = entityPath.getDateTime(criteria.getKey(), java.util.Date.class);
 
-            }else if(keyType.equals(java.util.Collection.class.getTypeName())){
+            } else if (keyType.equals(java.util.Collection.class.getTypeName())) {
 
-            }else if(keyType.equals(java.util.List.class.getTypeName())){
+            } else if (keyType.equals(java.util.List.class.getTypeName())) {
 
-            }else if(keyType.equals(java.util.Set.class.getTypeName())){
+            } else if (keyType.equals(java.util.Set.class.getTypeName())) {
 
             }
         }

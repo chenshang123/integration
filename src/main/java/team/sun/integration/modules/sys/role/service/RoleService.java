@@ -24,8 +24,8 @@ public interface RoleService extends IService<Role, String> {
     /**
      * 给角色授权菜单权限
      *
-     * @param roleId        角色id
-     * @param resourceIds   菜单权限ids
+     * @param roleId      角色id
+     * @param resourceIds 菜单权限ids
      */
     void authZ(String roleId, List<String> resourceIds);
 
@@ -45,6 +45,8 @@ public interface RoleService extends IService<Role, String> {
     List<String> findResourceIds(List<String> roleIds);
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Role save(RoleSaveDTO entity);
+
     Role update(RoleUpdateDTO entity);
 }

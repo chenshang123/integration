@@ -27,6 +27,8 @@ public interface ResourceService extends IService<Resource, String> {
     void clearResourceCache();
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Resource save(ResourceSaveDTO entity);
+
     Resource update(ResourceUpdateDTO entity);
 }

@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 public interface FileService extends IService<FileEntity, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     FileEntity save(FileSaveDTO entity);
+
     FileEntity update(FileUpdateDTO entity);
 }

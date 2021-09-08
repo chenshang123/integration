@@ -10,8 +10,8 @@ public class StringOperation {
     /**
      * 字符串-操作类型
      */
-    public static BooleanExpression booleanOperation(StringPath path, String operation, String value[]){
-        if(null != path && StringUtils.hasLength(operation)){
+    public static BooleanExpression booleanOperation(StringPath path, String operation, String value[]) {
+        if (null != path && StringUtils.hasLength(operation)) {
             switch (operation) {
                 case "eq":
                     return path.eq(value[0]);
@@ -60,8 +60,9 @@ public class StringOperation {
         }
         return null;
     }
-    public static StringExpression stringOperation(StringPath path, String operation, String value[]){
-        if(null != path && StringUtils.hasLength(operation)){
+
+    public static StringExpression stringOperation(StringPath path, String operation, String value[]) {
+        if (null != path && StringUtils.hasLength(operation)) {
             switch (operation) {
                 case "as":
                     return path.as(value[0]);
@@ -79,8 +80,8 @@ public class StringOperation {
     /**
      * order-操作类型
      */
-    public static OrderSpecifier orderOperation(StringPath path, String operation){
-        if(null != path && StringUtils.hasLength(operation)){
+    public static OrderSpecifier orderOperation(StringPath path, String operation) {
+        if (null != path && StringUtils.hasLength(operation)) {
             switch (operation) {
                 case "asc":
                     return path.asc();

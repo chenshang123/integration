@@ -43,11 +43,11 @@ public class PredicatesBuilder {
         return result;
     }
 
-    private Map<String, String> KeyMap(Class<?> entityClass, List<String> keys){
-        if(!keys.isEmpty()){
+    private Map<String, String> KeyMap(Class<?> entityClass, List<String> keys) {
+        if (!keys.isEmpty()) {
             List<Field> fields = ReflectionKit.CLASS_FIELD_CACHE.get(entityClass);
             Map<String, String> result = new HashMap<>(keys.size());
-            if(!fields.isEmpty()){
+            if (!fields.isEmpty()) {
                 for (Field field : fields) {
                     for (String key : keys) {
                         if (field.getName().equals(key)) {

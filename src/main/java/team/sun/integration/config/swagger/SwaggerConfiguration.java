@@ -8,6 +8,7 @@ import org.springframework.boot.SpringBootVersion;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.util.ReflectionUtils;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
@@ -28,14 +29,15 @@ import java.util.*;
 public class SwaggerConfiguration implements WebMvcConfigurer {
 
     private final SwaggerProperties swaggerProperties;
-    @Autowired(required=false)
+
+    @Autowired(required = false)
     public SwaggerConfiguration(SwaggerProperties swaggerProperties) {
         this.swaggerProperties = swaggerProperties;
     }
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.OAS_30).pathMapping("/")
+        return new Docket(DocumentationType.SWAGGER_2).pathMapping("/")
 
                 // 定义是否开启swagger，false为关闭，可以通过变量控制
                 .enable(swaggerProperties.getEnable())
@@ -48,7 +50,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
                 // 选择哪些接口作为swagger的doc发布
                 .select()
-                .apis(RequestHandlerSelectors.any())
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class) )
                 .paths(PathSelectors.any())
                 .build()
 
@@ -93,7 +95,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
     }
 
     @SafeVarargs
-    private final <T> Set<T> newHashSet(T... ts) {
+    private <T> Set<T> newHashSet(T... ts) {
         if (ts.length > 0) {
             return new LinkedHashSet<>(Arrays.asList(ts));
         }

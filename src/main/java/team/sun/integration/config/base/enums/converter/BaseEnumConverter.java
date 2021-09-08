@@ -26,7 +26,7 @@ public abstract class BaseEnumConverter<X extends BaseEnum<Y>, Y> implements Att
     @SuppressWarnings("unchecked")
     @Override
     public X convertToEntityAttribute(Y dbData) {
-        if(dbData == null){
+        if (dbData == null) {
             return null;
         }
         try {

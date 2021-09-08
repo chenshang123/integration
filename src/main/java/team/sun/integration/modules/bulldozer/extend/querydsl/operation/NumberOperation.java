@@ -11,10 +11,10 @@ public class NumberOperation {
      * Math-操作类型
      */
     public static <N extends Number & Comparable<N>> BooleanExpression booleanOperation(
-            NumberPath<N> path, String operation, Class<N> targetClass, String[] values){
-        if(null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)){
+            NumberPath<N> path, String operation, Class<N> targetClass, String[] values) {
+        if (null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)) {
             N[] nums = ReflectionKit.parseNumber(values, targetClass);
-            if(nums != null){
+            if (nums != null) {
                 switch (operation) {
                     case "gt":
                         return path.gt(nums[0]);
@@ -42,17 +42,17 @@ public class NumberOperation {
                         return path.isNotNull();
                     case "like":
                         return path.like(values[0]);
-            }
+                }
             }
         }
         return null;
     }
 
     public static <N extends Number & Comparable<N>> NumberExpression numberOperation(
-            NumberPath<N> path, String operation, Class<N> targetClass, String[] values){
-        if(null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)){
+            NumberPath<N> path, String operation, Class<N> targetClass, String[] values) {
+        if (null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)) {
             N[] nums = ReflectionKit.parseNumber(values, targetClass);
-            if(nums != null){
+            if (nums != null) {
                 switch (operation) {
                     case "add":
                         return path.add(nums[0]);
@@ -79,8 +79,8 @@ public class NumberOperation {
     /**
      * order-操作类型
      */
-    public static OrderSpecifier orderOperation(NumberPath<?> path, String operation){
-        if(null != path && StringUtils.hasLength(operation)){
+    public static OrderSpecifier orderOperation(NumberPath<?> path, String operation) {
+        if (null != path && StringUtils.hasLength(operation)) {
             switch (operation) {
                 case "asc":
                     return path.asc();

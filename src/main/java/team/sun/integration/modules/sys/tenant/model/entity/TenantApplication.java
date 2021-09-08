@@ -45,8 +45,8 @@ public class TenantApplication implements Serializable {
     /**
      * 多对多转多对一：租户-应用
      **/
-    @ManyToOne(cascade={CascadeType.MERGE, CascadeType.DETACH},fetch=FetchType.LAZY)
-    @JoinColumn(name="tenant_id",referencedColumnName="id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
     @JsonBackReference
     private Tenant tenant;
 
@@ -54,8 +54,8 @@ public class TenantApplication implements Serializable {
     /**
      * 多对多转多对一：租户-应用
      **/
-    @ManyToOne(cascade={CascadeType.MERGE, CascadeType.DETACH},fetch=FetchType.LAZY)
-    @JoinColumn(name="application_id",referencedColumnName="id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
     @JsonBackReference
     private Application application;
 

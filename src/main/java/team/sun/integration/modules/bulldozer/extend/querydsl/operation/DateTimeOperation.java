@@ -8,8 +8,8 @@ public class DateTimeOperation {
     /**
      * date-操作类型
      */
-    public static <T extends Comparable> BooleanExpression dateTimeOperation(DateTimePath<T> path, String operation, T value[]){
-        if(null != path && StringUtils.hasLength(operation)){
+    public static <T extends Comparable> BooleanExpression dateTimeOperation(DateTimePath<T> path, String operation, T value[]) {
+        if (null != path && StringUtils.hasLength(operation)) {
             switch (operation) {
                 case "after":
                     return path.after(value[0]);

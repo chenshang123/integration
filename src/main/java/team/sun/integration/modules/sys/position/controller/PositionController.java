@@ -18,6 +18,7 @@ import team.sun.integration.modules.sys.position.model.dto.save.PositionSaveDTO;
 import team.sun.integration.modules.sys.position.model.dto.update.PositionUpdateDTO;
 import team.sun.integration.modules.sys.position.model.entity.Position;
 import team.sun.integration.modules.sys.position.model.entity.QPosition;
+import team.sun.integration.modules.sys.position.model.vo.PositionVO;
 import team.sun.integration.modules.sys.position.service.PositionService;
 
 import javax.validation.Valid;
@@ -46,7 +47,7 @@ public class PositionController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute PositionQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute PositionQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QPosition qPosition = QPosition.position;
         Position entity = new Position();
@@ -60,22 +61,22 @@ public class PositionController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody PositionSaveDTO dto){
+    public Ret save(@Valid @RequestBody PositionSaveDTO dto) {
         positionService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody PositionUpdateDTO dto){
+    public Ret update(@Valid @RequestBody PositionUpdateDTO dto) {
         positionService.update(dto);
         return Ret.success();
     }
 
 
-    @ApiOperation(value = "详情", response = Position.class)
+    @ApiOperation(value = "详情", response = PositionVO.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Position> entity = positionService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

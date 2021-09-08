@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 标准试验数据
  */
-@ApiModel(value="Standard-data", description="工器具检测-标准试验数据对象")
+@ApiModel(value = "Standard-data", description = "工器具检测-标准试验数据对象")
 public class StandardTest implements Serializable {
 
     @Serial

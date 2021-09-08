@@ -46,7 +46,7 @@ public class TenantController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute TenantQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute TenantQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QTenant qTenant = QTenant.tenant1;
         Tenant entity = new Tenant();
@@ -60,14 +60,14 @@ public class TenantController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody TenantSaveDTO dto){
+    public Ret save(@Valid @RequestBody TenantSaveDTO dto) {
         tenantService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody TenantUpdateDTO dto){
+    public Ret update(@Valid @RequestBody TenantUpdateDTO dto) {
         tenantService.update(dto);
         return Ret.success();
     }
@@ -75,7 +75,7 @@ public class TenantController {
 
     @ApiOperation(value = "详情", response = Tenant.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Tenant> entity = tenantService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

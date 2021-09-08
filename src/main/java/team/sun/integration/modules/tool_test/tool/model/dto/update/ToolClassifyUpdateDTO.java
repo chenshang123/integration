@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-* 工器具-分类
-* </p>
-*
-* @author auto generator
-* @since 2021-08-13
-*/
+ * <p>
+ * 工器具-分类
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-13
+ */
 
-@ApiModel(value="Classify-update", description="修改-传参对象")
-public class ToolClassifyUpdateDTO implements Serializable{
+@ApiModel(value = "Classify-update", description = "修改-传参对象")
+public class ToolClassifyUpdateDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

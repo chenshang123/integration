@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.role.model.entity;
 
+import com.google.common.base.Objects;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -155,7 +156,17 @@ public class Role implements Serializable {
     @Column(name = "version")
     private Integer version;
 
-    public Role() {
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Role)) return false;
+        Role role = (Role) o;
+        return Objects.equal(id, role.id) && Objects.equal(roleResources, role.roleResources) && Objects.equal(roleElements, role.roleElements) && Objects.equal(users, role.users) && Objects.equal(groups, role.groups) && Objects.equal(code, role.code) && Objects.equal(name, role.name) && Objects.equal(available, role.available) && Objects.equal(remarks, role.remarks) && Objects.equal(creator, role.creator) && Objects.equal(department, role.department) && Objects.equal(tenant, role.tenant) && Objects.equal(createTime, role.createTime) && Objects.equal(updateTime, role.updateTime) && Objects.equal(delFlag, role.delFlag) && Objects.equal(version, role.version);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hashCode(id, roleResources, roleElements, users, groups, code, name, available, remarks, creator, department, tenant, createTime, updateTime, delFlag, version);
     }
 
     @Override

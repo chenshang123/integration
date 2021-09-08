@@ -36,7 +36,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
                 .from(qApplication)
                 .select(qApplication)
                 .where(predicate).orderBy(qApplication.id.asc().nullsLast());
-        PagedList<Application> applications = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<Application> applications = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(applications, applications.getTotalSize());
     }
@@ -59,7 +59,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
     }
 
     @Override
-    public Optional<Application>  getApplicationById(String id) {
+    public Optional<Application> getApplicationById(String id) {
         return this.dao.findApplicationById(id);
     }
 }

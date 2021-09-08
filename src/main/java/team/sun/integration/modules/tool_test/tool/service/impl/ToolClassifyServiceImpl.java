@@ -36,7 +36,7 @@ public class ToolClassifyServiceImpl extends ServiceImpl<ToolClassifyDao, ToolCl
                 .from(qToolClassify)
                 .select(qToolClassify)
                 .where(predicate).orderBy(qToolClassify.id.asc().nullsLast());
-        PagedList<ToolClassify> ToolClassifys = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<ToolClassify> ToolClassifys = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(ToolClassifys, ToolClassifys.getTotalSize());
     }

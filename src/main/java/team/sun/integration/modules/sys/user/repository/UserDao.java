@@ -7,6 +7,7 @@ import team.sun.integration.modules.sys.user.model.entity.User;
 import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
+
 @Repository
 public interface UserDao extends IDao<User, String> {
 

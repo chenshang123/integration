@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
  *
  * @author auto generator
  * @since 2021-08-13
-*/
+ */
 
 @Entity
 @Table(name = "tool_classify")
@@ -39,55 +39,55 @@ public class ToolClassify implements Serializable {
 
     /**
      * 第一层级id
-    */
+     */
     @Column(name = "first_floor_Id")
     private String firstFloorId;
 
     /**
      * 父级id
-    */
+     */
     @Column(name = "parent_id")
     private String parentId;
 
     /**
      * 所属层级编号
-    */
+     */
     @Column(name = "layer")
     private Integer layer;
 
     /**
      * 隐藏编号（id1_id2_id3_...当前层级以上节点id）
-    */
+     */
     @Column(name = "hidden_code")
     private String hiddenCode;
 
     /**
      * 本层级顺序
-    */
+     */
     @Column(name = "sort")
     private Integer sort;
 
     /**
      * 名称
-    */
+     */
     @Column(name = "name")
     private String name;
 
     /**
      * 编号
-    */
+     */
     @Column(name = "code")
     private String code;
 
     /**
      * 规格型号
-    */
+     */
     @Column(name = "model")
     private String model;
 
     /**
      * 电压等级
-    */
+     */
     @Column(name = "volt")
     private Integer volt;
 

@@ -36,7 +36,7 @@ public class ContractServiceImpl extends ServiceImpl<ContractDao, Contract> impl
                 .from(qContract)
                 .select(qContract)
                 .where(predicate).orderBy(qContract.id.asc().nullsLast());
-        PagedList<Contract> Contracts = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<Contract> Contracts = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(Contracts, Contracts.getTotalSize());
     }

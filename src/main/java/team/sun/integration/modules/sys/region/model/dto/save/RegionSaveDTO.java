@@ -15,10 +15,10 @@ import java.time.LocalDateTime;
  *
  * @author auto generator
  * @since 2021-08-13
-*/
+ */
 
-@ApiModel(value="Region-save", description="修改-保存对象")
-public class RegionSaveDTO implements Serializable{
+@ApiModel(value = "Region-save", description = "修改-保存对象")
+public class RegionSaveDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

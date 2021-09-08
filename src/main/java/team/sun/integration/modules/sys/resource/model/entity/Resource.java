@@ -53,7 +53,7 @@ public class Resource implements Serializable {
     /**
      * 一对多：菜单-页面元素
      **/
-    @OneToMany(cascade = {CascadeType.DETACH}, fetch=FetchType.LAZY, mappedBy="elementResource")
+    @OneToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY, mappedBy = "elementResource")
     private Set<Element> resourceElements = new HashSet<>();
 
     /**
@@ -65,8 +65,8 @@ public class Resource implements Serializable {
     /**
      * 多对一：资源（菜单）-应用
      **/
-    @ManyToOne(cascade={CascadeType.MERGE, CascadeType.DETACH},fetch=FetchType.LAZY)
-    @JoinColumn(name="application_id",referencedColumnName="id")
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "application_id", referencedColumnName = "id")
     @JsonBackReference
     private Application applicationResource;
 

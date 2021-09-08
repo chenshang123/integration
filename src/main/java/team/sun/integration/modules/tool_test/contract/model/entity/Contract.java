@@ -44,14 +44,14 @@ public class Contract implements Serializable {
     /**
      * 一对多：合同-合同分项
      */
-    @OneToMany(mappedBy="toolItemContract", cascade = {CascadeType.DETACH},fetch= FetchType.EAGER)
+    @OneToMany(mappedBy = "toolItemContract", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<ContractItemTool> contractItemTools = new HashSet<>();
 
     /**
      * 一对多：合同-文件
      */
-    @OneToMany(mappedBy="contractFile", cascade = {CascadeType.DETACH},fetch= FetchType.EAGER)
-    private Set<FileEntity> files = new HashSet<>(0);
+    @OneToMany(mappedBy = "contractFile", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<FileEntity> files = new HashSet<>();
 
     /**
      * 合同编号
@@ -106,12 +106,6 @@ public class Contract implements Serializable {
      */
     @Column(name = "sign_time")
     private LocalDateTime signTime;
-
-    /**
-     * 文件地址
-     */
-    @Column(name = "file_url")
-    private String fileUrl;
 
     /**
      * 总额
@@ -187,7 +181,6 @@ public class Contract implements Serializable {
                 ", contacts='" + contacts + '\'' +
                 ", contactsNumber='" + contactsNumber + '\'' +
                 ", signTime=" + signTime +
-                ", fileUrl='" + fileUrl + '\'' +
                 ", totalAmount=" + totalAmount +
                 ", state=" + state +
                 ", creator=" + creator +
@@ -294,14 +287,6 @@ public class Contract implements Serializable {
 
     public void setSignTime(LocalDateTime signTime) {
         this.signTime = signTime;
-    }
-
-    public String getFileUrl() {
-        return fileUrl;
-    }
-
-    public void setFileUrl(String fileUrl) {
-        this.fileUrl = fileUrl;
     }
 
     public BigDecimal getTotalAmount() {

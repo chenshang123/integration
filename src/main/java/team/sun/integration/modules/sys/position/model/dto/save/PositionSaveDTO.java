@@ -58,7 +58,7 @@ public class PositionSaveDTO implements Serializable {
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
 
-     @ApiModelProperty(value = "版本号")
+    @ApiModelProperty(value = "版本号")
     private Integer version;
 
     public String getId() {

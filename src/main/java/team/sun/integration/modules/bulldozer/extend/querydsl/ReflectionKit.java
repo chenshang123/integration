@@ -20,24 +20,22 @@ import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
 public class ReflectionKit {
-    private static final String packageName = "team.sun.integration.modules";
     /**
      * 基本-包装类型
      */
     public static final List<String> PRIMITIVE_AND_WRAPPER_TYPE_LIST;
-
-
-    private static final Set<Class<?>> ENTITY_SET;
     public static final Map<String, Class<?>> CLASS_NAME_FIELD_CACHE = new HashMap<>();
     /**
      * class field cache
      */
     public static final Map<Class<?>, List<Field>> CLASS_FIELD_CACHE = new ConcurrentHashMap<>();
+    private static final String packageName = "team.sun.integration.modules";
+    private static final Set<Class<?>> ENTITY_SET;
 
     static {
         Reflections reflections = new Reflections(packageName, new TypeAnnotationsScanner());
         ENTITY_SET = reflections.getTypesAnnotatedWith(Table.class, true);
-        ENTITY_SET.stream().filter(Objects::nonNull).forEach(o->{
+        ENTITY_SET.stream().filter(Objects::nonNull).forEach(o -> {
             CLASS_NAME_FIELD_CACHE.put(o.getName(), o);
             CLASS_FIELD_CACHE.put(o, ReflectionKit.getFieldList(o));
 
@@ -120,6 +118,7 @@ public class ReflectionKit {
         }
         return fields;
     }
+
     /**
      * 判断是否为基本类型或基本包装类型
      *
@@ -137,14 +136,15 @@ public class ReflectionKit {
 
     /**
      * 字符串数组转其他类型数组
+     *
      * @param values
      * @param targetClass
      * @param <T>
      * @return
      */
-    public static <T extends Number> T[] parseNumber(String[] values, Class<T> targetClass){
-        if(!ArrayUtil.isEmpty(values) && null != targetClass){
-            T[] result =  (T[]) Array.newInstance(targetClass, values.length);
+    public static <T extends Number> T[] parseNumber(String[] values, Class<T> targetClass) {
+        if (!ArrayUtil.isEmpty(values) && null != targetClass) {
+            T[] result = (T[]) Array.newInstance(targetClass, values.length);
             for (int i = 0; i < values.length; i++) {
                 result[i] = NumberUtils.parseNumber("123", targetClass);
             }
@@ -158,8 +158,8 @@ public class ReflectionKit {
         user.setEmail("123");
         TestVo testVo = new TestVo();
         testVo.setBaseInteger(1);
-        CLASS_FIELD_CACHE.get(user.getClass()).forEach(o->
-                System.out.println(o.getName()+"-------------"+o.getAnnotatedType()+"---------------"+ReflectionKit.isPrimitiveOrWrapper(o))
+        CLASS_FIELD_CACHE.get(user.getClass()).forEach(o ->
+                System.out.println(o.getName() + "-------------" + o.getAnnotatedType() + "---------------" + ReflectionKit.isPrimitiveOrWrapper(o))
         );
 
         System.out.println(ReflectionKit.ENTITY_SET.size());

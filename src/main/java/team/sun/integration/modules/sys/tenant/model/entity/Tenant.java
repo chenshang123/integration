@@ -70,7 +70,7 @@ public class Tenant implements Serializable {
     /**
      * 多对多转一对多：租户-应用
      */
-    @OneToMany(mappedBy = "tenant", cascade = {CascadeType.DETACH}, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "tenant", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<TenantApplication> tenantApplications = new HashSet<>();
 
     /**

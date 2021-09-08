@@ -64,7 +64,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         Optional<User> optional = this.getById(dto.getId());
         optional.ifPresent(user -> {
             generatePassword(optional.get());
-            dao.save(optional.get());});
+            dao.save(optional.get());
+        });
         return optional.orElse(null);
     }
 

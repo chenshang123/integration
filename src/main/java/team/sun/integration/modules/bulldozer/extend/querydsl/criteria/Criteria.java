@@ -5,11 +5,17 @@ package team.sun.integration.modules.bulldozer.extend.querydsl.criteria;
  */
 public class Criteria {
 
-    /**属性名称*/
+    /**
+     * 属性名称
+     */
     private String key;
-    /**操作类型*/
+    /**
+     * 操作类型
+     */
     private String operation;
-    /**传入参数*/
+    /**
+     * 传入参数
+     */
     private String[] values;
 
     public Criteria(String key, String operation, String[] values) {

@@ -20,6 +20,8 @@ import team.sun.integration.modules.tool_test.contract.model.entity.Contract;
 public interface ContractService extends IService<Contract, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Contract save(ContractSaveDTO entity);
+
     Contract update(ContractUpdateDTO entity);
 }

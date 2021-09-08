@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.region.model.entity.Region;
 public interface RegionService extends IService<Region, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Region save(RegionSaveDTO entity);
+
     Region update(RegionUpdateDTO entity);
 }

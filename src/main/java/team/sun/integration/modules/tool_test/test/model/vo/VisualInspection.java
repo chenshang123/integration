@@ -9,7 +9,7 @@ import java.io.Serializable;
 /**
  * 外观检测
  */
-@ApiModel(value="VisualInspection-data", description="工器具检测-外观检测对象")
+@ApiModel(value = "VisualInspection-data", description = "工器具检测-外观检测对象")
 public class VisualInspection implements Serializable {
 
     @Serial

@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.log.model.entity.LoginLog;
 public interface LoginLogService extends IService<LoginLog, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     LoginLog save(LoginLogSaveDTO entity);
+
     LoginLog update(LoginLogUpdateDTO entity);
 }

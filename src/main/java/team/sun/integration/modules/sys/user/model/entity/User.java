@@ -233,7 +233,7 @@ public class User implements Serializable {
     /**
      * 一对一： 创建人
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false,fetch = FetchType.LAZY)
+    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
     /**

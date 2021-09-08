@@ -7,15 +7,25 @@ import team.sun.integration.config.base.enums.ret.BaseKeyValue;
  */
 public enum SyntaxEnum implements BaseKeyValue<String, String> {
     eq("equal", "精确匹配输入结果"),
-    /** not equal */
+    /**
+     * not equal
+     */
     ne("not equal", "精确匹配排除输入结果"),
-    /** greater than */
+    /**
+     * greater than
+     */
     gt("greater than", "结果大于输入"),
-    /** Greater than or equal to */
+    /**
+     * Greater than or equal to
+     */
     goe("goe", "结果大于等于输入"),
-    /** less than */
+    /**
+     * less than
+     */
     lt("lt", "结果小于输入"),
-    /** Less than or equal to */
+    /**
+     * Less than or equal to
+     */
     loe("loe", "结果小于等于输入"),
     between("between", "结果两个输入值之间"),
     notBetween("notBetween", "结果不属于两个值之间"),
@@ -27,12 +37,11 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
     startsWith("startsWith", "以开始值模糊匹配"),
     startsWithIgnoreCase("startsWithIgnoreCase", "以开始值模糊匹配-忽略大小写"),
     endsWith("endsWith", "以结尾值模糊匹配"),
-    endsWithIgnoreCase("endsWithIgnoreCase","以结尾值模糊匹配-忽略大小写"),
+    endsWithIgnoreCase("endsWithIgnoreCase", "以结尾值模糊匹配-忽略大小写"),
     as("as", "字段别名"),
     isNull("isNull", "结果为空"),
     isNotNull("isNotNull", "结果不能为空"),
     trim("trim", "结果去掉前后空格");
-
 
 
     final String key;
@@ -53,17 +62,27 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
         return this.value;
     }
 
-    public enum StringSyntaxEnum implements BaseKeyValue<String, String>{
+    public enum StringSyntaxEnum implements BaseKeyValue<String, String> {
         eq("equal", "精确匹配输入结果"),
-        /** not equal */
+        /**
+         * not equal
+         */
         ne("not equal", "精确匹配排除输入结果"),
-        /** greater than */
+        /**
+         * greater than
+         */
         gt("greater than", "结果大于输入"),
-        /** Greater than or equal to */
+        /**
+         * Greater than or equal to
+         */
         goe("goe", "结果大于等于输入"),
-        /** less than */
+        /**
+         * less than
+         */
         lt("lt", "结果小于输入"),
-        /** Less than or equal to */
+        /**
+         * Less than or equal to
+         */
         loe("loe", "结果小于等于输入"),
         between("between", "结果两个输入值之间"),
         notBetween("notBetween", "结果不属于两个值之间"),
@@ -75,7 +94,7 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
         startsWith("startsWith", "以开始值模糊匹配"),
         startsWithIgnoreCase("startsWithIgnoreCase", "以开始值模糊匹配-忽略大小写"),
         endsWith("endsWith", "以结尾值模糊匹配"),
-        endsWithIgnoreCase("endsWithIgnoreCase","以结尾值模糊匹配-忽略大小写"),
+        endsWithIgnoreCase("endsWithIgnoreCase", "以结尾值模糊匹配-忽略大小写"),
         as("as", "字段别名"),
         isNull("isNull", "结果为null"),
         isNotNull("isNotNull", "结果不能为null"),
@@ -103,7 +122,8 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
             return this.value;
         }
     }
-    public enum MathSyntaxEnum implements BaseKeyValue<String, String>{
+
+    public enum MathSyntaxEnum implements BaseKeyValue<String, String> {
         add("add", "结果加上输入"),
         subtract("subtract", "结果减去输入"),
         multiply("multiply", "结果乘以输入"),
@@ -131,7 +151,7 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
         }
     }
 
-    public enum DateSyntaxEnum implements BaseKeyValue<String, String>{
+    public enum DateSyntaxEnum implements BaseKeyValue<String, String> {
 
         after("after", "结果时间在输入时间之后"),
         before("before", "结果时间在输入时间之前");
@@ -154,7 +174,8 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
             return this.value;
         }
     }
-    public enum QuantSyntaxEnum implements BaseKeyValue<String, String>{
+
+    public enum QuantSyntaxEnum implements BaseKeyValue<String, String> {
         avg_max_col("max", "结果取最大值"),
         avg_min_col("min", "结果取最小值"),
         avg_avg_col("avg", "结果取平均值");
@@ -178,7 +199,7 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
         }
     }
 
-    public enum AggSyntaxEnum implements BaseKeyValue<String, String>{
+    public enum AggSyntaxEnum implements BaseKeyValue<String, String> {
         agg_sum("agg_sum", "结果为求和值"),
         agg_max("agg_max", "结果取最大值"),
         agg_min("agg_min", "结果取最小值"),
@@ -203,7 +224,7 @@ public enum SyntaxEnum implements BaseKeyValue<String, String> {
         }
     }
 
-    public enum OrderSyntaxEnum implements BaseKeyValue<String, String>{
+    public enum OrderSyntaxEnum implements BaseKeyValue<String, String> {
         asc("asc", "升序"),
         desc("desc", "降序"),
         asc_nullsLast("asc_nullsLast", "升序-空值排在最后"),

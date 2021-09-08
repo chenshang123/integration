@@ -20,6 +20,8 @@ import team.sun.integration.modules.tool_test.contract.model.entity.ContractItem
 public interface ContractItemToolService extends IService<ContractItemTool, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     ContractItemTool save(ContractItemToolSaveDTO entity);
+
     ContractItemTool update(ContractItemToolUpdateDTO entity);
 }

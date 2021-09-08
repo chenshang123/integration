@@ -73,7 +73,9 @@ public class PositionQueryDTO implements Serializable {
         return users;
     }
 
-    public void setUsers(Set<User> users) { this.users = users; }
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
 
     public String getName() {
         return name;
@@ -107,7 +109,9 @@ public class PositionQueryDTO implements Serializable {
         this.departmentId = departmentId;
     }
 
-    public String getTenantId() { return tenantId; }
+    public String getTenantId() {
+        return tenantId;
+    }
 
     public void setTenantId(String tenantId) {
         this.tenantId = tenantId;

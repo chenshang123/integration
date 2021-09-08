@@ -21,6 +21,8 @@ import team.sun.integration.modules.sys.org.model.entity.Org;
 public interface OrgService extends IService<Org, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Org save(OrgSaveDTO entity);
+
     Org update(OrgUpdateDTO entity);
 }

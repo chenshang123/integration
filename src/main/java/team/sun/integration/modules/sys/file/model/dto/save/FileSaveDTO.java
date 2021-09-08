@@ -9,16 +9,16 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 /**
-* <p>
-    * 系统-文件
-    * </p>
-*
-* @author auto generator
-* @since 2021-08-13
-*/
+ * <p>
+ * 系统-文件
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-08-13
+ */
 
-@ApiModel(value="File-save", description="修改-保存对象")
-public class FileSaveDTO implements Serializable{
+@ApiModel(value = "File-save", description = "修改-保存对象")
+public class FileSaveDTO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

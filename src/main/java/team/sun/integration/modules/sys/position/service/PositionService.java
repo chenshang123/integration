@@ -22,6 +22,8 @@ import team.sun.integration.modules.sys.position.model.entity.Position;
  */
 public interface PositionService extends IService<Position, String> {
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     Position save(PositionSaveDTO entity);
+
     Position update(PositionUpdateDTO entity);
 }

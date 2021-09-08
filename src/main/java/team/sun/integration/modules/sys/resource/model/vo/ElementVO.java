@@ -24,7 +24,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 
-@ApiModel(value="ElementPageVO", description="系统-菜单页面元素：详情")
+@ApiModel(value = "ElementPageVO", description = "系统-菜单页面元素：详情")
 public class ElementVO implements Serializable {
 
     @Serial

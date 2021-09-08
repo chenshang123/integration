@@ -8,20 +8,23 @@ import java.util.List;
  */
 public class SearchCriteria {
 
-    /**对象名称*/
+    /**
+     * 对象名称
+     */
     private String tableName;
-    /**条件集合*/
+    /**
+     * 条件集合
+     */
     private List<Criteria> criteriaList;
 
-    public List<String> getKeys(){
-        if(!criteriaList.isEmpty()){
+    public List<String> getKeys() {
+        if (!criteriaList.isEmpty()) {
             List<String> keys = new ArrayList<>(criteriaList.size());
-            criteriaList.forEach(criteria-> keys.add(criteria.getKey()));
+            criteriaList.forEach(criteria -> keys.add(criteria.getKey()));
             return keys;
         }
         return null;
     }
-
 
 
     public String getTableName() {

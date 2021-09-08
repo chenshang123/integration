@@ -22,6 +22,8 @@ import team.sun.integration.modules.tool_test.tool.model.entity.ToolClassify;
 public interface ToolClassifyService extends IService<ToolClassify, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     ToolClassify save(ToolClassifySaveDTO entity);
+
     ToolClassify update(ToolClassifyUpdateDTO entity);
 }

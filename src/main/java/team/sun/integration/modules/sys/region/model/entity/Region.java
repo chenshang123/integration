@@ -18,7 +18,7 @@ import java.time.LocalDateTime;
  *
  * @author auto generator
  * @since 2021-08-13
-*/
+ */
 
 @Entity
 @Table(name = "sys_region")
@@ -36,55 +36,55 @@ public class Region implements Serializable {
 
     /**
      * 首层id
-    */
+     */
     @Column(name = "first_floor_id")
     private String firstFloorId;
 
     /**
      * 父类id
-    */
+     */
     @Column(name = "parent_id")
     private String parentId;
 
     /**
      * 层级
-    */
+     */
     @Column(name = "layer")
     private Integer layer;
 
     /**
      * 排序
-    */
+     */
     @Column(name = "sort")
     private Integer sort;
 
     /**
      * 名称
-    */
+     */
     @Column(name = "name")
     private String name;
 
     /**
      * 拼音
-    */
+     */
     @Column(name = "pinyin")
     private String pinyin;
 
     /**
      * 全称
-    */
+     */
     @Column(name = "full_name")
     private String fullName;
 
     /**
      * 纬度
-    */
+     */
     @Column(name = "lat")
     private String lat;
 
     /**
      * 纬度
-    */
+     */
     @Column(name = "lng")
     private String lng;
 

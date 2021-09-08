@@ -52,7 +52,7 @@ public class PermissionDataServiceImpl extends ServiceImpl<PermissionDataDao, Pe
                 .from(qPermissionData)
                 .select(qPermissionData)
                 .where(predicate).orderBy(qPermissionData.id.asc().nullsLast());
-        PagedList<PermissionData>permissionData = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<PermissionData> permissionData = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(permissionData, permissionData.getTotalSize());
     }

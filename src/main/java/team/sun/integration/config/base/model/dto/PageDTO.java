@@ -12,13 +12,11 @@ import io.swagger.annotations.ApiModelProperty;
 @Api("分页请求对象")
 public class PageDTO implements Serializable {
 
-    @Serial
-    private static final long serialVersionUID = -7742633354158106128L;
-
     protected static final int DEFAULT_PAGE_NUM = 1;
     protected static final int DEFAULT_PAGE_SIZE = 10;
     protected static final int DEFAULT_PAGE_MAX_SIZE = 100;
-
+    @Serial
+    private static final long serialVersionUID = -7742633354158106128L;
     @ApiModelProperty(value = "页码")
     protected int page = DEFAULT_PAGE_NUM;
     @ApiModelProperty(value = "每页条数")

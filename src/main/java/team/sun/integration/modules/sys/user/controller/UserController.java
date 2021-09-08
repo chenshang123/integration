@@ -45,7 +45,7 @@ public class UserController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute UserQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute UserQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QUser qUser = QUser.user;
         User entity = new User();
@@ -59,14 +59,14 @@ public class UserController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody UserSaveDTO dto){
+    public Ret save(@Valid @RequestBody UserSaveDTO dto) {
         userService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody UserUpdateDTO dto){
+    public Ret update(@Valid @RequestBody UserUpdateDTO dto) {
         userService.update(dto);
         return Ret.success();
     }
@@ -74,7 +74,7 @@ public class UserController {
 
     @ApiOperation(value = "详情", response = User.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<User> entity = userService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

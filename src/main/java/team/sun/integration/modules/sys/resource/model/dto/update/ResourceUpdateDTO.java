@@ -183,7 +183,7 @@ public class ResourceUpdateDTO implements Serializable {
         this.type = type;
     }
 
-    public ResourceVisitType getVisitType(){
+    public ResourceVisitType getVisitType() {
         return visitType;
     }
 

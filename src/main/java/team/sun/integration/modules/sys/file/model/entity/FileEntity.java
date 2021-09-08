@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.file.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -8,6 +9,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.tool_test.contract.model.entity.Contract;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -36,6 +38,11 @@ public class FileEntity implements Serializable {
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
     private String id;
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "business_id", referencedColumnName = "id")
+    @JsonBackReference
+    private Contract contractFile;
 
     /**
      * 文件类型
@@ -67,11 +74,6 @@ public class FileEntity implements Serializable {
     @Column(name = "business_name")
     private String businessName;
 
-    /**
-     * 菜单id
-     */
-    @Column(name = "resource_id")
-    private String resourceId;
 
     /**
      * 一对一： 创建人
@@ -129,7 +131,6 @@ public class FileEntity implements Serializable {
                 ", name='" + name + '\'' +
                 ", storageUrl='" + storageUrl + '\'' +
                 ", businessName='" + businessName + '\'' +
-                ", resourceId='" + resourceId + '\'' +
                 ", creator=" + creator +
                 ", department=" + department +
                 ", tenant=" + tenant +
@@ -186,14 +187,6 @@ public class FileEntity implements Serializable {
 
     public void setBusinessName(String businessName) {
         this.businessName = businessName;
-    }
-
-    public String getResourceId() {
-        return resourceId;
-    }
-
-    public void setResourceId(String resourceId) {
-        this.resourceId = resourceId;
     }
 
     public User getCreator() {

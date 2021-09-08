@@ -20,27 +20,28 @@ public class UploadServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         DiskFileItemFactory fileItemFactory = new DiskFileItemFactory();
-        ServletFileUpload servletFileUpload =  new ServletFileUpload(fileItemFactory);
+        ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
         try {
             List<FileItem> list = servletFileUpload.parseRequest(req);
-            for (FileItem fileItem:list){
+            for (FileItem fileItem : list) {
                 System.out.println(fileItem.getName());//test.txt
                 System.out.println(fileItem.getFieldName());//img 对应jsp标签的name  <input type="file" name="img"><br/>
                 //如果是文本
-                if (fileItem.isFormField()){
+                if (fileItem.isFormField()) {
                     String name = fileItem.getFieldName();
                     String value = fileItem.getString("UTF-8");
-                    System.out.println(name+"-------------------"+value);
-                }else {
+                    System.out.println(name + "-------------------" + value);
+                } else {
                     //文件
                     InputStream inputStream = fileItem.getInputStream();
-                    String path = req.getServletContext().getRealPath("/file/"+fileItem.getName());
+                    String path = req.getServletContext().getRealPath("/file/" + fileItem.getName());
                     OutputStream outputStream = new FileOutputStream(path);
                     int temp;
-                    while ((temp = inputStream.read())!=-1){
+                    while ((temp = inputStream.read()) != -1) {
                         outputStream.write(temp);
                     }
                     outputStream.close();

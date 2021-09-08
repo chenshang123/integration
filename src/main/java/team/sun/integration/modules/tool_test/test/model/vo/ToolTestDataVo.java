@@ -7,7 +7,7 @@ import java.io.Serial;
 import java.io.Serializable;
 import java.util.List;
 
-@ApiModel(value="ToolTest-data", description="工器具检测-数据对象")
+@ApiModel(value = "ToolTest-data", description = "工器具检测-数据对象")
 public class ToolTestDataVo implements Serializable {
 
     @Serial

@@ -46,7 +46,7 @@ public class ContractController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute ContractQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute ContractQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QContract qContract = QContract.contract;
         Contract entity = new Contract();
@@ -60,14 +60,14 @@ public class ContractController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody ContractSaveDTO dto){
+    public Ret save(@Valid @RequestBody ContractSaveDTO dto) {
         contractService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody ContractUpdateDTO dto){
+    public Ret update(@Valid @RequestBody ContractUpdateDTO dto) {
         contractService.update(dto);
         return Ret.success();
     }
@@ -75,7 +75,7 @@ public class ContractController {
 
     @ApiOperation(value = "详情", response = Contract.class)
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Contract> entity = contractService.getById(id);
         return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
     }

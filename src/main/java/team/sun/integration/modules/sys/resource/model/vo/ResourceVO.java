@@ -27,7 +27,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 
-@ApiModel(value="ResourceVO", description="系统-菜单：详情")
+@ApiModel(value = "ResourceVO", description = "系统-菜单：详情")
 public class ResourceVO implements Serializable {
 
     @Serial

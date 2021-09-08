@@ -36,7 +36,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
                 .from(qTenant)
                 .select(qTenant)
                 .where(predicate).orderBy(qTenant.id.asc().nullsLast());
-        PagedList<Tenant> Tenants = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<Tenant> Tenants = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(Tenants, Tenants.getTotalSize());
     }

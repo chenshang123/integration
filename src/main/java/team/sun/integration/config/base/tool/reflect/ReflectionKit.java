@@ -294,7 +294,7 @@ public final class ReflectionKit {
         List.class.getTypeName();
         Set.class.getTypeName();
 
-        if(fileType.equals("123")){
+        if (fileType.equals("123")) {
 
         }
         int a = 0;
@@ -303,7 +303,7 @@ public final class ReflectionKit {
         return "not base type";
     }
 
-    private static void getPValue(){
+    private static void getPValue() {
 
     }
 
@@ -313,9 +313,9 @@ public final class ReflectionKit {
         user.setGender(true);
         Field[] field = TestVo.class.getDeclaredFields();
         for (int i = 0; i < field.length; i++) {
-            System.out.println(field[i].getName()+"--------------"+field[i].getAnnotatedType().toString());
-            if(PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(field[i].getClass())){
-                System.out.println(field[i].getName()+"--------------");
+            System.out.println(field[i].getName() + "--------------" + field[i].getAnnotatedType().toString());
+            if (PRIMITIVE_WRAPPER_TYPE_MAP.containsKey(field[i].getClass())) {
+                System.out.println(field[i].getName() + "--------------");
                 System.out.println(PRIMITIVE_WRAPPER_TYPE_MAP.get(field[i]).getTypeName());
             }
         }

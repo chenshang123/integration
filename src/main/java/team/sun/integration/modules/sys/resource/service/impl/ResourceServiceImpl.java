@@ -85,7 +85,7 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
                 .from(qResource)
                 .select(qResource)
                 .where(predicate).orderBy(qResource.id.asc().nullsLast());
-        PagedList<Resource> Resources = blazeJPAQuery.fetchPage((int)pageable.getOffset(), pageable.getPageSize());
+        PagedList<Resource> Resources = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(Resources, Resources.getTotalSize());
     }

@@ -5,17 +5,20 @@ import static com.querydsl.core.types.PathMetadataFactory.*;
 import com.querydsl.core.types.dsl.*;
 
 import com.querydsl.core.types.PathMetadata;
-import javax.annotation.processing.Generated;
+import javax.annotation.Generated;
 import com.querydsl.core.types.Path;
+import com.querydsl.core.types.dsl.PathInits;
 
 
 /**
  * QOrg is a Querydsl query type for Org
  */
-@Generated("com.querydsl.codegen.DefaultEntitySerializer")
+@Generated("com.querydsl.codegen.EntitySerializer")
 public class QOrg extends EntityPathBase<Org> {
 
     private static final long serialVersionUID = -232535651L;
+
+    private static final PathInits INITS = PathInits.DIRECT2;
 
     public static final QOrg org = new QOrg("org");
 
@@ -27,11 +30,11 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final StringPath creatorId = createString("creatorId");
+    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
 
     public final BooleanPath delFlag = createBoolean("delFlag");
 
-    public final StringPath departmentId = createString("departmentId");
+    public final QOrg department;
 
     public final StringPath explain = createString("explain");
 
@@ -51,7 +54,7 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final NumberPath<Integer> sort = createNumber("sort", Integer.class);
 
-    public final StringPath tenantId = createString("tenantId");
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
 
     public final NumberPath<Integer> unitType = createNumber("unitType", Integer.class);
 
@@ -60,15 +63,26 @@ public class QOrg extends EntityPathBase<Org> {
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 
     public QOrg(String variable) {
-        super(Org.class, forVariable(variable));
+        this(Org.class, forVariable(variable), INITS);
     }
 
     public QOrg(Path<? extends Org> path) {
-        super(path.getType(), path.getMetadata());
+        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
     }
 
     public QOrg(PathMetadata metadata) {
-        super(Org.class, metadata);
+        this(metadata, PathInits.getFor(metadata, INITS));
+    }
+
+    public QOrg(PathMetadata metadata, PathInits inits) {
+        this(Org.class, metadata, inits);
+    }
+
+    public QOrg(Class<? extends Org> type, PathMetadata metadata, PathInits inits) {
+        super(type, metadata, inits);
+        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
+        this.department = inits.isInitialized("department") ? new QOrg(forProperty("department"), inits.get("department")) : null;
+        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
     }
 
 }

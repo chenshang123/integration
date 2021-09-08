@@ -25,7 +25,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 
-@ApiModel(value="RoleVO", description="系统-角色：详情")
+@ApiModel(value = "RoleVO", description = "系统-角色：详情")
 public class RoleVO implements Serializable {
 
     @Serial

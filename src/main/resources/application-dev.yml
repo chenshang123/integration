@@ -1,6 +1,6 @@
 # ===== 自定义 本机服务端口 配置 ===== #
 server:
-  port: 8086
+  port: 8085
   ssl:
     enabled: true
     key-store-password: HtiqO4Ua

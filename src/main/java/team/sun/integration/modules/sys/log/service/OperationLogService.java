@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.log.model.entity.OperationLog;
 public interface OperationLogService extends IService<OperationLog, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     OperationLog save(OperationLogSaveDTO entity);
+
     OperationLog update(OperationLogUpdateDTO entity);
 }

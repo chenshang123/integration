@@ -25,7 +25,7 @@ import java.util.Set;
  * @since 2021-08-04
  */
 
-@ApiModel(value="TenantPageVO", description="系统-租户：详情")
+@ApiModel(value = "TenantPageVO", description = "系统-租户：详情")
 public class TenantVO implements Serializable {
 
     @Serial

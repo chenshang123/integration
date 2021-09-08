@@ -19,7 +19,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 
-@ApiModel(value="RolePageVO", description="系统-角色：分页")
+@ApiModel(value = "RolePageVO", description = "系统-角色：分页")
 public class RolePageVO implements Serializable {
 
     @Serial

@@ -49,19 +49,19 @@ public class Application implements Serializable {
     /**
      * 一对多：应用-菜单
      **/
-    @OneToMany(mappedBy = "applicationResource", cascade = {CascadeType.DETACH}, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "applicationResource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Resource> resources = new HashSet<>();
 
     /**
      * 多对多转一对多：应用-租户
      */
-    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<TenantApplication> tenantApplications = new HashSet<>();
 
     /**
      * 一对多：应用-应用版本
      **/
-    @OneToMany(mappedBy="applicationVer", cascade = {CascadeType.DETACH},fetch=FetchType.LAZY)
+    @OneToMany(mappedBy = "applicationVer", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<ApplicationVersion> versions = new HashSet<>();
 
     /**

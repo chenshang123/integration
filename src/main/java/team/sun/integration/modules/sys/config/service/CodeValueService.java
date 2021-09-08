@@ -20,6 +20,8 @@ import team.sun.integration.modules.sys.config.model.entity.CodeValue;
 public interface CodeValueService extends IService<CodeValue, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
     CodeValue save(CodeValueSaveDTO entity);
+
     CodeValue update(CodeValueUpdateDTO entity);
 }
