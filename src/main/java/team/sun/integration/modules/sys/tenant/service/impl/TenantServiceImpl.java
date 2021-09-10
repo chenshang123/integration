@@ -13,6 +13,7 @@ import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
 
@@ -56,5 +57,13 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
             this.dao.save(Tenant);
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public TenantVO getTenantById(String id) {
+        Optional<Tenant> optional = this.dao.findById(id);
+        TenantVO vo = new TenantVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 }

@@ -30,7 +30,7 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_position set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Position-relation", attributeNodes = {
-        @NamedAttributeNode("users")
+        @NamedAttributeNode("positionUsers")
 }))
 public class Position implements Serializable {
 
@@ -45,8 +45,8 @@ public class Position implements Serializable {
     /**
      * 多对多：职位-用户
      **/
-    @ManyToMany(mappedBy = "positions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    @ManyToMany(mappedBy = "userPositions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<User> positionUsers = new HashSet<>();
 
     /**
      * 职位名称
@@ -111,7 +111,7 @@ public class Position implements Serializable {
     public String toString() {
         return "Position{" +
                 "id='" + id + '\'' +
-                ", users=" + users +
+                ", positionUsers=" + positionUsers +
                 ", name='" + name + '\'' +
                 ", explain='" + explain + '\'' +
                 ", creator=" + creator +
@@ -132,12 +132,12 @@ public class Position implements Serializable {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<User> getPositionUsers() {
+        return positionUsers;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setPositionUsers(Set<User> positionUsers) {
+        this.positionUsers = positionUsers;
     }
 
     public String getName() {

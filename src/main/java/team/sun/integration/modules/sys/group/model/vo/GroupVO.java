@@ -1,4 +1,4 @@
-package team.sun.integration.modules.sys.group.model.vo.page;
+package team.sun.integration.modules.sys.group.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

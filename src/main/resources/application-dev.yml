@@ -1,8 +1,8 @@
 # ===== 自定义 本机服务端口 配置 ===== #
 server:
-  port: 8085
+  port: 8086
   ssl:
-    enabled: true
+    enabled: false
     key-store-password: HtiqO4Ua
     key-store: classpath:5944182_etm.net.cn.pfx
     #key-store-type: JKS
@@ -61,7 +61,7 @@ spring:
       connection-test-query: SELECT 1
 # ===== 自定义swagger配置 ===== #
 swagger:
-  enable: true
+  enable: false
   application-name: ${spring.application.name}
   application-version: 1.0
   application-description: springfox swagger 3.0整合Demo

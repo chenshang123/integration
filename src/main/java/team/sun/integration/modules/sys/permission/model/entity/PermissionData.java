@@ -40,17 +40,19 @@ public class PermissionData implements Serializable {
     /**
      * 菜单
      */
-
+    @Column(name = "resource_id")
     private String resourceId;
 
     /**
      * 应用
      */
+    @Column(name = "application_id")
     private String applicationId;
 
     /**
      * 租户
      */
+    @Column(name = "tenant_id")
     private String tenantId;
 
     /**
@@ -69,31 +71,37 @@ public class PermissionData implements Serializable {
     /**
      * 数据来源-用户
      */
+    @Column(name = "source_user_id")
     private String sourceUserId;
 
     /**
      * 数据来源-用户组
      */
+    @Column(name = "source_group_id")
     private String sourceGroupId;
 
     /**
      * 数据来源-部门
      */
+    @Column(name = "source_department_id")
     private String sourceDepartmentId;
 
     /**
      * 共享数据-用户
      */
+    @Column(name = "share_user_id")
     private String shareUserId;
 
     /**
      * 共享数据-用户组
      */
+    @Column(name = "share_group_id")
     private String shareGroupId;
 
     /**
      * 共享数据-部门
      */
+    @Column(name = "share_department_id")
     private String shareDepartmentId;
 
     /**

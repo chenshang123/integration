@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.model.vo.Ret;
@@ -23,7 +22,6 @@ import team.sun.integration.modules.sys.application.service.ApplicationService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -73,11 +71,11 @@ public class ApplicationController {
         return Ret.success();
     }
 
-    @ApiOperation(value = "详情", response = ApplicationVO.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<Application> entity = applicationService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        ApplicationVO vo = applicationService.getApplicationById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

@@ -37,7 +37,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
     @Bean
     public Docket createRestApi() {
-        return new Docket(DocumentationType.SWAGGER_2).pathMapping("/")
+        return new Docket(DocumentationType.OAS_30).pathMapping("/")
 
                 // 定义是否开启swagger，false为关闭，可以通过变量控制
                 .enable(swaggerProperties.getEnable())
@@ -50,7 +50,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
 
                 // 选择哪些接口作为swagger的doc发布
                 .select()
-                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class) )
+                .apis(RequestHandlerSelectors.withClassAnnotation(RestController.class))
                 .paths(PathSelectors.any())
                 .build()
 
@@ -117,6 +117,7 @@ public class SwaggerConfiguration implements WebMvcConfigurer {
                             .excludePathPatterns("/swagger**/**")
                             .excludePathPatterns("/webjars/**")
                             .excludePathPatterns("/v3/**")
+                            .excludePathPatterns("/v2/api-docs")
                             .excludePathPatterns("/doc.html");
                 }
             }

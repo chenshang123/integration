@@ -18,6 +18,7 @@ import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
 
 import javax.validation.Valid;
@@ -72,12 +73,11 @@ public class TenantController {
         return Ret.success();
     }
 
-
-    @ApiOperation(value = "详情", response = Tenant.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<Tenant> entity = tenantService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        TenantVO vo = tenantService.getTenantById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

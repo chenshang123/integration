@@ -23,7 +23,7 @@ import java.util.Set;
  * @since 2021-02-01
  */
 @ApiModel(value = "UserVo", description = "前端详情数据")
-public class UserVo implements Serializable {
+public class UserVO implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;

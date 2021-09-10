@@ -13,6 +13,7 @@ import team.sun.integration.modules.sys.resource.model.dto.save.ResourceSaveDTO;
 import team.sun.integration.modules.sys.resource.model.dto.update.ResourceUpdateDTO;
 import team.sun.integration.modules.sys.resource.model.entity.QResource;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
 
 import io.swagger.annotations.*;
@@ -81,11 +82,11 @@ public class ResourceController {
     }
 
 
-    @ApiOperation(value = "详情", response = Resource.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<Resource> entity = resourceService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        ResourceVO vo = resourceService.getResourceById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

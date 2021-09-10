@@ -72,7 +72,7 @@ public class CodeValueController {
     }
 
 
-    @ApiOperation(value = "详情", response = CodeValue.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<CodeValue> entity = codeValueService.getById(id);

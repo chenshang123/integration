@@ -73,7 +73,7 @@ public class ContractItemToolController {
     }
 
 
-    @ApiOperation(value = "详情", response = ContractItemTool.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<ContractItemTool> entity = contractItemToolService.getById(id);

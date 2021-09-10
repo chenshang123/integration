@@ -13,6 +13,7 @@ import team.sun.integration.modules.sys.position.model.dto.save.PositionSaveDTO;
 import team.sun.integration.modules.sys.position.model.dto.update.PositionUpdateDTO;
 import team.sun.integration.modules.sys.position.model.entity.Position;
 import team.sun.integration.modules.sys.position.model.entity.QPosition;
+import team.sun.integration.modules.sys.position.model.vo.PositionVO;
 import team.sun.integration.modules.sys.position.repository.PositionDao;
 import team.sun.integration.modules.sys.position.service.PositionService;
 
@@ -56,5 +57,13 @@ public class PositionServiceImpl extends ServiceImpl<PositionDao, Position> impl
             this.dao.save(position);
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public PositionVO getPositionById(String id) {
+        Optional<Position> optional = this.dao.findById(id);
+        PositionVO vo = new PositionVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 }

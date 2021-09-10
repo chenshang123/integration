@@ -73,7 +73,7 @@ public class PermissionDataController {
     }
 
 
-    @ApiOperation(value = "详情", response = PermissionData.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<PermissionData> entity = permissionDataService.getById(id);

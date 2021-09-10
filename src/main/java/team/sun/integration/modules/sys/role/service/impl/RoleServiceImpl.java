@@ -16,6 +16,7 @@ import team.sun.integration.modules.sys.role.model.dto.save.RoleSaveDTO;
 import team.sun.integration.modules.sys.role.model.dto.update.RoleUpdateDTO;
 import team.sun.integration.modules.sys.role.model.entity.QRole;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+import team.sun.integration.modules.sys.role.model.vo.RoleVO;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
 import team.sun.integration.modules.sys.role.service.RoleService;
 
@@ -99,5 +100,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
             this.dao.save(role);
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public RoleVO getRoleById(String id) {
+        Optional<Role> optional = this.dao.findRoleById(id);
+        RoleVO vo = new RoleVO();
+        optional.ifPresent(role -> BeanUtils.copyProperties(role, vo));
+        return vo;
     }
 }

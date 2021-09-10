@@ -13,6 +13,7 @@ import team.sun.integration.modules.sys.org.model.dto.save.OrgSaveDTO;
 import team.sun.integration.modules.sys.org.model.dto.update.OrgUpdateDTO;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.model.entity.QOrg;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.org.service.OrgService;
 
 import io.swagger.annotations.*;
@@ -73,11 +74,11 @@ public class OrgController {
     }
 
 
-    @ApiOperation(value = "详情", response = Org.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<Org> entity = orgService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        OrgVO vo = orgService.getOrgById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

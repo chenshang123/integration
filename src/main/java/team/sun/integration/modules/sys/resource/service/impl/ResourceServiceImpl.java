@@ -18,6 +18,7 @@ import team.sun.integration.modules.sys.resource.model.dto.save.ResourceSaveDTO;
 import team.sun.integration.modules.sys.resource.model.dto.update.ResourceUpdateDTO;
 import team.sun.integration.modules.sys.resource.model.entity.QResource;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.resource.repository.ResourceDao;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
 
@@ -105,5 +106,13 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
             this.dao.save(Resource);
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public ResourceVO getResourceById(String id) {
+        Optional<Resource> optional = this.dao.findById(id);
+        ResourceVO vo = new ResourceVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 }

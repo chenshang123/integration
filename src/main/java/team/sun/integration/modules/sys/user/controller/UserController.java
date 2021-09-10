@@ -17,6 +17,7 @@ import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
 import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
 import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 import team.sun.integration.modules.sys.user.service.UserService;
 
 import javax.validation.Valid;
@@ -71,12 +72,11 @@ public class UserController {
         return Ret.success();
     }
 
-
-    @ApiOperation(value = "详情", response = User.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<User> entity = userService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        UserVO vo = userService.getUserById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

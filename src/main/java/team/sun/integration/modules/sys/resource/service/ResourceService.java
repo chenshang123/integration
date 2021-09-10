@@ -9,6 +9,7 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.resource.model.dto.save.ResourceSaveDTO;
 import team.sun.integration.modules.sys.resource.model.dto.update.ResourceUpdateDTO;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 
 import java.util.List;
 
@@ -31,4 +32,6 @@ public interface ResourceService extends IService<Resource, String> {
     Resource save(ResourceSaveDTO entity);
 
     Resource update(ResourceUpdateDTO entity);
+
+    ResourceVO getResourceById(String id);
 }

@@ -9,6 +9,7 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.org.model.dto.save.OrgSaveDTO;
 import team.sun.integration.modules.sys.org.model.dto.update.OrgUpdateDTO;
 import team.sun.integration.modules.sys.org.model.entity.Org;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 
 /**
  * <p>
@@ -25,4 +26,6 @@ public interface OrgService extends IService<Org, String> {
     Org save(OrgSaveDTO entity);
 
     Org update(OrgUpdateDTO entity);
+
+    OrgVO getOrgById(String id);
 }

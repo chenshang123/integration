@@ -8,6 +8,7 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
 import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 import team.sun.integration.modules.sys.user.model.vo.login.UserLoginVO;
 
 import java.util.List;
@@ -27,6 +28,8 @@ public interface UserService extends IService<User, String> {
     User save(UserSaveDTO dto);
 
     User update(UserUpdateDTO dto);
+
+    UserVO getUserById(String id);
 
     List<String> getRoleIds(String userId);
 

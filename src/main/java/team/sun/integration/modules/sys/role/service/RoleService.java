@@ -8,6 +8,7 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.role.model.dto.save.RoleSaveDTO;
 import team.sun.integration.modules.sys.role.model.dto.update.RoleUpdateDTO;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+import team.sun.integration.modules.sys.role.model.vo.RoleVO;
 
 import java.util.List;
 
@@ -49,4 +50,6 @@ public interface RoleService extends IService<Role, String> {
     Role save(RoleSaveDTO entity);
 
     Role update(RoleUpdateDTO entity);
+
+    RoleVO getRoleById(String id);
 }

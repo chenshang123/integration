@@ -4,7 +4,6 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.model.vo.Ret;
@@ -74,12 +73,11 @@ public class RoleController {
     }
 
 
-    @ApiOperation(value = "详情", response = RoleVO.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        //Optional<Role> entity = roleService.getById(id);
-        //return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
-        return null;
+        RoleVO vo = roleService.getRoleById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

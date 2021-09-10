@@ -8,6 +8,7 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSaveDTO;
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
 import team.sun.integration.modules.sys.application.model.entity.Application;
+import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
 
 import java.util.Optional;
 
@@ -27,5 +28,6 @@ public interface ApplicationService extends IService<Application, String> {
 
     Application update(ApplicationUpdateDTO entity);
 
-    Optional<Application> getApplicationById(String id);
+    ApplicationVO getApplicationById(String id);
+
 }

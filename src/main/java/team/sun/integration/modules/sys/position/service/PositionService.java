@@ -11,6 +11,7 @@ import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.position.model.dto.save.PositionSaveDTO;
 import team.sun.integration.modules.sys.position.model.dto.update.PositionUpdateDTO;
 import team.sun.integration.modules.sys.position.model.entity.Position;
+import team.sun.integration.modules.sys.position.model.vo.PositionVO;
 
 /**
  * <p>
@@ -26,4 +27,6 @@ public interface PositionService extends IService<Position, String> {
     Position save(PositionSaveDTO entity);
 
     Position update(PositionUpdateDTO entity);
+
+    PositionVO getPositionById(String id);
 }

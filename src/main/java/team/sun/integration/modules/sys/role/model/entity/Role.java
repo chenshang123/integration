@@ -165,11 +165,6 @@ public class Role implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        return Objects.hashCode(id, roleResources, roleElements, users, groups, code, name, available, remarks, creator, department, tenant, createTime, updateTime, delFlag, version);
-    }
-
-    @Override
     public String toString() {
         return "Role{" +
                 "id='" + id + '\'' +

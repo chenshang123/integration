@@ -73,7 +73,7 @@ public class SecurityParamController {
     }
 
 
-    @ApiOperation(value = "详情", response = SecurityParam.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<SecurityParam> entity = securityParamService.getById(id);

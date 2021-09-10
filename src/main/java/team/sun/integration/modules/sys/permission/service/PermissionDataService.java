@@ -34,4 +34,5 @@ public interface PermissionDataService extends IService<PermissionData, String> 
     PermissionData save(PermissionDataSaveDTO entity);
 
     PermissionData update(PermissionDataUpdateDTO entity);
+
 }

@@ -73,7 +73,7 @@ public class ContractController {
     }
 
 
-    @ApiOperation(value = "详情", response = Contract.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Contract> entity = contractService.getById(id);

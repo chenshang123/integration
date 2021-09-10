@@ -74,11 +74,11 @@ public class PositionController {
     }
 
 
-    @ApiOperation(value = "详情", response = PositionVO.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        Optional<Position> entity = positionService.getById(id);
-        return entity.map(Ret::success).orElseGet(() -> Ret.fail(BusRetEnum.BUS_SEl_DETAIL_IS_NULL));
+        PositionVO vo = positionService.getPositionById(id);
+        return Ret.success(vo);
     }
 
     @ApiOperation(value = "单个删除")

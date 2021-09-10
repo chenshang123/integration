@@ -16,6 +16,7 @@ import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
 import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
 import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 import team.sun.integration.modules.sys.user.model.vo.login.UserLoginVO;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.repository.UserDao;
@@ -67,6 +68,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             dao.save(optional.get());
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public UserVO getUserById(String id) {
+        Optional<User> optional = this.dao.findById(id);
+        UserVO vo = new UserVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 
     @Override

@@ -13,6 +13,7 @@ import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSa
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
 import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.application.model.entity.QApplication;
+import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
 import team.sun.integration.modules.sys.application.repository.ApplicationDao;
 import team.sun.integration.modules.sys.application.service.ApplicationService;
 
@@ -59,7 +60,10 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
     }
 
     @Override
-    public Optional<Application> getApplicationById(String id) {
-        return this.dao.findApplicationById(id);
+    public ApplicationVO getApplicationById(String id) {
+        Optional<Application> optional = this.dao.findById(id);
+        ApplicationVO vo = new ApplicationVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 }

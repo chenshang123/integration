@@ -12,6 +12,7 @@ import team.sun.integration.modules.sys.org.model.dto.save.OrgSaveDTO;
 import team.sun.integration.modules.sys.org.model.dto.update.OrgUpdateDTO;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.model.entity.QOrg;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
 import team.sun.integration.modules.sys.org.service.OrgService;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,13 @@ public class OrgServiceImpl extends ServiceImpl<OrgDao, Org> implements OrgServi
             this.dao.save(Org);
         });
         return optional.orElse(null);
+    }
+
+    @Override
+    public OrgVO getOrgById(String id) {
+        Optional<Org> optional = this.dao.findById(id);
+        OrgVO vo = new OrgVO();
+        optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
+        return vo;
     }
 }

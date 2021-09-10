@@ -73,7 +73,7 @@ public class RegionController {
     }
 
 
-    @ApiOperation(value = "详情", response = Region.class)
+    @ApiOperation(value = "详情")
     @GetMapping("/dtl")
     public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         Optional<Region> entity = regionService.getById(id);
