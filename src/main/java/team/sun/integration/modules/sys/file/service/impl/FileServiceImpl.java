@@ -16,6 +16,7 @@ import team.sun.integration.modules.sys.file.model.entity.QFileEntity;
 import team.sun.integration.modules.sys.file.repository.FileDao;
 import team.sun.integration.modules.sys.file.service.FileService;
 
+import java.util.List;
 import java.util.Optional;
 
 /**
@@ -39,6 +40,11 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         PagedList<FileEntity> Files = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         return new PageRet(Files, Files.getTotalSize());
+    }
+
+    @Override
+    public List<FileEntity> getByBusinessId(String businessId) {
+        return this.dao.findByBusinessId(businessId);
     }
 
     @Override

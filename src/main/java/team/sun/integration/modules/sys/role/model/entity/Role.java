@@ -1,6 +1,5 @@
 package team.sun.integration.modules.sys.role.model.entity;
 
-import com.google.common.base.Objects;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -47,6 +46,7 @@ public class Role implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "role_id")
     private String id;
 
     /**
@@ -115,19 +115,20 @@ public class Role implements Serializable {
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
+
     /**
      * 一对一： 创建人所属部门
      */
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", unique = true)
-    private Org department;
+    @JoinColumn(name = "creator_department_id", unique = true)
+    private Org creatorDepartment;
 
     /**
      * 一对一： 创建人所属租户
      */
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenant_id", unique = true)
-    private Tenant tenant;
+    @JoinColumn(name = "creator_tenant_id", unique = true)
+    private Tenant creatorTenant;
 
     /**
      * 创建时间
@@ -157,14 +158,6 @@ public class Role implements Serializable {
     private Integer version;
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Role)) return false;
-        Role role = (Role) o;
-        return Objects.equal(id, role.id) && Objects.equal(roleResources, role.roleResources) && Objects.equal(roleElements, role.roleElements) && Objects.equal(users, role.users) && Objects.equal(groups, role.groups) && Objects.equal(code, role.code) && Objects.equal(name, role.name) && Objects.equal(available, role.available) && Objects.equal(remarks, role.remarks) && Objects.equal(creator, role.creator) && Objects.equal(department, role.department) && Objects.equal(tenant, role.tenant) && Objects.equal(createTime, role.createTime) && Objects.equal(updateTime, role.updateTime) && Objects.equal(delFlag, role.delFlag) && Objects.equal(version, role.version);
-    }
-
-    @Override
     public String toString() {
         return "Role{" +
                 "id='" + id + '\'' +
@@ -177,8 +170,8 @@ public class Role implements Serializable {
                 ", available=" + available +
                 ", remarks='" + remarks + '\'' +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -266,20 +259,20 @@ public class Role implements Serializable {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public Org getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(Org creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public Tenant getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(Tenant creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

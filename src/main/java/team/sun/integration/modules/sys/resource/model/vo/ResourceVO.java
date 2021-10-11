@@ -2,14 +2,13 @@ package team.sun.integration.modules.sys.resource.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.resource.model.entity.Element;
+import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceType;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceVisitType;
-import team.sun.integration.modules.sys.role.model.entity.Role;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.role.model.vo.RoleVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -36,16 +35,16 @@ public class ResourceVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "一对多：菜单-页面元素")
-    private Set<Element> resourceElements = new HashSet<>();
+    private Set<ElementVO> resourceElements = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：资源（菜单）-角色")
-    private Set<Role> roles = new HashSet<>();
+    private Set<RoleVO> roles = new HashSet<>();
 
     @ApiModelProperty(value = "多对一：资源（菜单）-应用")
-    private Application applicationResource;
+    private ApplicationVO applicationResource;
 
     @ApiModelProperty(value = "多对多：资源（菜单）-租户")
-    private Set<Tenant> tenants = new HashSet<>();
+    private Set<TenantVO> tenants = new HashSet<>();
 
     @ApiModelProperty(value = "首层id")
     private String firstFloorId;
@@ -84,10 +83,10 @@ public class ResourceVO implements Serializable {
     private ResourceVisitType visitType;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -122,7 +121,7 @@ public class ResourceVO implements Serializable {
                 ", type=" + type +
                 ", visitType=" + visitType +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -138,35 +137,35 @@ public class ResourceVO implements Serializable {
         this.id = id;
     }
 
-    public Set<Element> getResourceElements() {
+    public Set<ElementVO> getResourceElements() {
         return resourceElements;
     }
 
-    public void setResourceElements(Set<Element> resourceElements) {
+    public void setResourceElements(Set<ElementVO> resourceElements) {
         this.resourceElements = resourceElements;
     }
 
-    public Set<Role> getRoles() {
+    public Set<RoleVO> getRoles() {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
+    public void setRoles(Set<RoleVO> roles) {
         this.roles = roles;
     }
 
-    public Application getApplicationResource() {
+    public ApplicationVO getApplicationResource() {
         return applicationResource;
     }
 
-    public void setApplicationResource(Application applicationResource) {
+    public void setApplicationResource(ApplicationVO applicationResource) {
         this.applicationResource = applicationResource;
     }
 
-    public Set<Tenant> getTenants() {
+    public Set<TenantVO> getTenants() {
         return tenants;
     }
 
-    public void setTenants(Set<Tenant> tenants) {
+    public void setTenants(Set<TenantVO> tenants) {
         this.tenants = tenants;
     }
 
@@ -266,20 +265,20 @@ public class ResourceVO implements Serializable {
         this.visitType = visitType;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

@@ -142,10 +142,10 @@ public class HexStringCovert {
     public static byte[] hexStringToByte(String hex) {
         int len = (hex.length() / 2);
         byte[] result = new byte[len];
-        char[] achar = hex.toCharArray();
+        char[] charV = hex.toCharArray();
         for (int i = 0; i < len; i++) {
             int pos = i * 2;
-            result[i] = (byte) (toByte(achar[pos]) << 4 | toByte(achar[pos + 1]));
+            result[i] = (byte) (toByte(charV[pos]) << 4 | toByte(charV[pos + 1]));
         }
         return result;
     }

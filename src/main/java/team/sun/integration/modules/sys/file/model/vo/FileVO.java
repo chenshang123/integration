@@ -3,9 +3,9 @@ package team.sun.integration.modules.sys.file.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -37,7 +37,7 @@ public class FileVO implements Serializable {
     private Integer type;
 
     @ApiModelProperty(value = "文件大小")
-    private String size;
+    private Integer size;
 
     @ApiModelProperty(value = "文件名")
     private String name;
@@ -52,12 +52,13 @@ public class FileVO implements Serializable {
     private String resourceId;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
+
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private Tenant tenant;
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -82,8 +83,8 @@ public class FileVO implements Serializable {
                 ", businessName='" + businessName + '\'' +
                 ", resourceId='" + resourceId + '\'' +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -107,11 +108,11 @@ public class FileVO implements Serializable {
         this.type = type;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
@@ -147,28 +148,28 @@ public class FileVO implements Serializable {
         this.resourceId = resourceId;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

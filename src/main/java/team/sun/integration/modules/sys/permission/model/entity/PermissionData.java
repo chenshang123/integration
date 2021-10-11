@@ -5,15 +5,11 @@ import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.resource.model.entity.Resource;
-import team.sun.integration.modules.sys.role.model.entity.Role;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -36,6 +32,7 @@ public class PermissionData implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "permission_data_id")
     private String id;
     /**
      * 菜单
@@ -131,4 +128,153 @@ public class PermissionData implements Serializable {
     @Column(name = "version")
     private Integer version;
 
+    @Override
+    public String toString() {
+        return "PermissionData{" +
+                "id='" + id + '\'' +
+                ", resourceId='" + resourceId + '\'' +
+                ", applicationId='" + applicationId + '\'' +
+                ", tenantId='" + tenantId + '\'' +
+                ", type=" + type +
+                ", permissionType=" + permissionType +
+                ", sourceUserId='" + sourceUserId + '\'' +
+                ", sourceGroupId='" + sourceGroupId + '\'' +
+                ", sourceDepartmentId='" + sourceDepartmentId + '\'' +
+                ", shareUserId='" + shareUserId + '\'' +
+                ", shareGroupId='" + shareGroupId + '\'' +
+                ", shareDepartmentId='" + shareDepartmentId + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                ", delFlag=" + delFlag +
+                ", version=" + version +
+                '}';
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(String resourceId) {
+        this.resourceId = resourceId;
+    }
+
+    public String getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(String applicationId) {
+        this.applicationId = applicationId;
+    }
+
+    public String getTenantId() {
+        return tenantId;
+    }
+
+    public void setTenantId(String tenantId) {
+        this.tenantId = tenantId;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
+    }
+
+    public Integer getPermissionType() {
+        return permissionType;
+    }
+
+    public void setPermissionType(Integer permissionType) {
+        this.permissionType = permissionType;
+    }
+
+    public String getSourceUserId() {
+        return sourceUserId;
+    }
+
+    public void setSourceUserId(String sourceUserId) {
+        this.sourceUserId = sourceUserId;
+    }
+
+    public String getSourceGroupId() {
+        return sourceGroupId;
+    }
+
+    public void setSourceGroupId(String sourceGroupId) {
+        this.sourceGroupId = sourceGroupId;
+    }
+
+    public String getSourceDepartmentId() {
+        return sourceDepartmentId;
+    }
+
+    public void setSourceDepartmentId(String sourceDepartmentId) {
+        this.sourceDepartmentId = sourceDepartmentId;
+    }
+
+    public String getShareUserId() {
+        return shareUserId;
+    }
+
+    public void setShareUserId(String shareUserId) {
+        this.shareUserId = shareUserId;
+    }
+
+    public String getShareGroupId() {
+        return shareGroupId;
+    }
+
+    public void setShareGroupId(String shareGroupId) {
+        this.shareGroupId = shareGroupId;
+    }
+
+    public String getShareDepartmentId() {
+        return shareDepartmentId;
+    }
+
+    public void setShareDepartmentId(String shareDepartmentId) {
+        this.shareDepartmentId = shareDepartmentId;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Boolean getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Boolean delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

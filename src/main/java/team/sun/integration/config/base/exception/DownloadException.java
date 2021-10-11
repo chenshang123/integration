@@ -1,4 +1,4 @@
-package team.sun.integration.common.exception;
+package team.sun.integration.config.base.exception;
 
 /**
  * 文件下载异常

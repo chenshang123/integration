@@ -2,12 +2,12 @@ package team.sun.integration.modules.sys.role.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.group.model.entity.Group;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.resource.model.entity.Element;
-import team.sun.integration.modules.sys.resource.model.entity.Resource;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.group.model.vo.GroupVO;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.resource.model.vo.ElementVO;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,17 +34,17 @@ public class RoleVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：角色-菜单")
-    private Set<Resource> roleResources = new HashSet<>();
+    private Set<ResourceVO> roleResources = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：角色-菜单页面元素")
-    private Set<Element> roleElements = new HashSet<>();
+    private Set<ElementVO> roleElements = new HashSet<>();
 
 
     @ApiModelProperty(value = "多对多：角色-用户")
-    private Set<User> users = new HashSet<>();
+    private Set<UserVO> users = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：角色-用户组")
-    private Set<Group> groups = new HashSet<>();
+    private Set<GroupVO> groups = new HashSet<>();
 
 
     @ApiModelProperty(value = "编号")
@@ -60,13 +60,13 @@ public class RoleVO implements Serializable {
     private String remarks;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private Tenant tenant;
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -85,10 +85,10 @@ public class RoleVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Role{" +
+        return "RoleVO{" +
                 "id='" + id + '\'' +
                 ", roleResources=" + roleResources +
-                ", RoleElements=" + roleElements +
+                ", roleElements=" + roleElements +
                 ", users=" + users +
                 ", groups=" + groups +
                 ", code='" + code + '\'' +
@@ -96,8 +96,8 @@ public class RoleVO implements Serializable {
                 ", available=" + available +
                 ", remarks='" + remarks + '\'' +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -113,35 +113,35 @@ public class RoleVO implements Serializable {
         this.id = id;
     }
 
-    public Set<Resource> getRoleResources() {
+    public Set<ResourceVO> getRoleResources() {
         return roleResources;
     }
 
-    public void setRoleResources(Set<Resource> roleResources) {
+    public void setRoleResources(Set<ResourceVO> roleResources) {
         this.roleResources = roleResources;
     }
 
-    public Set<Element> getRoleElements() {
+    public Set<ElementVO> getRoleElements() {
         return roleElements;
     }
 
-    public void setRoleElements(Set<Element> roleElements) {
-        roleElements = roleElements;
+    public void setRoleElements(Set<ElementVO> roleElements) {
+        this.roleElements = roleElements;
     }
 
-    public Set<User> getUsers() {
+    public Set<UserVO> getUsers() {
         return users;
     }
 
-    public void setUsers(Set<User> users) {
+    public void setUsers(Set<UserVO> users) {
         this.users = users;
     }
 
-    public Set<Group> getGroups() {
+    public Set<GroupVO> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<GroupVO> groups) {
         this.groups = groups;
     }
 
@@ -177,28 +177,28 @@ public class RoleVO implements Serializable {
         this.remarks = remarks;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

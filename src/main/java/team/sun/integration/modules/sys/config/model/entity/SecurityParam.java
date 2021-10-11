@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.config.model.entity;
 
+import java.io.Serial;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.GenericGenerator;
@@ -22,11 +23,13 @@ import java.io.Serializable;
 @Table(name = "sys_security_param")
 public class SecurityParam implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "security_param_id")
     private String id;
 
     /**

@@ -48,6 +48,7 @@ public class Resource implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "resource_id")
     private String id;
 
     /**
@@ -66,7 +67,7 @@ public class Resource implements Serializable {
      * 多对一：资源（菜单）-应用
      **/
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    @JoinColumn(name = "application_id", referencedColumnName = "application_id")
     @JsonBackReference
     private Application applicationResource;
 
@@ -156,12 +157,13 @@ public class Resource implements Serializable {
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
+
     /**
      * 一对一： 创建人所属部门
      */
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", unique = true)
-    private Org department;
+    @JoinColumn(name = "creator_department_id", unique = true)
+    private Org creatorDepartment;
 
     /**
      * 创建时间
@@ -211,7 +213,7 @@ public class Resource implements Serializable {
                 ", type=" + type +
                 ", visitType=" + visitType +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -363,12 +365,12 @@ public class Resource implements Serializable {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public Org getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(Org creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

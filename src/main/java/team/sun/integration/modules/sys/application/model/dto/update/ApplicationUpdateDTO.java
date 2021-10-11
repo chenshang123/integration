@@ -4,6 +4,7 @@ package team.sun.integration.modules.sys.application.model.dto.update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
+import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
@@ -50,20 +51,19 @@ public class ApplicationUpdateDTO implements Serializable {
     private String logo;
 
     @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App）")
-    private Integer type;
+    private ApplicationType type;
 
     @ApiModelProperty(value = "运行状态（运行中、停运中）")
-    @Convert(converter = ApplicationAction.Convert.class)
     private ApplicationAction runState;
 
     @ApiModelProperty(value = "创建人")
     private String creatorId;
 
     @ApiModelProperty(value = "所属部门")
-    private String departmentId;
+    private String creatorDepartmentId;
 
     @ApiModelProperty(value = "所属租户")
-    private String tenantId;
+    private String creatorTenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -141,11 +141,11 @@ public class ApplicationUpdateDTO implements Serializable {
         this.logo = logo;
     }
 
-    public Integer getType() {
+    public ApplicationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ApplicationType type) {
         this.type = type;
     }
 
@@ -165,20 +165,20 @@ public class ApplicationUpdateDTO implements Serializable {
         this.creatorId = creatorId;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public String getTenantId() {
-        return tenantId;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
     public LocalDateTime getCreateTime() {

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
@@ -52,42 +53,13 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @RequestMapping(value = "/media/", method = RequestMethod.GET)
-    public void getDownload(String fileId, HttpServletRequest request, HttpServletResponse response) {
-        // Get your file stream from wherever.
-        String fullPath = "E:.rmvb";
-        fullPath = "C:\\Users\\SH0033\\Desktop\\abcd.doc";
-        File downloadFile = new File(fullPath);
 
-        ServletContext context = request.getServletContext();
+    @PostMapping("/downLoad")
+    @ResponseBody
+    public Ret upload(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId){
 
-        // get MIME type of the file
-        String mimeType = context.getMimeType(fullPath);
-        if (mimeType == null) {
-            // set to binary type if MIME mapping not found
-            mimeType = "application/octet-stream";
-            System.out.println("context getMimeType is null");
-        }
-        System.out.println("MIME type: " + mimeType);
 
-        // set content attributes for the response
-        response.setContentType(mimeType);
-        response.setContentLength((int) downloadFile.length());
-
-        // set headers for the response
-        String headerKey = "Content-Disposition";
-        String headerValue = String.format("attachment; filename=\"%s\"",
-                downloadFile.getName());
-        response.setHeader(headerKey, headerValue);
-
-        // Copy the stream to the response's output stream.
-        try {
-            InputStream myStream = new FileInputStream(fullPath);
-            IOUtils.copy(myStream, response.getOutputStream());
-            response.flushBuffer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        return null;
     }
 
     @ApiOperation(value = "分页查询")

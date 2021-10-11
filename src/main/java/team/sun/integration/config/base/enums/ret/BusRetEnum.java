@@ -33,8 +33,14 @@ public enum BusRetEnum implements BaseKeyValue<String, String> {
     BUS_FILE_UPLOAD_ERROR("10300", "文件上传错误"),
     BUS_FILE_DOWNLOAD_ERROR("10301", "文件下载错误"),
     BUS_FILE_NOT_EXIST("10302", "上传文件为空"),
-    BUS_FILE_TYPE_NOT_SUPPORTED("10303", "类型不支持"),
+    BUS_FILE_TYPE_NOT_SUPPORTED("10303", "文件类型不支持"),
     BUS_File_EXCEL_CASE_ERROR("10304", "excel 转换错误"),
+    BUS_FILE_PATH_ERROR("10305", "文件存储路径错误"),
+    BUS_FILE_UPLOAD_SUCCESS("10306", "文件上传成功"),
+    BUS_FILE_SINGLE_OVERRUN("10307", "单个文件超出最大值"),
+    BUS_FILE_OVERRUN("10308", "上传文件的总大小超出限制的最大值"),
+    BUS_FILE_EXT_NAME_ERROR("10309", "文件扩展名错误"),
+
     /* 登录login 10400*/
     BUS_LOGIN_BAD_CREDENTIALS("10400", "用户校验失败，请检查用户名与密码！"),
     BUS_LOGIN_TIMEOUT("10401", "登录超时，请重新登录！"),
@@ -46,13 +52,17 @@ public enum BusRetEnum implements BaseKeyValue<String, String> {
     /* 权限验证 10600*/
     BUS_PERMISSION_INADEQUATE("10600", "权限不足！"),
     BUS_PERMISSION_TOKEN_INVALID("10405", "token失效，请重新登录！");
-    private String key;
+    private final String key;
 
-    private String value;
+    private final String value;
 
-    private BusRetEnum(String key, String value) {
+    BusRetEnum(String key, String value) {
         this.key = key;
         this.value = value;
+    }
+
+    public String getMsg(){
+        return "Error code:"+ key +",tips:"+value;
     }
 
     @Override

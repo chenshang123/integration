@@ -3,6 +3,7 @@ package team.sun.integration.modules.sys.application.model.vo.page;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
+import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -26,6 +27,9 @@ public class ApplicationPageVO implements Serializable {
 
     private String id;
 
+    @ApiModelProperty(value = "人员数量统计")
+    private Long tenantNumber;
+
     @ApiModelProperty(value = "标签")
     private String label;
 
@@ -45,7 +49,7 @@ public class ApplicationPageVO implements Serializable {
     private String logo;
 
     @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App）")
-    private Integer type;
+    private ApplicationType type;
 
     @ApiModelProperty(value = "运行状态（运行中、停运中）")
     private ApplicationAction runState;
@@ -62,10 +66,14 @@ public class ApplicationPageVO implements Serializable {
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
+    public ApplicationPageVO() {
+    }
+
     @Override
     public String toString() {
-        return "Application{" +
+        return "ApplicationPageVO{" +
                 "id='" + id + '\'' +
+                ", tenantNumber=" + tenantNumber +
                 ", label='" + label + '\'' +
                 ", name='" + name + '\'' +
                 ", accessUrl='" + accessUrl + '\'' +
@@ -87,6 +95,14 @@ public class ApplicationPageVO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Long getTenantNumber() {
+        return tenantNumber;
+    }
+
+    public void setTenantNumber(Long tenantNumber) {
+        this.tenantNumber = tenantNumber;
     }
 
     public String getLabel() {
@@ -137,11 +153,11 @@ public class ApplicationPageVO implements Serializable {
         this.logo = logo;
     }
 
-    public Integer getType() {
+    public ApplicationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ApplicationType type) {
         this.type = type;
     }
 

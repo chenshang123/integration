@@ -2,10 +2,8 @@ package team.sun.integration.modules.sys.config.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.io.Serial;
 import java.io.Serializable;
 
 
@@ -21,12 +19,14 @@ import java.io.Serializable;
 @Table(name = "sys_code_value")
 public class CodeValue implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
 
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "code_value_id")
     private String id;
 
     /**

@@ -33,7 +33,7 @@ public class FilePageVO implements Serializable {
     private Integer type;
 
     @ApiModelProperty(value = "文件大小")
-    private String size;
+    private Integer size;
 
     @ApiModelProperty(value = "文件名")
     private String name;
@@ -88,11 +88,11 @@ public class FilePageVO implements Serializable {
         this.type = type;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 

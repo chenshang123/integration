@@ -2,10 +2,11 @@ package team.sun.integration.modules.sys.user.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.group.model.entity.Group;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.position.model.entity.Position;
-import team.sun.integration.modules.sys.role.model.entity.Role;
+import team.sun.integration.modules.sys.group.model.vo.GroupVO;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.position.model.vo.PositionVO;
+import team.sun.integration.modules.sys.role.model.vo.RoleVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -31,16 +32,16 @@ public class UserVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "用户组-用户")
-    private Set<Group> groups = new HashSet<>();
+    private Set<GroupVO> groups = new HashSet<>();
 
     @ApiModelProperty(value = "用户-角色")
-    private Set<Role> userRoles = new HashSet<>();
+    private Set<RoleVO> userRoles = new HashSet<>();
 
     @ApiModelProperty(value = "用户-职位")
-    private Set<Position> positions = new HashSet<>();
+    private Set<PositionVO> positions = new HashSet<>();
 
     @ApiModelProperty(value = "一对一： 用户-单位 ：所属单位")
-    private Org org;
+    private OrgVO org;
 
     @ApiModelProperty(value = "昵称")
     private String petName;
@@ -114,14 +115,14 @@ public class UserVO implements Serializable {
     @ApiModelProperty(value = "固定ip (格式为*.*.*.* 星号只能是固定值0-255)")
     private String loginIp;
 
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
+    @ApiModelProperty(value = "一对一： 创建人")
+    private UserVO creator;
 
-    @ApiModelProperty(value = "所属部门")
-    private String departmentId;
+    @ApiModelProperty(value = "一对一： 创建人所属部门")
+    private OrgVO creatorDepartment;
 
-    @ApiModelProperty(value = "所属租户")
-    private String tenantId;
+    @ApiModelProperty(value = "一对一： 创建人所属租户")
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -143,35 +144,35 @@ public class UserVO implements Serializable {
         this.id = id;
     }
 
-    public Set<Group> getGroups() {
+    public Set<GroupVO> getGroups() {
         return groups;
     }
 
-    public void setGroups(Set<Group> groups) {
+    public void setGroups(Set<GroupVO> groups) {
         this.groups = groups;
     }
 
-    public Set<Role> getUserRoles() {
+    public Set<RoleVO> getUserRoles() {
         return userRoles;
     }
 
-    public void setUserRoles(Set<Role> userRoles) {
+    public void setUserRoles(Set<RoleVO> userRoles) {
         this.userRoles = userRoles;
     }
 
-    public Set<Position> getPositions() {
+    public Set<PositionVO> getPositions() {
         return positions;
     }
 
-    public void setPositions(Set<Position> positions) {
+    public void setPositions(Set<PositionVO> positions) {
         this.positions = positions;
     }
 
-    public Org getOrg() {
+    public OrgVO getOrg() {
         return org;
     }
 
-    public void setOrg(Org org) {
+    public void setOrg(OrgVO org) {
         this.org = org;
     }
 
@@ -367,28 +368,28 @@ public class UserVO implements Serializable {
         this.loginIp = loginIp;
     }
 
-    public String getCreatorId() {
-        return creatorId;
+    public UserVO getCreator() {
+        return creator;
     }
 
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
+    public void setCreator(UserVO creator) {
+        this.creator = creator;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public String getTenantId() {
-        return tenantId;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

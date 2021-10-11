@@ -9,6 +9,9 @@ import team.sun.integration.modules.sys.file.model.dto.save.FileSaveDTO;
 import team.sun.integration.modules.sys.file.model.dto.update.FileUpdateDTO;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 
+import java.util.List;
+import java.util.Optional;
+
 /**
  * <p>
  * 系统-文件
@@ -20,6 +23,8 @@ import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 public interface FileService extends IService<FileEntity, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
+
+    List<FileEntity> getByBusinessId(String businessId);
 
     FileEntity save(FileSaveDTO entity);
 

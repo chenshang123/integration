@@ -3,8 +3,8 @@ package team.sun.integration.modules.sys.org.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -70,13 +70,13 @@ public class OrgVO implements Serializable {
     private String explain;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private Tenant tenant;
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -92,7 +92,7 @@ public class OrgVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Org{" +
+        return "OrgVO{" +
                 "id='" + id + '\'' +
                 ", firstFloorId='" + firstFloorId + '\'' +
                 ", parentId='" + parentId + '\'' +
@@ -107,8 +107,8 @@ public class OrgVO implements Serializable {
                 ", address='" + address + '\'' +
                 ", explain='" + explain + '\'' +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -220,28 +220,28 @@ public class OrgVO implements Serializable {
         this.explain = explain;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public OrgVO getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(OrgVO department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {
@@ -275,5 +275,4 @@ public class OrgVO implements Serializable {
     public void setVersion(Integer version) {
         this.version = version;
     }
-
 }

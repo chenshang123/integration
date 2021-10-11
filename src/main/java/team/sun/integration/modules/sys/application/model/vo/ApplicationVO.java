@@ -3,14 +3,13 @@ package team.sun.integration.modules.sys.application.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.application.model.entity.ApplicationVersion;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.resource.model.entity.Resource;
-import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
-import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -26,7 +25,7 @@ import java.util.Set;
  * @since 2021-02-01
  */
 
-@ApiModel(value = "ApplicationQuery对象", description = "系统-应用-查询")
+@ApiModel(value = "ApplicationVO", description = "系统-应用-详情")
 public class ApplicationVO implements Serializable {
 
     @Serial
@@ -35,13 +34,13 @@ public class ApplicationVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "一对多：应用-菜单")
-    private Set<Resource> resources = new HashSet<>();
+    private Set<ResourceVO> resources = new HashSet<>();
 
     @ApiModelProperty(value = "多对多转一对多：应用-租户")
-    private Set<TenantApplication> tenantApplications = new HashSet<>();
+    private Set<TenantApplicationVO> tenantApplications = new HashSet<>();
 
     @ApiModelProperty(value = "一对多：应用-应用版本")
-    private Set<ApplicationVersion> versions = new HashSet<>();
+    private Set<ApplicationVersionVO> versions = new HashSet<>();
 
     @ApiModelProperty(value = "标签")
     private String label;
@@ -62,15 +61,16 @@ public class ApplicationVO implements Serializable {
     private String logo;
 
     @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App）")
-    private Integer type;
+    private ApplicationType type;
 
     @ApiModelProperty(value = "运行状态（运行中、停运中）")
     private ApplicationAction runState;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
+
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -100,7 +100,7 @@ public class ApplicationVO implements Serializable {
                 ", type=" + type +
                 ", runState=" + runState +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -116,27 +116,27 @@ public class ApplicationVO implements Serializable {
         this.id = id;
     }
 
-    public Set<TenantApplication> getTenantApplications() {
-        return tenantApplications;
-    }
-
-    public void setTenantApplications(Set<TenantApplication> tenantApplications) {
-        this.tenantApplications = tenantApplications;
-    }
-
-    public Set<Resource> getResources() {
+    public Set<ResourceVO> getResources() {
         return resources;
     }
 
-    public void setResources(Set<Resource> resources) {
+    public void setResources(Set<ResourceVO> resources) {
         this.resources = resources;
     }
 
-    public Set<ApplicationVersion> getVersions() {
+    public Set<TenantApplicationVO> getTenantApplications() {
+        return tenantApplications;
+    }
+
+    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) {
+        this.tenantApplications = tenantApplications;
+    }
+
+    public Set<ApplicationVersionVO> getVersions() {
         return versions;
     }
 
-    public void setVersions(Set<ApplicationVersion> versions) {
+    public void setVersions(Set<ApplicationVersionVO> versions) {
         this.versions = versions;
     }
 
@@ -188,11 +188,11 @@ public class ApplicationVO implements Serializable {
         this.logo = logo;
     }
 
-    public Integer getType() {
+    public ApplicationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ApplicationType type) {
         this.type = type;
     }
 
@@ -204,20 +204,20 @@ public class ApplicationVO implements Serializable {
         this.runState = runState;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

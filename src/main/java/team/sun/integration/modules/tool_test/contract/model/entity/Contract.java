@@ -39,6 +39,7 @@ public class Contract implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "contract_id")
     private String id;
 
     /**
@@ -119,25 +120,26 @@ public class Contract implements Serializable {
     @Column(name = "state")
     private Integer state;
 
-    /**
+     /**
      * 一对一： 创建人
      */
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
+    
     /**
      * 一对一： 创建人所属部门
      */
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", unique = true)
-    private Org department;
+    @JoinColumn(name = "creator_department_id", unique = true)
+    private Org creatorDepartment;
 
     /**
      * 一对一： 创建人所属租户
      */
     @OneToOne(cascade = CascadeType.DETACH, fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenant_id", unique = true)
-    private Tenant tenant;
+    @JoinColumn(name = "creator_tenant_id", unique = true)
+    private Tenant creatorTenant;
 
     /**
      * 创建时间
@@ -184,8 +186,8 @@ public class Contract implements Serializable {
                 ", totalAmount=" + totalAmount +
                 ", state=" + state +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -313,20 +315,20 @@ public class Contract implements Serializable {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public Org getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(Org creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public Tenant getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(Tenant creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

@@ -4,6 +4,8 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.springframework.beans.factory.annotation.Autowired;
+import team.sun.integration.modules.sys.file.model.properties.FileProperties;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -13,12 +15,22 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URLEncoder;
 import java.util.List;
 
 @WebServlet("/downLoad")
 public class DownloadServlet extends HttpServlet {
+
+    private final FileProperties fileProperties;
+
+    @Autowired(required = false)
+    public DownloadServlet(FileProperties fileProperties){
+        this.fileProperties = fileProperties;
+    }
+
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
+
     }
 
     @Override
@@ -28,21 +40,21 @@ public class DownloadServlet extends HttpServlet {
         try {
             List<FileItem> list = servletFileUpload.parseRequest(req);
             for (FileItem fileItem : list) {
-                System.out.println(fileItem.getName());//test.txt
-                System.out.println(fileItem.getFieldName());//img 对应jsp标签的name  <input type="file" name="img"><br/>
-                //如果是文本
+            //如果是文本
                 if (fileItem.isFormField()) {
-                    String name = fileItem.getFieldName();
-                    String value = fileItem.getString("UTF-8");
-                    System.out.println(value);
+/*                  String name = fileItem.getFieldName();
+                    String value = fileItem.getString("UTF-8");*/
                 } else {
                     //文件
                     InputStream inputStream = fileItem.getInputStream();
+
                     String path = req.getServletContext().getRealPath("/file/" + fileItem.getName());
                     path = new String(path.getBytes("ISO8859-1"), "UTF-8");
                     path = "C:\\Users\\SH0033\\Desktop\\abcd.doc";
                     //*告诉客户端这个文件不是解析 而是以附件的形式下载
-                    resp.setHeader("Content-Disposition", "attachment;filename=abcd.doc");
+                    String realName = "abcd.doc";
+                    resp.setHeader("content-disposition", "attachment;filename="
+                            + URLEncoder.encode(realName, "UTF-8"));
                     OutputStream outputStream = new FileOutputStream(path);
                     int temp;
                     while ((temp = inputStream.read()) != -1) {

@@ -6,6 +6,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
+import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
@@ -44,6 +45,7 @@ public class Application implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "application_id")
     private String id;
 
     /**
@@ -103,8 +105,9 @@ public class Application implements Serializable {
     /**
      * 类型（电脑版网页、手机版网页、iosApp、安卓App）
      */
+    @Convert(converter = ApplicationType.Convert.class)
     @Column(name = "type")
-    private Integer type;
+    private ApplicationType type;
 
     /**
      * 运行状态（运行中、停运中）
@@ -119,12 +122,13 @@ public class Application implements Serializable {
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
+
     /**
      * 一对一： 创建人所属部门
      */
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", unique = true)
-    private Org department;
+    @JoinColumn(name = "creator_department_id", unique = true)
+    private Org creatorDepartment;
 
     /**
      * 创建时间
@@ -169,7 +173,7 @@ public class Application implements Serializable {
                 ", type=" + type +
                 ", runState=" + runState +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -257,11 +261,11 @@ public class Application implements Serializable {
         this.logo = logo;
     }
 
-    public Integer getType() {
+    public ApplicationType getType() {
         return type;
     }
 
-    public void setType(Integer type) {
+    public void setType(ApplicationType type) {
         this.type = type;
     }
 
@@ -281,12 +285,12 @@ public class Application implements Serializable {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public Org getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(Org creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

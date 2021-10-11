@@ -32,6 +32,7 @@ public class Region implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "region_id")
     private String id;
 
     /**

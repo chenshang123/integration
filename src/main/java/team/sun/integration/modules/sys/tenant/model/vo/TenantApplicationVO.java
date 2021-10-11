@@ -2,10 +2,9 @@ package team.sun.integration.modules.sys.tenant.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -29,11 +28,10 @@ public class TenantApplicationVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多转多对一：租户-应用")
-    private Tenant tenant;
-
+    private TenantVO tenant;
 
     @ApiModelProperty(value = "多对多转多对一：租户-应用")
-    private Application application;
+    private ApplicationVO application;
 
     @ApiModelProperty(value = "可用天数")
     private Integer days;
@@ -42,10 +40,10 @@ public class TenantApplicationVO implements Serializable {
     private Integer state;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -61,14 +59,14 @@ public class TenantApplicationVO implements Serializable {
 
     @Override
     public String toString() {
-        return "TenantApplication{" +
+        return "TenantApplicationVO{" +
                 "id='" + id + '\'' +
                 ", tenant=" + tenant +
                 ", application=" + application +
                 ", days=" + days +
                 ", state=" + state +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -84,19 +82,19 @@ public class TenantApplicationVO implements Serializable {
         this.id = id;
     }
 
-    public Tenant getTenant() {
+    public TenantVO getTenant() {
         return tenant;
     }
 
-    public void setTenant(Tenant tenant) {
+    public void setTenant(TenantVO tenant) {
         this.tenant = tenant;
     }
 
-    public Application getApplication() {
+    public ApplicationVO getApplication() {
         return application;
     }
 
-    public void setApplication(Application application) {
+    public void setApplication(ApplicationVO application) {
         this.application = application;
     }
 
@@ -116,20 +114,20 @@ public class TenantApplicationVO implements Serializable {
         this.state = state;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

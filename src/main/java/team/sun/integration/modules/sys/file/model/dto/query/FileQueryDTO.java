@@ -29,7 +29,7 @@ public class FileQueryDTO implements Serializable {
     private Integer type;
 
     @ApiModelProperty(value = "文件大小")
-    private String size;
+    private Integer size;
 
     @ApiModelProperty(value = "文件名")
     private String name;
@@ -50,10 +50,10 @@ public class FileQueryDTO implements Serializable {
     private String creatorId;
 
     @ApiModelProperty(value = "所属部门")
-    private String departmentId;
+    private String creatorDepartmentId;
 
     @ApiModelProperty(value = "所属租户")
-    private String tenantId;
+    private String creatorTenantId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -83,11 +83,11 @@ public class FileQueryDTO implements Serializable {
         this.type = type;
     }
 
-    public String getSize() {
+    public Integer getSize() {
         return size;
     }
 
-    public void setSize(String size) {
+    public void setSize(Integer size) {
         this.size = size;
     }
 
@@ -139,20 +139,20 @@ public class FileQueryDTO implements Serializable {
         this.creatorId = creatorId;
     }
 
-    public String getDepartmentId() {
-        return departmentId;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public String getTenantId() {
-        return tenantId;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
     public LocalDateTime getCreateTime() {

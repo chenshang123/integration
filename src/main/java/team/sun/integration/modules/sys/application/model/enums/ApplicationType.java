@@ -1,23 +1,25 @@
 package team.sun.integration.modules.sys.application.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
 import team.sun.integration.config.base.enums.converter.BaseEnum;
 import team.sun.integration.config.base.enums.converter.BaseEnumConverter;
+
 /**
- * 系统-应用：应用运营状态
+ * 系统-应用：应用类型
  */
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
-public enum ApplicationAction implements BaseEnum<Integer> {
-    OPEN(0, "运营中"),
-    SHUTDOWN(1, "停运中"),
-    LOGIN(2, "未上线"),
-    LOGOUT(3, "维护中");
+public enum ApplicationType implements BaseEnum<Integer> {
+    SYSTEM(0, "管理系统"),
+    WEBSITE(1, "门户网站"),
+    ANDROID(2, "Android-APP"),
+    APPLE(3, "Apple-APP"),
+    APPLET(4, "WeChat-小程序"),
+    SUBSCRIPTION(5, "WeChat-公众号");
 
     private Integer value;
     private String desc;
 
-    ApplicationAction(Integer value, String desc) {
+    ApplicationType(Integer value, String desc) {
         this.value = value;
         this.desc = desc;
     }
@@ -38,7 +40,7 @@ public enum ApplicationAction implements BaseEnum<Integer> {
         this.desc = desc;
     }
 
-    public static class Convert extends BaseEnumConverter<ApplicationAction, Integer> {
+    public static class Convert extends BaseEnumConverter<ApplicationType, Integer> {
 
     }
 }

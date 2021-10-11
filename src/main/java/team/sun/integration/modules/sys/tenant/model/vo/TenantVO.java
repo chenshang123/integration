@@ -2,12 +2,11 @@ package team.sun.integration.modules.sys.tenant.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.resource.model.entity.Element;
-import team.sun.integration.modules.sys.resource.model.entity.Resource;
-import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.resource.model.vo.ElementVO;
+import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,13 +33,13 @@ public class TenantVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：租户-菜单")
-    private Set<Resource> tenantResources = new HashSet<>();
+    private Set<ResourceVO> tenantResources = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：租户-菜单页面元素")
-    private Set<Element> tenantElements = new HashSet<>();
+    private Set<ElementVO> tenantElements = new HashSet<>();
 
     @ApiModelProperty(value = "多对多转一对多：租户-应用")
-    private Set<TenantApplication> tenantApplications = new HashSet<>();
+    private Set<TenantApplicationVO> tenantApplications = new HashSet<>();
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -82,13 +81,13 @@ public class TenantVO implements Serializable {
     private TenantAction locked;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO tenant;
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -104,7 +103,7 @@ public class TenantVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Tenant{" +
+        return "TenantVO{" +
                 "id='" + id + '\'' +
                 ", tenantResources=" + tenantResources +
                 ", tenantElements=" + tenantElements +
@@ -123,8 +122,8 @@ public class TenantVO implements Serializable {
                 ", address='" + address + '\'' +
                 ", locked=" + locked +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -140,28 +139,28 @@ public class TenantVO implements Serializable {
         this.id = id;
     }
 
-    public Set<TenantApplication> getTenantApplications() {
-        return tenantApplications;
-    }
-
-    public void setTenantApplications(Set<TenantApplication> tenantApplications) {
-        this.tenantApplications = tenantApplications;
-    }
-
-    public Set<Resource> getTenantResources() {
+    public Set<ResourceVO> getTenantResources() {
         return tenantResources;
     }
 
-    public void setTenantResources(Set<Resource> tenantResources) {
+    public void setTenantResources(Set<ResourceVO> tenantResources) {
         this.tenantResources = tenantResources;
     }
 
-    public Set<Element> getTenantElements() {
+    public Set<ElementVO> getTenantElements() {
         return tenantElements;
     }
 
-    public void setTenantElements(Set<Element> tenantElements) {
+    public void setTenantElements(Set<ElementVO> tenantElements) {
         this.tenantElements = tenantElements;
+    }
+
+    public Set<TenantApplicationVO> getTenantApplications() {
+        return tenantApplications;
+    }
+
+    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) {
+        this.tenantApplications = tenantApplications;
     }
 
     public String getName() {
@@ -268,28 +267,28 @@ public class TenantVO implements Serializable {
         this.locked = locked;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public TenantVO getTenant() {
-        return tenant;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(TenantVO tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

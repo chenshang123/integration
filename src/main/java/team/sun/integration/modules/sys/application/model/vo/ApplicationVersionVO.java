@@ -2,10 +2,9 @@ package team.sun.integration.modules.sys.application.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import team.sun.integration.modules.sys.org.model.vo.OrgVO;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -30,7 +29,7 @@ public class ApplicationVersionVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "应用")
-    private Application applicationVer;
+    private ApplicationVO applicationVer;
 
     @ApiModelProperty(value = "应用版本号")
     private String applicationVersion;
@@ -45,13 +44,13 @@ public class ApplicationVersionVO implements Serializable {
     private String installPackage;
 
     @ApiModelProperty(value = "一对一： 创建人")
-    private User creator;
+    private UserVO creator;
 
     @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private Org department;
+    private OrgVO creatorDepartment;
 
     @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private Tenant tenant;
+    private TenantVO creatorTenant;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -67,16 +66,16 @@ public class ApplicationVersionVO implements Serializable {
 
     @Override
     public String toString() {
-        return "ApplicationVersion{" +
+        return "ApplicationVersionVO{" +
                 "id='" + id + '\'' +
-                ", applicationVersion='" + applicationVersion + '\'' +
                 ", applicationVer=" + applicationVer +
+                ", applicationVersion='" + applicationVersion + '\'' +
                 ", explain='" + explain + '\'' +
                 ", online=" + online +
                 ", installPackage='" + installPackage + '\'' +
                 ", creator=" + creator +
-                ", department=" + department +
-                ", tenant=" + tenant +
+                ", creatorDepartment=" + creatorDepartment +
+                ", creatorTenant=" + creatorTenant +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -92,20 +91,20 @@ public class ApplicationVersionVO implements Serializable {
         this.id = id;
     }
 
+    public ApplicationVO getApplicationVer() {
+        return applicationVer;
+    }
+
+    public void setApplicationVer(ApplicationVO applicationVer) {
+        this.applicationVer = applicationVer;
+    }
+
     public String getApplicationVersion() {
         return applicationVersion;
     }
 
     public void setApplicationVersion(String applicationVersion) {
         this.applicationVersion = applicationVersion;
-    }
-
-    public Application getApplicationVer() {
-        return applicationVer;
-    }
-
-    public void setApplicationVer(Application applicationVer) {
-        this.applicationVer = applicationVer;
     }
 
     public String getExplain() {
@@ -132,28 +131,28 @@ public class ApplicationVersionVO implements Serializable {
         this.installPackage = installPackage;
     }
 
-    public User getCreator() {
+    public UserVO getCreator() {
         return creator;
     }
 
-    public void setCreator(User creator) {
+    public void setCreator(UserVO creator) {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public OrgVO getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(OrgVO creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
-    public Tenant getTenant() {
-        return tenant;
+    public TenantVO getCreatorTenant() {
+        return creatorTenant;
     }
 
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
+    public void setCreatorTenant(TenantVO creatorTenant) {
+        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

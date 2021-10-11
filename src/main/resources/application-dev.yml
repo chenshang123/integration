@@ -61,7 +61,7 @@ spring:
       connection-test-query: SELECT 1
 # ===== 自定义swagger配置 ===== #
 swagger:
-  enable: false
+  enable: true
   application-name: ${spring.application.name}
   application-version: 1.0
   application-description: springfox swagger 3.0整合Demo
@@ -70,3 +70,10 @@ swagger:
 logging:
   level:
     team.sun.integration: debug
+# ===== 自定义File Config配置 ===== #
+file:
+  upload-path: C:\file\temp #斜杠处理 windows \，linux /
+  temp-path: C:\file\temp #斜杠处理 windows \，linux /
+  file-size-max: 104857600 #设置上传单个文件的大小的最大值，目前是设置为1024*1024*100字节，也就是100MB
+  size-max: 10737418240 #设置上传文件总量的最大值,目前是设置为1024*1024*1024*10字节，也就是10GB
+  code-set: UTF-8

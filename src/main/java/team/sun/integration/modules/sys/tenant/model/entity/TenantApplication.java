@@ -40,13 +40,14 @@ public class TenantApplication implements Serializable {
     @Id
     @GeneratedValue(generator = "system_uuid")
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @Column(name = "tenant_application_mid_id")
     private String id;
 
     /**
      * 多对多转多对一：租户-应用
      **/
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "tenant_id", referencedColumnName = "id")
+    @JoinColumn(name = "tenant_id", referencedColumnName = "tenant_id")
     @JsonBackReference
     private Tenant tenant;
 
@@ -55,7 +56,7 @@ public class TenantApplication implements Serializable {
      * 多对多转多对一：租户-应用
      **/
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id", referencedColumnName = "id")
+    @JoinColumn(name = "application_id", referencedColumnName = "application_id")
     @JsonBackReference
     private Application application;
 
@@ -75,12 +76,13 @@ public class TenantApplication implements Serializable {
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
     @JoinColumn(name = "creator_id", unique = true)
     private User creator;
+
     /**
      * 一对一： 创建人所属部门
      */
     @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "department_id", unique = true)
-    private Org department;
+    @JoinColumn(name = "creator_department_id", unique = true)
+    private Org creatorDepartment;
 
     /**
      * 创建时间
@@ -118,7 +120,7 @@ public class TenantApplication implements Serializable {
                 ", days=" + days +
                 ", state=" + state +
                 ", creator=" + creator +
-                ", department=" + department +
+                ", creatorDepartment=" + creatorDepartment +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -132,14 +134,6 @@ public class TenantApplication implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Tenant getTenant() {
-        return tenant;
-    }
-
-    public void setTenant(Tenant tenant) {
-        this.tenant = tenant;
     }
 
     public Application getApplication() {
@@ -174,12 +168,12 @@ public class TenantApplication implements Serializable {
         this.creator = creator;
     }
 
-    public Org getDepartment() {
-        return department;
+    public Org getCreatorDepartment() {
+        return creatorDepartment;
     }
 
-    public void setDepartment(Org department) {
-        this.department = department;
+    public void setCreatorDepartment(Org creatorDepartment) {
+        this.creatorDepartment = creatorDepartment;
     }
 
     public LocalDateTime getCreateTime() {

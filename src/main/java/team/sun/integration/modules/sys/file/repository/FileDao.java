@@ -4,6 +4,8 @@ import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 
+import java.util.List;
+
 /**
  * <p>
  * 系统-应用
@@ -15,5 +17,5 @@ import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 @Repository
 public interface FileDao extends IDao<FileEntity, String> {
 
-
+    List<FileEntity> findByBusinessId(String businessId);
 }
