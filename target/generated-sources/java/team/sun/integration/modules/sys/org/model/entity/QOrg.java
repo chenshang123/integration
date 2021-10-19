@@ -32,9 +32,11 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final QOrg creatorDepartment;
 
-    public final QOrg department;
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant creatorTenant;
+
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath explain = createString("explain");
 
@@ -53,8 +55,6 @@ public class QOrg extends EntityPathBase<Org> {
     public final BooleanPath relationSys = createBoolean("relationSys");
 
     public final NumberPath<Integer> sort = createNumber("sort", Integer.class);
-
-    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
 
     public final NumberPath<Integer> unitType = createNumber("unitType", Integer.class);
 
@@ -81,8 +81,8 @@ public class QOrg extends EntityPathBase<Org> {
     public QOrg(Class<? extends Org> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.department = inits.isInitialized("department") ? new QOrg(forProperty("department"), inits.get("department")) : null;
-        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
+        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
+        this.creatorTenant = inits.isInitialized("creatorTenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("creatorTenant"), inits.get("creatorTenant")) : null;
     }
 
 }

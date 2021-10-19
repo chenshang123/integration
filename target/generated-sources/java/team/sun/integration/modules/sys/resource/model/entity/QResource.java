@@ -30,9 +30,9 @@ public class QResource extends EntityPathBase<Resource> {
 
     public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath firstFloorId = createString("firstFloorId");
 
@@ -88,7 +88,7 @@ public class QResource extends EntityPathBase<Resource> {
         super(type, metadata, inits);
         this.applicationResource = inits.isInitialized("applicationResource") ? new team.sun.integration.modules.sys.application.model.entity.QApplication(forProperty("applicationResource"), inits.get("applicationResource")) : null;
         this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department"), inits.get("department")) : null;
+        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
     }
 
 }

@@ -1,7 +1,6 @@
 package team.sun.integration.protocol.hex.utils;
 
 import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
 
 import java.io.UnsupportedEncodingException;
 import java.time.LocalDate;
@@ -22,13 +21,7 @@ public class HexStringCovert {
 
     /**
      * 截取数组并顺序排列
-     *
-     * @param data
-     * @param start
-     * @param end
-     * @return
      */
-    @NotNull
     @Contract(pure = true)
     public static byte[] arraySub(byte[] data, int start, int end) {
         int size = end - start;
@@ -43,13 +36,7 @@ public class HexStringCovert {
 
     /**
      * 截取数组并倒序排列
-     *
-     * @param data
-     * @param start
-     * @param end
-     * @return
      */
-    @NotNull
     @Contract(pure = true)
     public static byte[] arraySubDesc(byte[] data, int start, int end) {
         int size = end - start;
@@ -63,81 +50,41 @@ public class HexStringCovert {
     }
 
     public static String convertByteArrayToHexString(byte[] byte_array) {
-        String s = "";
+        StringBuilder s = new StringBuilder();
         if (byte_array == null) {
-            return s;
+            return s.toString();
         } else {
-            for (int i = 0; i < byte_array.length; ++i) {
-                String hex = Integer.toHexString(byte_array[i] & 255);
+            for (byte b : byte_array) {
+                String hex = Integer.toHexString(b & 255);
                 if (hex.length() == 1) {
                     hex = '0' + hex;
                 }
-
-                s = s + hex;
+                s.append(hex);
             }
-
-            return s.toUpperCase();
+            return s.toString().toUpperCase();
         }
     }
 
     public static String convertByteArrayToHexWordString(byte[] byte_array) {
-        String s = "";
-        if (byte_array == null) {
-            return s;
-        } else {
+        StringBuilder s = new StringBuilder();
+        if (byte_array != null) {
             for (int i = 0; i < byte_array.length; i += 2) {
                 String hex1 = Integer.toHexString(byte_array[i] & 255);
                 String hex2 = Integer.toHexString(byte_array[i + 1] & 255);
                 if (hex1.length() == 1) {
                     hex1 = "0" + hex1;
                 }
-
                 if (hex2.length() == 1) {
                     hex2 = "0" + hex2;
                 }
-
-                s = s + hex1 + hex2;
-            }
-
-            return s;
-        }
-    }
-
-
-    public static byte[] convertHexStringToByteArray(String str) {
-        str = str.replaceAll(" ", "");
-        double fLen = (double) str.length();
-        int nSize = (int) Math.ceil(fLen / 2.0D);
-        String strArray = null;
-        byte[] bytes = new byte[nSize];
-        if ((double) (nSize * 2) > fLen) {
-            strArray = str + "0";
-        } else {
-            strArray = str;
-        }
-
-        for (int i = 0; i < nSize; ++i) {
-            int index = i * 2;
-            char[] cArr = new char[]{strArray.charAt(index), strArray.charAt(index + 1)};
-            String s = new String(cArr);
-
-            try {
-                int j = Integer.parseInt(s, 16);
-                bytes[i] = (byte) j;
-            } catch (NumberFormatException var11) {
-                var11.printStackTrace();
+                s.append(hex1).append(hex2);
             }
         }
-
-        return bytes;
+        return s.toString();
     }
-
 
     /**
      * 把16进制字符串转换成字节数组
-     *
-     * @param hex
-     * @return byte[]
      */
     public static byte[] hexStringToByte(String hex) {
         int len = (hex.length() / 2);
@@ -152,15 +99,12 @@ public class HexStringCovert {
 
     /**
      * 数组转换成十六进制字符串
-     *
-     * @param bArray
-     * @return HexString
      */
-    public static final String bytesToHexString(byte[] bArray) {
-        StringBuffer sb = new StringBuffer(bArray.length);
+    public static String bytesToHexString(byte[] bArray) {
+        StringBuilder sb = new StringBuilder(bArray.length);
         String sTemp;
-        for (int i = 0; i < bArray.length; i++) {
-            sTemp = Integer.toHexString(0xFF & bArray[i]);
+        for (byte b : bArray) {
+            sTemp = Integer.toHexString(0xFF & b);
             if (sTemp.length() < 2)
                 sb.append(0);
             sb.append(sTemp.toUpperCase());
@@ -169,8 +113,7 @@ public class HexStringCovert {
     }
 
     private static int toByte(char c) {
-        byte b = (byte) "0123456789ABCDEF".indexOf(c);
-        return b;
+        return (byte) "0123456789ABCDEF".indexOf(c);
     }
 
     public static void main(String[] args) throws UnsupportedEncodingException {

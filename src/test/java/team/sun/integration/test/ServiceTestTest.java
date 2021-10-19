@@ -143,8 +143,8 @@ public class ServiceTestTest {
         //StringPath petName = entityPath.getString("org");
 
         BooleanExpression param = Expressions.asBoolean(true).isTrue();
-        param = param.and(quser.org.id.eq("1"));
-        param = param.and(quser.org.firstFloorId.eq("1"));
+        param = param.and(quser.userOrg.id.eq("1"));
+        param = param.and(quser.userOrg.firstFloorId.eq("1"));
 
         Predicate predicate = quser.isNotNull().or(quser.isNull());
 

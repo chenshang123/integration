@@ -81,6 +81,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // 设置允许访问的资源
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers(
+                        //文件上传
+                        "/sys/file/upload",
+
                         // swagger
                         "/swagger-ui/index.html",
                         "/swagger-ui.html",

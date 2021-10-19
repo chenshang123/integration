@@ -51,8 +51,8 @@ public class Contract implements Serializable {
     /**
      * 一对多：合同-文件
      */
-    @OneToMany(mappedBy = "contractFile", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<FileEntity> files = new HashSet<>();
+/*    @OneToMany(mappedBy = "contractFile", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<FileEntity> files = new HashSet<>();*/
 
     /**
      * 合同编号
@@ -173,7 +173,6 @@ public class Contract implements Serializable {
         return "Contract{" +
                 "id='" + id + '\'' +
                 ", contractItemTools=" + contractItemTools +
-                ", files=" + files +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", provinceId='" + provinceId + '\'' +
@@ -209,14 +208,6 @@ public class Contract implements Serializable {
 
     public void setContractItemTools(Set<ContractItemTool> contractItemTools) {
         this.contractItemTools = contractItemTools;
-    }
-
-    public Set<FileEntity> getFiles() {
-        return files;
-    }
-
-    public void setFiles(Set<FileEntity> files) {
-        this.files = files;
     }
 
     public String getCode() {

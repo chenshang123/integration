@@ -54,7 +54,7 @@ public class Resource implements Serializable {
     /**
      * 一对多：菜单-页面元素
      **/
-    @OneToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY, mappedBy = "elementResource")
+    @OneToMany(mappedBy = "elementResource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Element> resourceElements = new HashSet<>();
 
     /**

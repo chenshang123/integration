@@ -9,7 +9,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.model.vo.Ret;
@@ -23,7 +22,6 @@ import team.sun.integration.modules.sys.tenant.service.TenantService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -49,7 +47,7 @@ public class TenantController {
     @GetMapping("/page")
     public Ret page(PageDTO pageDTO, @Valid @ModelAttribute TenantQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
-        QTenant qTenant = QTenant.tenant1;
+        QTenant qTenant = QTenant.tenant;
         Tenant entity = new Tenant();
         BeanUtils.copyProperties(queryDTO, entity);
 

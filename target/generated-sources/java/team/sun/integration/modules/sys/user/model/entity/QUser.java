@@ -30,19 +30,19 @@ public class QUser extends EntityPathBase<User> {
 
     public final QUser creator;
 
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
+
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant creatorTenant;
+
     public final NumberPath<Integer> dataAuthorityType = createNumber("dataAuthorityType", Integer.class);
 
     public final BooleanPath delFlag = createBoolean("delFlag");
-
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
 
     public final StringPath email = createString("email");
 
     public final StringPath faceImg = createString("faceImg");
 
     public final BooleanPath gender = createBoolean("gender");
-
-    public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> groups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("groups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
 
     public final StringPath icCard = createString("icCard");
 
@@ -60,15 +60,11 @@ public class QUser extends EntityPathBase<User> {
 
     public final StringPath loginIp = createString("loginIp");
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg org;
-
     public final StringPath petImg = createString("petImg");
 
     public final StringPath petName = createString("petName");
 
     public final StringPath phone = createString("phone");
-
-    public final SetPath<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition> positions = this.<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition>createSet("positions", team.sun.integration.modules.sys.position.model.entity.Position.class, team.sun.integration.modules.sys.position.model.entity.QPosition.class, PathInits.DIRECT2);
 
     public final StringPath pwd = createString("pwd");
 
@@ -78,15 +74,19 @@ public class QUser extends EntityPathBase<User> {
 
     public final BooleanPath state = createBoolean("state");
 
-    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
-
     public final BooleanPath unitType = createBoolean("unitType");
 
     public final DateTimePath<java.time.LocalDateTime> updatePwdTime = createDateTime("updatePwdTime", java.time.LocalDateTime.class);
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
+    public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> userGroups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("userGroups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
+
     public final StringPath username = createString("username");
+
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg userOrg;
+
+    public final SetPath<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition> userPositions = this.<team.sun.integration.modules.sys.position.model.entity.Position, team.sun.integration.modules.sys.position.model.entity.QPosition>createSet("userPositions", team.sun.integration.modules.sys.position.model.entity.Position.class, team.sun.integration.modules.sys.position.model.entity.QPosition.class, PathInits.DIRECT2);
 
     public final SetPath<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole> userRoles = this.<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole>createSet("userRoles", team.sun.integration.modules.sys.role.model.entity.Role.class, team.sun.integration.modules.sys.role.model.entity.QRole.class, PathInits.DIRECT2);
 
@@ -113,9 +113,9 @@ public class QUser extends EntityPathBase<User> {
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.creator = inits.isInitialized("creator") ? new QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department"), inits.get("department")) : null;
-        this.org = inits.isInitialized("org") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("org"), inits.get("org")) : null;
-        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
+        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
+        this.creatorTenant = inits.isInitialized("creatorTenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("creatorTenant"), inits.get("creatorTenant")) : null;
+        this.userOrg = inits.isInitialized("userOrg") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("userOrg"), inits.get("userOrg")) : null;
     }
 
 }

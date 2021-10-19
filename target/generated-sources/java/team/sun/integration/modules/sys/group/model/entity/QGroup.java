@@ -26,9 +26,11 @@ public class QGroup extends EntityPathBase<Group> {
 
     public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg department;
+    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant creatorTenant;
+
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath explain = createString("explain");
 
@@ -39,8 +41,6 @@ public class QGroup extends EntityPathBase<Group> {
     public final StringPath id = createString("id");
 
     public final StringPath name = createString("name");
-
-    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant tenant;
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 
@@ -65,8 +65,8 @@ public class QGroup extends EntityPathBase<Group> {
     public QGroup(Class<? extends Group> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.department = inits.isInitialized("department") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("department"), inits.get("department")) : null;
-        this.tenant = inits.isInitialized("tenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("tenant"), inits.get("tenant")) : null;
+        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
+        this.creatorTenant = inits.isInitialized("creatorTenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("creatorTenant"), inits.get("creatorTenant")) : null;
     }
 
 }

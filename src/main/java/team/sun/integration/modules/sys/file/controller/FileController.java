@@ -53,7 +53,10 @@ public class FileController {
         this.fileService = fileService;
     }
 
-
+    @PostMapping("/upload")
+    protected Ret doPost(HttpServletRequest request, HttpServletResponse response) {
+        return fileService.upload(request);
+    }
     @PostMapping("/downLoad")
     @ResponseBody
     public Ret upload(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId){

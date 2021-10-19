@@ -32,7 +32,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
 
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
-        QTenant qTenant = QTenant.tenant1;
+        QTenant qTenant = QTenant.tenant;
         BlazeJPAQuery<Tenant> blazeJPAQuery = new BlazeJPAQuery<Tenant>(entityManager, criteriaBuilderFactory)
                 .from(qTenant)
                 .select(qTenant)

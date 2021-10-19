@@ -16,7 +16,7 @@ public class GlobalCorsConfig {
         // 是否发送 Cookie
         corsConfiguration.setAllowCredentials(true);
         // 允许跨域访问的源
-        corsConfiguration.addAllowedOrigin(org.springframework.web.cors.CorsConfiguration.ALL);
+        corsConfiguration.addAllowedOriginPattern(org.springframework.web.cors.CorsConfiguration.ALL);
         // 允许头部设置
         corsConfiguration.addAllowedHeader(org.springframework.web.cors.CorsConfiguration.ALL);
         // 允许请求方法

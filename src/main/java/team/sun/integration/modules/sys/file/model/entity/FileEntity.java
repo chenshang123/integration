@@ -1,6 +1,5 @@
 package team.sun.integration.modules.sys.file.model.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -9,7 +8,6 @@ import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
-import team.sun.integration.modules.tool_test.contract.model.entity.Contract;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -40,10 +38,10 @@ public class FileEntity implements Serializable {
     @Column(name = "file_id")
     private String id;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    /*@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "business_id", referencedColumnName = "contract_id")
     @JsonBackReference
-    private Contract contractFile;
+    private Contract contractFile;*/
 
     /**
      * 文件类型

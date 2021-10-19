@@ -1,32 +1,35 @@
 package team.sun.integration.modules.sys.file.model.properties;
 
 import com.google.common.collect.ImmutableSet;
+import org.apache.commons.io.FileUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
+import org.springframework.util.StringUtils;
+import team.sun.integration.modules.sys.file.model.entity.FileEntity;
+import team.sun.integration.protocol.hex.utils.HexStringCovert;
 
-import java.io.File;
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.*;
+import java.time.LocalDate;
 import java.util.Set;
+import java.util.UUID;
+import java.util.regex.Matcher;
 
 @Component
 @ConfigurationProperties("file")
 public class FileProperties {
 
-    Set<String> allowFileExtName =
-            ImmutableSet.of("rar","zip","arj","gz","z",
-                    "bmp","gif","jpg","pic","png","tif",
-                    "doc","docx","ppt","pptx","xls","xlsx",
-                    "pdf");
+    //"rar","zip","arj","gz","z",
+    // "bmp","gif","jpg","pic","png","tif",
+    // "doc","docx","ppt","pptx","xls","xlsx",
+    //"pdf"
+    Set<String> allowImgExtName =
+            ImmutableSet.of("gif","jpg","png");
+    Set<String> allowOfficeExtName =
+            ImmutableSet.of("doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf");
 
-    Set<String> allowMimeType =
-            ImmutableSet.of("image/pjpeg","application/pdf","application/msword","image/jpeg",
-                    "image/x-png","image/tiff","application/vnd.ms-excel","application/zip",
-                    "image/bmp","image/x-bitmap","image/x-pixmap","image/jpg",
-                    "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet" /*xlsx*/
-                    ,"application/x-rar-compressed","application/rtf","application/x-tika-ooxml",/*xls*/
-                    "application/x-bplist"/*pdf*/,"application/pdf",
-                    "application/vnd.ms-word.document.macroenabled.12"/*docm*/,"application/x-tika-msoffice"/*pdf*/,
-                    "application/vnd.openxmlformats-officedocument.presentationml.presentation"/*pptx*/
-                    ,"application/x-7z-compressed","application/vnd.ms-xpsdocument"/*xps*/);
     /**
      * 文件上传地址
      */
@@ -54,13 +57,109 @@ public class FileProperties {
 
     private final String slash = File.separator;
 
-    public Set<String> getAllowFileExtName() {
-        return allowFileExtName;
+    public String getPathSpacer() {
+        return "_";
     }
 
-    public Set<String> getAllowMimeType() {
-        return allowMimeType;
+    private void rewriteImg(InputStream inputStream, String filePath) throws IOException {
+        if (inputStream == null) {
+            return;
+        }
+        BufferedImage src = ImageIO.read(inputStream);
+        int old_w = src.getWidth();
+        // 得到源图宽
+        int old_h = src.getHeight();
+        // 得到源图长
+        BufferedImage newImg;
+        // 判断输入图片的类型
+        if (src.getType() == 13) {// png,gif
+            newImg = new BufferedImage(old_w, old_h, BufferedImage.TYPE_4BYTE_ABGR);
+        } else {
+            newImg = new BufferedImage(old_w, old_h, BufferedImage.TYPE_INT_RGB);
+        }
+        Graphics2D g = newImg.createGraphics();
+        // 从原图上取颜色绘制新图
+        g.drawImage(src, 0, 0, old_w, old_h, null);
+        g.dispose();
+        // 根据图片尺寸压缩比得到新图的尺寸
+        newImg.getGraphics().drawImage(
+                src.getScaledInstance(old_w, old_h, Image.SCALE_SMOOTH), 0,0, null);
+        File newFile = new File(filePath);
+        String formatName = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
+        ImageIO.write(newImg, formatName, newFile);
     }
+
+    /**
+     * 文件后缀名-验证
+     */
+    public boolean extNameCheck(String filename, Set<String> allowExtName){
+        if (filename != null && !filename.trim().equals("")) {
+            filename = filename.substring(filename.lastIndexOf("\\") + 1);
+            // 得到上传文件的扩展名
+            String fileExtName = filename.substring(filename.lastIndexOf(".") + 1);
+            return StringUtils.hasLength(fileExtName) && allowExtName.contains(fileExtName);
+        }
+        return false;
+    }
+
+    /**
+     * 给文件路径组装时间隔断
+     */
+    private String makeTimePartition() {
+        LocalDate now = LocalDate.now();
+        return now.getYear() +
+                this.getPathSpacer() +
+                now.getMonthValue() +
+                this.getPathSpacer() +
+                now.getDayOfMonth();
+    }
+
+    /**
+     *为文件名组装uuid
+     */
+    private String makeFileName(String fileName) {
+        // 为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
+        return UUID.randomUUID() + "_" + fileName;
+    }
+
+    private String makeSavePath(FileEntity entity){
+        return  this.getUploadPath() + this.getSlash() +
+                entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(this.getSlash())) +
+                this.getSlash() + entity.getName();
+    }
+    /**
+     * 把InputStream首先转换成byte[].
+     */
+    public byte[] InputStreamToByte(InputStream source) throws IOException {
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int len;
+        while ((len = source.read(buffer)) > -1) {
+            byteArrayOutputStream.write(buffer, 0, len);
+        }
+        byteArrayOutputStream.flush();
+        return byteArrayOutputStream.toByteArray();
+    }
+
+    /**
+     * 组装文件保存实体
+     */
+    public FileEntity makeFileEntity(String filename){
+        // 文件上传成功后，将对应的信息保存到数据库SYS_FILE表
+        FileEntity entity = new FileEntity();
+        entity.setName(makeFileName(filename));
+        entity.setStorageUrl(makeTimePartition());
+        return entity;
+    }
+    /**
+     * 保存文件到指定目录，并返回文件详情对象
+     */
+    public FileEntity saveImg(FileEntity entity, byte[] fileBytes) throws IOException {
+        this.rewriteImg(new ByteArrayInputStream(fileBytes), this.makeSavePath(entity));
+        entity.setSize(fileBytes.length);
+        return entity;
+    }
+
 
     public String getUploadPath() {
         return uploadPath;
@@ -102,11 +201,27 @@ public class FileProperties {
         this.codeSet = codeSet;
     }
 
+    public Set<String> getAllowImgExtName() {
+        return allowImgExtName;
+    }
+
+    public Set<String> getAllowOfficeExtName() {
+        return allowOfficeExtName;
+    }
+
     public String getSlash() {
         return slash;
     }
 
-    public String getPathSpacer() {
-        return "_";
+    public static void main(String[] args) throws IOException {
+        FileProperties properties = new FileProperties();
+
+        System.out.println("2021_10_12".replaceAll(properties.getPathSpacer(), Matcher.quoteReplacement(File.separator)));
+        File saveFile = new File("C:\\file\\upload\\2021\\10\\09\\3.jpg");
+        File saveFile2 = new File("C:\\file\\upload\\2021\\10\\09\\33.gif");
+        byte[] source = properties.InputStreamToByte(FileUtils.openInputStream(saveFile));
+        byte[] source2 = HexStringCovert.hexStringToByte("44656C69766572792D646174653AFFD8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053"+HexStringCovert.bytesToHexString(source));
+        FileUtils.writeByteArrayToFile(saveFile2, source2);
+
     }
 }

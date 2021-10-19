@@ -8,6 +8,9 @@ server:
     #key-store-type: JKS
 
 spring:
+  servlet:
+    multipart:
+      enabled: false
   application:
     name:
   jpa:
@@ -72,7 +75,7 @@ logging:
     team.sun.integration: debug
 # ===== 自定义File Config配置 ===== #
 file:
-  upload-path: C:\file\temp #斜杠处理 windows \，linux /
+  upload-path: C:\file\upload #斜杠处理 windows \，linux /
   temp-path: C:\file\temp #斜杠处理 windows \，linux /
   file-size-max: 104857600 #设置上传单个文件的大小的最大值，目前是设置为1024*1024*100字节，也就是100MB
   size-max: 10737418240 #设置上传文件总量的最大值,目前是设置为1024*1024*1024*10字节，也就是10GB

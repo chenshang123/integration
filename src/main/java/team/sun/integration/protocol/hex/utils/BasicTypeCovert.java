@@ -1,6 +1,5 @@
 package team.sun.integration.protocol.hex.utils;
 
-import com.sun.xml.bind.v2.TODO;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
@@ -44,7 +43,6 @@ public class BasicTypeCovert {
      * @param iValue 整数
      * @return 字节数组
      */
-    @Contract(pure = true)
     public static byte[] Int2Bytes_LE(int iValue) {
         byte[] rst = new byte[4];
         // 先写int的最后一个字节
@@ -59,13 +57,11 @@ public class BasicTypeCovert {
     }
 
     /**
-     * int转换为大端byte[]（高位放在高地址中）
+     * int转换为大端byte[]（低位在前）
      *
      * @param iValue 整数
      * @return 字节数组
      */
-    @NotNull
-    @Contract(pure = true)
     public static byte[] Int2Bytes_BE(int iValue) {
         byte[] rst = new byte[4];
         // 先写int的最后一个字节
@@ -80,10 +76,7 @@ public class BasicTypeCovert {
     }
 
     /**
-     * int(小端)
-     *
-     * @param bytes
-     * @return
+     * int(小端)（高位在前）
      */
     public static Integer Bytes2Int_LE(byte[] bytes) {
         Integer iRst = null;
@@ -98,9 +91,6 @@ public class BasicTypeCovert {
 
     /**
      * int大端
-     *
-     * @param bytes
-     * @return
      */
     public static Integer Bytes2Int_BE(byte[] bytes) {
         Integer iRst = null;
@@ -116,9 +106,6 @@ public class BasicTypeCovert {
 
     /**
      * short to byte[]
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(short data) {
         byte[] bytes = new byte[2];
@@ -129,9 +116,6 @@ public class BasicTypeCovert {
 
     /**
      * char to byte[]
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(char data) {
         byte[] bytes = new byte[2];
@@ -142,9 +126,6 @@ public class BasicTypeCovert {
 
     /**
      * long to byte[]
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(long data) {
         byte[] bytes = new byte[8];
@@ -161,9 +142,6 @@ public class BasicTypeCovert {
 
     /**
      * float to byte
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(float data) {
         int intBits = Float.floatToIntBits(data);
@@ -172,9 +150,6 @@ public class BasicTypeCovert {
 
     /**
      * double to byte[]
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(double data) {
         long intBits = Double.doubleToLongBits(data);
@@ -183,10 +158,6 @@ public class BasicTypeCovert {
 
     /**
      * String to byte[]
-     *
-     * @param data
-     * @param charsetName
-     * @return
      */
     public static byte[] getBytes(String data, String charsetName) {
         Charset charset = Charset.forName(charsetName);
@@ -195,9 +166,6 @@ public class BasicTypeCovert {
 
     /**
      * String to byte[]
-     *
-     * @param data
-     * @return
      */
     public static byte[] getBytes(String data) {
         return getBytes(data, "GBK");
@@ -205,9 +173,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to short
-     *
-     * @param bytes
-     * @return
      */
     public static short getShort(byte[] bytes) {
         return (short) ((0xff & bytes[0]) | (0xff00 & (bytes[1] << 8)));
@@ -215,9 +180,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to char
-     *
-     * @param bytes
-     * @return
      */
     public static char getChar(byte[] bytes) {
         return (char) ((0xff & bytes[0]) | (0xff00 & (bytes[1] << 8)));
@@ -227,9 +189,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to long
-     *
-     * @param bytes
-     * @return
      */
     public static long getLong_LE(byte[] bytes) {
         return (0xffL & (long) bytes[0]) | (0xff00L & ((long) bytes[1] << 8)) | (0xff0000L & ((long) bytes[2] << 16))
@@ -246,9 +205,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to float
-     *
-     * @param bytes
-     * @return
      */
     public static float getFloat(byte[] bytes) {
         return Float.intBitsToFloat(Bytes2Int_LE(bytes));
@@ -256,9 +212,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to double
-     *
-     * @param bytes
-     * @return
      */
     public static double getDouble_LE(byte[] bytes) {
         long l = getLong_LE(bytes);
@@ -267,10 +220,6 @@ public class BasicTypeCovert {
 
     /**
      * bytes to string
-     *
-     * @param bytes
-     * @param charsetName
-     * @return
      */
     public static String getString(byte[] bytes, String charsetName) {
         return new String(bytes, Charset.forName(charsetName));
@@ -278,15 +227,13 @@ public class BasicTypeCovert {
 
     /**
      * bytes to string
-     *
-     * @param bytes
-     * @return
      */
     public static String getString(byte[] bytes) {
         return getString(bytes, "GBK");
     }
 
     public static void main(String[] a) {
+        Integer abc = 100;
 
         byte[] bytes = HexStringCovert.hexStringToByte("00800000000976AA");
         byte[] bytes2 = HexStringCovert.hexStringToByte("0080000000000000");
