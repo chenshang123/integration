@@ -29,6 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -85,7 +86,6 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
 
     @Override
     public Ret upload(HttpServletRequest request) {
-
         String tempPath = fileProperties.getTempPath();
         File tmpFile = new File(tempPath);
         if (!tmpFile.exists()) {
@@ -93,7 +93,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
                 throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
             }
         }
-        String message = BusRetEnum.BUS_FILE_UPLOAD_ERROR.getValue();
+        String message = null;
         try {
             // 1、创建一个DiskFileItemFactory工厂
             DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -115,6 +115,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
             }
             // 4、使用ServletFileUpload解析器解析上传数据，解析结果返回的
             List<FileItem> list = upload.parseRequest(request);
+            List<FileEntity> fileEntities = new ArrayList<>(list.size());
             byte[] fileBytes;
             for (FileItem item : list) {
                 if (item.isFormField()) {
@@ -130,12 +131,13 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
                     FileEntity fileEntity = fileProperties.makeFileEntity(filename);
                     // 文件类型是否合法
                     if(fileProperties.extNameCheck(filename, fileProperties.getAllowImgExtName())){
-                        fileProperties.saveImg(fileEntity, fileBytes);
+                        fileEntities.add(fileProperties.saveImg(fileEntity, fileBytes));
                     }else{
                         throw new UploadException(BusRetEnum.BUS_FILE_TYPE_NOT_SUPPORTED.getMsg());
                     }
                 }
             }
+            dao.saveAll(fileEntities);
         } catch (FileUploadBase.FileSizeLimitExceededException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_SINGLE_OVERRUN.getValue();

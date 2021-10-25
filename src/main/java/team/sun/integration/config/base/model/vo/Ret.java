@@ -43,6 +43,7 @@ public class Ret implements Serializable {
     }
 
     public Ret(Object data, BaseKeyValue<String, String> enumData) {
+        if(data != null)
         this.data = data;
         this.code = enumData.getKey();
         this.msg = enumData.getValue();

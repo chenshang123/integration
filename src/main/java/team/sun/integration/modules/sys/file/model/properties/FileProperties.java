@@ -1,12 +1,10 @@
 package team.sun.integration.modules.sys.file.model.properties;
 
 import com.google.common.collect.ImmutableSet;
-import org.apache.commons.io.FileUtils;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
-import team.sun.integration.protocol.hex.utils.HexStringCovert;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -85,8 +83,11 @@ public class FileProperties {
         newImg.getGraphics().drawImage(
                 src.getScaledInstance(old_w, old_h, Image.SCALE_SMOOTH), 0,0, null);
         File newFile = new File(filePath);
-        String formatName = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
-        ImageIO.write(newImg, formatName, newFile);
+        if(newFile.mkdirs() && newFile.createNewFile()){
+            String formatName = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
+            ImageIO.write(newImg, formatName, newFile);
+        }
+
     }
 
     /**
@@ -151,6 +152,7 @@ public class FileProperties {
         entity.setStorageUrl(makeTimePartition());
         return entity;
     }
+
     /**
      * 保存文件到指定目录，并返回文件详情对象
      */
@@ -159,7 +161,6 @@ public class FileProperties {
         entity.setSize(fileBytes.length);
         return entity;
     }
-
 
     public String getUploadPath() {
         return uploadPath;
@@ -213,15 +214,4 @@ public class FileProperties {
         return slash;
     }
 
-    public static void main(String[] args) throws IOException {
-        FileProperties properties = new FileProperties();
-
-        System.out.println("2021_10_12".replaceAll(properties.getPathSpacer(), Matcher.quoteReplacement(File.separator)));
-        File saveFile = new File("C:\\file\\upload\\2021\\10\\09\\3.jpg");
-        File saveFile2 = new File("C:\\file\\upload\\2021\\10\\09\\33.gif");
-        byte[] source = properties.InputStreamToByte(FileUtils.openInputStream(saveFile));
-        byte[] source2 = HexStringCovert.hexStringToByte("44656C69766572792D646174653AFFD8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053D8FF38425053"+HexStringCovert.bytesToHexString(source));
-        FileUtils.writeByteArrayToFile(saveFile2, source2);
-
-    }
 }
