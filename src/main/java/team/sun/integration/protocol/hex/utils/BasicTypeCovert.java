@@ -1,7 +1,6 @@
 package team.sun.integration.protocol.hex.utils;
 
-import org.jetbrains.annotations.Contract;
-import org.jetbrains.annotations.NotNull;
+import cn.hutool.core.util.HexUtil;
 
 import java.nio.charset.Charset;
 
@@ -9,39 +8,6 @@ public class BasicTypeCovert {
 
     /**
      * int转换为小端byte[]（高位放在高地址中）
-     *
-     * @param iValue 整数
-     * @param digit  字节个数
-     * @return 字节数组
-     */
-    @Contract(pure = true)
-    public static byte[] Int2Bytes_LE_digit(int iValue, int digit) {
-        byte[] rst = new byte[digit];
-        if (digit > 0) {
-            // 先写int的最后一个字节
-            rst[0] = (byte) (iValue & 0xFF);
-        }
-        if (digit > 1) {
-            // int 倒数第二个字节
-            rst[1] = (byte) ((iValue & 0xFF00) >> 8);
-        }
-        if (digit > 2) {
-            // int 倒数第三个字节
-            rst[2] = (byte) ((iValue & 0xFF0000) >> 16);
-        }
-        if (digit > 3) {
-            // int 第一个字节
-            rst[3] = (byte) ((iValue & 0xFF000000) >> 24);
-        }
-
-        return rst;
-    }
-
-    /**
-     * int转换为小端byte[]（高位放在高地址中）
-     *
-     * @param iValue 整数
-     * @return 字节数组
      */
     public static byte[] Int2Bytes_LE(int iValue) {
         byte[] rst = new byte[4];
@@ -55,12 +21,32 @@ public class BasicTypeCovert {
         rst[3] = (byte) ((iValue & 0xFF000000) >> 24);
         return rst;
     }
-
     /**
-     * int转换为大端byte[]（低位在前）
-     *
-     * @param iValue 整数
-     * @return 字节数组
+     * int转换为小端byte[]（高位放在高地址中）
+     */
+    public static byte[] Int2Bytes_LE_digit(int iValue, int digit) {
+        byte[] rst = new byte[digit];
+        if(digit > 0){
+            // 先写int的最后一个字节
+            rst[0] = (byte) (iValue & 0xFF);
+        }
+        if(digit > 1){
+            // int 倒数第二个字节
+            rst[1] = (byte) ((iValue & 0xFF00) >> 8);
+        }
+        if(digit > 2){
+            // int 倒数第三个字节
+            rst[2] = (byte) ((iValue & 0xFF0000) >> 16);
+        }
+        if(digit > 3){
+            // int 第一个字节
+            rst[3] = (byte) ((iValue & 0xFF000000) >> 24);
+        }
+
+        return rst;
+    }
+    /**
+     * int转换为大端byte[]（高位放在高地址中）
      */
     public static byte[] Int2Bytes_BE(int iValue) {
         byte[] rst = new byte[4];
@@ -74,9 +60,31 @@ public class BasicTypeCovert {
         rst[0] = (byte) ((iValue & 0xFF000000) >> 24);
         return rst;
     }
-
     /**
-     * int(小端)（高位在前）
+     * int转换为大端byte[]（高位放在高地址中）
+     */
+    public static byte[] Int2Bytes_BE_digit(int iValue, int digit) {
+        byte[] rst = new byte[digit];
+        if(digit > 3){
+            // 先写int的最后一个字节
+            rst[3] = (byte) (iValue & 0xFF);
+        }
+        if(digit > 2){
+            // int 倒数第二个字节
+            rst[2] = (byte) ((iValue & 0xFF00) >> 8);
+        }
+        if(digit > 1){
+            // int 倒数第三个字节
+            rst[1] = (byte) ((iValue & 0xFF0000) >> 16);
+        }
+        if(digit > 0){
+            // int 第一个字节
+            rst[0] = (byte) ((iValue & 0xFF000000) >> 24);
+        }
+        return rst;
+    }
+    /**
+     * int(小端)
      */
     public static Integer Bytes2Int_LE(byte[] bytes) {
         Integer iRst = null;
@@ -95,9 +103,9 @@ public class BasicTypeCovert {
     public static Integer Bytes2Int_BE(byte[] bytes) {
         Integer iRst = null;
         if (null != bytes && bytes.length > 0 && bytes.length < 5) {
-            iRst = (bytes[bytes.length - 1] & 0xFF);
+            iRst = (bytes[bytes.length-1] & 0xFF);
             for (int i = 1; i < bytes.length; i++) {
-                iRst |= (bytes[bytes.length - 1 - i] & 0xFF) << 8 * i;
+                iRst |= (bytes[bytes.length-1-i] & 0xFF) << 8 * i;
             }
         }
         return iRst;
@@ -121,6 +129,18 @@ public class BasicTypeCovert {
         byte[] bytes = new byte[2];
         bytes[0] = (byte) (data);
         bytes[1] = (byte) (data >> 8);
+        return bytes;
+    }
+
+    /**
+     * int to byte[]
+     */
+    public static byte[] getBytes(int data) {
+        byte[] bytes = new byte[4];
+        bytes[0] = (byte) (data & 0xff);
+        bytes[1] = (byte) ((data & 0xff00) >> 8);
+        bytes[2] = (byte) ((data & 0xff0000) >> 16);
+        bytes[3] = (byte) ((data & 0xff000000) >> 24);
         return bytes;
     }
 
@@ -185,36 +205,38 @@ public class BasicTypeCovert {
         return (char) ((0xff & bytes[0]) | (0xff00 & (bytes[1] << 8)));
     }
 
+    /**
+     * bytes to int
+     */
+    public static int getInt(byte[] bytes) {
+        return (0xff & bytes[0]) | (0xff00 & (bytes[1] << 8)) | (0xff0000 & (bytes[2] << 16))
+                | (0xff000000 & (bytes[3] << 24));
+    }
 
 
     /**
      * bytes to long
      */
-    public static long getLong_LE(byte[] bytes) {
+    public static long getLong(byte[] bytes) {
         return (0xffL & (long) bytes[0]) | (0xff00L & ((long) bytes[1] << 8)) | (0xff0000L & ((long) bytes[2] << 16))
                 | (0xff000000L & ((long) bytes[3] << 24)) | (0xff00000000L & ((long) bytes[4] << 32))
                 | (0xff0000000000L & ((long) bytes[5] << 40)) | (0xff000000000000L & ((long) bytes[6] << 48))
                 | (0xff00000000000000L & ((long) bytes[7] << 56));
-    }
-    public static long getLong_BE(byte[] bytes) {
-        return (0xffL & (long) bytes[7]) | (0xff00L & ((long) bytes[6] << 8)) | (0xff0000L & ((long) bytes[5] << 16))
-                | (0xff000000L & ((long) bytes[4] << 24)) | (0xff00000000L & ((long) bytes[3] << 32))
-                | (0xff0000000000L & ((long) bytes[2] << 40)) | (0xff000000000000L & ((long) bytes[1] << 48))
-                | (0xff00000000000000L & ((long) bytes[0] << 56));
     }
 
     /**
      * bytes to float
      */
     public static float getFloat(byte[] bytes) {
-        return Float.intBitsToFloat(Bytes2Int_LE(bytes));
+        return Float.intBitsToFloat(getInt(bytes));
     }
 
     /**
      * bytes to double
      */
-    public static double getDouble_LE(byte[] bytes) {
-        long l = getLong_LE(bytes);
+    public static double getDouble(byte[] bytes) {
+        long l = getLong(bytes);
+        System.out.println(l);
         return Double.longBitsToDouble(l);
     }
 
@@ -232,32 +254,12 @@ public class BasicTypeCovert {
         return getString(bytes, "GBK");
     }
 
-    public static void main(String[] a) {
-        Integer abc = 100;
-
-        byte[] bytes = HexStringCovert.hexStringToByte("00800000000976AA");
-        byte[] bytes2 = HexStringCovert.hexStringToByte("0080000000000000");
-        for (int i = 0; i < bytes.length; i++) {
-            //System.out.println(bytes[i]);
-        }
-
-        System.out.println("Adata小端="+getLong_LE(bytes));
-        System.out.println("Adata大端="+getLong_BE(bytes));
-        System.out.println("offst小端="+getLong_LE(bytes2));
-        System.out.println("offst大端="+getLong_BE(bytes2));
-        long offst = getLong_LE(bytes2);
-        long adata = getLong_LE(bytes);
-        long bdata = 0;
-        if(adata>offst){
-            bdata = adata - offst;
-            System.out.println("Bdata="+bdata);
-        }else{
-            bdata = offst - adata;
-            System.out.println("Bdata="+bdata);
-            //TODO: 见C语言处理
-            bdata = - bdata;
-        }
-        long f = bdata*offst;
-        System.out.println("f="+f);
+    public static void main(String[] a){
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(5001)));
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(4001)));
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(5001)));
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(4001)));
+        System.out.println(Bytes2Int_LE(HexUtil.decodeHex("01400000")));
+        System.out.println(Bytes2Int_BE(HexUtil.decodeHex("01400000")));
     }
 }

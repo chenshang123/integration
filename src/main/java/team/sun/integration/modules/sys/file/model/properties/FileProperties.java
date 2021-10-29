@@ -83,10 +83,10 @@ public class FileProperties {
         newImg.getGraphics().drawImage(
                 src.getScaledInstance(old_w, old_h, Image.SCALE_SMOOTH), 0,0, null);
         File newFile = new File(filePath);
-        if(newFile.mkdirs() && newFile.createNewFile()){
+        //if(newFile.mkdirs() && newFile.createNewFile()){
             String formatName = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
             ImageIO.write(newImg, formatName, newFile);
-        }
+        //}
 
     }
 
@@ -123,10 +123,15 @@ public class FileProperties {
         return UUID.randomUUID() + "_" + fileName;
     }
 
+    /**
+     * 组装文件全路径，并创建文件目录
+     */
     private String makeSavePath(FileEntity entity){
-        return  this.getUploadPath() + this.getSlash() +
-                entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(this.getSlash())) +
-                this.getSlash() + entity.getName();
+        String dirs = this.getUploadPath() + this.getSlash() +
+                entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(this.getSlash()));
+        File file = new File(dirs);
+        file.mkdirs();
+        return  dirs + this.getSlash() + entity.getName();
     }
     /**
      * 把InputStream首先转换成byte[].

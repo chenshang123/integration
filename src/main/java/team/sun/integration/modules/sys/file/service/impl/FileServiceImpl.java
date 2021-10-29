@@ -137,7 +137,8 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
                     }
                 }
             }
-            dao.saveAll(fileEntities);
+            this.dao.save(fileEntities.get(0));
+            //this.saveOrUpdateBatch(fileEntities);
         } catch (FileUploadBase.FileSizeLimitExceededException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_SINGLE_OVERRUN.getValue();

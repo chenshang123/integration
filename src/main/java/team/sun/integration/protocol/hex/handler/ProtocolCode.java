@@ -6,8 +6,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 @Inherited
-/**
- * 注解：协议编号
+/*
+  注解：协议编号
  */
 public @interface ProtocolCode {
     int value();

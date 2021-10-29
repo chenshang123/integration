@@ -11,18 +11,17 @@ public class JsonUtils {
     /**
      * 将json字符串转化为Map
      * json字符串中所有字段不能重复
-     *
-     * @param jsonStr {\"topic\":\""+1+"\",\"payload\":\"{'data':{'lock':"+1+",'door':"+1+"},'code':"+1+"}\"}
+     * @param jsonStr  {\"topic\":\""+1+"\",\"payload\":\"{'data':{'lock':"+1+",'door':"+1+"},'code':"+1+"}\"}
      * @return {door=1, code=1, topic=1, lock=1}
      */
-    public static Map<String, Object> jsonStrToMap(String jsonStr) {
+    public static Map<String, Object> jsonStrToMap(String jsonStr){
         JSONObject jsonObject = JSON.parseObject(jsonStr);
         Set<Map.Entry<String, Object>> set = jsonObject.entrySet();
         Map<String, Object> map = new HashMap<>();
-        while (true) {
+        while (true){
 //            System.out.println("entrySet,长度："+jsonObject.entrySet().size());
-            for (Map.Entry<String, Object> entry : jsonObject.entrySet()) {
-                if (null != entry.getValue() && null != entry.getValue()) {
+            for(Map.Entry<String, Object> entry: jsonObject.entrySet()){
+                if(null != entry.getValue() && null != entry.getValue()){
                     String value = entry.getValue().toString().trim();
                     if (value.startsWith("{") && value.endsWith("}")) {
                         JSONObject jb = JSON.parseObject(entry.getValue().toString());
@@ -32,7 +31,7 @@ public class JsonUtils {
                     } else if (value.startsWith("[") && value.endsWith("]")) {
                         //暂时没有的数组类型，不做处理
 
-                    } else {
+                    }else{
 //                        System.out.println(entry.getKey()+","+entry.getValue());
                         map.put(entry.getKey(), entry.getValue());
                         jsonObject.remove(entry.getKey());
@@ -41,7 +40,7 @@ public class JsonUtils {
 
                 }
             }
-            if (jsonObject.size() == 0) {
+            if(jsonObject.size() == 0){
                 break;
             }
         }
@@ -57,7 +56,7 @@ public class JsonUtils {
         protocol2.add("4_topic1");
         protocol2.add("4_topic2");
         protocol2.add("4_topic1");
-        for (String str : protocol2) {
+        for(String str : protocol2){
             System.out.println(str);
         }
 
@@ -71,14 +70,14 @@ public class JsonUtils {
         // 获得秒
         int second = cl.get(Calendar.SECOND);
 
-        String time = "" + date + hour + minute + second;
+        String time = ""+date+hour+minute+second;
         System.out.println(time);
         System.out.println(Integer.parseInt(time));
         System.out.println(Integer.MAX_VALUE);
 
         System.out.println();
         System.out.println(Math.abs(ThreadLocalRandom.current().nextInt()));
-        String json = "{\"topic\":\"" + 1 + "\",\"payload\":\"{'data':{'lock':" + 1 + ",'door':" + 1 + "},'code':" + 1 + "}\"}";
+        String json = "{\"topic\":\""+1+"\",\"payload\":\"{'data':{'lock':"+1+",'door':"+1+"},'code':"+1+"}\"}";
         Map<Integer, String> data = new TreeMap<>();
 //        json =
 //                "{\"topic\":\""+data.get("topic")+"\",\"payload\":\"{'data':{'lock':"+data.get("lock")+",'door':"+data.get("door")+"},'code':"+data.get("code")+"}\"}"

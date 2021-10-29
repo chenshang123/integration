@@ -1,6 +1,7 @@
 package team.sun.integration.modules.sys.security.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
         if (vo == null) {
             throw new UsernameNotFoundException(String.format("Not user Found with '%s'", username));
         }
-        return new User(vo.getUser().getUsername(), vo.getUser().getPwd(), getGrantedAuthority(vo.getRoleIds()));
+        return new User(vo.getUsername(), vo.getPwd(), getGrantedAuthority(vo.getRoleIds()));
     }
 
     /***
@@ -54,7 +55,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
      */
     private List<GrantedAuthority> getGrantedAuthority(List<String> roleIds) {
         List<GrantedAuthority> authorities = new ArrayList<>(roleIds.size());
-
         for (String role : roleIds) {
             authorities.add(new SimpleGrantedAuthority(role));
         }

@@ -36,7 +36,7 @@ public interface UserService extends IService<User, String> {
     //授权
     void authZRole(String userId, List<String> roleIds);
 
-    UserLoginVO getByUsername(String username, boolean withRoles);
+    UserLoginVO getByUsername(String username, Boolean withRoles);
 
     boolean verifyPassword(String password, String rawPassword);
 

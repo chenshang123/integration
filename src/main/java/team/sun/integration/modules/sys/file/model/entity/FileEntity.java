@@ -1,15 +1,15 @@
 package team.sun.integration.modules.sys.file.model.entity;
 
-import org.hibernate.annotations.GenericGenerator;
-import org.hibernate.annotations.SQLDelete;
-import org.hibernate.annotations.Where;
+import org.hibernate.annotations.*;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.Table;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -24,6 +24,9 @@ import java.time.LocalDateTime;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_file")
 @SQLDelete(sql = "update sys_file set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -82,23 +85,28 @@ public class FileEntity implements Serializable {
     /**
      * 一对一： 创建人
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", unique = true)
-    private User creator;
+    @CreatedBy
+    @Column(name = "creator_id")
+    private String creatorId;
+
+    /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "last_modified_id")
+    private String lastModifiedId;
 
     /**
      * 一对一： 创建人所属部门
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_department_id", unique = true)
-    private Org creatorDepartment;
+
+    private String creatorDepartmentId;
 
     /**
      * 一对一： 创建人所属租户
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_tenant_id", unique = true)
-    private Tenant creatorTenant;
+
+    private String creatorTenantId;
 
     /**
      * 创建时间
@@ -129,16 +137,18 @@ public class FileEntity implements Serializable {
 
     @Override
     public String toString() {
-        return "File{" +
+        return "FileEntity{" +
                 "id='" + id + '\'' +
                 ", type=" + type +
-                ", size='" + size + '\'' +
+                ", size=" + size +
                 ", name='" + name + '\'' +
                 ", storageUrl='" + storageUrl + '\'' +
                 ", businessName='" + businessName + '\'' +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", businessId='" + businessId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
+                ", lastModifiedId='" + lastModifiedId + '\'' +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -202,28 +212,36 @@ public class FileEntity implements Serializable {
         this.businessId = businessId;
     }
 
-    public User getCreator() {
-        return creator;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
-    public Org getCreatorDepartment() {
-        return creatorDepartment;
+    public String getLastModifiedId() {
+        return lastModifiedId;
     }
 
-    public void setCreatorDepartment(Org creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setLastModifiedId(String lastModifiedId) {
+        this.lastModifiedId = lastModifiedId;
     }
 
-    public Tenant getCreatorTenant() {
-        return creatorTenant;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreatorTenant(Tenant creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
+    }
+
+    public String getCreatorTenantId() {
+        return creatorTenantId;
+    }
+
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
     public LocalDateTime getCreateTime() {

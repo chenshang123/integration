@@ -1,12 +1,11 @@
 package team.sun.integration.modules.sys.security.utils;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -54,7 +53,6 @@ public class JwtTokenUtil {
      * 用户角色信息
      *
      * @param isRememberMe 是否记住我
-     * @return
      */
     public static String createToken(UserDetails details, boolean isRememberMe) {
         // 如果选择记住我，则token的过期时间为
@@ -75,8 +73,8 @@ public class JwtTokenUtil {
     /**
      * 从token获取用户信息
      *
-     * @param token
-     * @return
+     * param token
+     * return
      */
     public static String getUsername(String token) {
         return getTokenBody(token).getSubject();
@@ -85,8 +83,8 @@ public class JwtTokenUtil {
     /**
      * 从token中获取用户角色
      *
-     * @param token
-     * @return
+     * param token
+     * return
      */
     public static Set<String> getUserRole(String token) {
         List<GrantedAuthority> userAuthorities = (List<GrantedAuthority>) getTokenBody(token).get(ROLE_CLAIMS);
@@ -96,8 +94,8 @@ public class JwtTokenUtil {
     /**
      * 是否已过期
      *
-     * @param token
-     * @return
+     * param token
+     * return
      */
     public static boolean isExpiration(String token) {
         return getTokenBody(token).getExpiration().before(new Date());
@@ -110,13 +108,13 @@ public class JwtTokenUtil {
     /**
      * 验证token
      *
-     * @param token
-     * @param userDetails
-     * @return
+     * param token
+     * param userDetails
+     * return
      */
     public static boolean validateToken(String token, UserDetails userDetails) {
         User user = (User) userDetails;
         final String username = getUsername(token);
-        return (username.equals(user.getUsername()) && isExpiration(token) == false);
+        return (username.equals(user.getUsername()) && !isExpiration(token));
     }
 }

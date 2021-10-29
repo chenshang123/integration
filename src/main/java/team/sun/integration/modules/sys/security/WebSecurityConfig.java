@@ -11,6 +11,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import team.sun.integration.modules.sys.security.filter.JwtAuthenticationTokenFilter;
 import team.sun.integration.modules.sys.security.handler.JwtAuthenticationEntryPoint;
 import team.sun.integration.modules.sys.security.handler.LoginFailHandler;
 import team.sun.integration.modules.sys.security.handler.LoginSuccessHandler;
@@ -28,27 +29,16 @@ import team.sun.integration.modules.sys.security.handler.RestAuthenticationAcces
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-//    @Qualifier("userDetailServiceImpl")
-//    private final  UserDetailsService userDetailService;
-
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
     @Autowired
     private RestAuthenticationAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
-
     @Bean
     public PasswordEncoder getPasswordEncoderBean() {
         return new BCryptPasswordEncoder();
     }
-
-/*
-    @Bean
-    public JwtAuthenticationTokenFilter getauthenticationTokenFilterBean() {
-        return new JwtAuthenticationTokenFilter();
-    }
-*/
 
     @Bean
     public LoginSuccessHandler getLoginSuccessHandler() {

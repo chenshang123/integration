@@ -1,4 +1,4 @@
-package team.sun.integration.modules.sys.security;
+package team.sun.integration.modules.sys.security.filter;
 
 import java.io.IOException;
 
@@ -49,7 +49,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         try {
             String username = JwtTokenUtil.getUsername(token);
             if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-                /*
+                /*TODO
                  *  注意：
                  *       这里代码不应该从数据库中去查，而是从缓存中根据token去查，目前只是做测试，无关紧要
                  *      如果是真正的项目实际开发需要增加缓存
@@ -60,7 +60,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
                     UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                             userDetails, null, userDetails.getAuthorities());
                     authentication.setDetails(new WebAuthenticationDetails(request));
-
 
                     SecurityContextHolder.getContext().setAuthentication(authentication);
                 }

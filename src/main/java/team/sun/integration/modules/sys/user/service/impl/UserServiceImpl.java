@@ -121,14 +121,14 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     }
 
     @Override
-    public UserLoginVO getByUsername(String userName, boolean withRoles) {
+    public UserLoginVO getByUsername(String userName, Boolean withRoles) {
         if (!StringUtils.hasLength(userName)) {
             return null;
         }
         User user = dao.findByUsername(userName);
         UserLoginVO vo = new UserLoginVO();
         if (user != null) {
-            vo.setUser(user);
+            BeanUtils.copyProperties(user, vo);
             if (withRoles && null != user.getUserRoles()) {
                 user.getUserRoles().forEach((mid) -> vo.getRoleIds().add(mid.getId()));
             }
