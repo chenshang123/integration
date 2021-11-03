@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,24 +35,6 @@ public class TenantApplicationSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "使用状态（永久可用、使用中、已到期、已禁用）")
     private Integer state;
-
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String departmentId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
-    @ApiModelProperty(value = "版本号")
-    private Integer version;
 
     public String getId() {
         return id;
@@ -95,51 +76,4 @@ public class TenantApplicationSaveDTO implements Serializable {
         this.state = state;
     }
 
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 }

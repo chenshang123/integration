@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.exception.UploadException;
 import team.sun.integration.config.base.model.vo.PageRet;
@@ -77,10 +78,10 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     @Override
     public FileEntity update(FileUpdateDTO dto) {
         Optional<FileEntity> optional = this.getById(dto.getId());
-        optional.ifPresent(File -> {
-            BeanUtils.copyProperties(dto, File);
-            this.dao.save(File);
-        });
+        if(optional.isPresent()){
+            BeanUtils.copyProperties(dto, optional.get());
+            this.dao.save(optional.get());
+        }
         return optional.orElse(null);
     }
 
@@ -89,7 +90,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         String tempPath = fileProperties.getTempPath();
         File tmpFile = new File(tempPath);
         if (!tmpFile.exists()) {
-            if (!tmpFile.mkdir()){
+            if (!tmpFile.mkdirs()){
                 throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
             }
         }
@@ -117,18 +118,22 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
             List<FileItem> list = upload.parseRequest(request);
             List<FileEntity> fileEntities = new ArrayList<>(list.size());
             byte[] fileBytes;
+            String uuid = fileProperties.makeUUID();
             for (FileItem item : list) {
                 if (item.isFormField()) {
                     //普通输入项的数据，暂时不处理
                     return Ret.fail();
                 } else {
                     String filename = item.getName();
+                    if(StringUtils.hasLength(filename) && filename.length() > 50){
+                        throw new UploadException(BusRetEnum.BUS_FILE_NAME_SUPER_LONG.getMsg());
+                    }
                     // 如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的
                     InputStream in = item.getInputStream();
                     fileBytes = fileProperties.InputStreamToByte(in);
                     in.close();
                     item.delete();
-                    FileEntity fileEntity = fileProperties.makeFileEntity(filename);
+                    FileEntity fileEntity = fileProperties.makeFileEntity(uuid, filename);
                     // 文件类型是否合法
                     if(fileProperties.extNameCheck(filename, fileProperties.getAllowImgExtName())){
                         fileEntities.add(fileProperties.saveImg(fileEntity, fileBytes));
@@ -145,6 +150,9 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         } catch (FileUploadBase.SizeLimitExceededException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_OVERRUN.getValue();
+        }catch (UploadException e){
+            e.printStackTrace();
+            message = e.getMessage();
         } catch (IOException e){
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_IO_ERROR.getValue();
@@ -154,4 +162,5 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         }
         return Ret.success(message);
     }
+
 }

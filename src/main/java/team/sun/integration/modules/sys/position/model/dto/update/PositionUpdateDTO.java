@@ -2,8 +2,6 @@ package team.sun.integration.modules.sys.position.model.dto.update;
 
 import io.swagger.annotations.ApiModel;
 import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
@@ -52,36 +50,6 @@ public class PositionUpdateDTO implements Serializable {
     private String explain;
 
     /**
-     * 创建人
-     */
-    private String creatorId;
-
-    /**
-     * 所属部门
-     */
-    private String departmentId;
-
-    /**
-     * 所属租户
-     */
-    private String tenantId;
-
-
-    /**
-     * 创建时间
-     */
-    @CreatedDate
-    @Column(name = "create_time", updatable = false, nullable = false)
-    private LocalDateTime createTime;
-
-    /**
-     * 修改时间
-     */
-    @LastModifiedDate
-    @Column(name = "update_time", nullable = false)
-    private LocalDateTime updateTime;
-
-    /**
      * 0正常 1删除
      */
     @Column(name = "del_flag")
@@ -124,46 +92,6 @@ public class PositionUpdateDTO implements Serializable {
 
     public void setExplain(String explain) {
         this.explain = explain;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getDepartmentId() {
-        return departmentId;
-    }
-
-    public void setDepartmentId(String departmentId) {
-        this.departmentId = departmentId;
-    }
-
-    public String getTenantId() {
-        return tenantId;
-    }
-
-    public void setTenantId(String tenantId) {
-        this.tenantId = tenantId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

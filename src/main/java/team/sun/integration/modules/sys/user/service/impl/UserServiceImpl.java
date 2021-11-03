@@ -125,7 +125,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         if (!StringUtils.hasLength(userName)) {
             return null;
         }
-        User user = dao.findByUsername(userName);
+        User user = this.dao.findByUsername(userName);
         UserLoginVO vo = new UserLoginVO();
         if (user != null) {
             BeanUtils.copyProperties(user, vo);

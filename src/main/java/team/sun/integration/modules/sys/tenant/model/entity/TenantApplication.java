@@ -4,11 +4,11 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -71,18 +71,17 @@ public class TenantApplication implements Serializable {
     private Integer state;
 
     /**
-     * 一对一： 创建人
-     */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", unique = true)
-    private User creator;
-
-    /**
      * 一对一： 创建人所属部门
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_department_id", unique = true)
-    private Org creatorDepartment;
+    @Column(name = "creator_department_id")
+    private String creatorDepartmentId;
+
+    /**
+     * 一对一： 创建人
+     */
+    @CreatedBy
+    @Column(name = "creator_id")
+    private String creatorId;
 
     /**
      * 创建时间
@@ -90,6 +89,13 @@ public class TenantApplication implements Serializable {
     @CreatedDate
     @Column(name = "create_time", updatable = false, nullable = false)
     private LocalDateTime createTime;
+
+    /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "modifier_id")
+    private String modifierId;
 
     /**
      * 修改时间
@@ -102,7 +108,7 @@ public class TenantApplication implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Boolean delFlag;
+    private Character delFlag;
 
     /**
      * 版本号
@@ -119,9 +125,10 @@ public class TenantApplication implements Serializable {
                 ", application=" + application +
                 ", days=" + days +
                 ", state=" + state +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
+                ", modifierId='" + modifierId + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
@@ -134,6 +141,14 @@ public class TenantApplication implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Tenant getTenant() {
+        return tenant;
+    }
+
+    public void setTenant(Tenant tenant) {
+        this.tenant = tenant;
     }
 
     public Application getApplication() {
@@ -160,20 +175,20 @@ public class TenantApplication implements Serializable {
         this.state = state;
     }
 
-    public User getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public Org getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorDepartment(Org creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -184,6 +199,14 @@ public class TenantApplication implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
+    }
+
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -192,11 +215,11 @@ public class TenantApplication implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public Character getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Character delFlag) {
         this.delFlag = delFlag;
     }
 

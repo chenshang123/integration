@@ -5,11 +5,9 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
 
-import javax.persistence.Column;
 import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -67,21 +65,6 @@ public class TenantUpdateDTO implements Serializable {
     @ApiModelProperty(value = "是否被锁定：0 未锁定 1锁定")
     @Convert(converter = TenantAction.Convert.class)
     private TenantAction locked;
-
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String creatorDepartmentId;
-
-    @ApiModelProperty(value = "所属租户")
-    private String creatorTenantId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
@@ -199,46 +182,6 @@ public class TenantUpdateDTO implements Serializable {
 
     public void setLocked(TenantAction locked) {
         this.locked = locked;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreatorDepartmentId() {
-        return creatorDepartmentId;
-    }
-
-    public void setCreatorDepartmentId(String creatorDepartmentId) {
-        this.creatorDepartmentId = creatorDepartmentId;
-    }
-
-    public String getCreatorTenantId() {
-        return creatorTenantId;
-    }
-
-    public void setCreatorTenantId(String creatorTenantId) {
-        this.creatorTenantId = creatorTenantId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

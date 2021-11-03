@@ -41,6 +41,7 @@ public enum BusRetEnum implements BaseKeyValue<String, String> {
     BUS_FILE_OVERRUN("10308", "上传文件的总大小超出限制的最大值"),
     BUS_FILE_EXT_NAME_ERROR("10309", "文件扩展名错误"),
     BUS_FILE_IO_ERROR("10310", "文件流操作失败"),
+    BUS_FILE_NAME_SUPER_LONG("10311", "文件名称超过50个字符"),
 
     /* 登录login 10400*/
     BUS_LOGIN_BAD_CREDENTIALS("10400", "用户校验失败，请检查用户名与密码！"),

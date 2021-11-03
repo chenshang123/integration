@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,35 +24,14 @@ public class LoginLogUpdateDTO implements Serializable {
 
     private String id;
 
-    /**
-     * 终端类型（chrome/google/微信小程序/APP）
-     */
+    @ApiModelProperty(value = "终端类型（chrome/google/微信小程序/APP）")
     private String terminalType;
 
-    /**
-     * 操作系统（windows/linux/Android）
-     */
-    private String operatSystem;
+    @ApiModelProperty(value = "操作系统（windows/linux/Android）")
+    private String operationSystem;
 
-    /**
-     * ip地址
-     */
+    @ApiModelProperty(value = "ip地址")
     private String ip;
-
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String creatorDepartmentId;
-
-    @ApiModelProperty(value = "所属租户")
-    private String creatorTenantId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
@@ -77,12 +55,12 @@ public class LoginLogUpdateDTO implements Serializable {
         this.terminalType = terminalType;
     }
 
-    public String getOperatSystem() {
-        return operatSystem;
+    public String getOperationSystem() {
+        return operationSystem;
     }
 
-    public void setOperatSystem(String operatSystem) {
-        this.operatSystem = operatSystem;
+    public void setOperationSystem(String operationSystem) {
+        this.operationSystem = operationSystem;
     }
 
     public String getIp() {
@@ -91,46 +69,6 @@ public class LoginLogUpdateDTO implements Serializable {
 
     public void setIp(String ip) {
         this.ip = ip;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreatorDepartmentId() {
-        return creatorDepartmentId;
-    }
-
-    public void setCreatorDepartmentId(String creatorDepartmentId) {
-        this.creatorDepartmentId = creatorDepartmentId;
-    }
-
-    public String getCreatorTenantId() {
-        return creatorTenantId;
-    }
-
-    public void setCreatorTenantId(String creatorTenantId) {
-        this.creatorTenantId = creatorTenantId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

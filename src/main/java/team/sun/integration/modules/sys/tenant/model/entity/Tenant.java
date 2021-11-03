@@ -3,13 +3,13 @@ package team.sun.integration.modules.sys.tenant.model.entity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.resource.model.entity.Element;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -154,25 +154,23 @@ public class Tenant implements Serializable {
     private TenantAction locked;
 
     /**
-     * 一对一： 创建人
-     */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", unique = true)
-    private User creator;
-
-    /**
      * 一对一： 创建人所属部门
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_department_id", unique = true)
-    private Org creatorDepartment;
+    @Column(name = "creator_department_id")
+    private String creatorDepartmentId;
 
     /**
      * 一对一： 创建人所属租户
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_tenant_id", unique = true)
-    private Tenant creatorTenant;
+    @Column(name = "creator_tenant_Id")
+    private String creatorTenantId;
+
+    /**
+     * 一对一： 创建人
+     */
+    @CreatedBy
+    @Column(name = "creator_id")
+    private String creatorId;
 
     /**
      * 创建时间
@@ -180,6 +178,13 @@ public class Tenant implements Serializable {
     @CreatedDate
     @Column(name = "create_time", updatable = false, nullable = false)
     private LocalDateTime createTime;
+
+    /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "modifier_id")
+    private String modifierId;
 
     /**
      * 修改时间
@@ -192,7 +197,7 @@ public class Tenant implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Boolean delFlag;
+    private Character delFlag;
 
     /**
      * 版本号
@@ -221,10 +226,11 @@ public class Tenant implements Serializable {
                 ", county='" + county + '\'' +
                 ", address='" + address + '\'' +
                 ", locked=" + locked +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
+                ", modifierId='" + modifierId + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
@@ -367,28 +373,28 @@ public class Tenant implements Serializable {
         this.locked = locked;
     }
 
-    public User getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(User creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public Org getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setCreatorDepartment(Org creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
-    public Tenant getCreatorTenant() {
-        return creatorTenant;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorTenant(Tenant creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -399,6 +405,14 @@ public class Tenant implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
+    }
+
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -407,11 +421,11 @@ public class Tenant implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public Character getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Character delFlag) {
         this.delFlag = delFlag;
     }
 

@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_file")
-@SQLDelete(sql = "update sys_file set del_flag = true where id = ? and version = ? ")
+@SQLDelete(sql = "update sys_file set del_flag = true where file_id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 public class FileEntity implements Serializable {
 
@@ -82,6 +82,20 @@ public class FileEntity implements Serializable {
     @Column(name = "business_id")
     private String businessId;
 
+
+
+    /**
+     * 一对一： 创建人所属部门
+     */
+    @Column(name = "creator_department_id")
+    private String creatorDepartmentId;
+
+    /**
+     * 一对一： 创建人所属租户
+     */
+    @Column(name = "creator_tenant_Id")
+    private String creatorTenantId;
+
     /**
      * 一对一： 创建人
      */
@@ -90,30 +104,18 @@ public class FileEntity implements Serializable {
     private String creatorId;
 
     /**
-     * 一对一： 最后修改人
-     */
-    @LastModifiedBy
-    @Column(name = "last_modified_id")
-    private String lastModifiedId;
-
-    /**
-     * 一对一： 创建人所属部门
-     */
-
-    private String creatorDepartmentId;
-
-    /**
-     * 一对一： 创建人所属租户
-     */
-
-    private String creatorTenantId;
-
-    /**
      * 创建时间
      */
     @CreatedDate
     @Column(name = "create_time", updatable = false, nullable = false)
     private LocalDateTime createTime;
+
+    /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "modifier_id")
+    private String modifierId;
 
     /**
      * 修改时间
@@ -126,7 +128,7 @@ public class FileEntity implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Boolean delFlag;
+    private Character delFlag;
 
     /**
      * 版本号
@@ -145,11 +147,11 @@ public class FileEntity implements Serializable {
                 ", storageUrl='" + storageUrl + '\'' +
                 ", businessName='" + businessName + '\'' +
                 ", businessId='" + businessId + '\'' +
-                ", creatorId='" + creatorId + '\'' +
-                ", lastModifiedId='" + lastModifiedId + '\'' +
                 ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
                 ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
+                ", modifierId='" + modifierId + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
@@ -212,22 +214,6 @@ public class FileEntity implements Serializable {
         this.businessId = businessId;
     }
 
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getLastModifiedId() {
-        return lastModifiedId;
-    }
-
-    public void setLastModifiedId(String lastModifiedId) {
-        this.lastModifiedId = lastModifiedId;
-    }
-
     public String getCreatorDepartmentId() {
         return creatorDepartmentId;
     }
@@ -244,12 +230,28 @@ public class FileEntity implements Serializable {
         this.creatorTenantId = creatorTenantId;
     }
 
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
     public LocalDateTime getCreateTime() {
         return createTime;
     }
 
     public void setCreateTime(LocalDateTime createTime) {
         this.createTime = createTime;
+    }
+
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
     }
 
     public LocalDateTime getUpdateTime() {
@@ -260,11 +262,11 @@ public class FileEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public Character getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Character delFlag) {
         this.delFlag = delFlag;
     }
 

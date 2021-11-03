@@ -52,18 +52,6 @@ public class RegionSaveDTO implements Serializable {
     @ApiModelProperty(value = "纬度")
     private String lng;
 
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
-    @ApiModelProperty(value = "版本号")
-    private Integer version;
-
     public String getId() {
         return id;
     }
@@ -144,35 +132,4 @@ public class RegionSaveDTO implements Serializable {
         this.lng = lng;
     }
 
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 }

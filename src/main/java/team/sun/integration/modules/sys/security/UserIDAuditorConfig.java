@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.security;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.domain.AuditorAware;
@@ -11,12 +12,12 @@ import team.sun.integration.modules.sys.user.service.UserService;
 import java.util.Optional;
 
 @Configuration
-public class UserIDAuditorBean implements AuditorAware<String> {
+public class UserIDAuditorConfig implements AuditorAware<String> {
 
     private final UserService userService;
 
     @Autowired
-    public UserIDAuditorBean(UserService userService) {
+    public UserIDAuditorConfig(UserService userService) {
         this.userService = userService;
     }
 
@@ -25,13 +26,15 @@ public class UserIDAuditorBean implements AuditorAware<String> {
      * 查询当前用户id
      */
     @Override
-    public Optional<String> getCurrentAuditor() {
-        String userName = JwtSecurityUtil.getCurrentUserName();
-        UserLoginVO userLoginVO = null;
-        if(StringUtils.hasLength(userName)) {
-            userLoginVO = userService.getByUsername(userName, false);
-        }
-        return Optional.ofNullable(userLoginVO).map(vo -> vo.getUsername());
+    public @NotNull Optional<String> getCurrentAuditor() {
+//        String userName = JwtSecurityUtil.getCurrentUserName();
+//        UserLoginVO userLoginVO = null;
+//        if(StringUtils.hasLength(userName)) {
+//            userLoginVO = userService.getByUsername(userName, false);
+//        }
+//        return Optional.ofNullable(userLoginVO).map(UserLoginVO::getUsername);
+        String id = "1";
+        return Optional.ofNullable(id);
     }
 
 }

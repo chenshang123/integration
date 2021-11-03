@@ -4,6 +4,8 @@ import com.google.common.collect.ImmutableSet;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
+import team.sun.integration.config.base.enums.ret.BusRetEnum;
+import team.sun.integration.config.base.exception.UploadException;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 
 import javax.imageio.ImageIO;
@@ -115,12 +117,16 @@ public class FileProperties {
                 now.getDayOfMonth();
     }
 
+    public String makeUUID(){
+        return UUID.randomUUID().toString().replaceAll("-", "");
+    }
+
     /**
      *为文件名组装uuid
      */
-    private String makeFileName(String fileName) {
+    private String makeFileName(String uuid, String fileName) {
         // 为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
-        return UUID.randomUUID() + "_" + fileName;
+        return uuid + "_" + fileName;
     }
 
     /**
@@ -130,7 +136,11 @@ public class FileProperties {
         String dirs = this.getUploadPath() + this.getSlash() +
                 entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(this.getSlash()));
         File file = new File(dirs);
-        file.mkdirs();
+        if (!file.exists()) {
+            if (!file.mkdirs()){
+                throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
+            }
+        }
         return  dirs + this.getSlash() + entity.getName();
     }
     /**
@@ -150,11 +160,12 @@ public class FileProperties {
     /**
      * 组装文件保存实体
      */
-    public FileEntity makeFileEntity(String filename){
+    public FileEntity makeFileEntity(String uuid, String filename){
         // 文件上传成功后，将对应的信息保存到数据库SYS_FILE表
         FileEntity entity = new FileEntity();
-        entity.setName(makeFileName(filename));
+        entity.setName(makeFileName(uuid, filename));
         entity.setStorageUrl(makeTimePartition());
+        entity.setBusinessId(uuid);
         return entity;
     }
 

@@ -4,10 +4,8 @@ package team.sun.integration.modules.sys.permission.model.dto.update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -58,12 +56,6 @@ public class PermissionDataUpdateDTO implements Serializable {
 
     @ApiModelProperty(value = "共享数据-部门")
     private String shareDepartmentId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
 
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
@@ -165,22 +157,6 @@ public class PermissionDataUpdateDTO implements Serializable {
 
     public void setShareDepartmentId(String shareDepartmentId) {
         this.shareDepartmentId = shareDepartmentId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

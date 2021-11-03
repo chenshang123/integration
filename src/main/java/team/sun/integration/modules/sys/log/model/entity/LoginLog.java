@@ -3,11 +3,10 @@ package team.sun.integration.modules.sys.log.model.entity;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
+import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.org.model.entity.Org;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -39,60 +38,41 @@ public class LoginLog implements Serializable {
     private String id;
 
     /**
-     * 管理菜单页面id
+     * 终端类型（chrome/google/微信小程序/APP）
      */
-    private String resourceId;
+    @Column(name = "terminal_type")
+    private String terminalType;
 
     /**
-     * ip
+     * 操作系统（windows/linux/Android）
      */
+    @Column(name = "operation_system")
+    private String operationSystem;
+
+    /**
+     * ip地址
+     */
+    @Column(name = "ip")
     private String ip;
-
-    /**
-     * 操作名称
-     */
-    private String name;
-
-    /**
-     * 入参内容
-     */
-    private String parameter;
-
-    /**
-     * 操作内容
-     */
-    private String content;
-
-    /**
-     * 操作状态 0失败 1成功
-     */
-    private Boolean state;
-
-    /**
-     * 日志类型： 0 系统日志 1业务日志  2 异常事件
-     */
-    private Integer type;
-
-    /**
-     * 一对一： 创建人
-     */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_id", unique = true)
-    private User creator;
 
     /**
      * 一对一： 创建人所属部门
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_department_id", unique = true)
-    private Org creatorDepartment;
+    @Column(name = "creator_department_id")
+    private String creatorDepartmentId;
 
     /**
      * 一对一： 创建人所属租户
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "creator_tenant_id", unique = true)
-    private Tenant creatorTenant;
+    @Column(name = "creator_tenant_Id")
+    private String creatorTenantId;
+
+    /**
+     * 一对一： 创建人
+     */
+    @CreatedBy
+    @Column(name = "creator_id")
+    private String creatorId;
 
     /**
      * 创建时间
@@ -102,17 +82,24 @@ public class LoginLog implements Serializable {
     private LocalDateTime createTime;
 
     /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "modifier_id")
+    private String modifierId;
+
+    /**
      * 修改时间
      */
     @LastModifiedDate
-    @Column(nullable = false)
+    @Column(name = "update_time", nullable = false)
     private LocalDateTime updateTime;
 
     /**
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Boolean delFlag;
+    private Character delFlag;
 
     /**
      * 版本号
@@ -125,17 +112,14 @@ public class LoginLog implements Serializable {
     public String toString() {
         return "LoginLog{" +
                 "id='" + id + '\'' +
-                ", resourceId='" + resourceId + '\'' +
+                ", terminalType='" + terminalType + '\'' +
+                ", operationSystem='" + operationSystem + '\'' +
                 ", ip='" + ip + '\'' +
-                ", name='" + name + '\'' +
-                ", parameter='" + parameter + '\'' +
-                ", content='" + content + '\'' +
-                ", state=" + state +
-                ", type=" + type +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
+                ", modifierId='" + modifierId + '\'' +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
@@ -150,12 +134,20 @@ public class LoginLog implements Serializable {
         this.id = id;
     }
 
-    public String getResourceId() {
-        return resourceId;
+    public String getTerminalType() {
+        return terminalType;
     }
 
-    public void setResourceId(String resourceId) {
-        this.resourceId = resourceId;
+    public void setTerminalType(String terminalType) {
+        this.terminalType = terminalType;
+    }
+
+    public String getOperationSystem() {
+        return operationSystem;
+    }
+
+    public void setOperationSystem(String operationSystem) {
+        this.operationSystem = operationSystem;
     }
 
     public String getIp() {
@@ -166,68 +158,28 @@ public class LoginLog implements Serializable {
         this.ip = ip;
     }
 
-    public String getName() {
-        return name;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public String getParameter() {
-        return parameter;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setParameter(String parameter) {
-        this.parameter = parameter;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
-    public String getContent() {
-        return content;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
-    public Boolean getState() {
-        return state;
-    }
-
-    public void setState(Boolean state) {
-        this.state = state;
-    }
-
-    public Integer getType() {
-        return type;
-    }
-
-    public void setType(Integer type) {
-        this.type = type;
-    }
-
-    public User getCreator() {
-        return creator;
-    }
-
-    public void setCreator(User creator) {
-        this.creator = creator;
-    }
-
-    public Org getCreatorDepartment() {
-        return creatorDepartment;
-    }
-
-    public void setCreatorDepartment(Org creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
-    }
-
-    public Tenant getCreatorTenant() {
-        return creatorTenant;
-    }
-
-    public void setCreatorTenant(Tenant creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {
@@ -238,6 +190,14 @@ public class LoginLog implements Serializable {
         this.createTime = createTime;
     }
 
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
+    }
+
     public LocalDateTime getUpdateTime() {
         return updateTime;
     }
@@ -246,11 +206,11 @@ public class LoginLog implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public Character getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Character delFlag) {
         this.delFlag = delFlag;
     }
 

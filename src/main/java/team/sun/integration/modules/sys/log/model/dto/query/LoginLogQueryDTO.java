@@ -25,19 +25,13 @@ public class LoginLogQueryDTO implements Serializable {
 
     private String id;
 
-    /**
-     * 终端类型（chrome/google/微信小程序/APP）
-     */
+    @ApiModelProperty(value = "终端类型（chrome/google/微信小程序/APP）")
     private String terminalType;
 
-    /**
-     * 操作系统（windows/linux/Android）
-     */
-    private String operatSystem;
+    @ApiModelProperty(value = "操作系统（windows/linux/Android）")
+    private String operationSystem;
 
-    /**
-     * ip地址
-     */
+    @ApiModelProperty(value = "ip地址")
     private String ip;
 
     @ApiModelProperty(value = "创建人")
@@ -77,12 +71,12 @@ public class LoginLogQueryDTO implements Serializable {
         this.terminalType = terminalType;
     }
 
-    public String getOperatSystem() {
-        return operatSystem;
+    public String getOperationSystem() {
+        return operationSystem;
     }
 
-    public void setOperatSystem(String operatSystem) {
-        this.operatSystem = operatSystem;
+    public void setOperationSystem(String operationSystem) {
+        this.operationSystem = operationSystem;
     }
 
     public String getIp() {

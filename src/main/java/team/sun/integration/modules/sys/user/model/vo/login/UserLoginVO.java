@@ -1,14 +1,9 @@
 package team.sun.integration.modules.sys.user.model.vo.login;
 
-import org.checkerframework.checker.units.qual.A;
-import team.sun.integration.modules.sys.role.model.vo.RoleVO;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * 用户角色

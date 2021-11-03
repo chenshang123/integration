@@ -4,6 +4,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
@@ -98,6 +99,13 @@ public class Region implements Serializable {
     private LocalDateTime createTime;
 
     /**
+     * 一对一： 最后修改人
+     */
+    @LastModifiedBy
+    @Column(name = "modifier_id")
+    private String modifierId;
+
+    /**
      * 修改时间
      */
     @LastModifiedDate
@@ -108,7 +116,7 @@ public class Region implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Boolean delFlag;
+    private Character delFlag;
 
     /**
      * 版本号
