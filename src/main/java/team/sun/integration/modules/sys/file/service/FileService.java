@@ -9,10 +9,11 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.file.model.dto.save.FileSaveDTO;
 import team.sun.integration.modules.sys.file.model.dto.update.FileUpdateDTO;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
+import team.sun.integration.modules.sys.file.model.vo.FileVO;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -26,11 +27,17 @@ public interface FileService extends IService<FileEntity, String> {
 
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
 
-    List<FileEntity> getByBusinessId(String businessId);
+    List<FileVO> get(String businessId);
+
+    List<String> getNames(String businessId);
+
+    String getPath(String name);
 
     FileEntity save(FileSaveDTO entity);
 
     FileEntity update(FileUpdateDTO entity);
 
     Ret upload(HttpServletRequest request);
+
+    void downloadLocalImg(HttpServletResponse response, String name);
 }

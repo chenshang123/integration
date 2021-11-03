@@ -3,6 +3,7 @@ package team.sun.integration.modules.sys.file.repository;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
+import team.sun.integration.modules.sys.file.model.vo.FileVO;
 
 import java.util.List;
 
@@ -18,4 +19,6 @@ import java.util.List;
 public interface FileDao extends IDao<FileEntity, String> {
 
     List<FileEntity> findByBusinessId(String businessId);
+
+    FileEntity findByName(String name);
 }

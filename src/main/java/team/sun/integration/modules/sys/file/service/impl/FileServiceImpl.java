@@ -4,10 +4,7 @@ import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadBase;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -23,16 +20,19 @@ import team.sun.integration.modules.sys.file.model.dto.update.FileUpdateDTO;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 import team.sun.integration.modules.sys.file.model.entity.QFileEntity;
 import team.sun.integration.modules.sys.file.model.properties.FileProperties;
+import team.sun.integration.modules.sys.file.model.vo.FileVO;
 import team.sun.integration.modules.sys.file.repository.FileDao;
 import team.sun.integration.modules.sys.file.service.FileService;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.stream.Collectors;
 
 /**
  * <p>
@@ -64,8 +64,30 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     }
 
     @Override
-    public List<FileEntity> getByBusinessId(String businessId) {
-        return this.dao.findByBusinessId(businessId);
+    public List<FileVO> get(String businessId) {
+        List<FileEntity> fileEntities = dao.findByBusinessId(businessId);
+        return Optional.ofNullable(fileEntities).orElseGet(ArrayList :: new).stream().filter(Objects::nonNull).map(entity -> {
+            FileVO fileVO = new FileVO();
+            BeanUtils.copyProperties(entity, fileVO);
+            return fileVO;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public List<String> getNames(String businessId) {
+        List<FileEntity> fileVOS = dao.findByBusinessId(businessId);
+        return Optional.ofNullable(fileVOS).orElse(new ArrayList<>()).stream().map(FileEntity::getName).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getPath(String name) {
+        FileEntity vo = dao.findByName(name);
+        if(StringUtils.hasLength(vo.getName()) && StringUtils.hasLength(vo.getStorageUrl())){
+          return fileProperties.getUploadPath() + fileProperties.getSlash() +
+                  vo.getStorageUrl().replaceAll(fileProperties.getPathSpacer(), Matcher.quoteReplacement(fileProperties.getSlash())) +
+                  fileProperties.getSlash() + vo.getName();
+        }
+        return null;
     }
 
     @Override
@@ -87,63 +109,13 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
 
     @Override
     public Ret upload(HttpServletRequest request) {
-        String tempPath = fileProperties.getTempPath();
-        File tmpFile = new File(tempPath);
-        if (!tmpFile.exists()) {
-            if (!tmpFile.mkdirs()){
-                throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
-            }
-        }
-        String message = null;
+        String message = "";
         try {
-            // 1、创建一个DiskFileItemFactory工厂
-            DiskFileItemFactory factory = new DiskFileItemFactory();
-            // 设置工厂的缓冲区的大小，当上传的文件大小超过缓冲区的大小时，就会生成一个
-            // 临时文件存放到指定的临时目录当中。设置缓冲区的大小为100KB，其默认大小是10KB
-            factory.setSizeThreshold(1024 * 100);
-            // 设置上传时生成的临时文件的保存目录
-            factory.setRepository(tmpFile);
-            // 2、创建一个文件上传解析器
-            ServletFileUpload upload = new ServletFileUpload(factory);
-            // 解决上传文件名的中文乱码
-            upload.setHeaderEncoding(fileProperties.getCodeSet());
-            upload.setFileSizeMax(fileProperties.getFileSizeMax());
-            upload.setSizeMax(fileProperties.getSizeMax());
-            // 3、判断提交上来的数据是否是上传表单的数据
-            if (!ServletFileUpload.isMultipartContent(request)) {
-                // 按照传统方式获取数据
-                return Ret.fail();
+            List<FileEntity> fileEntities = fileProperties.upload(request);
+            if(fileEntities.size()>0){
+                this.saveOrUpdateBatch(fileEntities);
+                return Ret.success(fileEntities.get(0).getBusinessId());
             }
-            // 4、使用ServletFileUpload解析器解析上传数据，解析结果返回的
-            List<FileItem> list = upload.parseRequest(request);
-            List<FileEntity> fileEntities = new ArrayList<>(list.size());
-            byte[] fileBytes;
-            String uuid = fileProperties.makeUUID();
-            for (FileItem item : list) {
-                if (item.isFormField()) {
-                    //普通输入项的数据，暂时不处理
-                    return Ret.fail();
-                } else {
-                    String filename = item.getName();
-                    if(StringUtils.hasLength(filename) && filename.length() > 50){
-                        throw new UploadException(BusRetEnum.BUS_FILE_NAME_SUPER_LONG.getMsg());
-                    }
-                    // 如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的
-                    InputStream in = item.getInputStream();
-                    fileBytes = fileProperties.InputStreamToByte(in);
-                    in.close();
-                    item.delete();
-                    FileEntity fileEntity = fileProperties.makeFileEntity(uuid, filename);
-                    // 文件类型是否合法
-                    if(fileProperties.extNameCheck(filename, fileProperties.getAllowImgExtName())){
-                        fileEntities.add(fileProperties.saveImg(fileEntity, fileBytes));
-                    }else{
-                        throw new UploadException(BusRetEnum.BUS_FILE_TYPE_NOT_SUPPORTED.getMsg());
-                    }
-                }
-            }
-            this.dao.save(fileEntities.get(0));
-            //this.saveOrUpdateBatch(fileEntities);
         } catch (FileUploadBase.FileSizeLimitExceededException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_SINGLE_OVERRUN.getValue();
@@ -161,6 +133,16 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
             message = BusRetEnum.BUS_FILE_UPLOAD_ERROR.getValue();
         }
         return Ret.success(message);
+    }
+
+    @Override
+    public void downloadLocalImg(HttpServletResponse response, String name) {
+        String path = this.getPath(name);
+        try {
+            fileProperties.downloadLocal(path, response);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }

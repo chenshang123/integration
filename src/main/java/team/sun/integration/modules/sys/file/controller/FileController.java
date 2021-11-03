@@ -47,16 +47,25 @@ public class FileController {
         this.fileService = fileService;
     }
 
-    @PostMapping("/upload")
-    protected Ret doPost(HttpServletRequest request, HttpServletResponse response) {
+    @ApiOperation(value = "图片本地下载")
+    @PostMapping("/upload/img")
+    protected Ret upload(HttpServletRequest request) {
         return fileService.upload(request);
     }
-    @PostMapping("/downLoad")
+
+    @ApiOperation(value = "图片本地下载")
+    @GetMapping("/download/Local/Img")
+    public void downLoad(HttpServletResponse response,
+                        @ApiParam(name = "name", value = "name", required = true) @RequestParam String name){
+        fileService.downloadLocalImg(response, name);
+
+    }
+
+    @ApiOperation(value = "获取文件路径集合")
+    @GetMapping("/urls")
     @ResponseBody
-    public Ret upload(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId){
-
-
-        return null;
+    public Ret urls(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId){
+        return Ret.success(fileService.getNames(businessId));
     }
 
     @ApiOperation(value = "分页查询")

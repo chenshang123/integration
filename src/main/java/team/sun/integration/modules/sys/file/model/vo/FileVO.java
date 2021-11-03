@@ -51,21 +51,6 @@ public class FileVO implements Serializable {
     @ApiModelProperty(value = "菜单id")
     private String resourceId;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
-
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
-
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
 
@@ -82,11 +67,6 @@ public class FileVO implements Serializable {
                 ", storageUrl='" + storageUrl + '\'' +
                 ", businessName='" + businessName + '\'' +
                 ", resourceId='" + resourceId + '\'' +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
                 '}';
@@ -146,46 +126,6 @@ public class FileVO implements Serializable {
 
     public void setResourceId(String resourceId) {
         this.resourceId = resourceId;
-    }
-
-    public UserVO getCreator() {
-        return creator;
-    }
-
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
-    }
-
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
-    }
-
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
-    }
-
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
-    }
-
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

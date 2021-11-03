@@ -82,8 +82,6 @@ public class FileEntity implements Serializable {
     @Column(name = "business_id")
     private String businessId;
 
-
-
     /**
      * 一对一： 创建人所属部门
      */

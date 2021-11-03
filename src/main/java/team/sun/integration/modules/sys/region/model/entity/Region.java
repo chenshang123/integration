@@ -241,11 +241,19 @@ public class Region implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Boolean getDelFlag() {
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
+    }
+
+    public Character getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Boolean delFlag) {
+    public void setDelFlag(Character delFlag) {
         this.delFlag = delFlag;
     }
 
