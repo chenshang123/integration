@@ -28,15 +28,15 @@ public class QUser extends EntityPathBase<User> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final QUser creator;
+    public final StringPath creatorDepartmentId = createString("creatorDepartmentId");
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
+    public final StringPath creatorId = createString("creatorId");
 
-    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant creatorTenant;
+    public final StringPath creatorTenantId = createString("creatorTenantId");
 
     public final NumberPath<Integer> dataAuthorityType = createNumber("dataAuthorityType", Integer.class);
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
 
     public final StringPath email = createString("email");
 
@@ -59,6 +59,8 @@ public class QUser extends EntityPathBase<User> {
     public final NumberPath<Integer> loginFail = createNumber("loginFail", Integer.class);
 
     public final StringPath loginIp = createString("loginIp");
+
+    public final StringPath modifierId = createString("modifierId");
 
     public final StringPath petImg = createString("petImg");
 
@@ -112,10 +114,7 @@ public class QUser extends EntityPathBase<User> {
 
     public QUser(Class<? extends User> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.creator = inits.isInitialized("creator") ? new QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
-        this.creatorTenant = inits.isInitialized("creatorTenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("creatorTenant"), inits.get("creatorTenant")) : null;
-        this.userOrg = inits.isInitialized("userOrg") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("userOrg"), inits.get("userOrg")) : null;
+        this.userOrg = inits.isInitialized("userOrg") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("userOrg")) : null;
     }
 
 }

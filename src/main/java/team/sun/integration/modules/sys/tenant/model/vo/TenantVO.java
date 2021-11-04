@@ -2,15 +2,12 @@ package team.sun.integration.modules.sys.tenant.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.resource.model.vo.ElementVO;
 import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
-import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -80,21 +77,6 @@ public class TenantVO implements Serializable {
     @ApiModelProperty(value = "是否被锁定：0 未锁定 1锁定")
     private TenantAction locked;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
-
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
-
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
 
@@ -121,11 +103,6 @@ public class TenantVO implements Serializable {
                 ", county='" + county + '\'' +
                 ", address='" + address + '\'' +
                 ", locked=" + locked +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
                 '}';
@@ -265,46 +242,6 @@ public class TenantVO implements Serializable {
 
     public void setLocked(TenantAction locked) {
         this.locked = locked;
-    }
-
-    public UserVO getCreator() {
-        return creator;
-    }
-
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
-    }
-
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
-    }
-
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
-    }
-
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
-    }
-
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

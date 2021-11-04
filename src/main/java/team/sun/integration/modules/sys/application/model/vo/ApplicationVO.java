@@ -5,14 +5,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
-import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -66,18 +63,6 @@ public class ApplicationVO implements Serializable {
     @ApiModelProperty(value = "运行状态（运行中、停运中）")
     private ApplicationAction runState;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
-
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
     @ApiModelProperty(value = "0正常 1删除")
     private Boolean delFlag;
 
@@ -99,10 +84,6 @@ public class ApplicationVO implements Serializable {
                 ", logo='" + logo + '\'' +
                 ", type=" + type +
                 ", runState=" + runState +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", createTime=" + createTime +
-                ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
                 ", version=" + version +
                 '}';
@@ -202,38 +183,6 @@ public class ApplicationVO implements Serializable {
 
     public void setRunState(ApplicationAction runState) {
         this.runState = runState;
-    }
-
-    public UserVO getCreator() {
-        return creator;
-    }
-
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
-    }
-
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
-    }
-
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
     }
 
     public Boolean getDelFlag() {

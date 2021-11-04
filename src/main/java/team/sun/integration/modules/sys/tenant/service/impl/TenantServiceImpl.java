@@ -2,6 +2,7 @@ package team.sun.integration.modules.sys.tenant.service.impl;
 
 import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
@@ -9,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.sys.application.model.entity.QApplication;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
@@ -33,9 +35,11 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QTenant qTenant = QTenant.tenant;
-        BlazeJPAQuery<Tenant> blazeJPAQuery = new BlazeJPAQuery<Tenant>(entityManager, criteriaBuilderFactory)
-                .from(qTenant)
+        QApplication qApplication = QApplication.application;
+        BlazeJPAQuery<Tenant> blazeJPAQuery = new BlazeJPAQuery<Tuple>(entityManager, criteriaBuilderFactory)
                 .select(qTenant)
+//                .leftJoin(qTenant.tenantApplications, qApplication)
+                .from(qTenant)
                 .where(predicate).orderBy(qTenant.id.asc().nullsLast());
         PagedList<Tenant> Tenants = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 

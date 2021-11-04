@@ -60,9 +60,6 @@ public class ApplicationPageVO implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -84,7 +81,6 @@ public class ApplicationPageVO implements Serializable {
                 ", runState=" + runState +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
-                ", delFlag=" + delFlag +
                 ", version=" + version +
                 '}';
     }
@@ -183,14 +179,6 @@ public class ApplicationPageVO implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

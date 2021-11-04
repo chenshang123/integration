@@ -25,7 +25,13 @@ public class QSecurityParam extends EntityPathBase<SecurityParam> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final StringPath creatorDepartmentId = createString("creatorDepartmentId");
+
+    public final StringPath creatorId = createString("creatorId");
+
+    public final StringPath creatorTenantId = createString("creatorTenantId");
+
+    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
 
     public final NumberPath<Integer> faultLimit = createNumber("faultLimit", Integer.class);
 
@@ -38,6 +44,8 @@ public class QSecurityParam extends EntityPathBase<SecurityParam> {
     public final NumberPath<Integer> logDataUp = createNumber("logDataUp", Integer.class);
 
     public final NumberPath<Integer> maxSession = createNumber("maxSession", Integer.class);
+
+    public final StringPath modifierId = createString("modifierId");
 
     public final StringPath networkSegment = createString("networkSegment");
 

@@ -28,11 +28,11 @@ public class QResource extends EntityPathBase<Resource> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
+    public final StringPath creatorDepartmentId = createString("creatorDepartmentId");
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
+    public final StringPath creatorId = createString("creatorId");
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
 
     public final StringPath firstFloorId = createString("firstFloorId");
 
@@ -41,6 +41,8 @@ public class QResource extends EntityPathBase<Resource> {
     public final StringPath id = createString("id");
 
     public final NumberPath<Integer> layer = createNumber("layer", Integer.class);
+
+    public final StringPath modifierId = createString("modifierId");
 
     public final StringPath name = createString("name");
 
@@ -86,9 +88,7 @@ public class QResource extends EntityPathBase<Resource> {
 
     public QResource(Class<? extends Resource> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.applicationResource = inits.isInitialized("applicationResource") ? new team.sun.integration.modules.sys.application.model.entity.QApplication(forProperty("applicationResource"), inits.get("applicationResource")) : null;
-        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
+        this.applicationResource = inits.isInitialized("applicationResource") ? new team.sun.integration.modules.sys.application.model.entity.QApplication(forProperty("applicationResource")) : null;
     }
 
 }

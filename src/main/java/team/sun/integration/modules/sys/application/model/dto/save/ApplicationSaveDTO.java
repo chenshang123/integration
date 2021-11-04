@@ -3,12 +3,10 @@ package team.sun.integration.modules.sys.application.model.dto.save;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -50,30 +48,6 @@ public class ApplicationSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App）")
     private ApplicationType type;
-
-    @ApiModelProperty(value = "运行状态（运行中、停运中）")
-    private ApplicationAction runState;
-
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String creatorDepartmentId;
-
-    @ApiModelProperty(value = "所属租户")
-    private String creatorTenantId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
-    @ApiModelProperty(value = "版本号")
-    private Integer version;
 
     public String getId() {
         return id;
@@ -147,67 +121,4 @@ public class ApplicationSaveDTO implements Serializable {
         this.type = type;
     }
 
-    public ApplicationAction getRunState() {
-        return runState;
-    }
-
-    public void setRunState(ApplicationAction runState) {
-        this.runState = runState;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreatorDepartmentId() {
-        return creatorDepartmentId;
-    }
-
-    public void setCreatorDepartmentId(String creatorDepartmentId) {
-        this.creatorDepartmentId = creatorDepartmentId;
-    }
-
-    public String getCreatorTenantId() {
-        return creatorTenantId;
-    }
-
-    public void setCreatorTenantId(String creatorTenantId) {
-        this.creatorTenantId = creatorTenantId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 }

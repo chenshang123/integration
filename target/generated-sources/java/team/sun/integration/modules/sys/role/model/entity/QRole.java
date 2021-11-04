@@ -18,8 +18,6 @@ public class QRole extends EntityPathBase<Role> {
 
     private static final long serialVersionUID = -911251079L;
 
-    private static final PathInits INITS = PathInits.DIRECT2;
-
     public static final QRole role = new QRole("role");
 
     public final BooleanPath available = createBoolean("available");
@@ -28,17 +26,19 @@ public class QRole extends EntityPathBase<Role> {
 
     public final DateTimePath<java.time.LocalDateTime> createTime = createDateTime("createTime", java.time.LocalDateTime.class);
 
-    public final team.sun.integration.modules.sys.user.model.entity.QUser creator;
+    public final StringPath creatorDepartmentId = createString("creatorDepartmentId");
 
-    public final team.sun.integration.modules.sys.org.model.entity.QOrg creatorDepartment;
+    public final StringPath creatorId = createString("creatorId");
 
-    public final team.sun.integration.modules.sys.tenant.model.entity.QTenant creatorTenant;
+    public final StringPath creatorTenantId = createString("creatorTenantId");
 
-    public final BooleanPath delFlag = createBoolean("delFlag");
+    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
 
     public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> groups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("groups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
 
     public final StringPath id = createString("id");
+
+    public final StringPath modifierId = createString("modifierId");
 
     public final StringPath name = createString("name");
 
@@ -55,26 +55,15 @@ public class QRole extends EntityPathBase<Role> {
     public final NumberPath<Integer> version = createNumber("version", Integer.class);
 
     public QRole(String variable) {
-        this(Role.class, forVariable(variable), INITS);
+        super(Role.class, forVariable(variable));
     }
 
     public QRole(Path<? extends Role> path) {
-        this(path.getType(), path.getMetadata(), PathInits.getFor(path.getMetadata(), INITS));
+        super(path.getType(), path.getMetadata());
     }
 
     public QRole(PathMetadata metadata) {
-        this(metadata, PathInits.getFor(metadata, INITS));
-    }
-
-    public QRole(PathMetadata metadata, PathInits inits) {
-        this(Role.class, metadata, inits);
-    }
-
-    public QRole(Class<? extends Role> type, PathMetadata metadata, PathInits inits) {
-        super(type, metadata, inits);
-        this.creator = inits.isInitialized("creator") ? new team.sun.integration.modules.sys.user.model.entity.QUser(forProperty("creator"), inits.get("creator")) : null;
-        this.creatorDepartment = inits.isInitialized("creatorDepartment") ? new team.sun.integration.modules.sys.org.model.entity.QOrg(forProperty("creatorDepartment"), inits.get("creatorDepartment")) : null;
-        this.creatorTenant = inits.isInitialized("creatorTenant") ? new team.sun.integration.modules.sys.tenant.model.entity.QTenant(forProperty("creatorTenant"), inits.get("creatorTenant")) : null;
+        super(Role.class, metadata);
     }
 
 }
