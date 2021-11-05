@@ -5,6 +5,8 @@ import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
+import java.util.Optional;
+
 @Repository
 public interface UserDao extends IDao<User, String> {
 
@@ -13,5 +15,9 @@ public interface UserDao extends IDao<User, String> {
 
     @EntityGraph(attributePaths = "userRoles")
     User findByUsername(String userName);
+
+    @Override
+    @EntityGraph("User-relation")
+    Optional<User> findById(String id);
 
 }

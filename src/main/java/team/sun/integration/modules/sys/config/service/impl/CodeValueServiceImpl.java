@@ -36,9 +36,9 @@ public class CodeValueServiceImpl extends ServiceImpl<CodeValueDao, CodeValue> i
                 .from(qCodeValue)
                 .select(qCodeValue)
                 .where(predicate).orderBy(qCodeValue.id.asc().nullsLast());
-        PagedList<CodeValue> codeValues = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<CodeValue> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(codeValues, codeValues.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

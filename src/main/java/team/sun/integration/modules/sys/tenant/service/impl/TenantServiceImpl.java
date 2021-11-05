@@ -10,15 +10,20 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
-import team.sun.integration.modules.sys.application.model.entity.QApplication;
+import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
+import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.tenant.model.vo.page.TenantPageVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 
 /**
@@ -35,15 +40,23 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QTenant qTenant = QTenant.tenant;
-        QApplication qApplication = QApplication.application;
-        BlazeJPAQuery<Tenant> blazeJPAQuery = new BlazeJPAQuery<Tuple>(entityManager, criteriaBuilderFactory)
-                .select(qTenant)
-//                .leftJoin(qTenant.tenantApplications, qApplication)
+        QTenantApplication qTenantApplication = QTenantApplication.tenantApplication;
+        BlazeJPAQuery<Tuple> blazeJPAQuery = new BlazeJPAQuery<Tuple>(entityManager, criteriaBuilderFactory)
+                .select(qTenant, qTenantApplication.id.count().as("tenant_number"))
+                .leftJoin(qTenant.tenantApplications, qTenantApplication)
                 .from(qTenant)
                 .where(predicate).orderBy(qTenant.id.asc().nullsLast());
-        PagedList<Tenant> Tenants = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(Tenants, Tenants.getTotalSize());
+        List<TenantPageVO> pageVOS = new ArrayList<>();
+        pages.forEach(entity->{
+            TenantPageVO pageVO = new TenantPageVO();
+            BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Application.class)), pageVO);
+            pageVO.setTenantNumber(entity.get(1, Long.class));
+            pageVOS.add(pageVO);
+        });
+
+        return new PageRet(pageVOS, pages.getTotalPages());
     }
 
     @Override

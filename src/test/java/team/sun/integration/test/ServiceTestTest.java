@@ -2,15 +2,22 @@ package team.sun.integration.test;
 
 import cn.hutool.core.util.ByteUtil;
 import cn.hutool.core.util.HexUtil;
+import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.*;
 import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.FileCopyUtils;
 import team.sun.integration.config.base.model.vo.PageRet;
+import team.sun.integration.modules.sys.application.model.entity.Application;
+import team.sun.integration.modules.sys.application.model.entity.QApplication;
+import team.sun.integration.modules.sys.application.model.vo.page.ApplicationPageVO;
 import team.sun.integration.modules.sys.config.service.CodeValueService;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
@@ -25,6 +32,7 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.test.context.junit4.SpringRunner;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
+import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
 import team.sun.integration.modules.sys.user.model.entity.User;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
@@ -63,8 +71,7 @@ public class ServiceTestTest {
     @Test
     public void testModelServiceServiceImpl() {
 
-
-       /* QUser user = QUser.user;
+/*       QUser user = QUser.user;
 
         ExpressionUtils.and(predicate, user.petName.like("123"));
 
@@ -81,7 +88,7 @@ public class ServiceTestTest {
         });
         long count = jpaQuery.fetchCount();
         JPAQuery<User> query = jpaQueryFactory.selectFrom(user).where(predicate);
-        query.fetchCount();
+        query.fetchResults().fetchCount();
         return new PageRet<>(data, count);*/
         //01400000
         String BC20 = "01400000"+"150a1b101910691581bb33061832d201e30cb30b000000000000000000000000000000000000000000000000";
@@ -130,7 +137,7 @@ public class ServiceTestTest {
         quser.petName.min();//字段最小值
 
         quser.petName.matches("");
-        quser.allowNotAccess.coalesce(null, LocalDateTime.now());//coalesce(a,b,c);
+        //quser.allowNotAccess.coalesce(null, LocalDateTime.now());//coalesce(a,b,c);
         //参数说明：如果a==null,则选择b；如果b==null,则选择c；如果a!=null,则选择a；如果a b c 都为null ，则返回为null（没意义）。
         quser.dataAuthorityType.add(1);//加法
         quser.dataAuthorityType.subtract(1);//减法

@@ -58,9 +58,9 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
                 .from(qFileEntity)
                 .select(qFileEntity)
                 .where(predicate).orderBy(qFileEntity.id.asc().nullsLast());
-        PagedList<FileEntity> Files = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<FileEntity> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(Files, Files.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

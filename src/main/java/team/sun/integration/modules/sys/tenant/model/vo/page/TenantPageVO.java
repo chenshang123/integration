@@ -26,17 +26,14 @@ public class TenantPageVO implements Serializable {
 
     private String id;
 
+    @ApiModelProperty(value = "人员数量统计")
+    private Long tenantNumber;
+
     @ApiModelProperty(value = "名称")
     private String name;
 
     @ApiModelProperty(value = "账户")
     private String account;
-
-    @ApiModelProperty(value = "密码")
-    private String password;
-
-    @ApiModelProperty(value = "盐值-用户创建、密码修改时创建")
-    private String salt;
 
     @ApiModelProperty(value = "所属行业")
     private String industry;
@@ -74,14 +71,14 @@ public class TenantPageVO implements Serializable {
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
+
     @Override
     public String toString() {
-        return "Tenant{" +
+        return "TenantPageVO{" +
                 "id='" + id + '\'' +
+                ", tenantNumber=" + tenantNumber +
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +
-                ", password='" + password + '\'' +
-                ", salt='" + salt + '\'' +
                 ", industry='" + industry + '\'' +
                 ", contacts='" + contacts + '\'' +
                 ", contactTelephone='" + contactTelephone + '\'' +
@@ -105,6 +102,14 @@ public class TenantPageVO implements Serializable {
         this.id = id;
     }
 
+    public Long getTenantNumber() {
+        return tenantNumber;
+    }
+
+    public void setTenantNumber(Long tenantNumber) {
+        this.tenantNumber = tenantNumber;
+    }
+
     public String getName() {
         return name;
     }
@@ -119,22 +124,6 @@ public class TenantPageVO implements Serializable {
 
     public void setAccount(String account) {
         this.account = account;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
     }
 
     public String getIndustry() {

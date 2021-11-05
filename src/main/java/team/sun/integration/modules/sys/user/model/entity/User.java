@@ -292,10 +292,6 @@ public class User implements Serializable {
     public String toString() {
         return "User{" +
                 "id='" + id + '\'' +
-                ", userGroups=" + userGroups +
-                ", userRoles=" + userRoles +
-                ", userPositions=" + userPositions +
-                ", userOrg=" + userOrg +
                 ", petName='" + petName + '\'' +
                 ", username='" + username + '\'' +
                 ", faceImg='" + faceImg + '\'' +

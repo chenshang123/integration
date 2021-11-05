@@ -39,9 +39,9 @@ public class GroupServiceImpl extends ServiceImpl<GroupDao, Group> implements Gr
                 .from(qGroup)
                 .select(qGroup)
                 .where(predicate).orderBy(qGroup.id.asc().nullsLast());
-        PagedList<Group> Group = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<Group> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(Group, Group.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

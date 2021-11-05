@@ -47,17 +47,17 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
                 .leftJoin(qApplication.tenantApplications, qTenantApplication)
                 .groupBy(qTenantApplication.id)
                 .where(predicate).orderBy(qApplication.id.asc().nullsLast());
-        PagedList<Tuple> applications = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         List<ApplicationPageVO> pageVOS = new ArrayList<>();
-        applications.forEach(entity->{
+        pages.forEach(entity->{
             ApplicationPageVO pageVO = new ApplicationPageVO();
             BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Application.class)), pageVO);
             pageVO.setTenantNumber(entity.get(1, Long.class));
             pageVOS.add(pageVO);
                 });
 
-        return new PageRet(pageVOS, pageVOS.size());
+        return new PageRet(pageVOS, pages.getTotalPages());
     }
 
     @Override
@@ -79,7 +79,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
 
     @Override
     public ApplicationVO getApplicationById(String id) {
-        Optional<Application> optional = this.dao.findApplicationById(id);
+        Optional<Application> optional = this.getById(id);
         ApplicationVO applicationVO = new ApplicationVO();
         optional.ifPresent(entity -> {
             BeanUtils.copyProperties(entity, applicationVO);

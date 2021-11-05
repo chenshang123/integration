@@ -37,9 +37,9 @@ public class OrgServiceImpl extends ServiceImpl<OrgDao, Org> implements OrgServi
                 .from(qOrg)
                 .select(qOrg)
                 .where(predicate).orderBy(qOrg.id.asc().nullsLast());
-        PagedList<Org> org = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<Org> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(org, org.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

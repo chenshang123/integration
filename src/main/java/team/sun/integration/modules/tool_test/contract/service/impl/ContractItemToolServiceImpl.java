@@ -36,9 +36,9 @@ public class ContractItemToolServiceImpl extends ServiceImpl<ContractItemToolDao
                 .from(qContractItemTool)
                 .select(qContractItemTool)
                 .where(predicate).orderBy(qContractItemTool.id.asc().nullsLast());
-        PagedList<ContractItemTool> ContractItemTools = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<ContractItemTool> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(ContractItemTools, ContractItemTools.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

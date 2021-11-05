@@ -3,6 +3,7 @@ package team.sun.integration.config.base.model.vo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
 
+import java.io.Serial;
 import java.io.Serializable;
 import java.util.Collections;
 import java.util.List;
@@ -13,6 +14,7 @@ import java.util.List;
 @Api("分页查询返回对象")
 public class PageRet implements Serializable {
 
+    @Serial
     private static final long serialVersionUID = 1L;
 
     /**

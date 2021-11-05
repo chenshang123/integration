@@ -18,7 +18,8 @@ import java.util.Optional;
 @Repository
 public interface ApplicationDao extends IDao<Application, String> {
 
+    @Override
     @EntityGraph("Application-relation")
-    Optional<Application> findApplicationById(String id);
+    Optional<Application> findById(String id);
 
 }

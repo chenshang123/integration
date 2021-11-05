@@ -36,9 +36,9 @@ public class OperationLogServiceImpl extends ServiceImpl<OperationLogDao, Operat
                 .from(qOperationLog)
                 .select(qOperationLog)
                 .where(predicate).orderBy(qOperationLog.id.asc().nullsLast());
-        PagedList<OperationLog> operationLogs = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<OperationLog> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(operationLogs, operationLogs.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override

@@ -36,9 +36,9 @@ public class SecurityParamServiceImpl extends ServiceImpl<SecurityParamDao, Secu
                 .from(qSecurityParam)
                 .select(qSecurityParam)
                 .where(predicate).orderBy(qSecurityParam.id.asc().nullsLast());
-        PagedList<SecurityParam> SecurityParams = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+        PagedList<SecurityParam> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(SecurityParams, SecurityParams.getTotalSize());
+        return new PageRet(pages, pages.getTotalPages());
     }
 
     @Override
