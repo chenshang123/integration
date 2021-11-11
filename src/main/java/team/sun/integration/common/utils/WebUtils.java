@@ -13,31 +13,6 @@ import org.springframework.web.context.request.ServletRequestAttributes;
  * @author TaoYu MaYing
  */
 public final class WebUtils {
-/*
-  private WebUtils() {
-  }
-
-  public static <T extends UserDetail> void saveUser(T user) {
-    session().setAttribute("currentUser", user);
-  }
-
-  public static <T extends UserDetail> UserDetail user() {
-    if(null != session() && null != session().getAttribute("currentUser")){
-      return (UserDetail)session().getAttribute("currentUser");
-    }
-    return null;
-  }
-
-  public static String username() {
-    UserDetail user = user();
-    return user == null ? null : user.getUsername();
-  }
-
-  public static Long userId() {
-    UserDetail user = user();
-    return user == null ? null : user.getUserId();
-  }
-*/
 
     /**
      * 当前请求

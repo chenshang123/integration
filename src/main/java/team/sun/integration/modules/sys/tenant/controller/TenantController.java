@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.tenant.controller;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -52,6 +53,9 @@ public class TenantController {
         BeanUtils.copyProperties(queryDTO, entity);
 
         Predicate predicate = qTenant.isNotNull().or(qTenant.isNull());
+        predicate = queryDTO.getApplication_id() == null ?
+                predicate : ExpressionUtils.and(predicate, qTenant.tenantApplications.any().application.id.eq(queryDTO.getApplication_id()));
+
         PageRet pageRet = tenantService.page(pageable, predicate, null);
         return Ret.success(pageRet);
     }

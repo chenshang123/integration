@@ -18,6 +18,7 @@ import java.util.Optional;
 @Repository
 public interface TenantDao extends IDao<Tenant, String> {
 
+    @Override
     @EntityGraph("Tenant-relation")
-    Optional<Tenant> findTenantById(String id);
+    Optional<Tenant> findById(String id);
 }

@@ -46,7 +46,7 @@ public class ApplicationVersion implements Serializable {
      * 应用
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "application_id", referencedColumnName = "application_id")
+    @JoinColumn(name = "application_id", referencedColumnName = "application_id", nullable = false)
     @JsonBackReference
     private Application applicationVer;
 

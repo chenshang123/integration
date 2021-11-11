@@ -210,9 +210,6 @@ public class Tenant implements Serializable {
     public String toString() {
         return "Tenant{" +
                 "id='" + id + '\'' +
-                ", tenantResources=" + tenantResources +
-                ", tenantElements=" + tenantElements +
-                ", tenantApplications=" + tenantApplications +
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +
                 ", password='" + password + '\'' +

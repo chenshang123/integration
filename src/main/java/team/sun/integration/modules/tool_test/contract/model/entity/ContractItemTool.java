@@ -45,7 +45,7 @@ public class ContractItemTool implements Serializable {
      * 多对一：合同
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "contract_id", referencedColumnName = "contract_id")
+    @JoinColumn(name = "contract_id", referencedColumnName = "contract_id", nullable = false)
     @JsonBackReference
     private Contract toolItemContract;
 

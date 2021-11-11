@@ -19,6 +19,7 @@ import java.util.Optional;
 @Repository
 public interface PositionDao extends IDao<Position, String> {
 
+    @Override
     @EntityGraph("Position-relation")
-    Optional<Position> findPositionById(String id);
+    Optional<Position> findById(String id);
 }

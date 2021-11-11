@@ -42,7 +42,7 @@ public class FileEntity implements Serializable {
     private String id;
 
     /*@ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "business_id", referencedColumnName = "contract_id")
+    @JoinColumn(name = "business_id", referencedColumnName = "contract_id", nullable = false)
     @JsonBackReference
     private Contract contractFile;*/
 

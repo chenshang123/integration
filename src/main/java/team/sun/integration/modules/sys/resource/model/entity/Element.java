@@ -65,7 +65,7 @@ public class Element implements Serializable {
      * 多对一：菜单页面元素-菜单
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    @JoinColumn(name = "resource_id", referencedColumnName = "resource_id")
+    @JoinColumn(name = "resource_id", referencedColumnName = "resource_id", nullable = false)
     @JsonBackReference
     private Resource elementResource;
 

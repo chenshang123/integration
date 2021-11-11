@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.application.repository;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
@@ -20,6 +21,7 @@ public interface ApplicationDao extends IDao<Application, String> {
 
     @Override
     @EntityGraph("Application-relation")
-    Optional<Application> findById(String id);
+    @NotNull
+    Optional<Application> findById(@NotNull String id);
 
 }

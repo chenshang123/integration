@@ -23,11 +23,6 @@ public class ApplicationSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
-    @ApiModelProperty(value = "应用")
-    private String applicationId;
-
     @ApiModelProperty(value = "标签")
     private String label;
 
@@ -48,22 +43,6 @@ public class ApplicationSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "类型（电脑版网页、手机版网页、iosApp、安卓App）")
     private ApplicationType type;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public String getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
-    }
 
     public String getLabel() {
         return label;

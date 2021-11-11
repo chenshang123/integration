@@ -5,13 +5,12 @@ import cn.hutool.core.lang.tree.TreeNode;
 import cn.hutool.core.lang.tree.TreeUtil;
 import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
-import com.querydsl.core.types.ExpressionUtils;
+import com.google.common.collect.Lists;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
-import com.querydsl.jpa.impl.JPAQuery;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.resource.model.dto.save.ResourceSaveDTO;
@@ -22,7 +21,6 @@ import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
 import team.sun.integration.modules.sys.resource.repository.ResourceDao;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -38,40 +36,40 @@ import java.util.*;
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> implements ResourceService {
 
-    private final JPAQueryFactory jpaQueryFactory;
-
-    @Autowired
-    public ResourceServiceImpl(JPAQueryFactory jpaQueryFactory) {
-        this.jpaQueryFactory = jpaQueryFactory;
+    private List<Tree<String>> buildTree(List<Resource> all, String parentId) {
+        //parentId 可以控制展示层级,默认展示所有
+        if(!StringUtils.hasLength(parentId)){
+            parentId = "0";
+        }
+        if(null != all && !all.isEmpty()){
+            List<TreeNode<String>> nodeList = new ArrayList<>(all.size());
+            all.forEach(item -> nodeList.add(new TreeNode<>(item.getId(), item.getParentId(), item.getName(), item.getWeight())));
+            return TreeUtil.build(nodeList, parentId);
+        }
+        return null;
     }
-
     private List<Tree<String>> buildTree(List<Resource> all) {
-        List<TreeNode<String>> nodeList = new ArrayList<>();
-        all.forEach(item -> nodeList.add(new TreeNode<>(item.getId(), item.getParentId(), item.getName(), item.getWeight())));
-        //parentId 可以控制展示层级
-        return TreeUtil.build(nodeList, "0");
+        //parentId 可以控制展示层级,默认展示所有
+        if(null != all && !all.isEmpty()){
+            List<TreeNode<String>> nodeList = new ArrayList<>(all.size());
+            all.forEach(item -> nodeList.add(new TreeNode<>(item.getId(), item.getParentId(), item.getName(), item.getWeight())));
+            return TreeUtil.build(nodeList, "0");
+        }
+        return null;
     }
 
     @Override
-    public List<Tree<String>> getTree(Resource query) {
+    public List<Tree<String>> getTree(Predicate predicate) {
         QResource resource = QResource.resource;
-        Predicate predicate = resource.isNull().or(resource.isNotNull());
+        /*Predicate predicate = resource.isNull().or(resource.isNotNull());
         predicate = query.getLayer() == null ?
                 predicate : ExpressionUtils.and(predicate, resource.layer.eq(query.getLayer()));
-        /*predicate = query.getApplicationResource() == null ?
+        predicate = query.getApplicationResource() == null ?
                 predicate : ExpressionUtils.and(predicate, resource.applicationResource.id.eq(query.getApplicationResource().getId()));*/
 
-        JPAQuery<Resource> jpaQuery = jpaQueryFactory.selectFrom(resource).
-                where(predicate);
-        List<OrderSpecifier> orderSpecifierList = new ArrayList<>();
-        if (query.getLayer() != null) orderSpecifierList.add(resource.layer.asc().nullsLast());
-        if (query.getWeight() != null) orderSpecifierList.add(resource.weight.asc().nullsLast());
-        if (orderSpecifierList.size() > 0) {
-            OrderSpecifier[] orderSpecifier = orderSpecifierList.toArray(new OrderSpecifier[0]);
-            jpaQuery.orderBy(orderSpecifier);
-        }
-
-        return this.buildTree(jpaQuery.fetch());
+        OrderSpecifier[] orderSpecifiers = {resource.layer.asc().nullsLast(), resource.weight.asc().nullsLast()};
+        Iterable<Resource> resourceIterable = this.get(predicate, orderSpecifiers);
+        return this.buildTree(Lists.newArrayList(resourceIterable));
     }
 
     @Override
@@ -114,5 +112,10 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
         ResourceVO vo = new ResourceVO();
         optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
         return vo;
+    }
+
+    public static void main(String[] args) {
+        List<Resource> all = null;
+        all.forEach(item -> item.getWeight());
     }
 }

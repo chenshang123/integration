@@ -67,13 +67,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests() // 路径鉴权
                 // 设置允许访问的资源
-                .antMatchers("/authenticaion/login").permitAll()
+                .antMatchers("/authentication/login").permitAll()
                 // 设置允许访问的资源
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers(
                         //文件上传
                         "/sys/file/upload",
-
                         // swagger
                         "/swagger-ui/index.html",
                         "/swagger-ui.html",

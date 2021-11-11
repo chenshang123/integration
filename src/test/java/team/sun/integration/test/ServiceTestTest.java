@@ -22,6 +22,8 @@ import team.sun.integration.modules.sys.config.service.CodeValueService;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
 import team.sun.integration.modules.sys.org.service.OrgService;
+import team.sun.integration.modules.sys.resource.model.entity.QResource;
+import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -162,11 +164,32 @@ public class ServiceTestTest {
         SetPath<Org, PathBuilder<Org>> a = entityPath.getSet("org", Org.class);
 
         //StringPath petName = entityPath.getString("org");
+        Resource query = new Resource();
+        QResource resource = QResource.resource;
+        Predicate predicateR = resource.isNull().or(resource.isNotNull());
+        predicateR = query.getLayer() == null ?
+                predicateR : ExpressionUtils.and(predicateR, resource.layer.eq(query.getLayer()));
 
         BooleanExpression param = Expressions.asBoolean(true).isTrue();
+
         param = param.and(quser.userOrg.id.eq("1"));
         param = param.and(quser.userOrg.firstFloorId.eq("1"));
 
+
+
+
+        User userTest = new User();
+        userTest.setUsername("test1222");
+//        userTest.setUserOrg(orgTest);
+
+        Org orgTest = new Org();
+        orgTest = orgDao.findById("1").get();
+        orgTest.setId("1");
+        orgTest.setName("电网单位划分1");
+        userTest.setUserOrg(orgTest);
+        userTest = userService.saveOrUpdate(userTest);
+        userTest.setUserOrg(null);
+        userService.saveOrUpdate(userTest);
         Predicate predicate = quser.isNotNull().or(quser.isNull());
 
         Iterable<User> user2 = userService.get(param);
@@ -220,7 +243,7 @@ public class ServiceTestTest {
         dto.setPetName("昵称");
 
         //新增-中间关系
-        User user1 = userService.getById("40287c8179b224110179b2244b190000").get();
+        Optional<User> user1 = userService.getById("40287c8179b224110179b2244b190000");
 /*        user1.getUserRoles().clear();
 
         user1.getUserRoles().add(roleDao.findById("2").get());*/
@@ -230,7 +253,7 @@ public class ServiceTestTest {
         //修改-关联对象数据
         //userService.save(dto);
         //修改-关联关系
-        user1 = userService.getById("40287c8179b224110179b2244b190000").get();
+//        user1 = userService.getById("40287c8179b224110179b2244b190000");
 
         //删除
 

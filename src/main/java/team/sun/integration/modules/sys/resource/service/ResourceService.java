@@ -23,7 +23,7 @@ import java.util.List;
  */
 public interface ResourceService extends IService<Resource, String> {
 
-    List<Tree<String>> getTree(Resource query);
+    List<Tree<String>> getTree(Predicate predicate);
 
     void clearResourceCache();
 

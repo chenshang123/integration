@@ -18,7 +18,7 @@ import java.util.Optional;
 @Repository
 public interface ResourceDao extends IDao<Resource, String> {
 
+    @Override
     @EntityGraph("Resource-relation")
-    Optional<Resource> findResourceById(String id);
-
+    Optional<Resource> findById(String id);
 }

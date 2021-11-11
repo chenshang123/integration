@@ -7,13 +7,13 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Set;
 
 
 /**
@@ -28,6 +28,9 @@ import java.io.Serializable;
 @Table(name = "sys_org")
 @SQLDelete(sql = "update sys_org set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
+@NamedEntityGraphs(@NamedEntityGraph(name = "Org-relation", attributeNodes = {
+        @NamedAttributeNode("users")
+}))
 public class Org implements Serializable {
 
     @Serial
@@ -38,6 +41,12 @@ public class Org implements Serializable {
     @GenericGenerator(name = "system_uuid", strategy = "uuid")
     @Column(name = "org_id")
     private String id;
+
+    /**
+     * 一对多：应用-菜单
+     **/
+    @OneToMany(mappedBy = "userOrg", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<User> users;
 
     /**
      * 首层id
@@ -197,6 +206,14 @@ public class Org implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public String getFirstFloorId() {

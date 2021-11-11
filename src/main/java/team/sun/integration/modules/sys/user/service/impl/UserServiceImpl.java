@@ -127,10 +127,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         }
         User user = this.dao.findByUsername(userName);
         UserLoginVO vo = new UserLoginVO();
-        if (user != null) {
+        if (null != user) {
             BeanUtils.copyProperties(user, vo);
             if (withRoles && null != user.getUserRoles()) {
-                user.getUserRoles().forEach((mid) -> vo.getRoleIds().add(mid.getId()));
+                user.getUserRoles().forEach((role) -> vo.getRoleIds().add(role.getId()));
             }
         }
         return vo;

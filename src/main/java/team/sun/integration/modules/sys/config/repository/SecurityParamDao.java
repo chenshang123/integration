@@ -1,9 +1,12 @@
 package team.sun.integration.modules.sys.config.repository;
 
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.sys.config.model.entity.SecurityParam;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -16,4 +19,7 @@ import team.sun.integration.modules.sys.config.model.entity.SecurityParam;
 @Repository
 public interface SecurityParamDao extends IDao<SecurityParam, String> {
 
+    @Override
+    @EntityGraph("SecurityParam-relation")
+    Optional<SecurityParam> findById(String id);
 }

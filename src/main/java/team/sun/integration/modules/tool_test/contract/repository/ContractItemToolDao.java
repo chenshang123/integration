@@ -1,8 +1,11 @@
 package team.sun.integration.modules.tool_test.contract.repository;
 
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
 import team.sun.integration.modules.tool_test.contract.model.entity.ContractItemTool;
+
+import java.util.Optional;
 
 /**
  * <p>
@@ -15,5 +18,7 @@ import team.sun.integration.modules.tool_test.contract.model.entity.ContractItem
 @Repository
 public interface ContractItemToolDao extends IDao<ContractItemTool, String> {
 
-
+    @Override
+    @EntityGraph("ContractItemTool-relation")
+    Optional<ContractItemTool> findById(String id);
 }

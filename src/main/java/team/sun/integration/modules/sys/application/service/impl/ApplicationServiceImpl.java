@@ -19,7 +19,6 @@ import team.sun.integration.modules.sys.application.model.vo.page.ApplicationPag
 import team.sun.integration.modules.sys.application.repository.ApplicationDao;
 import team.sun.integration.modules.sys.application.service.ApplicationService;
 import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
-import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,12 +39,9 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QApplication qApplication = QApplication.application;
-        QTenantApplication qTenantApplication = QTenantApplication.tenantApplication;
         BlazeJPAQuery<Tuple> blazeJPAQuery = new BlazeJPAQuery<>(entityManager, criteriaBuilderFactory)
                 .from(qApplication)
-                .select(qApplication, qTenantApplication.id.count().as("tenant_number"))
-                .leftJoin(qApplication.tenantApplications, qTenantApplication)
-                .groupBy(qTenantApplication.id)
+                .select(qApplication, qApplication.tenantApplications.any().id.count().as("tenant_number"))
                 .where(predicate).orderBy(qApplication.id.asc().nullsLast());
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 

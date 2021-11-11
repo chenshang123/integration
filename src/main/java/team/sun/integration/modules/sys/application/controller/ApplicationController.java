@@ -1,6 +1,9 @@
 package team.sun.integration.modules.sys.application.controller;
 
 import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
+import com.querydsl.core.types.dsl.SetPath;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -20,6 +23,8 @@ import team.sun.integration.modules.sys.application.model.entity.QApplication;
 import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
 import team.sun.integration.modules.sys.application.service.ApplicationService;
 import team.sun.integration.modules.sys.security.utils.JwtSecurityUtil;
+import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
+import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -38,6 +43,7 @@ import java.util.List;
 public class ApplicationController {
 
     private final ApplicationService applicationService;
+    private SetPath<TenantApplication, QTenantApplication> tenantApplications;
 
     @Autowired
     public ApplicationController(ApplicationService applicationService) {

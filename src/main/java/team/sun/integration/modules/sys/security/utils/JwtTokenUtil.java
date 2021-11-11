@@ -2,10 +2,8 @@ package team.sun.integration.modules.sys.security.utils;
 
 import java.util.*;
 
-import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -24,9 +22,9 @@ public class JwtTokenUtil {
 
     public static final String TOKEN_PREFIX = "Bearer ";
     /**
-     * 过期时间是3600秒，既是1个小时
+     * 1毫秒*3600秒*10小时 既是1个小时
      */
-    public static final long EXPIRATION = 3600L * 1000;
+    public static final long EXPIRATION = 1000 * 3600L * 10;
     /**
      * 选择了记住我之后的过期时间为7天
      */
@@ -34,7 +32,7 @@ public class JwtTokenUtil {
     /**
      * 密钥key
      */
-    private static final String SECRET = "jwt-security";
+    private static final String SECRET = "Integration Technology SIGNING_KEY";
     /**
      * JWT的发行人
      */

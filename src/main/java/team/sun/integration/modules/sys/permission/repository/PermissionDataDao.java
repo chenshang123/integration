@@ -18,6 +18,7 @@ import java.util.Optional;
 @Repository
 public interface PermissionDataDao extends IDao<PermissionData, String> {
 
+    @Override
     @EntityGraph("PermissionData-relation")
-    Optional<PermissionData> findPermissionDataById(String id);
+    Optional<PermissionData> findById(String id);
 }

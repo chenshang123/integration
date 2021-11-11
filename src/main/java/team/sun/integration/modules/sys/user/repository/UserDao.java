@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.user.repository;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
@@ -18,6 +19,7 @@ public interface UserDao extends IDao<User, String> {
 
     @Override
     @EntityGraph("User-relation")
-    Optional<User> findById(String id);
+    @NotNull
+    Optional<User> findById(@NotNull String id);
 
 }

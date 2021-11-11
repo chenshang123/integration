@@ -14,7 +14,6 @@ import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
-import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.model.vo.page.TenantPageVO;
@@ -40,18 +39,16 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QTenant qTenant = QTenant.tenant;
-        QTenantApplication qTenantApplication = QTenantApplication.tenantApplication;
         BlazeJPAQuery<Tuple> blazeJPAQuery = new BlazeJPAQuery<Tuple>(entityManager, criteriaBuilderFactory)
-                .select(qTenant, qTenantApplication.id.count().as("tenant_number"))
-                .leftJoin(qTenant.tenantApplications, qTenantApplication)
                 .from(qTenant)
+                .select(qTenant, qTenant.tenantApplications.any().id.count().as("tenant_number"))
                 .where(predicate).orderBy(qTenant.id.asc().nullsLast());
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         List<TenantPageVO> pageVOS = new ArrayList<>();
         pages.forEach(entity->{
             TenantPageVO pageVO = new TenantPageVO();
-            BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Application.class)), pageVO);
+            BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Tenant.class)), pageVO);
             pageVO.setTenantNumber(entity.get(1, Long.class));
             pageVOS.add(pageVO);
         });

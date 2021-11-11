@@ -38,7 +38,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         UserLoginVO vo = userService.getByUsername(username, true);
-        // 根据用户名去查找用户信息
+        // 根据用户ID去查找用户信息
         if (vo == null) {
             throw new UsernameNotFoundException(String.format("Not user Found with '%s'", username));
         }

@@ -18,6 +18,7 @@ import java.util.Optional;
 @Repository
 public interface GroupDao extends IDao<Group, String> {
 
+    @Override
     @EntityGraph("Group-relation")
-    Optional<Group> findGroupById(String id);
+    Optional<Group> findById(String id);
 }

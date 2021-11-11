@@ -14,27 +14,12 @@ import java.util.Optional;
 @Configuration
 public class UserIDAuditorConfig implements AuditorAware<String> {
 
-    private final UserService userService;
-
-    @Autowired
-    public UserIDAuditorConfig(UserService userService) {
-        this.userService = userService;
-    }
-
     /**
-     * TODO：可以继续优化,可以在redis中实现
      * 查询当前用户id
      */
     @Override
     public @NotNull Optional<String> getCurrentAuditor() {
-//        String userName = JwtSecurityUtil.getCurrentUserName();
-//        UserLoginVO userLoginVO = null;
-//        if(StringUtils.hasLength(userName)) {
-//            userLoginVO = userService.getByUsername(userName, false);
-//        }
-//        return Optional.ofNullable(userLoginVO).map(UserLoginVO::getUsername);
-        String id = "1";
-        return Optional.ofNullable(id);
+        return JwtSecurityUtil.getCurrentUserID();
     }
 
 }

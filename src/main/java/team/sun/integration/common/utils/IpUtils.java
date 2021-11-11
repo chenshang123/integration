@@ -1,7 +1,5 @@
 package team.sun.integration.common.utils;
 
-import static java.lang.String.valueOf;
-
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
@@ -71,7 +69,9 @@ public final class IpUtils {
                     } catch (UnknownHostException e) {
                         e.printStackTrace();
                     }
-                    ipAddress = inet.getHostAddress();
+                    if (inet != null) {
+                        ipAddress = inet.getHostAddress();
+                    }
                 }
             }
             // 对于通过多个代理的情况，第一个IP为客户端真实IP,多个IP按照','分割
@@ -85,7 +85,7 @@ public final class IpUtils {
                 return ipAddress;
             }
         } catch (Exception e) {
-            ipAddress = "";
+            e.printStackTrace();
         }
 
         return request.getRemoteAddr();
@@ -120,13 +120,13 @@ public final class IpUtils {
      * @author : <a href="mailto:dejianliu@sxw.cn">dejianliu</a> 2015-4-12 下午2:02:49
      */
     public static String longToIP(Long longIp) {
-        return valueOf(longIp >>> 24) +      // 直接右移24位
+        return (longIp >>> 24) +      // 直接右移24位
                 "." +
-                valueOf((longIp & 0x00FFFFFF) >>> 16) +   // 将高8位置0，然后右移16位
+                ((longIp & 0x00FFFFFF) >>> 16) +   // 将高8位置0，然后右移16位
                 "." +
-                valueOf((longIp & 0x0000FFFF) >>> 8) +   // 将高16位置0，然后右移8位
+                ((longIp & 0x0000FFFF) >>> 8) +   // 将高16位置0，然后右移8位
                 "." +
-                valueOf(longIp & 0x000000FF);   // 将高24位置0
+                (longIp & 0x000000FF);   // 将高24位置0
     }
 
     /**
@@ -175,12 +175,6 @@ public final class IpUtils {
         ret[0] = 0;
         int ib = 16;
         boolean comFlag = false;// ipv4混合模式标记
-        String ipv6;
-        if (ipv6Str.startsWith(":")) {
-            ipv6 = ipv6Str.substring(1);
-        } else {
-            ipv6 = ipv6Str;
-        }
         String[] groups = ipv6Str.split(":");
         for (int ig = groups.length - 1; ig > -1; ig--) {// 反向扫描
             if (groups[ig].contains(".")) {

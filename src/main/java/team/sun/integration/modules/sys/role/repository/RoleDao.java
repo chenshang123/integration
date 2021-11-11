@@ -19,6 +19,7 @@ import java.util.Optional;
 @Repository
 public interface RoleDao extends IDao<Role, String> {
 
+    @Override
     @EntityGraph("Role-relation")
-    Optional<Role> findRoleById(String id);
+    Optional<Role> findById(String id);
 }

@@ -104,7 +104,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
 
     @Override
     public RoleVO getRoleById(String id) {
-        Optional<Role> optional = this.dao.findRoleById(id);
+        Optional<Role> optional = this.dao.findById(id);
         RoleVO vo = new RoleVO();
         optional.ifPresent(role -> BeanUtils.copyProperties(role, vo));
         return vo;

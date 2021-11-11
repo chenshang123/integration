@@ -167,9 +167,6 @@ public class Application implements Serializable {
     public String toString() {
         return "Application{" +
                 "id='" + id + '\'' +
-                ", resources=" + resources +
-                ", tenantApplications=" + tenantApplications +
-                ", versions=" + versions +
                 ", label='" + label + '\'' +
                 ", name='" + name + '\'' +
                 ", accessUrl='" + accessUrl + '\'' +

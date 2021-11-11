@@ -1,10 +1,10 @@
 package team.sun.integration.modules.sys.resource.controller;
 
+import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.model.vo.Ret;
@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>
@@ -50,7 +49,13 @@ public class ResourceController {
     public Ret tree(@Valid @ModelAttribute ResourceQueryDTO queryDTO) {
         Resource entity = new Resource();
         BeanUtils.copyProperties(queryDTO, entity);
-        return Ret.success(resourceService.getTree(entity));
+        QResource qResource = QResource.resource;
+        Predicate predicate = qResource.isNotNull().or(qResource.isNull());
+
+        predicate = queryDTO.getApplication_id() == null ?
+                predicate : ExpressionUtils.and(predicate, qResource.applicationResource.id.eq(queryDTO.getApplication_id()));
+
+        return Ret.success(resourceService.getTree(predicate));
     }
 
     @ApiOperation(value = "分页查询")

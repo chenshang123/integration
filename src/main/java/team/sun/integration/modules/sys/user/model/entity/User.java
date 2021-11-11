@@ -81,10 +81,11 @@ public class User implements Serializable {
     private Set<Position> userPositions = new HashSet<>();
 
     /**
-     * 一对一： 用户-单位 ：所属单位
+     * 多对一： 用户-单位 ：所属单位
      */
-    @OneToOne(cascade = CascadeType.DETACH, optional = false, fetch = FetchType.LAZY)
-    @JoinColumn(name = "org_id", unique = true)
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "org_id", referencedColumnName = "org_id", nullable = false)
+    @JsonBackReference
     private Org userOrg;
 
     /**

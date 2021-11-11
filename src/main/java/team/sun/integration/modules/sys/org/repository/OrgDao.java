@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.org.repository;
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
@@ -18,7 +19,8 @@ import java.util.Optional;
 @Repository
 public interface OrgDao extends IDao<Org, String> {
 
+    @Override
     @EntityGraph("Org-relation")
-    Optional<Org> findOrgById(String id);
-
+    @NotNull
+    Optional<Org> findById(@NotNull String Id);
 }

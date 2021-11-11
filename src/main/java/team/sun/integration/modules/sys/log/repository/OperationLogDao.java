@@ -18,6 +18,7 @@ import java.util.Optional;
 @Repository
 public interface OperationLogDao extends IDao<OperationLog, String> {
 
+    @Override
     @EntityGraph("OperationLog-relation")
-    Optional<OperationLog> findOperationLogById(String id);
+    Optional<OperationLog> findById(String id);
 }
