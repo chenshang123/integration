@@ -65,9 +65,6 @@ public class ResourceUpdateDTO implements Serializable {
     @Convert(converter = ResourceVisitType.Convert.class)
     private ResourceVisitType visitType;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -173,14 +170,6 @@ public class ResourceUpdateDTO implements Serializable {
 
     public void setVisitType(ResourceVisitType visitType) {
         this.visitType = visitType;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

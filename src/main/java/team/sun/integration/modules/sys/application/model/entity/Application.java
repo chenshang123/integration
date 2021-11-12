@@ -35,7 +35,7 @@ import java.util.Set;
 @NamedEntityGraphs(@NamedEntityGraph(name = "Application-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
         @NamedAttributeNode("tenantApplications"),
-        @NamedAttributeNode("versions")
+        @NamedAttributeNode("applicationVersions")
 }))
 public class Application implements Serializable {
 
@@ -51,7 +51,7 @@ public class Application implements Serializable {
     /**
      * 一对多：应用-菜单
      **/
-    @OneToMany(mappedBy = "applicationResource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Resource> resources = new HashSet<>();
 
     /**
@@ -63,8 +63,8 @@ public class Application implements Serializable {
     /**
      * 一对多：应用-应用版本
      **/
-    @OneToMany(mappedBy = "applicationVer", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<ApplicationVersion> versions = new HashSet<>();
+    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<ApplicationVersion> applicationVersions = new HashSet<>();
 
     /**
      * 标签
@@ -209,12 +209,12 @@ public class Application implements Serializable {
         this.tenantApplications = tenantApplications;
     }
 
-    public Set<ApplicationVersion> getVersions() {
-        return versions;
+    public Set<ApplicationVersion> getApplicationVersions() {
+        return applicationVersions;
     }
 
-    public void setVersions(Set<ApplicationVersion> versions) {
-        this.versions = versions;
+    public void setApplicationVersions(Set<ApplicationVersion> applicationVersions) {
+        this.applicationVersions = applicationVersions;
     }
 
     public String getLabel() {

@@ -37,7 +37,7 @@ public class ApplicationVO implements Serializable {
     private Set<TenantApplicationVO> tenantApplications = new HashSet<>();
 
     @ApiModelProperty(value = "一对多：应用-应用版本")
-    private Set<ApplicationVersionVO> versions = new HashSet<>();
+    private Set<ApplicationVersionVO> applicationVersions = new HashSet<>();
 
     @ApiModelProperty(value = "标签")
     private String label;
@@ -71,11 +71,11 @@ public class ApplicationVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Application{" +
+        return "ApplicationVO{" +
                 "id='" + id + '\'' +
                 ", resources=" + resources +
                 ", tenantApplications=" + tenantApplications +
-                ", versions=" + versions +
+                ", applicationVersions=" + applicationVersions +
                 ", label='" + label + '\'' +
                 ", name='" + name + '\'' +
                 ", accessUrl='" + accessUrl + '\'' +
@@ -113,12 +113,12 @@ public class ApplicationVO implements Serializable {
         this.tenantApplications = tenantApplications;
     }
 
-    public Set<ApplicationVersionVO> getVersions() {
-        return versions;
+    public Set<ApplicationVersionVO> getApplicationVersions() {
+        return applicationVersions;
     }
 
-    public void setVersions(Set<ApplicationVersionVO> versions) {
-        this.versions = versions;
+    public void setApplicationVersions(Set<ApplicationVersionVO> applicationVersions) {
+        this.applicationVersions = applicationVersions;
     }
 
     public String getLabel() {

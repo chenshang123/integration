@@ -24,7 +24,6 @@ public class TenantSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -65,14 +64,6 @@ public class TenantSaveDTO implements Serializable {
     @ApiModelProperty(value = "是否被锁定：0 未锁定 1锁定")
     @Convert(converter = TenantAction.Convert.class)
     private TenantAction locked;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

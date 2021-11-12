@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -25,11 +24,11 @@ public class ApplicationVersionQueryDTO implements Serializable {
 
     private String id;
 
+    @ApiModelProperty(value = "应用")
+    private String application_id;
+
     @ApiModelProperty(value = "应用版本号")
     private String applicationVersion;
-
-    @ApiModelProperty(value = "应用")
-    private String applicationId;
 
     @ApiModelProperty(value = "版本说明")
     private String explain;
@@ -39,27 +38,6 @@ public class ApplicationVersionQueryDTO implements Serializable {
 
     @ApiModelProperty(value = "安装包地址")
     private String installPackage;
-
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String creatorDepartmentId;
-
-    @ApiModelProperty(value = "所属租户")
-    private String creatorTenantId;
-
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
-    @ApiModelProperty(value = "版本号")
-    private Integer version;
 
     public String getId() {
         return id;
@@ -77,12 +55,12 @@ public class ApplicationVersionQueryDTO implements Serializable {
         this.applicationVersion = applicationVersion;
     }
 
-    public String getApplicationId() {
-        return applicationId;
+    public String getApplication_id() {
+        return application_id;
     }
 
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
+    public void setApplication_id(String application_id) {
+        this.application_id = application_id;
     }
 
     public String getExplain() {
@@ -109,59 +87,4 @@ public class ApplicationVersionQueryDTO implements Serializable {
         this.installPackage = installPackage;
     }
 
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreatorDepartmentId() {
-        return creatorDepartmentId;
-    }
-
-    public void setCreatorDepartmentId(String creatorDepartmentId) {
-        this.creatorDepartmentId = creatorDepartmentId;
-    }
-
-    public String getCreatorTenantId() {
-        return creatorTenantId;
-    }
-
-    public void setCreatorTenantId(String creatorTenantId) {
-        this.creatorTenantId = creatorTenantId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
-    }
-
-    public Integer getVersion() {
-        return version;
-    }
-
-    public void setVersion(Integer version) {
-        this.version = version;
-    }
 }

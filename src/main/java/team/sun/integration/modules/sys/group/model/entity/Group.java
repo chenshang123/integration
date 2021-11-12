@@ -32,8 +32,8 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_group set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Group-relation", attributeNodes = {
-        @NamedAttributeNode("groupRoles"),
-        @NamedAttributeNode("groupUsers")
+        @NamedAttributeNode("roles"),
+        @NamedAttributeNode("users")
 }))
 public class Group implements Serializable {
 
@@ -57,7 +57,7 @@ public class Group implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonBackReference
-    private Set<Role> groupRoles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     /**
      * 多对多：用户组-用户
@@ -69,7 +69,7 @@ public class Group implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @JsonBackReference
-    private Set<User> groupUsers = new HashSet<>();
+    private Set<User> users = new HashSet<>();
 
     /**
      * 分组名称
@@ -140,8 +140,6 @@ public class Group implements Serializable {
     public String toString() {
         return "Group{" +
                 "id='" + id + '\'' +
-                ", groupRoles=" + groupRoles +
-                ", groupUsers=" + groupUsers +
                 ", name='" + name + '\'' +
                 ", explain='" + explain + '\'' +
                 ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
@@ -163,20 +161,20 @@ public class Group implements Serializable {
         this.id = id;
     }
 
-    public Set<Role> getGroupRoles() {
-        return groupRoles;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setGroupRoles(Set<Role> groupRoles) {
-        this.groupRoles = groupRoles;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public Set<User> getGroupUsers() {
-        return groupUsers;
+    public Set<User> getUsers() {
+        return users;
     }
 
-    public void setGroupUsers(Set<User> groupUsers) {
-        this.groupUsers = groupUsers;
+    public void setUsers(Set<User> users) {
+        this.users = users;
     }
 
     public String getName() {

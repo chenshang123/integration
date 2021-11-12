@@ -6,7 +6,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -33,9 +32,6 @@ public class ElementUpdateDTO implements Serializable {
 
     @ApiModelProperty(value = "页面元素标识")
     private String elementIdentify;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
 
     @ApiModelProperty(value = "版本号")
     private Integer version;
@@ -70,14 +66,6 @@ public class ElementUpdateDTO implements Serializable {
 
     public void setElementIdentify(String elementIdentify) {
         this.elementIdentify = elementIdentify;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

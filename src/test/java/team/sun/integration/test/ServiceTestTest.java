@@ -172,8 +172,8 @@ public class ServiceTestTest {
 
         BooleanExpression param = Expressions.asBoolean(true).isTrue();
 
-        param = param.and(quser.userOrg.id.eq("1"));
-        param = param.and(quser.userOrg.firstFloorId.eq("1"));
+        param = param.and(quser.org.id.eq("1"));
+        param = param.and(quser.org.firstFloorId.eq("1"));
 
 
 
@@ -186,9 +186,9 @@ public class ServiceTestTest {
         orgTest = orgDao.findById("1").get();
         orgTest.setId("1");
         orgTest.setName("电网单位划分1");
-        userTest.setUserOrg(orgTest);
+        userTest.setOrg(orgTest);
         userTest = userService.saveOrUpdate(userTest);
-        userTest.setUserOrg(null);
+        userTest.setOrg(null);
         userService.saveOrUpdate(userTest);
         Predicate predicate = quser.isNotNull().or(quser.isNull());
 

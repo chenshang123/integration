@@ -1,13 +1,10 @@
 package team.sun.integration.modules.sys.position.model.dto.update;
 
 import io.swagger.annotations.ApiModel;
-import org.hibernate.annotations.GenericGenerator;
-import team.sun.integration.modules.sys.user.model.entity.User;
+import io.swagger.annotations.ApiModelProperty;
 
-import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,40 +23,18 @@ public class PositionUpdateDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    @Id
-    @GeneratedValue(generator = "system_uuid")
-    @GenericGenerator(name = "system_uuid", strategy = "uuid")
     private String id;
 
-    /**
-     * 多对多：职位-用户
-     **/
-    @ManyToMany(mappedBy = "positions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    @ApiModelProperty(value = "多对多：职位-用户")
+    private Set<String> user_ids = new HashSet<>();
 
-    /**
-     * 职位名称
-     */
-    @Column(name = "name")
+    @ApiModelProperty(value = "职位名称")
     private String name;
 
-    /**
-     * 说明
-     */
-    @Column(name = "explain")
+    @ApiModelProperty(value = "说明")
     private String explain;
 
-    /**
-     * 0正常 1删除
-     */
-    @Column(name = "del_flag")
-    private Boolean delFlag;
-
-    /**
-     * 版本号
-     */
-    @Version
-    @Column(name = "version")
+    @ApiModelProperty(value = "版本号")
     private Integer version;
 
     public String getId() {
@@ -70,12 +45,12 @@ public class PositionUpdateDTO implements Serializable {
         this.id = id;
     }
 
-    public Set<User> getUsers() {
-        return users;
+    public Set<String> getUser_ids() {
+        return user_ids;
     }
 
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUser_ids(Set<String> user_ids) {
+        this.user_ids = user_ids;
     }
 
     public String getName() {
@@ -92,14 +67,6 @@ public class PositionUpdateDTO implements Serializable {
 
     public void setExplain(String explain) {
         this.explain = explain;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

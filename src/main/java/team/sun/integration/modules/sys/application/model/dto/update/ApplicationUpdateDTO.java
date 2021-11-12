@@ -26,9 +26,6 @@ public class ApplicationUpdateDTO implements Serializable {
 
     private String id;
 
-    @ApiModelProperty(value = "应用")
-    private String applicationId;
-
     @ApiModelProperty(value = "标签")
     private String label;
 
@@ -65,14 +62,6 @@ public class ApplicationUpdateDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
     }
 
     public String getLabel() {

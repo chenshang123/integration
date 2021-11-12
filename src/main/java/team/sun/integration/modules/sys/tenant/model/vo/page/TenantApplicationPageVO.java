@@ -2,7 +2,9 @@ package team.sun.integration.modules.sys.tenant.model.vo.page;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
+import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -28,6 +30,7 @@ public class TenantApplicationPageVO implements Serializable {
     private Integer days;
 
     @ApiModelProperty(value = "使用状态（永久可用、使用中、已到期、已禁用）")
+    @Convert(converter = TenantApplicationAction.Convert.class)
     private Integer state;
 
     @ApiModelProperty(value = "创建时间")

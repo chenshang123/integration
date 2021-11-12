@@ -22,7 +22,7 @@ public class QResource extends EntityPathBase<Resource> {
 
     public static final QResource resource = new QResource("resource");
 
-    public final team.sun.integration.modules.sys.application.model.entity.QApplication applicationResource;
+    public final team.sun.integration.modules.sys.application.model.entity.QApplication application;
 
     public final StringPath component = createString("component");
 
@@ -33,6 +33,8 @@ public class QResource extends EntityPathBase<Resource> {
     public final StringPath creatorId = createString("creatorId");
 
     public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+
+    public final SetPath<Element, QElement> elements = this.<Element, QElement>createSet("elements", Element.class, QElement.class, PathInits.DIRECT2);
 
     public final StringPath firstFloorId = createString("firstFloorId");
 
@@ -51,8 +53,6 @@ public class QResource extends EntityPathBase<Resource> {
     public final StringPath path = createString("path");
 
     public final StringPath permission = createString("permission");
-
-    public final SetPath<Element, QElement> resourceElements = this.<Element, QElement>createSet("resourceElements", Element.class, QElement.class, PathInits.DIRECT2);
 
     public final SetPath<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole> roles = this.<team.sun.integration.modules.sys.role.model.entity.Role, team.sun.integration.modules.sys.role.model.entity.QRole>createSet("roles", team.sun.integration.modules.sys.role.model.entity.Role.class, team.sun.integration.modules.sys.role.model.entity.QRole.class, PathInits.DIRECT2);
 
@@ -88,7 +88,7 @@ public class QResource extends EntityPathBase<Resource> {
 
     public QResource(Class<? extends Resource> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
-        this.applicationResource = inits.isInitialized("applicationResource") ? new team.sun.integration.modules.sys.application.model.entity.QApplication(forProperty("applicationResource")) : null;
+        this.application = inits.isInitialized("application") ? new team.sun.integration.modules.sys.application.model.entity.QApplication(forProperty("application")) : null;
     }
 
 }

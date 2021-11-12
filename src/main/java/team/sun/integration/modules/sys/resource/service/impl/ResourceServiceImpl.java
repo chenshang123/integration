@@ -61,11 +61,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
     @Override
     public List<Tree<String>> getTree(Predicate predicate) {
         QResource resource = QResource.resource;
-        /*Predicate predicate = resource.isNull().or(resource.isNotNull());
-        predicate = query.getLayer() == null ?
-                predicate : ExpressionUtils.and(predicate, resource.layer.eq(query.getLayer()));
-        predicate = query.getApplicationResource() == null ?
-                predicate : ExpressionUtils.and(predicate, resource.applicationResource.id.eq(query.getApplicationResource().getId()));*/
 
         OrderSpecifier[] orderSpecifiers = {resource.layer.asc().nullsLast(), resource.weight.asc().nullsLast()};
         Iterable<Resource> resourceIterable = this.get(predicate, orderSpecifiers);

@@ -58,15 +58,6 @@ public class PermissionDataQueryDTO implements Serializable {
     @ApiModelProperty(value = "共享数据-部门")
     private String shareDepartmentId;
 
-    @ApiModelProperty(value = "创建时间")
-    private LocalDateTime createTime;
-
-    @ApiModelProperty(value = "修改时间")
-    private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -164,30 +155,6 @@ public class PermissionDataQueryDTO implements Serializable {
 
     public void setShareDepartmentId(String shareDepartmentId) {
         this.shareDepartmentId = shareDepartmentId;
-    }
-
-    public LocalDateTime getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(LocalDateTime createTime) {
-        this.createTime = createTime;
-    }
-
-    public LocalDateTime getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(LocalDateTime updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

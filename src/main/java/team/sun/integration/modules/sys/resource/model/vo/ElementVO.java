@@ -2,10 +2,8 @@ package team.sun.integration.modules.sys.resource.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.role.model.vo.RoleVO;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
-import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -38,7 +36,7 @@ public class ElementVO implements Serializable {
     private Set<TenantVO> tenants = new HashSet<>();
 
     @ApiModelProperty(value = "多对一：菜单页面元素-菜单")
-    private ResourceVO elementResource;
+    private ResourceVO resource;
 
     @ApiModelProperty(value = "页面元素名称")
     private String elementName;
@@ -46,14 +44,14 @@ public class ElementVO implements Serializable {
     @ApiModelProperty(value = "页面元素标识")
     private String elementIdentify;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人所属租户")
+    private String creatorTenantId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -73,12 +71,12 @@ public class ElementVO implements Serializable {
                 "id='" + id + '\'' +
                 ", roles=" + roles +
                 ", tenants=" + tenants +
-                ", elementResource=" + elementResource +
+                ", resource=" + resource +
                 ", elementName='" + elementName + '\'' +
                 ", elementIdentify='" + elementIdentify + '\'' +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -110,12 +108,12 @@ public class ElementVO implements Serializable {
         this.tenants = tenants;
     }
 
-    public ResourceVO getElementResource() {
-        return elementResource;
+    public ResourceVO getResource() {
+        return resource;
     }
 
-    public void setElementResource(ResourceVO elementResource) {
-        this.elementResource = elementResource;
+    public void setResource(ResourceVO resource) {
+        this.resource = resource;
     }
 
     public String getElementName() {
@@ -134,28 +132,28 @@ public class ElementVO implements Serializable {
         this.elementIdentify = elementIdentify;
     }
 
-    public UserVO getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {

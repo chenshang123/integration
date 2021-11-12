@@ -8,10 +8,8 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -36,7 +34,7 @@ import java.util.Set;
 @NamedEntityGraphs(@NamedEntityGraph(name = "Element-relation", attributeNodes = {
         @NamedAttributeNode("roles"),
         @NamedAttributeNode("tenants"),
-        @NamedAttributeNode("elementResource")
+        @NamedAttributeNode("resource")
 }))
 public class Element implements Serializable {
 
@@ -52,13 +50,13 @@ public class Element implements Serializable {
     /**
      * 多对多：资源（菜单页面元素）-角色
      **/
-    @ManyToMany(mappedBy = "roleElements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "elements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();
 
     /**
      * 多对多：资源（菜单页面元素）-租户
      **/
-    @ManyToMany(mappedBy = "tenantElements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "elements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Tenant> tenants = new HashSet<>();
 
     /**
@@ -67,7 +65,7 @@ public class Element implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "resource_id", referencedColumnName = "resource_id", nullable = false)
     @JsonBackReference
-    private Resource elementResource;
+    private Resource resource;
 
     /**
      * 页面元素名称
@@ -138,9 +136,6 @@ public class Element implements Serializable {
     public String toString() {
         return "Element{" +
                 "id='" + id + '\'' +
-                ", roles=" + roles +
-                ", tenants=" + tenants +
-                ", elementResource=" + elementResource +
                 ", elementName='" + elementName + '\'' +
                 ", elementIdentify='" + elementIdentify + '\'' +
                 ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
@@ -178,12 +173,12 @@ public class Element implements Serializable {
         this.tenants = tenants;
     }
 
-    public Resource getElementResource() {
-        return elementResource;
+    public Resource getResource() {
+        return resource;
     }
 
-    public void setElementResource(Resource elementResource) {
-        this.elementResource = elementResource;
+    public void setResource(Resource resource) {
+        this.resource = resource;
     }
 
     public String getElementName() {

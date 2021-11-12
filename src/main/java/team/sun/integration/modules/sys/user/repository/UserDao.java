@@ -14,7 +14,7 @@ public interface UserDao extends IDao<User, String> {
 /*    @Query(value = "select role_id from sys_user_role_mid where user_id = ?1", nativeQuery = true)
     List<String> findRoleIds(String userId);*/
 
-    @EntityGraph(attributePaths = "userRoles")
+    @EntityGraph(attributePaths = "roles")
     User findByUsername(String userName);
 
     @Override

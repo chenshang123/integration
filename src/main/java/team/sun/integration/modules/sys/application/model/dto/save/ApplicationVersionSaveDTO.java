@@ -25,11 +25,11 @@ public class ApplicationVersionSaveDTO implements Serializable {
 
     private String id;
 
+    @ApiModelProperty(value = "应用")
+    private String application_id;
+
     @ApiModelProperty(value = "应用版本号")
     private String applicationVersion;
-
-    @ApiModelProperty(value = "应用")
-    private String applicationId;
 
     @ApiModelProperty(value = "版本说明")
     private String explain;
@@ -77,12 +77,12 @@ public class ApplicationVersionSaveDTO implements Serializable {
         this.applicationVersion = applicationVersion;
     }
 
-    public String getApplicationId() {
-        return applicationId;
+    public String getApplication_id() {
+        return application_id;
     }
 
-    public void setApplicationId(String applicationId) {
-        this.applicationId = applicationId;
+    public void setApplication_id(String application_id) {
+        this.application_id = application_id;
     }
 
     public String getExplain() {

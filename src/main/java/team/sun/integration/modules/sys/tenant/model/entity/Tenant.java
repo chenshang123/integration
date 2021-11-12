@@ -32,8 +32,8 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_tenant set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Tenant-relation", attributeNodes = {
-        @NamedAttributeNode("tenantResources"),
-        @NamedAttributeNode("tenantElements"),
+        @NamedAttributeNode("resources"),
+        @NamedAttributeNode("elements"),
         @NamedAttributeNode("tenantApplications")
 }))
 public class Tenant implements Serializable {
@@ -56,7 +56,7 @@ public class Tenant implements Serializable {
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
-    private Set<Resource> tenantResources = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
     /**
      * 多对多：租户-菜单页面元素
      */
@@ -66,7 +66,7 @@ public class Tenant implements Serializable {
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )
-    private Set<Element> tenantElements = new HashSet<>();
+    private Set<Element> elements = new HashSet<>();
 
     /**
      * 多对多转一对多：租户-应用
@@ -242,20 +242,20 @@ public class Tenant implements Serializable {
         this.id = id;
     }
 
-    public Set<Resource> getTenantResources() {
-        return tenantResources;
+    public Set<Resource> getResources() {
+        return resources;
     }
 
-    public void setTenantResources(Set<Resource> tenantResources) {
-        this.tenantResources = tenantResources;
+    public void setResources(Set<Resource> resources) {
+        this.resources = resources;
     }
 
-    public Set<Element> getTenantElements() {
-        return tenantElements;
+    public Set<Element> getElements() {
+        return elements;
     }
 
-    public void setTenantElements(Set<Element> tenantElements) {
-        this.tenantElements = tenantElements;
+    public void setElements(Set<Element> elements) {
+        this.elements = elements;
     }
 
     public Set<TenantApplication> getTenantApplications() {

@@ -29,7 +29,7 @@ public class ApplicationVersionVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "应用")
-    private ApplicationVO applicationVer;
+    private ApplicationVO application;
 
     @ApiModelProperty(value = "应用版本号")
     private String applicationVersion;
@@ -68,7 +68,7 @@ public class ApplicationVersionVO implements Serializable {
     public String toString() {
         return "ApplicationVersionVO{" +
                 "id='" + id + '\'' +
-                ", applicationVer=" + applicationVer +
+                ", application=" + application +
                 ", applicationVersion='" + applicationVersion + '\'' +
                 ", explain='" + explain + '\'' +
                 ", online=" + online +
@@ -91,12 +91,12 @@ public class ApplicationVersionVO implements Serializable {
         this.id = id;
     }
 
-    public ApplicationVO getApplicationVer() {
-        return applicationVer;
+    public ApplicationVO getApplication() {
+        return application;
     }
 
-    public void setApplicationVer(ApplicationVO applicationVer) {
-        this.applicationVer = applicationVer;
+    public void setApplication(ApplicationVO application) {
+        this.application = application;
     }
 
     public String getApplicationVersion() {

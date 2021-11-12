@@ -52,8 +52,12 @@ public class ResourceController {
         QResource qResource = QResource.resource;
         Predicate predicate = qResource.isNotNull().or(qResource.isNull());
 
+        predicate = query.getLayer() == null ?
+                predicate : ExpressionUtils.and(predicate, resource.layer.eq(query.getLayer()));
         predicate = queryDTO.getApplication_id() == null ?
-                predicate : ExpressionUtils.and(predicate, qResource.applicationResource.id.eq(queryDTO.getApplication_id()));
+                predicate : ExpressionUtils.and(predicate, qResource.application.id.eq(queryDTO.getApplication_id()));
+        predicate = queryDTO.getTenant_id() == null ?
+                predicate : ExpressionUtils.and(predicate, qResource.tenants.any().id.eq(queryDTO.getTenant_id()));
 
         return Ret.success(resourceService.getTree(predicate));
     }

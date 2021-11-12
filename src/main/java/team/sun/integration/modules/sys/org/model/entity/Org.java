@@ -45,7 +45,7 @@ public class Org implements Serializable {
     /**
      * 一对多：应用-菜单
      **/
-    @OneToMany(mappedBy = "userOrg", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "org", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<User> users;
 
     /**

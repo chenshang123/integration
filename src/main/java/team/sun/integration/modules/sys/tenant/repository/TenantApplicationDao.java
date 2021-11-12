@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.tenant.repository;
 
+import com.querydsl.core.types.Predicate;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
 import team.sun.integration.config.base.repository.IDao;
@@ -22,4 +23,5 @@ public interface TenantApplicationDao extends IDao<TenantApplication, String> {
     @Override
     @EntityGraph("TenantApplication-relation")
     Optional<TenantApplication> findById(String id);
+
 }

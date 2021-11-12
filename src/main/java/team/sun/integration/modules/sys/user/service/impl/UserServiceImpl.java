@@ -101,7 +101,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public List<String> getRoleIds(String userId) {
         List<String> roleIds = new ArrayList<>();
         Optional<User> user = dao.findById(userId);
-        user.flatMap(o -> Optional.ofNullable(o.getUserRoles())).
+        user.flatMap(o -> Optional.ofNullable(o.getRoles())).
                 ifPresent(roles -> roles.forEach(role -> roleIds.add(role.getId())));
         return roleIds;
     }
@@ -112,10 +112,10 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         Optional<User> user = dao.findById(userId);
         user.ifPresent(o -> {
             //删除：关系表-角色权限
-            o.getUserRoles().clear();
+            o.getRoles().clear();
             //添加: 关系表-角色权限
             Iterable<Role> roles = roleDao.findAllById(roleIds);
-            o.setUserRoles(Sets.newHashSet(roles));
+            o.setRoles(Sets.newHashSet(roles));
             dao.save(o);
         });
     }
@@ -129,8 +129,8 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
         UserLoginVO vo = new UserLoginVO();
         if (null != user) {
             BeanUtils.copyProperties(user, vo);
-            if (withRoles && null != user.getUserRoles()) {
-                user.getUserRoles().forEach((role) -> vo.getRoleIds().add(role.getId()));
+            if (withRoles && null != user.getRoles()) {
+                user.getRoles().forEach((role) -> vo.getRoleIds().add(role.getId()));
             }
         }
         return vo;

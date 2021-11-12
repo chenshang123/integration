@@ -34,18 +34,16 @@ public class RoleVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：角色-菜单")
-    private Set<ResourceVO> roleResources = new HashSet<>();
+    private Set<ResourceVO> resources = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：角色-菜单页面元素")
-    private Set<ElementVO> roleElements = new HashSet<>();
-
+    private Set<ElementVO> elements = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：角色-用户")
     private Set<UserVO> users = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：角色-用户组")
     private Set<GroupVO> groups = new HashSet<>();
-
 
     @ApiModelProperty(value = "编号")
     private String code;
@@ -59,14 +57,14 @@ public class RoleVO implements Serializable {
     @ApiModelProperty(value = "备注说明")
     private String remarks;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人所属租户")
+    private String creatorTenantId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -87,17 +85,17 @@ public class RoleVO implements Serializable {
     public String toString() {
         return "RoleVO{" +
                 "id='" + id + '\'' +
-                ", roleResources=" + roleResources +
-                ", roleElements=" + roleElements +
+                ", resources=" + resources +
+                ", elements=" + elements +
                 ", users=" + users +
                 ", groups=" + groups +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", available=" + available +
                 ", remarks='" + remarks + '\'' +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -113,20 +111,20 @@ public class RoleVO implements Serializable {
         this.id = id;
     }
 
-    public Set<ResourceVO> getRoleResources() {
-        return roleResources;
+    public Set<ResourceVO> getResources() {
+        return resources;
     }
 
-    public void setRoleResources(Set<ResourceVO> roleResources) {
-        this.roleResources = roleResources;
+    public void setResources(Set<ResourceVO> resources) {
+        this.resources = resources;
     }
 
-    public Set<ElementVO> getRoleElements() {
-        return roleElements;
+    public Set<ElementVO> getElements() {
+        return elements;
     }
 
-    public void setRoleElements(Set<ElementVO> roleElements) {
-        this.roleElements = roleElements;
+    public void setElements(Set<ElementVO> elements) {
+        this.elements = elements;
     }
 
     public Set<UserVO> getUsers() {
@@ -177,28 +175,28 @@ public class RoleVO implements Serializable {
         this.remarks = remarks;
     }
 
-    public UserVO getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {

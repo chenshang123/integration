@@ -32,10 +32,10 @@ public class GroupVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：用户组-角色")
-    private Set<RoleVO> groupRoles = new HashSet<>();
+    private Set<RoleVO> roles = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：用户组-用户")
-    private Set<UserVO> groupUsers = new HashSet<>();
+    private Set<UserVO> users = new HashSet<>();
 
     @ApiModelProperty(value = "分组名称")
     private String name;
@@ -68,8 +68,8 @@ public class GroupVO implements Serializable {
     public String toString() {
         return "GroupVO{" +
                 "id='" + id + '\'' +
-                ", groupRoles=" + groupRoles +
-                ", groupUsers=" + groupUsers +
+                ", roles=" + roles +
+                ", users=" + users +
                 ", name='" + name + '\'' +
                 ", explain='" + explain + '\'' +
                 ", creator=" + creator +
@@ -90,20 +90,20 @@ public class GroupVO implements Serializable {
         this.id = id;
     }
 
-    public Set<RoleVO> getGroupRoles() {
-        return groupRoles;
+    public Set<RoleVO> getRoles() {
+        return roles;
     }
 
-    public void setGroupRoles(Set<RoleVO> groupRoles) {
-        this.groupRoles = groupRoles;
+    public void setRoles(Set<RoleVO> roles) {
+        this.roles = roles;
     }
 
-    public Set<UserVO> getGroupUsers() {
-        return groupUsers;
+    public Set<UserVO> getUsers() {
+        return users;
     }
 
-    public void setGroupUsers(Set<UserVO> groupUsers) {
-        this.groupUsers = groupUsers;
+    public void setUsers(Set<UserVO> users) {
+        this.users = users;
     }
 
     public String getName() {

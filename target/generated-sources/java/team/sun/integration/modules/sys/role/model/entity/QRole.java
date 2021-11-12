@@ -34,6 +34,8 @@ public class QRole extends EntityPathBase<Role> {
 
     public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
 
+    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement> elements = this.<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement>createSet("elements", team.sun.integration.modules.sys.resource.model.entity.Element.class, team.sun.integration.modules.sys.resource.model.entity.QElement.class, PathInits.DIRECT2);
+
     public final SetPath<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup> groups = this.<team.sun.integration.modules.sys.group.model.entity.Group, team.sun.integration.modules.sys.group.model.entity.QGroup>createSet("groups", team.sun.integration.modules.sys.group.model.entity.Group.class, team.sun.integration.modules.sys.group.model.entity.QGroup.class, PathInits.DIRECT2);
 
     public final StringPath id = createString("id");
@@ -44,9 +46,7 @@ public class QRole extends EntityPathBase<Role> {
 
     public final StringPath remarks = createString("remarks");
 
-    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement> roleElements = this.<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement>createSet("roleElements", team.sun.integration.modules.sys.resource.model.entity.Element.class, team.sun.integration.modules.sys.resource.model.entity.QElement.class, PathInits.DIRECT2);
-
-    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource> roleResources = this.<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource>createSet("roleResources", team.sun.integration.modules.sys.resource.model.entity.Resource.class, team.sun.integration.modules.sys.resource.model.entity.QResource.class, PathInits.DIRECT2);
+    public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource> resources = this.<team.sun.integration.modules.sys.resource.model.entity.Resource, team.sun.integration.modules.sys.resource.model.entity.QResource>createSet("resources", team.sun.integration.modules.sys.resource.model.entity.Resource.class, team.sun.integration.modules.sys.resource.model.entity.QResource.class, PathInits.DIRECT2);
 
     public final DateTimePath<java.time.LocalDateTime> updateTime = createDateTime("updateTime", java.time.LocalDateTime.class);
 

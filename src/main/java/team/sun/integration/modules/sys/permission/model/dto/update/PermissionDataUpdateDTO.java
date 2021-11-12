@@ -57,9 +57,6 @@ public class PermissionDataUpdateDTO implements Serializable {
     @ApiModelProperty(value = "共享数据-部门")
     private String shareDepartmentId;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -157,14 +154,6 @@ public class PermissionDataUpdateDTO implements Serializable {
 
     public void setShareDepartmentId(String shareDepartmentId) {
         this.shareDepartmentId = shareDepartmentId;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

@@ -40,9 +40,6 @@ public class UserQueryDTO implements Serializable {
     @ApiModelProperty(value = "乖乖图")
     private String petImg;
 
-    @ApiModelProperty(value = "密码")
-    private String pwd;
-
     @ApiModelProperty(value = "盐值-用户创建、密码修改时创建")
     private String salt;
 
@@ -100,23 +97,11 @@ public class UserQueryDTO implements Serializable {
     @ApiModelProperty(value = "固定ip (格式为*.*.*.* 星号只能是固定值0-255)")
     private String loginIp;
 
-    @ApiModelProperty(value = "创建人")
-    private String creatorId;
-
-    @ApiModelProperty(value = "所属部门")
-    private String creatorDepartmentId;
-
-    @ApiModelProperty(value = "所属租户")
-    private String creatorTenantId;
-
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
 
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
 
     @ApiModelProperty(value = "版本号")
     private Integer version;
@@ -167,14 +152,6 @@ public class UserQueryDTO implements Serializable {
 
     public void setPetImg(String petImg) {
         this.petImg = petImg;
-    }
-
-    public String getPwd() {
-        return pwd;
-    }
-
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
     }
 
     public String getSalt() {
@@ -329,30 +306,6 @@ public class UserQueryDTO implements Serializable {
         this.loginIp = loginIp;
     }
 
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
-    }
-
-    public String getCreatorDepartmentId() {
-        return creatorDepartmentId;
-    }
-
-    public void setCreatorDepartmentId(String creatorDepartmentId) {
-        this.creatorDepartmentId = creatorDepartmentId;
-    }
-
-    public String getCreatorTenantId() {
-        return creatorTenantId;
-    }
-
-    public void setCreatorTenantId(String creatorTenantId) {
-        this.creatorTenantId = creatorTenantId;
-    }
-
     public LocalDateTime getCreateTime() {
         return createTime;
     }
@@ -367,14 +320,6 @@ public class UserQueryDTO implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

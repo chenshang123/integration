@@ -35,10 +35,10 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_user set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "User-relation", attributeNodes = {
-        @NamedAttributeNode("userGroups"),
-        @NamedAttributeNode("userRoles"),
-        @NamedAttributeNode("userPositions"),
-        @NamedAttributeNode("userOrg")
+        @NamedAttributeNode("groups"),
+        @NamedAttributeNode("roles"),
+        @NamedAttributeNode("positions"),
+        @NamedAttributeNode("org")
 }))
 public class User implements Serializable {
 
@@ -53,8 +53,8 @@ public class User implements Serializable {
     /**
      * 多对多：用户-用户组
      **/
-    @ManyToMany(mappedBy = "groupUsers", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Group> userGroups = new HashSet<>();
+    @ManyToMany(mappedBy = "users", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<Group> groups = new HashSet<>();
 
     /**
      * 多对多：用户-角色
@@ -66,7 +66,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonBackReference
-    private Set<Role> userRoles = new HashSet<>();
+    private Set<Role> roles = new HashSet<>();
 
     /**
      * 多对多：用户-职位
@@ -78,7 +78,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "position_id")
     )
     @JsonBackReference
-    private Set<Position> userPositions = new HashSet<>();
+    private Set<Position> positions = new HashSet<>();
 
     /**
      * 多对一： 用户-单位 ：所属单位
@@ -86,7 +86,7 @@ public class User implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id", referencedColumnName = "org_id", nullable = false)
     @JsonBackReference
-    private Org userOrg;
+    private Org org;
 
     /**
      * 昵称
@@ -336,36 +336,36 @@ public class User implements Serializable {
         this.id = id;
     }
 
-    public Set<Group> getUserGroups() {
-        return userGroups;
+    public Set<Group> getGroups() {
+        return groups;
     }
 
-    public void setUserGroups(Set<Group> userGroups) {
-        this.userGroups = userGroups;
+    public void setGroups(Set<Group> groups) {
+        this.groups = groups;
     }
 
-    public Set<Role> getUserRoles() {
-        return userRoles;
+    public Set<Role> getRoles() {
+        return roles;
     }
 
-    public void setUserRoles(Set<Role> userRoles) {
-        this.userRoles = userRoles;
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
-    public Set<Position> getUserPositions() {
-        return userPositions;
+    public Set<Position> getPositions() {
+        return positions;
     }
 
-    public void setUserPositions(Set<Position> userPositions) {
-        this.userPositions = userPositions;
+    public void setPositions(Set<Position> positions) {
+        this.positions = positions;
     }
 
-    public Org getUserOrg() {
-        return userOrg;
+    public Org getOrg() {
+        return org;
     }
 
-    public void setUserOrg(Org userOrg) {
-        this.userOrg = userOrg;
+    public void setOrg(Org org) {
+        this.org = org;
     }
 
     public String getPetName() {

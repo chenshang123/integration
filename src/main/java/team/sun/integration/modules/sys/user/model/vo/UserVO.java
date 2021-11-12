@@ -115,14 +115,14 @@ public class UserVO implements Serializable {
     @ApiModelProperty(value = "固定ip (格式为*.*.*.* 星号只能是固定值0-255)")
     private String loginIp;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人所属租户")
+    private String creatorTenantId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -366,30 +366,6 @@ public class UserVO implements Serializable {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
-    }
-
-    public UserVO getCreator() {
-        return creator;
-    }
-
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
-    }
-
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
-    }
-
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
-    }
-
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
-    }
-
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
     }
 
     public LocalDateTime getCreateTime() {

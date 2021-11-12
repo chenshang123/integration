@@ -23,8 +23,6 @@ public class RegionSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     @ApiModelProperty(value = "首层id")
     private String firstFloorId;
 
@@ -51,14 +49,6 @@ public class RegionSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "纬度")
     private String lng;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFirstFloorId() {
         return firstFloorId;

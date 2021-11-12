@@ -24,10 +24,8 @@ public class PositionSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     @ApiModelProperty(value = "多对多：职位-用户")
-    private Set<User> users = new HashSet<>();
+    private Set<String> user_ids = new HashSet<>();
 
     @ApiModelProperty(value = "职位名称")
     private String name;
@@ -35,20 +33,12 @@ public class PositionSaveDTO implements Serializable {
     @ApiModelProperty(value = "说明")
     private String explain;
 
-    public String getId() {
-        return id;
+    public Set<String> getUser_ids() {
+        return user_ids;
     }
 
-    public void setId(String id) {
-        this.id = id;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
+    public void setUser_ids(Set<String> user_ids) {
+        this.user_ids = user_ids;
     }
 
     public String getName() {

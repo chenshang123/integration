@@ -21,8 +21,6 @@ public class PermissionDataSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     @ApiModelProperty(value = "菜单")
     private String resourceId;
 
@@ -55,14 +53,6 @@ public class PermissionDataSaveDTO implements Serializable {
 
     @ApiModelProperty(value = "共享数据-部门")
     private String shareDepartmentId;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getResourceId() {
         return resourceId;

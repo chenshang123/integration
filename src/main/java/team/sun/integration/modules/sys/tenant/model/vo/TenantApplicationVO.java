@@ -3,9 +3,9 @@ package team.sun.integration.modules.sys.tenant.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
-import team.sun.integration.modules.sys.user.model.vo.UserVO;
+import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
+import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -37,13 +37,14 @@ public class TenantApplicationVO implements Serializable {
     private Integer days;
 
     @ApiModelProperty(value = "使用状态（永久可用、使用中、已到期、已禁用）")
+    @Convert(converter = TenantApplicationAction.Convert.class)
     private Integer state;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -65,8 +66,8 @@ public class TenantApplicationVO implements Serializable {
                 ", application=" + application +
                 ", days=" + days +
                 ", state=" + state +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -114,20 +115,20 @@ public class TenantApplicationVO implements Serializable {
         this.state = state;
     }
 
-    public UserVO getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {

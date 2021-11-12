@@ -9,12 +9,10 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceType;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceVisitType;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -37,9 +35,9 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_resource set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Resource-relation", attributeNodes = {
-        @NamedAttributeNode("resourceElements"),
+        @NamedAttributeNode("elements"),
         @NamedAttributeNode("roles"),
-        @NamedAttributeNode("applicationResource"),
+        @NamedAttributeNode("application"),
         @NamedAttributeNode("tenants")
 }))
 public class Resource implements Serializable {
@@ -56,13 +54,13 @@ public class Resource implements Serializable {
     /**
      * 一对多：菜单-页面元素
      **/
-    @OneToMany(mappedBy = "elementResource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Element> resourceElements = new HashSet<>();
+    @OneToMany(mappedBy = "resource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<Element> elements = new HashSet<>();
 
     /**
      * 多对多：资源（菜单）-角色
      **/
-    @ManyToMany(mappedBy = "roleResources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "resources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Role> roles = new HashSet<>();
 
     /**
@@ -71,12 +69,12 @@ public class Resource implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", referencedColumnName = "application_id")
     @JsonBackReference
-    private Application applicationResource;
+    private Application application;
 
     /**
      * 多对多：资源（菜单）-租户
      **/
-    @ManyToMany(mappedBy = "tenantResources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "resources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Tenant> tenants = new HashSet<>();
 
     /**
@@ -204,10 +202,6 @@ public class Resource implements Serializable {
     public String toString() {
         return "Resource{" +
                 "id='" + id + '\'' +
-                ", resourceElements=" + resourceElements +
-                ", roles=" + roles +
-                ", applicationResource=" + applicationResource +
-                ", tenants=" + tenants +
                 ", firstFloorId='" + firstFloorId + '\'' +
                 ", parentId='" + parentId + '\'' +
                 ", layer=" + layer +
@@ -238,14 +232,6 @@ public class Resource implements Serializable {
         this.id = id;
     }
 
-    public Set<Element> getResourceElements() {
-        return resourceElements;
-    }
-
-    public void setResourceElements(Set<Element> resourceElements) {
-        this.resourceElements = resourceElements;
-    }
-
     public Set<Role> getRoles() {
         return roles;
     }
@@ -254,12 +240,20 @@ public class Resource implements Serializable {
         this.roles = roles;
     }
 
-    public Application getApplicationResource() {
-        return applicationResource;
+    public Set<Element> getElements() {
+        return elements;
     }
 
-    public void setApplicationResource(Application applicationResource) {
-        this.applicationResource = applicationResource;
+    public void setElements(Set<Element> elements) {
+        this.elements = elements;
+    }
+
+    public Application getApplication() {
+        return application;
+    }
+
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public Set<Tenant> getTenants() {

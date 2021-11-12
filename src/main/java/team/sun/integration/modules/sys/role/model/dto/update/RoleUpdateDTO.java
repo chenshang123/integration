@@ -37,9 +37,6 @@ public class RoleUpdateDTO implements Serializable {
     @ApiModelProperty(value = "备注说明")
     private String remarks;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -81,14 +78,6 @@ public class RoleUpdateDTO implements Serializable {
 
     public void setRemarks(String remarks) {
         this.remarks = remarks;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

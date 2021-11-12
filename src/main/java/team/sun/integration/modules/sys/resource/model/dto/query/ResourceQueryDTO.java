@@ -28,6 +28,9 @@ public class ResourceQueryDTO implements Serializable {
     @ApiModelProperty(value = "应用id")
     private String application_id;
 
+    @ApiModelProperty(value = "租户id")
+    private String tenant_id;
+
     @ApiModelProperty(value = "首层id")
     private String firstFloorId;
 
@@ -72,6 +75,14 @@ public class ResourceQueryDTO implements Serializable {
 
     public void setApplication_id(String application_id) {
         this.application_id = application_id;
+    }
+
+    public String getTenant_id() {
+        return tenant_id;
+    }
+
+    public void setTenant_id(String tenant_id) {
+        this.tenant_id = tenant_id;
     }
 
     public String getFirstFloorId() {
@@ -169,5 +180,4 @@ public class ResourceQueryDTO implements Serializable {
     public void setVisitType(ResourceVisitType visitType) {
         this.visitType = visitType;
     }
-
 }

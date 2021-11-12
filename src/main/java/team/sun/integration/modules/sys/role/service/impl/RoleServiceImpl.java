@@ -51,10 +51,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
         Optional<Role> role = roleDao.findById(roleId);
         role.ifPresent(o -> {
             //删除: 多对多关系-角色资源权限
-            o.getRoleResources().clear();
+            o.getResources().clear();
             //添加: 多对多关系-角色资源权限
             Iterable<Resource> resources = resourceDao.findAllById(resourceIds);
-            o.setRoleResources(Sets.newHashSet(resources));
+            o.setResources(Sets.newHashSet(resources));
             roleDao.save(o);
         });
     }
@@ -68,7 +68,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
     public List<String> findResourceIds(List<String> roleIds) {
         List<String> resourceIds = new ArrayList<>();
         Iterable<Role> roles = roleDao.findAllById(roleIds);
-        roles.forEach(role -> role.getRoleResources().
+        roles.forEach(role -> role.getResources().
                 forEach(resource -> resourceIds.add(resource.getId())));
         return resourceIds;
     }

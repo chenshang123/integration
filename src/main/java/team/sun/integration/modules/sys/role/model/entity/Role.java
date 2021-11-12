@@ -8,10 +8,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.group.model.entity.Group;
-import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.resource.model.entity.Element;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
-import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.*;
@@ -35,8 +33,8 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_role set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Role-relation", attributeNodes = {
-        @NamedAttributeNode("roleResources"),
-        @NamedAttributeNode("roleElements"),
+        @NamedAttributeNode("resources"),
+        @NamedAttributeNode("elements"),
         @NamedAttributeNode("users"),
         @NamedAttributeNode("groups")
 }))
@@ -60,7 +58,7 @@ public class Role implements Serializable {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
-    private Set<Resource> roleResources = new HashSet<>();
+    private Set<Resource> resources = new HashSet<>();
 
     /**
      * 多对多：角色-菜单页面元素
@@ -71,19 +69,19 @@ public class Role implements Serializable {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )
-    private Set<Element> roleElements = new HashSet<>();
+    private Set<Element> elements = new HashSet<>();
 
 
     /**
      * 多对多：角色-用户
      **/
-    @ManyToMany(mappedBy = "userRoles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<User> users = new HashSet<>();
 
     /**
      * 多对多：角色-用户组
      **/
-    @ManyToMany(mappedBy = "groupRoles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Group> groups = new HashSet<>();
 
 
@@ -168,10 +166,6 @@ public class Role implements Serializable {
     public String toString() {
         return "Role{" +
                 "id='" + id + '\'' +
-                ", roleResources=" + roleResources +
-                ", roleElements=" + roleElements +
-                ", users=" + users +
-                ", groups=" + groups +
                 ", code='" + code + '\'' +
                 ", name='" + name + '\'' +
                 ", available=" + available +
@@ -195,20 +189,20 @@ public class Role implements Serializable {
         this.id = id;
     }
 
-    public Set<Resource> getRoleResources() {
-        return roleResources;
+    public Set<Resource> getResources() {
+        return resources;
     }
 
-    public void setRoleResources(Set<Resource> roleResources) {
-        this.roleResources = roleResources;
+    public void setResources(Set<Resource> resources) {
+        this.resources = resources;
     }
 
-    public Set<Element> getRoleElements() {
-        return roleElements;
+    public Set<Element> getElements() {
+        return elements;
     }
 
-    public void setRoleElements(Set<Element> roleElements) {
-        this.roleElements = roleElements;
+    public void setElements(Set<Element> elements) {
+        this.elements = elements;
     }
 
     public Set<User> getUsers() {

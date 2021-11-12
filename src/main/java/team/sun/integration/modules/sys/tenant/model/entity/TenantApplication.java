@@ -9,6 +9,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.entity.Application;
+import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -63,11 +64,14 @@ public class TenantApplication implements Serializable {
     /**
      * 可用天数
      */
+    @Column(name = "days")
     private Integer days;
 
     /**
      * 使用状态（永久可用、使用中、已到期、已禁用）
      */
+    @Convert(converter = TenantApplicationAction.Convert.class)
+    @Column(name = "state")
     private Integer state;
 
     /**

@@ -28,8 +28,7 @@ import java.time.LocalDateTime;
 @SQLDelete(sql = "update sys_application_version set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "ApplicationVersion-relation", attributeNodes = {
-        @NamedAttributeNode("applicationVer"),
-        @NamedAttributeNode("applicationVersion")
+        @NamedAttributeNode("application")
 }))
 public class ApplicationVersion implements Serializable {
 
@@ -48,7 +47,7 @@ public class ApplicationVersion implements Serializable {
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "application_id", referencedColumnName = "application_id", nullable = false)
     @JsonBackReference
-    private Application applicationVer;
+    private Application application;
 
     /**
      * 应用版本号
@@ -131,8 +130,6 @@ public class ApplicationVersion implements Serializable {
     public String toString() {
         return "ApplicationVersion{" +
                 "id='" + id + '\'' +
-                ", applicationVer=" + applicationVer +
-                ", applicationVersion='" + applicationVersion + '\'' +
                 ", explain='" + explain + '\'' +
                 ", online=" + online +
                 ", installPackage='" + installPackage + '\'' +
@@ -155,12 +152,12 @@ public class ApplicationVersion implements Serializable {
         this.id = id;
     }
 
-    public Application getApplicationVer() {
-        return applicationVer;
+    public Application getApplication() {
+        return application;
     }
 
-    public void setApplicationVer(Application applicationVer) {
-        this.applicationVer = applicationVer;
+    public void setApplication(Application application) {
+        this.application = application;
     }
 
     public String getApplicationVersion() {

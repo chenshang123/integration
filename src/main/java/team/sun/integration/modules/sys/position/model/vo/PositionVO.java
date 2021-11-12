@@ -2,8 +2,6 @@ package team.sun.integration.modules.sys.position.model.vo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
-import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
@@ -39,14 +37,14 @@ public class PositionVO implements Serializable {
     @ApiModelProperty(value = "说明")
     private String explain;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人所属租户")
+    private String creatorTenantId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属租户")
-    private TenantVO creatorTenant;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -62,14 +60,14 @@ public class PositionVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Position{" +
+        return "PositionVO{" +
                 "id='" + id + '\'' +
                 ", users=" + users +
                 ", name='" + name + '\'' +
                 ", explain='" + explain + '\'' +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
-                ", creatorTenant=" + creatorTenant +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorTenantId='" + creatorTenantId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -109,28 +107,28 @@ public class PositionVO implements Serializable {
         this.explain = explain;
     }
 
-    public UserVO getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorTenantId() {
+        return creatorTenantId;
     }
 
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
     }
 
-    public TenantVO getCreatorTenant() {
-        return creatorTenant;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorTenant(TenantVO creatorTenant) {
-        this.creatorTenant = creatorTenant;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {

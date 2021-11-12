@@ -3,7 +3,9 @@ package team.sun.integration.modules.sys.tenant.model.dto.update;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
+import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -34,10 +36,8 @@ public class TenantApplicationUpdateDTO implements Serializable {
     private Integer days;
 
     @ApiModelProperty(value = "使用状态（永久可用、使用中、已到期、已禁用）")
+    @Convert(converter = TenantApplicationAction.Convert.class)
     private Integer state;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
 
     @ApiModelProperty(value = "版本号")
     private Integer version;
@@ -80,14 +80,6 @@ public class TenantApplicationUpdateDTO implements Serializable {
 
     public void setState(Integer state) {
         this.state = state;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

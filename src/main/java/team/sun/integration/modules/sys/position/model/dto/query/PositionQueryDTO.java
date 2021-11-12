@@ -2,17 +2,10 @@ package team.sun.integration.modules.sys.position.model.dto.query;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.annotations.GenericGenerator;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import team.sun.integration.modules.sys.user.model.entity.User;
 
-import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.Set;
 
 
 /**
@@ -30,9 +23,6 @@ public class PositionQueryDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
-
-    @ApiModelProperty(value = "多对多：职位-用户")
-    private Set<User> users = new HashSet<>();
 
     @ApiModelProperty(value = "职位名称")
     private String name;
@@ -55,9 +45,6 @@ public class PositionQueryDTO implements Serializable {
     @ApiModelProperty(value = "修改时间")
     private LocalDateTime updateTime;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -67,14 +54,6 @@ public class PositionQueryDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public Set<User> getUsers() {
-        return users;
-    }
-
-    public void setUsers(Set<User> users) {
-        this.users = users;
     }
 
     public String getName() {
@@ -131,14 +110,6 @@ public class PositionQueryDTO implements Serializable {
 
     public void setUpdateTime(LocalDateTime updateTime) {
         this.updateTime = updateTime;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

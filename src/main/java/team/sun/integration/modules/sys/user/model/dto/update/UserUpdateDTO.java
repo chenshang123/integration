@@ -101,9 +101,6 @@ public class UserUpdateDTO implements Serializable {
     @ApiModelProperty(value = "固定ip (格式为*.*.*.* 星号只能是固定值0-255)")
     private String loginIp;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -305,14 +302,6 @@ public class UserUpdateDTO implements Serializable {
 
     public void setLoginIp(String loginIp) {
         this.loginIp = loginIp;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

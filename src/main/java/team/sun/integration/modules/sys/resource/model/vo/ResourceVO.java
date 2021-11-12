@@ -35,13 +35,13 @@ public class ResourceVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "一对多：菜单-页面元素")
-    private Set<ElementVO> resourceElements = new HashSet<>();
+    private Set<ElementVO> elements = new HashSet<>();
 
     @ApiModelProperty(value = "多对多：资源（菜单）-角色")
     private Set<RoleVO> roles = new HashSet<>();
 
     @ApiModelProperty(value = "多对一：资源（菜单）-应用")
-    private ApplicationVO applicationResource;
+    private ApplicationVO application;
 
     @ApiModelProperty(value = "多对多：资源（菜单）-租户")
     private Set<TenantVO> tenants = new HashSet<>();
@@ -82,11 +82,11 @@ public class ResourceVO implements Serializable {
     @ApiModelProperty(value = "访问类型(get/post/put/)")
     private ResourceVisitType visitType;
 
-    @ApiModelProperty(value = "一对一： 创建人")
-    private UserVO creator;
+    @ApiModelProperty(value = "创建人所属部门")
+    private String creatorDepartmentId;
 
-    @ApiModelProperty(value = "一对一： 创建人所属部门")
-    private OrgVO creatorDepartment;
+    @ApiModelProperty(value = "创建人")
+    private String creatorId;
 
     @ApiModelProperty(value = "创建时间")
     private LocalDateTime createTime;
@@ -102,11 +102,11 @@ public class ResourceVO implements Serializable {
 
     @Override
     public String toString() {
-        return "Resource{" +
+        return "ResourceVO{" +
                 "id='" + id + '\'' +
-                ", resourceElements=" + resourceElements +
+                ", elements=" + elements +
                 ", roles=" + roles +
-                ", applicationResource=" + applicationResource +
+                ", application=" + application +
                 ", tenants=" + tenants +
                 ", firstFloorId='" + firstFloorId + '\'' +
                 ", parentId='" + parentId + '\'' +
@@ -120,8 +120,8 @@ public class ResourceVO implements Serializable {
                 ", component='" + component + '\'' +
                 ", type=" + type +
                 ", visitType=" + visitType +
-                ", creator=" + creator +
-                ", creatorDepartment=" + creatorDepartment +
+                ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
+                ", creatorId='" + creatorId + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", delFlag=" + delFlag +
@@ -137,12 +137,12 @@ public class ResourceVO implements Serializable {
         this.id = id;
     }
 
-    public Set<ElementVO> getResourceElements() {
-        return resourceElements;
+    public Set<ElementVO> getElements() {
+        return elements;
     }
 
-    public void setResourceElements(Set<ElementVO> resourceElements) {
-        this.resourceElements = resourceElements;
+    public void setElements(Set<ElementVO> elements) {
+        this.elements = elements;
     }
 
     public Set<RoleVO> getRoles() {
@@ -153,12 +153,12 @@ public class ResourceVO implements Serializable {
         this.roles = roles;
     }
 
-    public ApplicationVO getApplicationResource() {
-        return applicationResource;
+    public ApplicationVO getApplication() {
+        return application;
     }
 
-    public void setApplicationResource(ApplicationVO applicationResource) {
-        this.applicationResource = applicationResource;
+    public void setApplication(ApplicationVO application) {
+        this.application = application;
     }
 
     public Set<TenantVO> getTenants() {
@@ -265,20 +265,20 @@ public class ResourceVO implements Serializable {
         this.visitType = visitType;
     }
 
-    public UserVO getCreator() {
-        return creator;
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
     }
 
-    public void setCreator(UserVO creator) {
-        this.creator = creator;
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
     }
 
-    public OrgVO getCreatorDepartment() {
-        return creatorDepartment;
+    public String getCreatorId() {
+        return creatorId;
     }
 
-    public void setCreatorDepartment(OrgVO creatorDepartment) {
-        this.creatorDepartment = creatorDepartment;
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
     }
 
     public LocalDateTime getCreateTime() {

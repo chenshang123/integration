@@ -30,7 +30,7 @@ import java.util.Set;
 @SQLDelete(sql = "update sys_position set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Position-relation", attributeNodes = {
-        @NamedAttributeNode("positionUsers")
+        @NamedAttributeNode("users")
 }))
 public class Position implements Serializable {
 
@@ -46,8 +46,8 @@ public class Position implements Serializable {
     /**
      * 多对多：职位-用户
      **/
-    @ManyToMany(mappedBy = "userPositions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> positionUsers = new HashSet<>();
+    @ManyToMany(mappedBy = "positions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<User> users = new HashSet<>();
 
     /**
      * 职位名称
@@ -118,7 +118,6 @@ public class Position implements Serializable {
     public String toString() {
         return "Position{" +
                 "id='" + id + '\'' +
-                ", positionUsers=" + positionUsers +
                 ", name='" + name + '\'' +
                 ", explain='" + explain + '\'' +
                 ", creatorDepartmentId='" + creatorDepartmentId + '\'' +
@@ -132,5 +131,99 @@ public class Position implements Serializable {
                 '}';
     }
 
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public Set<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(Set<User> users) {
+        this.users = users;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getExplain() {
+        return explain;
+    }
+
+    public void setExplain(String explain) {
+        this.explain = explain;
+    }
+
+    public String getCreatorDepartmentId() {
+        return creatorDepartmentId;
+    }
+
+    public void setCreatorDepartmentId(String creatorDepartmentId) {
+        this.creatorDepartmentId = creatorDepartmentId;
+    }
+
+    public String getCreatorTenantId() {
+        return creatorTenantId;
+    }
+
+    public void setCreatorTenantId(String creatorTenantId) {
+        this.creatorTenantId = creatorTenantId;
+    }
+
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
+    }
+
+    public String getModifierId() {
+        return modifierId;
+    }
+
+    public void setModifierId(String modifierId) {
+        this.modifierId = modifierId;
+    }
+
+    public LocalDateTime getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(LocalDateTime updateTime) {
+        this.updateTime = updateTime;
+    }
+
+    public Character getDelFlag() {
+        return delFlag;
+    }
+
+    public void setDelFlag(Character delFlag) {
+        this.delFlag = delFlag;
+    }
+
+    public Integer getVersion() {
+        return version;
+    }
+
+    public void setVersion(Integer version) {
+        this.version = version;
+    }
 }

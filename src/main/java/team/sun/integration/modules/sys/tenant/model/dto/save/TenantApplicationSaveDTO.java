@@ -3,7 +3,9 @@ package team.sun.integration.modules.sys.tenant.model.dto.save;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
+import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
 
@@ -22,8 +24,6 @@ public class TenantApplicationSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     @ApiModelProperty(value = "租户")
     private String tenantId;
 
@@ -34,15 +34,8 @@ public class TenantApplicationSaveDTO implements Serializable {
     private Integer days;
 
     @ApiModelProperty(value = "使用状态（永久可用、使用中、已到期、已禁用）")
+    @Convert(converter = TenantApplicationAction.Convert.class)
     private Integer state;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getTenantId() {
         return tenantId;

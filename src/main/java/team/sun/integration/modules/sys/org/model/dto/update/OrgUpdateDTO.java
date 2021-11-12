@@ -7,7 +7,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -61,9 +60,6 @@ public class OrgUpdateDTO implements Serializable {
 
     @ApiModelProperty(value = "相关说明")
     private String explain;
-
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
 
     @ApiModelProperty(value = "版本号")
     private Integer version;
@@ -170,14 +166,6 @@ public class OrgUpdateDTO implements Serializable {
 
     public void setExplain(String explain) {
         this.explain = explain;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

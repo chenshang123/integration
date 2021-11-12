@@ -21,6 +21,8 @@ import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 public interface TenantService extends IService<Tenant, String> {
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
 
+
+
     Tenant save(TenantSaveDTO entity);
 
     Tenant update(TenantUpdateDTO entity);

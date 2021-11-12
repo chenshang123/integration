@@ -27,8 +27,6 @@ public class ResourceSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
-    private String id;
-
     @ApiModelProperty(value = "首层id")
     private String firstFloorId;
 
@@ -65,14 +63,6 @@ public class ResourceSaveDTO implements Serializable {
 
     @Convert(converter = ResourceVisitType.Convert.class)
     private ResourceVisitType visitType;
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public String getFirstFloorId() {
         return firstFloorId;
