@@ -9,6 +9,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import team.sun.integration.config.base.model.dto.PageDTO;
 import team.sun.integration.config.base.model.vo.PageRet;
@@ -17,8 +18,10 @@ import team.sun.integration.modules.sys.tenant.model.dto.query.TenantQueryDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
+import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.tenant.service.TenantApplicationService;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
 
 import javax.validation.Valid;
@@ -39,9 +42,12 @@ public class TenantController {
 
     private final TenantService tenantService;
 
+    private final TenantApplicationService tenantApplicationService;
+
     @Autowired
-    public TenantController(TenantService tenantService) {
+    public TenantController(TenantService tenantService, TenantApplicationService tenantApplicationService) {
         this.tenantService = tenantService;
+        this.tenantApplicationService = tenantApplicationService;
     }
 
     @ApiOperation(value = "分页查询")
@@ -60,6 +66,16 @@ public class TenantController {
         return Ret.success(pageRet);
     }
 
+    @ApiOperation(value = "租户应用详细")
+    @GetMapping("/applications")
+    public Ret applications(@ApiParam(name = "tenant_id", value = "tenant_id", required = true) @RequestParam String tenant_id) {
+        QTenantApplication qTenantApplication = QTenantApplication.tenantApplication;
+        Predicate predicate = qTenantApplication.isNotNull().or(qTenantApplication.isNull());
+        predicate = !StringUtils.hasLength(tenant_id) ?
+                predicate : ExpressionUtils.and(predicate, qTenantApplication.tenant.id.eq(tenant_id));
+
+        return Ret.success(tenantApplicationService.getApplication(predicate));
+    }
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")

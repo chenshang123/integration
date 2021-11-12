@@ -8,7 +8,10 @@ import team.sun.integration.config.base.service.IService;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+
+import java.util.List;
 
 /**
  * <p>
@@ -19,9 +22,8 @@ import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
  * @since 2021-08-11
  */
 public interface TenantService extends IService<Tenant, String> {
+
     PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec);
-
-
 
     Tenant save(TenantSaveDTO entity);
 

@@ -10,11 +10,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.config.base.service.impl.ServiceImpl;
-import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.model.vo.page.TenantPageVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
@@ -75,7 +75,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
 
     @Override
     public TenantVO getTenantById(String id) {
-        Optional<Tenant> optional = this.dao.findById(id);
+        Optional<Tenant> optional = this.getById(id);
         TenantVO vo = new TenantVO();
         optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
         return vo;

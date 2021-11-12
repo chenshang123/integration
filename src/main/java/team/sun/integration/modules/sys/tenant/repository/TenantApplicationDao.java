@@ -24,4 +24,7 @@ public interface TenantApplicationDao extends IDao<TenantApplication, String> {
     @EntityGraph("TenantApplication-relation")
     Optional<TenantApplication> findById(String id);
 
+    @Override
+    @EntityGraph("TenantApplication-relation")
+    Iterable<TenantApplication> findAll(Predicate predicate);
 }

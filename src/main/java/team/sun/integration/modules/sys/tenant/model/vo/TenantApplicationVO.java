@@ -103,9 +103,7 @@ public class TenantApplicationVO implements Serializable {
         return days;
     }
 
-    public void setDays(Integer days) {
-        this.days = days;
-    }
+    public void setDays(Integer days) { this.days = days; }
 
     public Integer getState() {
         return state;
