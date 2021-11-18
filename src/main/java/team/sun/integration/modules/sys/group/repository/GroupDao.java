@@ -2,7 +2,7 @@ package team.sun.integration.modules.sys.group.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.config.base.repository.IDao;
+import team.sun.integration.modules.base.repository.IDao;
 import team.sun.integration.modules.sys.group.model.entity.Group;
 
 import java.util.Optional;

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import team.sun.integration.config.base.model.vo.Ret;
+import team.sun.integration.modules.base.model.vo.Ret;
 import team.sun.integration.modules.sys.security.utils.JwtTokenUtil;
 
 

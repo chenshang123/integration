@@ -1,29 +1,23 @@
 package team.sun.integration.test;
 
-import cn.hutool.core.util.ByteUtil;
 import cn.hutool.core.util.HexUtil;
-import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
-import com.querydsl.core.Tuple;
+import com.google.common.collect.Sets;
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.dsl.*;
-import com.querydsl.jpa.impl.JPAQuery;
 import org.springframework.beans.BeanUtils;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.util.Base64Utils;
 import org.springframework.util.FileCopyUtils;
-import team.sun.integration.config.base.model.vo.PageRet;
 import team.sun.integration.modules.sys.application.model.entity.Application;
-import team.sun.integration.modules.sys.application.model.entity.QApplication;
-import team.sun.integration.modules.sys.application.model.vo.page.ApplicationPageVO;
+import team.sun.integration.modules.sys.application.repository.ApplicationDao;
 import team.sun.integration.modules.sys.config.service.CodeValueService;
 import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
 import team.sun.integration.modules.sys.org.service.OrgService;
 import team.sun.integration.modules.sys.resource.model.entity.QResource;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.resource.repository.ResourceDao;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -32,19 +26,21 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.springframework.test.context.junit4.SpringRunner;
-import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
-import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
+import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
+import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
+import team.sun.integration.modules.sys.tenant.repository.TenantDao;
+import team.sun.integration.modules.sys.tenant.service.TenantService;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
 import team.sun.integration.modules.sys.user.model.entity.User;
 import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.service.UserService;
 import team.sun.integration.protocol.hex.convert.unpack.sevice.UnpackConvert;
-import team.sun.integration.protocol.hex.utils.HexStringCovert;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.StandardCharsets;
 import java.time.LocalDateTime;
 import java.util.*;
 
@@ -56,6 +52,15 @@ public class ServiceTestTest {
 
     @Autowired
     private CodeValueService codeValueService;
+
+    @Autowired
+    private TenantService  tenantService;
+    @Autowired
+    private TenantDao tenantDao;
+    @Autowired
+    private ResourceDao resourceDao;
+    @Autowired
+    private ApplicationDao applicationDao;
 
     @Autowired
     private UserService userService;
@@ -72,6 +77,37 @@ public class ServiceTestTest {
 
     @Test
     public void testModelServiceServiceImpl() {
+
+//        tenantService
+        TenantVO tenantVO = new TenantVO();
+        TenantSaveDTO tenantSaveDTO = new TenantSaveDTO();
+        tenantSaveDTO.setName("租户测试增加关系");
+
+        List<String> application_ids_add = new ArrayList<>();
+        application_ids_add.add("1");
+        application_ids_add.add("3");
+        application_ids_add.add("40287c817b3313ab017b331604a80000");
+        tenantSaveDTO.setApplication_ids_add(application_ids_add);
+
+        List<String> resource_ids_add = new ArrayList<>();
+        resource_ids_add.add("1");
+        resource_ids_add.add("2");
+        resource_ids_add.add("3");
+        resource_ids_add.add("4");
+        resource_ids_add.add("5");
+        resource_ids_add.add("6");
+        resource_ids_add.add("12");
+        tenantSaveDTO.setResource_ids_add(resource_ids_add);
+
+        Iterable<Application> applications = applicationDao.findAllById(application_ids_add);
+        Iterable<Resource> resources = resourceDao.findAllById(resource_ids_add);
+
+        Tenant tenant = new Tenant();
+        BeanUtils.copyProperties(tenantSaveDTO, tenant);
+        tenant.setApplications(Sets.newConcurrentHashSet(applications));
+        tenant.setResources(Sets.newConcurrentHashSet(resources));
+        tenantDao.save(tenant);
+
 
 /*       QUser user = QUser.user;
 
@@ -91,7 +127,7 @@ public class ServiceTestTest {
         long count = jpaQuery.fetchCount();
         JPAQuery<User> query = jpaQueryFactory.selectFrom(user).where(predicate);
         query.fetchResults().fetchCount();
-        return new PageRet<>(data, count);*/
+        return new PageRet<>(data, count);
         //01400000
         String BC20 = "01400000"+"150a1b101910691581bb33061832d201e30cb30b000000000000000000000000000000000000000000000000";
 
@@ -228,8 +264,8 @@ public class ServiceTestTest {
         Org org = new Org();
         User user = new User();
         user = userService.getById("1").get();
-/*        org = user.getOrg();
-        Set<Role> role = user.getUserRoles();*/
+        org = user.getOrg();
+        Set<Role> role = user.getUserRoles();
         //查询
         System.out.println("--------------------------" + user.toString());
         //System.out.println("--------------------------"+user.getGroups().size());
@@ -244,9 +280,9 @@ public class ServiceTestTest {
 
         //新增-中间关系
         Optional<User> user1 = userService.getById("40287c8179b224110179b2244b190000");
-/*        user1.getUserRoles().clear();
+        user1.getUserRoles().clear();
 
-        user1.getUserRoles().add(roleDao.findById("2").get());*/
+        user1.getUserRoles().add(roleDao.findById("2").get());
         //新增完整数据
 
         //修改
@@ -261,6 +297,9 @@ public class ServiceTestTest {
 
         //删除-完整数据
 //        System.out.println("--------------------------" + user.getUserRoles().size());
+*/
+
+
 
 
     }

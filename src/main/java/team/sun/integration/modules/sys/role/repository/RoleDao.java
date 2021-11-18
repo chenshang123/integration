@@ -1,9 +1,8 @@
 package team.sun.integration.modules.sys.role.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
-import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.config.base.repository.IDao;
+import team.sun.integration.modules.base.repository.IDao;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 
 import java.util.Optional;

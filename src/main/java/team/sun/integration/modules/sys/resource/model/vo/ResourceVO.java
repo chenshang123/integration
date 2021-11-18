@@ -35,16 +35,16 @@ public class ResourceVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "一对多：菜单-页面元素")
-    private Set<ElementVO> elements = new HashSet<>();
+    private Set<ElementVO> elements;
 
     @ApiModelProperty(value = "多对多：资源（菜单）-角色")
-    private Set<RoleVO> roles = new HashSet<>();
+    private Set<RoleVO> roles;
 
     @ApiModelProperty(value = "多对一：资源（菜单）-应用")
     private ApplicationVO application;
 
     @ApiModelProperty(value = "多对多：资源（菜单）-租户")
-    private Set<TenantVO> tenants = new HashSet<>();
+    private Set<TenantVO> tenants;
 
     @ApiModelProperty(value = "首层id")
     private String firstFloorId;

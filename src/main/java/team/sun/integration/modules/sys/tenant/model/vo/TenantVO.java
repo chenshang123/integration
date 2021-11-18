@@ -30,13 +30,13 @@ public class TenantVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：租户-菜单")
-    private Set<ResourceVO> tenantResources = new HashSet<>();
+    private Set<ResourceVO> tenantResources;
 
     @ApiModelProperty(value = "多对多：租户-菜单页面元素")
-    private Set<ElementVO> tenantElements = new HashSet<>();
+    private Set<ElementVO> tenantElements;
 
     @ApiModelProperty(value = "多对多转一对多：租户-应用")
-    private Set<TenantApplicationVO> tenantApplications = new HashSet<>();
+    private Set<TenantApplicationVO> tenantApplications;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -136,9 +136,7 @@ public class TenantVO implements Serializable {
         return tenantApplications;
     }
 
-    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) {
-        this.tenantApplications = tenantApplications;
-    }
+    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) { this.tenantApplications = tenantApplications; }
 
     public String getName() {
         return name;

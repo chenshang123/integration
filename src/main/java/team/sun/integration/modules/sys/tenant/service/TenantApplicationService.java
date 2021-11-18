@@ -1,7 +1,7 @@
 package team.sun.integration.modules.sys.tenant.service;
 
 import com.querydsl.core.types.Predicate;
-import team.sun.integration.config.base.service.IService;
+import team.sun.integration.modules.base.service.IService;
 import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 

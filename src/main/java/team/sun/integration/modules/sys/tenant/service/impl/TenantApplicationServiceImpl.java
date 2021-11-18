@@ -3,7 +3,7 @@ package team.sun.integration.modules.sys.tenant.service.impl;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantApplicationDao;

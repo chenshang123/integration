@@ -58,7 +58,7 @@ public class Role implements Serializable {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
-    private Set<Resource> resources = new HashSet<>();
+    private Set<Resource> resources;
 
     /**
      * 多对多：角色-菜单页面元素
@@ -69,20 +69,20 @@ public class Role implements Serializable {
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )
-    private Set<Element> elements = new HashSet<>();
+    private Set<Element> elements;
 
 
     /**
      * 多对多：角色-用户
      **/
     @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     /**
      * 多对多：角色-用户组
      **/
     @ManyToMany(mappedBy = "roles", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> groups;
 
 
     /**

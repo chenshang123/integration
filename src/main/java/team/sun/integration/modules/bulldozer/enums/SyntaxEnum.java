@@ -1,6 +1,6 @@
 package team.sun.integration.modules.bulldozer.enums;
 
-import team.sun.integration.config.base.enums.ret.BaseKeyValue;
+import team.sun.integration.modules.base.enums.ret.BaseKeyValue;
 
 /**
  * 查询语法枚举

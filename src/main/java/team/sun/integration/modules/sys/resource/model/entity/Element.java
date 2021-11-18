@@ -51,13 +51,13 @@ public class Element implements Serializable {
      * 多对多：资源（菜单页面元素）-角色
      **/
     @ManyToMany(mappedBy = "elements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     /**
      * 多对多：资源（菜单页面元素）-租户
      **/
     @ManyToMany(mappedBy = "elements", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Tenant> tenants = new HashSet<>();
+    private Set<Tenant> tenants;
 
     /**
      * 多对一：菜单页面元素-菜单

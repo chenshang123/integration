@@ -55,13 +55,13 @@ public class Resource implements Serializable {
      * 一对多：菜单-页面元素
      **/
     @OneToMany(mappedBy = "resource", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Element> elements = new HashSet<>();
+    private Set<Element> elements;
 
     /**
      * 多对多：资源（菜单）-角色
      **/
     @ManyToMany(mappedBy = "resources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     /**
      * 多对一：资源（菜单）-应用
@@ -75,7 +75,7 @@ public class Resource implements Serializable {
      * 多对多：资源（菜单）-租户
      **/
     @ManyToMany(mappedBy = "resources", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Tenant> tenants = new HashSet<>();
+    private Set<Tenant> tenants;
 
     /**
      * 首层id

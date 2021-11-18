@@ -57,7 +57,7 @@ public class Group implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonBackReference
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     /**
      * 多对多：用户组-用户
@@ -69,7 +69,7 @@ public class Group implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )
     @JsonBackReference
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     /**
      * 分组名称

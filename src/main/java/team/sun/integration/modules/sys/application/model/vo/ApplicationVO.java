@@ -31,13 +31,13 @@ public class ApplicationVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "一对多：应用-菜单")
-    private Set<ResourceVO> resources = new HashSet<>();
+    private Set<ResourceVO> resources;
 
     @ApiModelProperty(value = "多对多转一对多：应用-租户")
-    private Set<TenantApplicationVO> tenantApplications = new HashSet<>();
+    private Set<TenantApplicationVO> tenantApplications;
 
     @ApiModelProperty(value = "一对多：应用-应用版本")
-    private Set<ApplicationVersionVO> applicationVersions = new HashSet<>();
+    private Set<ApplicationVersionVO> applicationVersions;
 
     @ApiModelProperty(value = "标签")
     private String label;

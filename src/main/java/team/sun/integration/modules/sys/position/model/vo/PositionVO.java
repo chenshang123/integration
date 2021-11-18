@@ -29,7 +29,7 @@ public class PositionVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：职位-用户")
-    private Set<UserVO> users = new HashSet<>();
+    private Set<UserVO> users;
 
     @ApiModelProperty(value = "职位名称")
     private String name;

@@ -10,7 +10,7 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
+import team.sun.integration.modules.base.enums.ret.BusRetEnum;
 
 /**
  * <p>

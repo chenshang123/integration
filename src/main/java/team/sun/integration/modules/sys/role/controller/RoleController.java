@@ -4,9 +4,9 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import team.sun.integration.config.base.model.dto.PageDTO;
-import team.sun.integration.config.base.model.vo.PageRet;
-import team.sun.integration.config.base.model.vo.Ret;
+import team.sun.integration.modules.base.model.dto.PageDTO;
+import team.sun.integration.modules.base.model.vo.PageRet;
+import team.sun.integration.modules.base.model.vo.Ret;
 import team.sun.integration.modules.sys.role.model.dto.query.RoleQueryDTO;
 import team.sun.integration.modules.sys.role.model.dto.save.RoleSaveDTO;
 import team.sun.integration.modules.sys.role.model.dto.update.RoleUpdateDTO;
@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * <p>

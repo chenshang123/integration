@@ -8,6 +8,7 @@ import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
 import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -25,6 +26,18 @@ public class TenantUpdateDTO implements Serializable {
     private static final long serialVersionUID = 1L;
 
     private String id;
+
+    @ApiModelProperty(value = "新增应用")
+    private List<String> application_ids_add;
+
+    @ApiModelProperty(value = "删除应用")
+    private List<String> application_ids_del;
+
+    @ApiModelProperty(value = "新增菜单资源")
+    private List<String> resource_ids_add;
+
+    @ApiModelProperty(value = "删除菜单资源")
+    private List<String> resource_ids_del;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -78,6 +91,38 @@ public class TenantUpdateDTO implements Serializable {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<String> getApplication_ids_add() {
+        return application_ids_add;
+    }
+
+    public void setApplication_ids_add(List<String> application_ids_add) {
+        this.application_ids_add = application_ids_add;
+    }
+
+    public List<String> getApplication_ids_del() {
+        return application_ids_del;
+    }
+
+    public void setApplication_ids_del(List<String> application_ids_del) {
+        this.application_ids_del = application_ids_del;
+    }
+
+    public List<String> getResource_ids_add() {
+        return resource_ids_add;
+    }
+
+    public void setResource_ids_add(List<String> resource_ids_add) {
+        this.resource_ids_add = resource_ids_add;
+    }
+
+    public List<String> getResource_ids_del() {
+        return resource_ids_del;
+    }
+
+    public void setResource_ids_del(List<String> resource_ids_del) {
+        this.resource_ids_del = resource_ids_del;
     }
 
     public String getName() {

@@ -1,9 +1,8 @@
 package team.sun.integration.modules.sys.application.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonValue;
-import team.sun.integration.config.base.enums.converter.BaseEnum;
-import team.sun.integration.config.base.enums.converter.BaseEnumConverter;
+import team.sun.integration.modules.base.enums.converter.BaseEnum;
+import team.sun.integration.modules.base.enums.converter.BaseEnumConverter;
 /**
  * 系统-应用：应用运营状态
  */

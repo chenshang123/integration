@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.resource.model.entity.Element;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
@@ -34,6 +35,7 @@ import java.util.Set;
 @NamedEntityGraphs(@NamedEntityGraph(name = "Tenant-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
         @NamedAttributeNode("elements"),
+        @NamedAttributeNode("applications"),
         @NamedAttributeNode("tenantApplications")
 }))
 public class Tenant implements Serializable {
@@ -56,7 +58,8 @@ public class Tenant implements Serializable {
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
-    private Set<Resource> resources = new HashSet<>();
+    private Set<Resource> resources;
+
     /**
      * 多对多：租户-菜单页面元素
      */
@@ -66,13 +69,24 @@ public class Tenant implements Serializable {
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )
-    private Set<Element> elements = new HashSet<>();
+    private Set<Element> elements;
+
+    /**
+     * 多对多：租户-应用
+     */
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "sys_tenant_application_mid",
+            joinColumns = @JoinColumn(name = "tenant_id"),
+            inverseJoinColumns = @JoinColumn(name = "application_id")
+    )
+    private Set<Application> applications;
 
     /**
      * 多对多转一对多：租户-应用
      */
     @OneToMany(mappedBy = "tenant", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<TenantApplication> tenantApplications = new HashSet<>();
+    private Set<TenantApplication> tenantApplications;
 
     /**
      * 名称
@@ -256,6 +270,14 @@ public class Tenant implements Serializable {
 
     public void setElements(Set<Element> elements) {
         this.elements = elements;
+    }
+
+    public Set<Application> getApplications() {
+        return applications;
+    }
+
+    public void setApplications(Set<Application> applications) {
+        this.applications = applications;
     }
 
     public Set<TenantApplication> getTenantApplications() {

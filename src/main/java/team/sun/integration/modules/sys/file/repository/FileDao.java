@@ -2,9 +2,8 @@ package team.sun.integration.modules.sys.file.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.config.base.repository.IDao;
+import team.sun.integration.modules.base.repository.IDao;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
-import team.sun.integration.modules.sys.file.model.vo.FileVO;
 
 import java.util.List;
 import java.util.Optional;

@@ -8,8 +8,8 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team.sun.integration.config.base.model.vo.PageRet;
-import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.base.model.vo.PageRet;
+import team.sun.integration.modules.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSaveDTO;
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
 import team.sun.integration.modules.sys.application.model.entity.Application;
@@ -41,7 +41,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
         QApplication qApplication = QApplication.application;
         BlazeJPAQuery<Tuple> blazeJPAQuery = new BlazeJPAQuery<>(entityManager, criteriaBuilderFactory)
                 .from(qApplication)
-                .select(qApplication, qApplication.tenantApplications.any().id.count().as("tenant_number"))
+                .select(qApplication, qApplication.tenants.any().id.count().as("tenant_number"))
                 .where(predicate).orderBy(qApplication.id.asc().nullsLast());
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 

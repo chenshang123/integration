@@ -7,15 +7,14 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team.sun.integration.config.base.model.vo.PageRet;
-import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.base.model.vo.PageRet;
+import team.sun.integration.modules.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.log.model.dto.save.LoginLogSaveDTO;
 import team.sun.integration.modules.sys.log.model.dto.update.LoginLogUpdateDTO;
 import team.sun.integration.modules.sys.log.model.entity.LoginLog;
 import team.sun.integration.modules.sys.log.model.entity.QLoginLog;
 import team.sun.integration.modules.sys.log.repository.LoginLogDao;
 import team.sun.integration.modules.sys.log.service.LoginLogService;
-import team.sun.integration.modules.sys.log.service.OperationLogService;
 
 import java.util.Optional;
 

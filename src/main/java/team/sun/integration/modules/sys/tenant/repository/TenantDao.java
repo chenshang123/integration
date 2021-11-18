@@ -2,7 +2,7 @@ package team.sun.integration.modules.sys.tenant.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.config.base.repository.IDao;
+import team.sun.integration.modules.base.repository.IDao;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 
 import java.util.Optional;

@@ -30,10 +30,10 @@ public class ElementVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：资源（菜单页面元素）-角色")
-    private Set<RoleVO> roles = new HashSet<>();
+    private Set<RoleVO> roles;
 
     @ApiModelProperty(value = "多对多：资源（菜单页面元素）-租户")
-    private Set<TenantVO> tenants = new HashSet<>();
+    private Set<TenantVO> tenants;
 
     @ApiModelProperty(value = "多对一：菜单页面元素-菜单")
     private ResourceVO resource;

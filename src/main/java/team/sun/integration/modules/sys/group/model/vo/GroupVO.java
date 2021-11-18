@@ -32,10 +32,10 @@ public class GroupVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：用户组-角色")
-    private Set<RoleVO> roles = new HashSet<>();
+    private Set<RoleVO> roles;
 
     @ApiModelProperty(value = "多对多：用户组-用户")
-    private Set<UserVO> users = new HashSet<>();
+    private Set<UserVO> users;
 
     @ApiModelProperty(value = "分组名称")
     private String name;

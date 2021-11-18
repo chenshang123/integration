@@ -8,8 +8,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import team.sun.integration.config.base.enums.ret.BusRetEnum;
-import team.sun.integration.config.base.exception.UploadException;
+import team.sun.integration.modules.base.enums.ret.BusRetEnum;
+import team.sun.integration.modules.base.exception.UploadException;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 
 import javax.imageio.ImageIO;

@@ -34,16 +34,16 @@ public class RoleVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "多对多：角色-菜单")
-    private Set<ResourceVO> resources = new HashSet<>();
+    private Set<ResourceVO> resources;
 
     @ApiModelProperty(value = "多对多：角色-菜单页面元素")
-    private Set<ElementVO> elements = new HashSet<>();
+    private Set<ElementVO> elements;
 
     @ApiModelProperty(value = "多对多：角色-用户")
-    private Set<UserVO> users = new HashSet<>();
+    private Set<UserVO> users;
 
     @ApiModelProperty(value = "多对多：角色-用户组")
-    private Set<GroupVO> groups = new HashSet<>();
+    private Set<GroupVO> groups;
 
     @ApiModelProperty(value = "编号")
     private String code;

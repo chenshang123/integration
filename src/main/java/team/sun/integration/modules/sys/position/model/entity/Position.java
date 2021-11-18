@@ -47,7 +47,7 @@ public class Position implements Serializable {
      * 多对多：职位-用户
      **/
     @ManyToMany(mappedBy = "positions", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<User> users = new HashSet<>();
+    private Set<User> users;
 
     /**
      * 职位名称

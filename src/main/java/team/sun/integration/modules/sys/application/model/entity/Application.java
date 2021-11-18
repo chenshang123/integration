@@ -10,6 +10,7 @@ import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationAction;
 import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 
 import javax.persistence.*;
@@ -18,6 +19,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.concurrent.CopyOnWriteArraySet;
 
 
 /**
@@ -34,6 +36,7 @@ import java.util.Set;
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Application-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
+        @NamedAttributeNode("tenants"),
         @NamedAttributeNode("tenantApplications"),
         @NamedAttributeNode("applicationVersions")
 }))
@@ -52,19 +55,25 @@ public class Application implements Serializable {
      * 一对多：应用-菜单
      **/
     @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Resource> resources = new HashSet<>();
+    private Set<Resource> resources;
+
+    /**
+     * 多对多：应用-租户
+     **/
+    @ManyToMany(mappedBy = "applications", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
+    private Set<Tenant> tenants;
 
     /**
      * 多对多转一对多：应用-租户
      */
     @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<TenantApplication> tenantApplications = new HashSet<>();
+    private Set<TenantApplication> tenantApplications;
 
     /**
      * 一对多：应用-应用版本
      **/
     @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<ApplicationVersion> applicationVersions = new HashSet<>();
+    private Set<ApplicationVersion> applicationVersions;
 
     /**
      * 标签
@@ -199,6 +208,14 @@ public class Application implements Serializable {
 
     public void setResources(Set<Resource> resources) {
         this.resources = resources;
+    }
+
+    public Set<Tenant> getTenants() {
+        return tenants;
+    }
+
+    public void setTenants(Set<Tenant> tenants) {
+        this.tenants = tenants;
     }
 
     public Set<TenantApplication> getTenantApplications() {

@@ -6,8 +6,8 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
-import team.sun.integration.config.base.model.vo.PageRet;
-import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.base.model.vo.PageRet;
+import team.sun.integration.modules.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.group.model.dto.save.GroupSaveDTO;
 import team.sun.integration.modules.sys.group.model.dto.update.GroupUpdateDTO;
 import team.sun.integration.modules.sys.group.model.entity.Group;
@@ -16,7 +16,6 @@ import team.sun.integration.modules.sys.group.model.vo.GroupVO;
 import team.sun.integration.modules.sys.group.repository.GroupDao;
 import team.sun.integration.modules.sys.group.service.GroupService;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.sys.permission.model.entity.PermissionData;
 
 import java.util.Optional;
 

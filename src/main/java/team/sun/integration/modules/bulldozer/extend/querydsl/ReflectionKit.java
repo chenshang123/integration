@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import org.reflections8.Reflections;
 import org.reflections8.scanners.TypeAnnotationsScanner;
 import org.springframework.util.NumberUtils;
-import team.sun.integration.config.base.tool.reflect.TestVo;
+import team.sun.integration.modules.base.tool.reflect.TestVo;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.Table;

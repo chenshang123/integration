@@ -26,8 +26,8 @@ public class TenantPageVO implements Serializable {
 
     private String id;
 
-    @ApiModelProperty(value = "人员数量统计")
-    private Long tenantNumber;
+    @ApiModelProperty(value = "应用数量统计")
+    private Long applicationNumber;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -76,7 +76,7 @@ public class TenantPageVO implements Serializable {
     public String toString() {
         return "TenantPageVO{" +
                 "id='" + id + '\'' +
-                ", tenantNumber=" + tenantNumber +
+                ", applicationNumber=" + applicationNumber +
                 ", name='" + name + '\'' +
                 ", account='" + account + '\'' +
                 ", industry='" + industry + '\'' +
@@ -102,12 +102,12 @@ public class TenantPageVO implements Serializable {
         this.id = id;
     }
 
-    public Long getTenantNumber() {
-        return tenantNumber;
+    public Long getApplicationNumber() {
+        return applicationNumber;
     }
 
-    public void setTenantNumber(Long tenantNumber) {
-        this.tenantNumber = tenantNumber;
+    public void setApplicationNumber(Long applicationNumber) {
+        this.applicationNumber = applicationNumber;
     }
 
     public String getName() {

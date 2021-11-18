@@ -8,6 +8,7 @@ import team.sun.integration.modules.sys.tenant.model.enums.TenantAction;
 import javax.persistence.Convert;
 import java.io.Serial;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -24,6 +25,11 @@ public class TenantSaveDTO implements Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
+    @ApiModelProperty(value = "新增应用")
+    private List<String> application_ids_add;
+
+    @ApiModelProperty(value = "新增菜单资源")
+    private List<String> resource_ids_add;
 
     @ApiModelProperty(value = "名称")
     private String name;
@@ -64,6 +70,22 @@ public class TenantSaveDTO implements Serializable {
     @ApiModelProperty(value = "是否被锁定：0 未锁定 1锁定")
     @Convert(converter = TenantAction.Convert.class)
     private TenantAction locked;
+
+    public List<String> getApplication_ids_add() {
+        return application_ids_add;
+    }
+
+    public void setApplication_ids_add(List<String> application_ids_add) {
+        this.application_ids_add = application_ids_add;
+    }
+
+    public List<String> getResource_ids_add() {
+        return resource_ids_add;
+    }
+
+    public void setResource_ids_add(List<String> resource_ids_add) {
+        this.resource_ids_add = resource_ids_add;
+    }
 
     public String getName() {
         return name;

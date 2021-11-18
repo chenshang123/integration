@@ -54,19 +54,19 @@ public class User implements Serializable {
      * 多对多：用户-用户组
      **/
     @ManyToMany(mappedBy = "users", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<Group> groups = new HashSet<>();
+    private Set<Group> groups;
 
     /**
      * 多对多：用户-角色
      **/
-    @ManyToMany(cascade = {CascadeType.DETACH}, targetEntity = Role.class, fetch = FetchType.LAZY)
+    @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
             name = "sys_user_role_mid",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     @JsonBackReference
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles;
 
     /**
      * 多对多：用户-职位
@@ -78,7 +78,7 @@ public class User implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "position_id")
     )
     @JsonBackReference
-    private Set<Position> positions = new HashSet<>();
+    private Set<Position> positions;
 
     /**
      * 多对一： 用户-单位 ：所属单位

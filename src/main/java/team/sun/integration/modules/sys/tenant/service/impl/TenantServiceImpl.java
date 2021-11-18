@@ -8,13 +8,12 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team.sun.integration.config.base.model.vo.PageRet;
-import team.sun.integration.config.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.base.model.vo.PageRet;
+import team.sun.integration.modules.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.model.vo.page.TenantPageVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
@@ -41,7 +40,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
         QTenant qTenant = QTenant.tenant;
         BlazeJPAQuery<Tuple> blazeJPAQuery = new BlazeJPAQuery<Tuple>(entityManager, criteriaBuilderFactory)
                 .from(qTenant)
-                .select(qTenant, qTenant.tenantApplications.any().id.count().as("tenant_number"))
+                .select(qTenant, qTenant.applications.any().id.count().as("application_number"))
                 .where(predicate).orderBy(qTenant.id.asc().nullsLast());
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
@@ -49,7 +48,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
         pages.forEach(entity->{
             TenantPageVO pageVO = new TenantPageVO();
             BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Tenant.class)), pageVO);
-            pageVO.setTenantNumber(entity.get(1, Long.class));
+            pageVO.setApplicationNumber(entity.get(1, Long.class));
             pageVOS.add(pageVO);
         });
 

@@ -32,13 +32,13 @@ public class UserVO implements Serializable {
     private String id;
 
     @ApiModelProperty(value = "用户组-用户")
-    private Set<GroupVO> groups = new HashSet<>();
+    private Set<GroupVO> groups;
 
     @ApiModelProperty(value = "用户-角色")
-    private Set<RoleVO> userRoles = new HashSet<>();
+    private Set<RoleVO> userRoles;
 
     @ApiModelProperty(value = "用户-职位")
-    private Set<PositionVO> positions = new HashSet<>();
+    private Set<PositionVO> positions;
 
     @ApiModelProperty(value = "一对一： 用户-单位 ：所属单位")
     private OrgVO org;
