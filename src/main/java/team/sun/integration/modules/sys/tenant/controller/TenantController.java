@@ -60,7 +60,7 @@ public class TenantController {
 
         Predicate predicate = qTenant.isNotNull().or(qTenant.isNull());
         predicate = queryDTO.getApplication_id() == null ?
-                predicate : ExpressionUtils.and(predicate, qTenant.tenantApplications.any().application.id.eq(queryDTO.getApplication_id()));
+                predicate : ExpressionUtils.and(predicate, qTenant.applications.any().id.eq(queryDTO.getApplication_id()));
 
         PageRet pageRet = tenantService.page(pageable, predicate, null);
         return Ret.success(pageRet);

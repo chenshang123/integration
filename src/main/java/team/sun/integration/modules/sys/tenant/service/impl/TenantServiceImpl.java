@@ -65,9 +65,9 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
     @Override
     public Tenant update(TenantUpdateDTO dto) {
         Optional<Tenant> optional = this.getById(dto.getId());
-        optional.ifPresent(Tenant -> {
-            BeanUtils.copyProperties(dto, Tenant);
-            this.dao.save(Tenant);
+        optional.ifPresent(tenant -> {
+            BeanUtils.copyProperties(dto, tenant);
+            this.dao.save(tenant);
         });
         return optional.orElse(null);
     }

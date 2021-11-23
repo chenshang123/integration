@@ -1,7 +1,6 @@
 package team.sun.integration.modules.sys.tenant.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
@@ -39,8 +38,7 @@ public class TenantApplication implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(generator = "system_uuid")
-    @GenericGenerator(name = "system_uuid", strategy = "uuid")
+    @GeneratedValue(strategy=GenerationType.AUTO)
     @Column(name = "tenant_application_mid_id")
     private String id;
 

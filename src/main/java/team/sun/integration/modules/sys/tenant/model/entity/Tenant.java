@@ -16,7 +16,6 @@ import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 
@@ -35,8 +34,7 @@ import java.util.Set;
 @NamedEntityGraphs(@NamedEntityGraph(name = "Tenant-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
         @NamedAttributeNode("elements"),
-        @NamedAttributeNode("applications"),
-        @NamedAttributeNode("tenantApplications")
+        @NamedAttributeNode("applications")
 }))
 public class Tenant implements Serializable {
 
@@ -82,11 +80,11 @@ public class Tenant implements Serializable {
     )
     private Set<Application> applications;
 
-    /**
-     * 多对多转一对多：租户-应用
-     */
-    @OneToMany(mappedBy = "tenant", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<TenantApplication> tenantApplications;
+//    /**
+//     * 多对多转一对多：租户-应用
+//     */
+//    @OneToMany(mappedBy = "tenant", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+//    private Set<TenantApplication> tenantApplications;
 
     /**
      * 名称
@@ -280,21 +278,11 @@ public class Tenant implements Serializable {
         this.applications = applications;
     }
 
-    public Set<TenantApplication> getTenantApplications() {
-        return tenantApplications;
-    }
-
-    public void setTenantApplications(Set<TenantApplication> tenantApplications) {
-        this.tenantApplications = tenantApplications;
-    }
-
     public String getName() {
         return name;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
+    public void setName(String name) { this.name = name; }
 
     public String getAccount() {
         return account;
@@ -316,9 +304,7 @@ public class Tenant implements Serializable {
         return salt;
     }
 
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
+    public void setSalt(String salt) { this.salt = salt; }
 
     public String getIndustry() {
         return industry;
@@ -348,9 +334,7 @@ public class Tenant implements Serializable {
         return mail;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
+    public void setMail(String mail) { this.mail = mail; }
 
     public String getProvince() {
         return province;
@@ -364,9 +348,7 @@ public class Tenant implements Serializable {
         return city;
     }
 
-    public void setCity(String city) {
-        this.city = city;
-    }
+    public void setCity(String city) { this.city = city; }
 
     public String getCounty() {
         return county;

@@ -1,21 +1,12 @@
 package team.sun.integration.test;
 
-import cn.hutool.core.util.HexUtil;
-import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.google.common.collect.Sets;
-import com.querydsl.core.types.ExpressionUtils;
-import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.*;
 import org.springframework.beans.BeanUtils;
-import org.springframework.util.Base64Utils;
-import org.springframework.util.FileCopyUtils;
 import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.application.repository.ApplicationDao;
 import team.sun.integration.modules.sys.config.service.CodeValueService;
-import team.sun.integration.modules.sys.org.model.entity.Org;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
 import team.sun.integration.modules.sys.org.service.OrgService;
-import team.sun.integration.modules.sys.resource.model.entity.QResource;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.resource.repository.ResourceDao;
 import team.sun.integration.modules.sys.resource.service.ResourceService;
@@ -23,25 +14,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import org.springframework.test.context.junit4.SpringRunner;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
-import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
-import team.sun.integration.modules.sys.user.model.entity.QUser;
-import team.sun.integration.modules.sys.user.model.entity.User;
-import team.sun.integration.modules.sys.user.model.vo.page.UserPageVo;
 import team.sun.integration.modules.sys.user.service.UserService;
 import team.sun.integration.protocol.hex.convert.unpack.sevice.UnpackConvert;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDateTime;
 import java.util.*;
 
 @RunWith(SpringRunner.class)
@@ -81,7 +64,7 @@ public class ServiceTestTest {
 //        tenantService
         TenantVO tenantVO = new TenantVO();
         TenantSaveDTO tenantSaveDTO = new TenantSaveDTO();
-        tenantSaveDTO.setName("租户测试增加关系");
+        tenantSaveDTO.setName("租户测试增加关系123");
 
         List<String> application_ids_add = new ArrayList<>();
         application_ids_add.add("1");
@@ -103,12 +86,18 @@ public class ServiceTestTest {
         Iterable<Resource> resources = resourceDao.findAllById(resource_ids_add);
 
         Tenant tenant = new Tenant();
+
         BeanUtils.copyProperties(tenantSaveDTO, tenant);
         tenant.setApplications(Sets.newConcurrentHashSet(applications));
         tenant.setResources(Sets.newConcurrentHashSet(resources));
-        tenantDao.save(tenant);
-
-
+//        tenantDao.save(tenant);
+        Optional<Tenant> optionalTenant = tenantDao.findById("40287c817d462680017d462841240000");
+//        optionalTenant.get().getResources().clear();
+//        optionalTenant.get().getApplications().clear();
+        BeanUtils.copyProperties(tenant, optionalTenant.get(), "name");
+//        optionalTenant.get().setResources(Sets.newConcurrentHashSet(resources));
+        tenantService.saveOrUpdate(optionalTenant.get());
+        //tenantDao.save(optionalTenant.get());
 /*       QUser user = QUser.user;
 
         ExpressionUtils.and(predicate, user.petName.like("123"));

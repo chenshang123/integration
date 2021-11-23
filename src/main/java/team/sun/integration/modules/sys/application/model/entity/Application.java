@@ -11,15 +11,12 @@ import team.sun.integration.modules.sys.application.model.enums.ApplicationActio
 import team.sun.integration.modules.sys.application.model.enums.ApplicationType;
 import team.sun.integration.modules.sys.resource.model.entity.Resource;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
-import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
 
 
 /**
@@ -37,7 +34,6 @@ import java.util.concurrent.CopyOnWriteArraySet;
 @NamedEntityGraphs(@NamedEntityGraph(name = "Application-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
         @NamedAttributeNode("tenants"),
-        @NamedAttributeNode("tenantApplications"),
         @NamedAttributeNode("applicationVersions")
 }))
 public class Application implements Serializable {
@@ -63,11 +59,11 @@ public class Application implements Serializable {
     @ManyToMany(mappedBy = "applications", cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<Tenant> tenants;
 
-    /**
-     * 多对多转一对多：应用-租户
-     */
-    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
-    private Set<TenantApplication> tenantApplications;
+//    /**
+//     * 多对多转一对多：应用-租户
+//     */
+//    @OneToMany(mappedBy = "application", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+//    private Set<TenantApplication> tenantApplications;
 
     /**
      * 一对多：应用-应用版本
@@ -216,14 +212,6 @@ public class Application implements Serializable {
 
     public void setTenants(Set<Tenant> tenants) {
         this.tenants = tenants;
-    }
-
-    public Set<TenantApplication> getTenantApplications() {
-        return tenantApplications;
-    }
-
-    public void setTenantApplications(Set<TenantApplication> tenantApplications) {
-        this.tenantApplications = tenantApplications;
     }
 
     public Set<ApplicationVersion> getApplicationVersions() {
