@@ -1,0 +1,24 @@
+package team.sun.integration.modules.sys.table.repository;
+
+import org.springframework.data.jpa.repository.EntityGraph;
+import org.springframework.stereotype.Repository;
+import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.modules.sys.table.model.TableInfo;
+
+import java.util.List;
+
+/**
+ * <p>
+ * 系统-角色：	角色关联单位 Mapper 接口
+ * </p>
+ *
+ * @author auto generator
+ * @since 2021-11-30
+ */
+@Repository
+public interface TableDao extends IDao<TableInfo, String> {
+
+    @EntityGraph("Table-relation")
+    List<TableInfo> findByTableNameLike(String name);
+
+}

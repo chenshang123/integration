@@ -24,22 +24,25 @@ public class ReflectionKit {
      * 基本-包装类型
      */
     public static final List<String> PRIMITIVE_AND_WRAPPER_TYPE_LIST;
-    public static final Map<String, Class<?>> CLASS_NAME_FIELD_CACHE = new HashMap<>();
+    public static final Map<String, Class<?>> CLASS_NAME_FIELD_CACHE;
     /**
      * class field cache
      */
-    public static final Map<Class<?>, List<Field>> CLASS_FIELD_CACHE = new ConcurrentHashMap<>();
     private static final String packageName = "team.sun.integration.modules";
+
+    public static final Map<Class<?>, List<Field>> CLASS_FIELD_CACHE = new ConcurrentHashMap<>();
     private static final Set<Class<?>> ENTITY_SET;
 
     static {
         Reflections reflections = new Reflections(packageName, new TypeAnnotationsScanner());
         ENTITY_SET = reflections.getTypesAnnotatedWith(Table.class, true);
+        CLASS_NAME_FIELD_CACHE = new HashMap<>(ENTITY_SET.size());
         ENTITY_SET.stream().filter(Objects::nonNull).forEach(o -> {
             CLASS_NAME_FIELD_CACHE.put(o.getName(), o);
             CLASS_FIELD_CACHE.put(o, ReflectionKit.getFieldList(o));
 
         });
+
         PRIMITIVE_AND_WRAPPER_TYPE_LIST = new ArrayList<>(23);
         PRIMITIVE_AND_WRAPPER_TYPE_LIST.add(0, java.lang.Integer.class.getTypeName());
         PRIMITIVE_AND_WRAPPER_TYPE_LIST.add(1, int.class.getTypeName());
@@ -133,6 +136,7 @@ public class ReflectionKit {
         }
         return false;
     }
+
 
     /**
      * 字符串数组转其他类型数组

@@ -1,4 +1,4 @@
-package team.sun.integration.modules.bulldozer.enums;
+package team.sun.integration.modules.bulldozer.extend.querydsl.enums;
 
 import team.sun.integration.modules.base.enums.ret.BaseKeyValue;
 
