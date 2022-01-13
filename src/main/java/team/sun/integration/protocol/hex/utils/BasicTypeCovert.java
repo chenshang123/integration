@@ -21,30 +21,32 @@ public class BasicTypeCovert {
         rst[3] = (byte) ((iValue & 0xFF000000) >> 24);
         return rst;
     }
+
     /**
      * int转换为小端byte[]（高位放在高地址中）
      */
     public static byte[] Int2Bytes_LE_digit(int iValue, int digit) {
         byte[] rst = new byte[digit];
-        if(digit > 0){
+        if (digit > 0) {
             // 先写int的最后一个字节
             rst[0] = (byte) (iValue & 0xFF);
         }
-        if(digit > 1){
+        if (digit > 1) {
             // int 倒数第二个字节
             rst[1] = (byte) ((iValue & 0xFF00) >> 8);
         }
-        if(digit > 2){
+        if (digit > 2) {
             // int 倒数第三个字节
             rst[2] = (byte) ((iValue & 0xFF0000) >> 16);
         }
-        if(digit > 3){
+        if (digit > 3) {
             // int 第一个字节
             rst[3] = (byte) ((iValue & 0xFF000000) >> 24);
         }
 
         return rst;
     }
+
     /**
      * int转换为大端byte[]（高位放在高地址中）
      */
@@ -60,29 +62,31 @@ public class BasicTypeCovert {
         rst[0] = (byte) ((iValue & 0xFF000000) >> 24);
         return rst;
     }
+
     /**
      * int转换为大端byte[]（高位放在高地址中）
      */
     public static byte[] Int2Bytes_BE_digit(int iValue, int digit) {
         byte[] rst = new byte[digit];
-        if(digit > 3){
+        if (digit > 3) {
             // 先写int的最后一个字节
             rst[3] = (byte) (iValue & 0xFF);
         }
-        if(digit > 2){
+        if (digit > 2) {
             // int 倒数第二个字节
             rst[2] = (byte) ((iValue & 0xFF00) >> 8);
         }
-        if(digit > 1){
+        if (digit > 1) {
             // int 倒数第三个字节
             rst[1] = (byte) ((iValue & 0xFF0000) >> 16);
         }
-        if(digit > 0){
+        if (digit > 0) {
             // int 第一个字节
             rst[0] = (byte) ((iValue & 0xFF000000) >> 24);
         }
         return rst;
     }
+
     /**
      * int(小端)
      */
@@ -103,9 +107,9 @@ public class BasicTypeCovert {
     public static Integer Bytes2Int_BE(byte[] bytes) {
         Integer iRst = null;
         if (null != bytes && bytes.length > 0 && bytes.length < 5) {
-            iRst = (bytes[bytes.length-1] & 0xFF);
+            iRst = (bytes[bytes.length - 1] & 0xFF);
             for (int i = 1; i < bytes.length; i++) {
-                iRst |= (bytes[bytes.length-1-i] & 0xFF) << 8 * i;
+                iRst |= (bytes[bytes.length - 1 - i] & 0xFF) << 8 * i;
             }
         }
         return iRst;
@@ -254,7 +258,7 @@ public class BasicTypeCovert {
         return getString(bytes, "GBK");
     }
 
-    public static void main(String[] a){
+    public static void main(String[] a) {
         System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(5001)));
         System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(4001)));
         System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(5001)));

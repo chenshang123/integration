@@ -48,10 +48,7 @@ public class TransformerMasterDown {
     private static String FIN_D5 = "1"; //末帧标志FIN 单帧
     private static String CON_D4 = "1"; //请求确认标志位CON  CON位置“1”，表示需要对该帧报文进行确认；置“0”，表示不需要对该帧报文进行确认。
     private static String PSEQ_D3D0 = "0001"; //启动帧序号PSEQ  PSEQ取自1字节的启动帧计数器PFC的低4位计数值0～15。
-    private Integer PFC = 1; //0_255的启动帧帧序号计数器PFC
     private static String RSEQ = ""; //响应帧序号RSEQ
-
-
     /*信息点DA pn*/
     private static String DA;
     private static String DA1 = "FF"; //
@@ -65,63 +62,59 @@ public class TransformerMasterDown {
     private static String data_ts = "0016271220"; //分时日月年
     private static String data_m = "01"; //01 FE 冻结密度 密度m 1-15/30/45 254-5/10/15
     private static String data_n = "05"; //数据点数
-
     //组号
     private static String group_code_H = "02";
-
     /*Tp 时间标签*/
     private static String Tp;
-
     /*启动帧*/
     private static String PFC_H = "01";
-    /*启动帧发送时 秒分时日*/
-
     private static String send_time_s = "00000929";
+    /*启动帧发送时 秒分时日*/
     /*允许发送传输延时时间 */
     private static String delayed = "FF";
     /*CS 帧校验和*/
     /*帧校验和 控制域、地址域、链路用户数据（应用层）三部分。
      * 帧校验和是用户数据区所有字节的八位位组算术和*/
     private static String CS = "";
-
     /*结束*/
     private static String end = "16";
+    private Integer PFC = 1; //0_255的启动帧帧序号计数器PFC
 
     public static void main(String[] args) {
         LocalDate localDate = LocalDate.now();
         LocalTime localTime = LocalTime.now();
-        send_time_s = localTime.getSecond()+""+localTime.getMinute()+localTime.getHour()+localDate.getDayOfMonth();
+        send_time_s = localTime.getSecond() + "" + localTime.getMinute() + localTime.getHour() + localDate.getDayOfMonth();
         System.err.println(localTime + "当前>" + send_time_s);
 
 
-        String DA = DA1+DA2;
-        String DT = DT1+DT2;
-        String data = data_ts+data_m+data_n;
-        String Tp = PFC_H+send_time_s+delayed;
+        String DA = DA1 + DA2;
+        String DT = DT1 + DT2;
+        String data = data_ts + data_m + data_n;
+        String Tp = PFC_H + send_time_s + delayed;
         Tp = "";
-        String msg = C_H+A_H+AFN_H+SEQ_H+DA+DT+data+group_code_H +Tp;
+        String msg = C_H + A_H + AFN_H + SEQ_H + DA + DT + data + group_code_H + Tp;
 
 
-        System.out.println("msg--------"+msg);
+        System.out.println("msg--------" + msg);
 
-        L_H  = Integer.toBinaryString(msg.length()/2);
-        int length = Integer.parseInt(L_H+"10",2);
-        L_H = HexUtil.encodeHexStr(BasicTypeCovert.getBytes(length)).substring(0,4);
-        System.out.println(Integer.toBinaryString(msg.length())+"msg长度--------"+L_H);
-        String head = start1_H+ L_H+ L_H +start1_H;
+        L_H = Integer.toBinaryString(msg.length() / 2);
+        int length = Integer.parseInt(L_H + "10", 2);
+        L_H = HexUtil.encodeHexStr(BasicTypeCovert.getBytes(length)).substring(0, 4);
+        System.out.println(Integer.toBinaryString(msg.length()) + "msg长度--------" + L_H);
+        String head = start1_H + L_H + L_H + start1_H;
 
-        byte[] bytes = HexUtil.decodeHex(AFN_H+SEQ_H+DA+DT+data+group_code_H +Tp);
+        byte[] bytes = HexUtil.decodeHex(AFN_H + SEQ_H + DA + DT + data + group_code_H + Tp);
         int a = 0;
         byte[] bytes2 = new byte[1];
         for (int i = 0; i < bytes.length; i++) {
             bytes2[0] = bytes[i];
-            a+=BasicTypeCovert.Bytes2Int_LE(bytes2);
+            a += BasicTypeCovert.Bytes2Int_LE(bytes2);
         }
         bytes2[0] = BasicTypeCovert.getBytes(a)[0];
         String csStr = HexUtil.encodeHexStr(BasicTypeCovert.getBytes(a));
-        CS = csStr.substring(0,2);
+        CS = csStr.substring(0, 2);
 
-        System.out.println("完整报文："+head+msg+CS+end);
+        System.out.println("完整报文：" + head + msg + CS + end);
 
 
     }

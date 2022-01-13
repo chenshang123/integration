@@ -38,7 +38,7 @@ public class TenantApplication implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "tenant_application_mid_id")
     private String id;
 

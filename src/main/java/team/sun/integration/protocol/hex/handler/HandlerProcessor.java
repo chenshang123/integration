@@ -15,6 +15,7 @@ public class HandlerProcessor implements BeanFactoryPostProcessor {
 
     /**
      * 扫描@HandlerType，初始化HandlerContext，将其注册到spring容器
+     *
      * @param configurableListableBeanFactory
      * @throws BeansException
      */

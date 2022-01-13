@@ -1,12 +1,16 @@
 package team.sun.integration.modules.sys.table.repository;
 
+import org.jetbrains.annotations.NotNull;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.modules.base.repository.IDao;
-import team.sun.integration.modules.sys.table.model.TableConstraint;
+import team.sun.integration.common.base.repository.IDao;
+import team.sun.integration.modules.sys.table.model.entity.TableConstraint;
+
+import java.util.Optional;
 
 /**
  * <p>
- * 系统-角色：	角色关联单位 Mapper 接口
+ * 系统-表关系
  * </p>
  *
  * @author auto generator
@@ -15,4 +19,8 @@ import team.sun.integration.modules.sys.table.model.TableConstraint;
 @Repository
 public interface TableConstraintDao extends IDao<TableConstraint, String> {
 
+    @Override
+    @EntityGraph("TableConstraint-relation")
+    @NotNull
+    Optional<TableConstraint> findById(@NotNull String id);
 }

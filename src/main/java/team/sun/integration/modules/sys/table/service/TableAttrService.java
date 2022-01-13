@@ -1,7 +1,7 @@
 package team.sun.integration.modules.sys.table.service;
 
-import team.sun.integration.modules.base.service.IService;
-import team.sun.integration.modules.sys.table.model.TableAttr;
+import team.sun.integration.common.base.service.IService;
+import team.sun.integration.modules.sys.table.model.entity.TableAttr;
 
 /**
  * <p>
@@ -13,5 +13,5 @@ import team.sun.integration.modules.sys.table.model.TableAttr;
  */
 public interface TableAttrService extends IService<TableAttr, String> {
 
-
+    TableAttr getUserById(String id);
 }

@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.Authentication;
@@ -12,9 +13,8 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.model.vo.Ret;
 import team.sun.integration.modules.sys.security.utils.JwtTokenUtil;
 
 /**
@@ -28,10 +28,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
     @Qualifier("userDetailServiceImpl")
     private UserDetailsService userDetailsService;
-
-    @Autowired
-    private ObjectMapper objectMapper;
-
+    private final ObjectMapper objectMapper = new ObjectMapper();
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -39,11 +36,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
         response.setContentType("application/json;charset=UTF-8");
         try {
             User details = (User) userDetailsService.loadUserByUsername(authentication.getName());
-
             String token = JwtTokenUtil.TOKEN_PREFIX + JwtTokenUtil.createToken(details, false);
-
             response.setHeader(JwtTokenUtil.TOKEN_HEADER, token);
-//            response.sendRedirect(token);
+
             response.getWriter().write(objectMapper.writeValueAsString(Ret.success(token)));
         } catch (Exception e) {
             response.sendError(HttpServletResponse.SC_UNAUTHORIZED, BusRetEnum.BUS_LOGIN_CREATE_TOKEN_FAIL.getValue());

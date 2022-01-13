@@ -48,19 +48,19 @@ public class DemoPackProtocol extends PackProfileAbstract {
 
     @Override
     public String pack(Map<String, Object> param, Map<String, Object> data) {
-        if(null != param && null != param.get("field_name") && null != param.get("field_length")){
+        if (null != param && null != param.get("field_name") && null != param.get("field_length")) {
             String fieldName = (String) param.get("field_name");
             int fieldLength = (int) param.get("field_length");
 
-            if(StringUtils.hasLength(fieldName) && fieldLength>0){
+            if (StringUtils.hasLength(fieldName) && fieldLength > 0) {
 
                 //添加需要特殊处理逻辑
-                if(fieldName.equals("topic")){
+                if (fieldName.equals("topic")) {
                     String topic = data.get(fieldName).toString().replace("command/", "");
                     data.replace(fieldName, Integer.parseInt(topic));
                 }
 
-                if(fieldLength < 5){
+                if (fieldLength < 5) {
                     return HexUtil.encodeHexStr(BasicTypeCovert.Int2Bytes_LE_digit(Integer.parseInt(data.get(fieldName).toString()), fieldLength));
                 }
 

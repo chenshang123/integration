@@ -3,7 +3,7 @@ package team.sun.integration.modules.sys.user.repository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.modules.base.repository.IDao;
+import team.sun.integration.common.base.repository.IDao;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import java.util.Optional;

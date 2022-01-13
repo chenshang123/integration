@@ -11,8 +11,8 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.resource.model.dto.save.ResourceSaveDTO;
 import team.sun.integration.modules.sys.resource.model.dto.update.ResourceUpdateDTO;
 import team.sun.integration.modules.sys.resource.model.entity.QResource;
@@ -36,21 +36,27 @@ import java.util.*;
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> implements ResourceService {
 
+    public static void main(String[] args) {
+        List<Resource> all = null;
+        all.forEach(item -> item.getWeight());
+    }
+
     private List<Tree<String>> buildTree(List<Resource> all, String parentId) {
         //parentId 可以控制展示层级,默认展示所有
-        if(!StringUtils.hasLength(parentId)){
+        if (!StringUtils.hasLength(parentId)) {
             parentId = "0";
         }
-        if(null != all && !all.isEmpty()){
+        if (null != all && !all.isEmpty()) {
             List<TreeNode<String>> nodeList = new ArrayList<>(all.size());
             all.forEach(item -> nodeList.add(new TreeNode<>(item.getId(), item.getParentId(), item.getName(), item.getWeight())));
             return TreeUtil.build(nodeList, parentId);
         }
         return null;
     }
+
     private List<Tree<String>> buildTree(List<Resource> all) {
         //parentId 可以控制展示层级,默认展示所有
-        if(null != all && !all.isEmpty()){
+        if (null != all && !all.isEmpty()) {
             List<TreeNode<String>> nodeList = new ArrayList<>(all.size());
             all.forEach(item -> nodeList.add(new TreeNode<>(item.getId(), item.getParentId(), item.getName(), item.getWeight())));
             return TreeUtil.build(nodeList, "0");
@@ -107,10 +113,5 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
         ResourceVO vo = new ResourceVO();
         optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
         return vo;
-    }
-
-    public static void main(String[] args) {
-        List<Resource> all = null;
-        all.forEach(item -> item.getWeight());
     }
 }

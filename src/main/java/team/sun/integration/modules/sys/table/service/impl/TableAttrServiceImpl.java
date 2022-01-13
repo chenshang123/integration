@@ -1,8 +1,9 @@
 package team.sun.integration.modules.sys.table.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
-import team.sun.integration.modules.sys.table.model.TableAttr;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.sys.table.model.entity.TableAttr;
 import team.sun.integration.modules.sys.table.repository.TableAttrDao;
 import team.sun.integration.modules.sys.table.service.TableAttrService;
 
@@ -20,9 +21,14 @@ public class TableAttrServiceImpl extends ServiceImpl<TableAttrDao, TableAttr> i
 
     private final TableAttrDao tableAttrDao;
 
+    @Autowired
     public TableAttrServiceImpl(TableAttrDao tableAttrDao) {
         this.tableAttrDao = tableAttrDao;
     }
 
 
+    @Override
+    public TableAttr getUserById(String id) {
+        return this.tableAttrDao.findById(id).get();
+    }
 }

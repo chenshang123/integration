@@ -1,8 +1,6 @@
 package team.sun.integration.protocol.hex.convert.pack.service;
 
 import cn.hutool.core.util.HexUtil;
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
 import team.sun.integration.protocol.hex.convert.pack.PackConvertService;
 import team.sun.integration.protocol.hex.handler.HandlerContext;
 import team.sun.integration.protocol.hex.profile.PackProfileAbstract;
@@ -31,10 +29,10 @@ public class PackConvert implements PackConvertService {
     @Override
     public int getProtocolCode(Map<String, Object> data) {
         int protocolCode = 0;
-        if(null != data){
-            if(null != data.get("code")){
+        if (null != data) {
+            if (null != data.get("code")) {
                 protocolCode = (int) data.get("code");
-            }else if(null != data.get("command")){
+            } else if (null != data.get("command")) {
                 protocolCode = (int) data.get("command");
             }
         }
@@ -52,17 +50,17 @@ public class PackConvert implements PackConvertService {
         PackProfileAbstract hexConventHandler = (PackProfileAbstract) hexHandlerContext.getInstance(getProtocolCode(data));
         //解释翻译对象
         List<String> profile = hexConventHandler.profileConvert();
-        param.put("hex_string","");
+        param.put("hex_string", "");
         StringBuilder stringBuffer = new StringBuilder();
         if (profile.size() > 2 && data != null) {
             List<String> nameS = Arrays.asList(profile.get(1).split(","));
             List<String> byteS = Arrays.asList(profile.get(2).split(","));
             for (int i = 0; i < byteS.size(); i++) {
                 int fieldLength = Integer.parseInt(byteS.get(i));
-                param.put("field_name",nameS.get(i));
-                param.put("field_length",fieldLength);
+                param.put("field_name", nameS.get(i));
+                param.put("field_length", fieldLength);
                 String fieldStrData = hexConventHandler.pack(param, data);
-                if(fieldStrData != null){
+                if (fieldStrData != null) {
                     stringBuffer.append(fieldStrData);
                 }
             }
@@ -72,12 +70,9 @@ public class PackConvert implements PackConvertService {
     }
 
     @Override
-    public Map<String, Object> getPackMap(Map<String, Object> data) {
+    public String getPackMap(Map<String, Object> data) {
         PackProfileAbstract hexConventHandler = (PackProfileAbstract) hexHandlerContext.getInstance(getProtocolCode(data));
-        String jsonData = hexConventHandler.toJsonString(data);
-        JSONObject jb = JSON.parseObject(jsonData);
-        return jb.getInnerMap();
+        return hexConventHandler.toJsonString(data);
     }
-
 
 }

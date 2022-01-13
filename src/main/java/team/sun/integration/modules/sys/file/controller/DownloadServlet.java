@@ -24,7 +24,7 @@ public class DownloadServlet extends HttpServlet {
     private final FileProperties fileProperties;
 
     @Autowired(required = false)
-    public DownloadServlet(FileProperties fileProperties){
+    public DownloadServlet(FileProperties fileProperties) {
         this.fileProperties = fileProperties;
     }
 
@@ -40,7 +40,7 @@ public class DownloadServlet extends HttpServlet {
         try {
             List<FileItem> list = servletFileUpload.parseRequest(req);
             for (FileItem fileItem : list) {
-            //如果是文本
+                //如果是文本
                 if (fileItem.isFormField()) {
 /*                  String name = fileItem.getFieldName();
                     String value = fileItem.getString("UTF-8");*/

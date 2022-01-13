@@ -1,7 +1,7 @@
 package team.sun.integration.modules.sys.table.service;
 
-import team.sun.integration.modules.base.service.IService;
-import team.sun.integration.modules.sys.table.model.TableConstraint;
+import team.sun.integration.common.base.service.IService;
+import team.sun.integration.modules.sys.table.model.entity.TableConstraint;
 
 /**
  * <p>

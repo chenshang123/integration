@@ -70,6 +70,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+
         <!-- hibernate 对 java8特性支持
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -103,11 +104,6 @@
             <artifactId>springfox-boot-starter</artifactId>
             <version>${swagger.version}</version>
         </dependency>
-        <!--<dependency>
-            <groupId>io.springfox</groupId>
-            <artifactId>springfox-swagger2</artifactId>
-            <version>3.0.0</version>
-        </dependency>-->
 
         <!-- queryDSL通用查询框架-->
         <dependency>
@@ -155,11 +151,12 @@
             <artifactId>commons-lang3</artifactId>
             <version>[3.8.1,)</version>
         </dependency>
+        <!-- 对象拷贝
         <dependency>
-            <groupId>com.alibaba</groupId>
-            <artifactId>fastjson</artifactId>
-            <version>[1.2.70,)</version>
-        </dependency>
+            <groupId>com.gitlab.haynes</groupId>
+            <artifactId>orika-spring-boot-starter</artifactId>
+            <version>[1.26.0,)</version>
+        </dependency>-->
         <!-- 反射获取对象 -->
         <dependency>
             <groupId>net.oneandone.reflections8</groupId>
@@ -183,7 +180,6 @@
             <artifactId>commons-fileupload</artifactId>
             <version>${commons-fileUpload.version}</version>
         </dependency>
-
 
         <dependency>
             <groupId>org.quartz-scheduler</groupId>

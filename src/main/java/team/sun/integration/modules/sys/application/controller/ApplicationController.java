@@ -1,7 +1,6 @@
 package team.sun.integration.modules.sys.application.controller;
 
 import com.querydsl.core.types.Predicate;
-import com.querydsl.core.types.dsl.SetPath;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -10,9 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import team.sun.integration.modules.base.model.dto.PageDTO;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.common.base.model.dto.PageDTO;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.model.vo.Ret;
 import team.sun.integration.modules.sys.application.model.dto.query.ApplicationQueryDTO;
 import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSaveDTO;
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
@@ -20,8 +19,6 @@ import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.application.model.entity.QApplication;
 import team.sun.integration.modules.sys.application.model.vo.ApplicationVO;
 import team.sun.integration.modules.sys.application.service.ApplicationService;
-import team.sun.integration.modules.sys.tenant.model.entity.QTenantApplication;
-import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 
 import javax.validation.Valid;
 import java.util.List;

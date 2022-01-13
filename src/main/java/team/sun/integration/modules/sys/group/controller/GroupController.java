@@ -4,9 +4,9 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import team.sun.integration.modules.base.model.dto.PageDTO;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.common.base.model.dto.PageDTO;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.model.vo.Ret;
 import team.sun.integration.modules.sys.group.model.dto.query.GroupQueryDTO;
 import team.sun.integration.modules.sys.group.model.dto.save.GroupSaveDTO;
 import team.sun.integration.modules.sys.group.model.dto.update.GroupUpdateDTO;
@@ -44,7 +44,7 @@ public class GroupController {
 
     @ApiOperation(value = "分页查询")
     @GetMapping("/page")
-    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute GroupQueryDTO queryDTO){
+    public Ret page(PageDTO pageDTO, @Valid @ModelAttribute GroupQueryDTO queryDTO) {
         Pageable pageable = PageRequest.of(pageDTO.getPage() - 1, pageDTO.getPageSize());
         QGroup qGroup = QGroup.group;
         Group entity = new Group();
@@ -58,14 +58,14 @@ public class GroupController {
 
     @ApiOperation(value = "保存")
     @PostMapping("/save")
-    public Ret save(@Valid @RequestBody GroupSaveDTO dto){
+    public Ret save(@Valid @RequestBody GroupSaveDTO dto) {
         groupService.save(dto);
         return Ret.success();
     }
 
     @ApiOperation(value = "修改")
     @PostMapping("/update")
-    public Ret update(@Valid @RequestBody GroupUpdateDTO dto){
+    public Ret update(@Valid @RequestBody GroupUpdateDTO dto) {
         groupService.update(dto);
         return Ret.success();
     }
@@ -73,7 +73,7 @@ public class GroupController {
 
     @ApiOperation(value = "详情")
     @GetMapping("/dtl")
-    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id){
+    public Ret Detail(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
         GroupVO vo = groupService.getGroupById(id);
         return Ret.success(vo);
     }

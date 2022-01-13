@@ -2,14 +2,14 @@ package team.sun.integration.modules.sys.table.repository;
 
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.stereotype.Repository;
-import team.sun.integration.modules.base.repository.IDao;
-import team.sun.integration.modules.sys.table.model.TableInfo;
+import team.sun.integration.common.base.repository.IDao;
+import team.sun.integration.modules.sys.table.model.entity.TableInfo;
 
 import java.util.List;
 
 /**
  * <p>
- * 系统-角色：	角色关联单位 Mapper 接口
+ * 系统-表信息
  * </p>
  *
  * @author auto generator
@@ -20,5 +20,6 @@ public interface TableDao extends IDao<TableInfo, String> {
 
     @EntityGraph("Table-relation")
     List<TableInfo> findByTableNameLike(String name);
+
 
 }

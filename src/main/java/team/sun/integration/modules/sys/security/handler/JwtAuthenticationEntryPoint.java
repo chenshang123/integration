@@ -3,7 +3,7 @@ package team.sun.integration.modules.sys.security.handler;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

@@ -1,8 +1,8 @@
 package team.sun.integration.modules.sys.resource.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import team.sun.integration.modules.base.enums.converter.BaseEnum;
-import team.sun.integration.modules.base.enums.converter.BaseEnumConverter;
+import team.sun.integration.common.base.enums.converter.BaseEnum;
+import team.sun.integration.common.base.enums.converter.BaseEnumConverter;
 
 /**
  * 系统-菜单-码表：资源类型

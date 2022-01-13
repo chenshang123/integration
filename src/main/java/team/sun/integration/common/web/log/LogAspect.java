@@ -12,7 +12,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.common.base.model.vo.Ret;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -23,7 +23,7 @@ import org.springframework.aop.aspectj.MethodInvocationProceedingJoinPoint;
 
 import team.sun.integration.common.annotation.BusinessLog;
 import team.sun.integration.common.annotation.ParamParser;
-import team.sun.integration.common.utils.IpUtils;
+import team.sun.integration.common.utils.IpUtil;
 import team.sun.integration.common.utils.WebUtils;
 
 
@@ -64,7 +64,7 @@ public class LogAspect {
             BusinessLog businessLog = method.getDeclaredAnnotation(BusinessLog.class);
             Map<String, Object> map = new HashMap<>();
             if (businessLog != null) {
-                String ip = IpUtils.getRequestIp(WebUtils.request());
+                String ip = IpUtil.getRequestIp(WebUtils.request());
                 String methodName = signature.getDeclaringTypeName() + "." + signature.getName();
 
                 String operation = businessLog.value();

@@ -13,7 +13,7 @@ import java.util.Map;
  */
 public class MysqlBasicType {
 
-    public static  final Map<String, String> basicTypes = new HashMap<>(20);
+    public static final Map<String, String> basicTypes = new HashMap<>(20);
 
     static {
         basicTypes.put("tinyint", java.lang.Integer.class.getTypeName());

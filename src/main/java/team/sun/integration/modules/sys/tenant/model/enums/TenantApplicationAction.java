@@ -1,8 +1,8 @@
 package team.sun.integration.modules.sys.tenant.model.enums;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import team.sun.integration.modules.base.enums.converter.BaseEnum;
-import team.sun.integration.modules.base.enums.converter.BaseEnumConverter;
+import team.sun.integration.common.base.enums.converter.BaseEnum;
+import team.sun.integration.common.base.enums.converter.BaseEnumConverter;
 
 @JsonFormat(shape = JsonFormat.Shape.OBJECT)
 public enum TenantApplicationAction implements BaseEnum<Integer> {

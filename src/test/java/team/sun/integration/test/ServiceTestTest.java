@@ -31,32 +31,27 @@ import java.util.*;
 @SpringBootTest
 public class ServiceTestTest {
     @Autowired
+    UnpackConvert unpackConvert;
+    @Autowired
     private ResourceService resourceService;
-
     @Autowired
     private CodeValueService codeValueService;
-
     @Autowired
-    private TenantService  tenantService;
+    private TenantService tenantService;
     @Autowired
     private TenantDao tenantDao;
     @Autowired
     private ResourceDao resourceDao;
     @Autowired
     private ApplicationDao applicationDao;
-
     @Autowired
     private UserService userService;
     @Autowired
     private OrgService orgService;
     @Autowired
     private OrgDao orgDao;
-
     @Autowired
     private RoleDao roleDao;
-
-    @Autowired
-    UnpackConvert unpackConvert;
 
     @Test
     public void testModelServiceServiceImpl() {
@@ -81,7 +76,7 @@ public class ServiceTestTest {
         resource_ids_add.add("6");
         resource_ids_add.add("12");
         tenantSaveDTO.setResource_ids_add(resource_ids_add);
-
+        Optional<Application>  application = applicationDao.findById("1");
         Iterable<Application> applications = applicationDao.findAllById(application_ids_add);
         Iterable<Resource> resources = resourceDao.findAllById(resource_ids_add);
 
@@ -287,8 +282,6 @@ public class ServiceTestTest {
         //删除-完整数据
 //        System.out.println("--------------------------" + user.getUserRoles().size());
 */
-
-
 
 
     }

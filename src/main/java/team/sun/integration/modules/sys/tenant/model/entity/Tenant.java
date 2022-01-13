@@ -282,7 +282,9 @@ public class Tenant implements Serializable {
         return name;
     }
 
-    public void setName(String name) { this.name = name; }
+    public void setName(String name) {
+        this.name = name;
+    }
 
     public String getAccount() {
         return account;
@@ -304,7 +306,9 @@ public class Tenant implements Serializable {
         return salt;
     }
 
-    public void setSalt(String salt) { this.salt = salt; }
+    public void setSalt(String salt) {
+        this.salt = salt;
+    }
 
     public String getIndustry() {
         return industry;
@@ -334,7 +338,9 @@ public class Tenant implements Serializable {
         return mail;
     }
 
-    public void setMail(String mail) { this.mail = mail; }
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
 
     public String getProvince() {
         return province;
@@ -348,7 +354,9 @@ public class Tenant implements Serializable {
         return city;
     }
 
-    public void setCity(String city) { this.city = city; }
+    public void setCity(String city) {
+        this.city = city;
+    }
 
     public String getCounty() {
         return county;

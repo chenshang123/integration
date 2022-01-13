@@ -12,58 +12,94 @@ public class UserLoginVO implements Serializable {
 
     private String id;
 
-    /**用户-角色*/
+    /**
+     * 用户-角色
+     */
     private List<String> roleIds = new ArrayList<>();
 
-    /**登录用户名*/
+    /**
+     * 登录用户名
+     */
     private String username;
 
-    /**密码*/
+    /**
+     * 密码
+     */
     private String pwd;
 
-    /**盐值-用户创建、密码修改时创建*/
+    /**
+     * 盐值-用户创建、密码修改时创建
+     */
     private String salt;
 
-    /**电话*/
+    /**
+     * 电话
+     */
     private String phone;
 
-    /**性别 1:男 2:女 0:未知*/
+    /**
+     * 性别 1:男 2:女 0:未知
+     */
     private Boolean gender;
 
-    /**用户类型： 1：系统管理人员（在sys_org表中有归属） 2：外部人员*/
+    /**
+     * 用户类型： 1：系统管理人员（在sys_org表中有归属） 2：外部人员
+     */
     private Integer userType;
 
-    /**是否是初始用户 1：是 2：否*/
+    /**
+     * 是否是初始用户 1：是 2：否
+     */
     private Boolean initType;
 
-    /**用户状态 -1注销 0激活 1休眠 2未认证*/
+    /**
+     * 用户状态 -1注销 0激活 1休眠 2未认证
+     */
     private Boolean state;
 
-    /**登录失败次数*/
+    /**
+     * 登录失败次数
+     */
     private Integer loginFail;
 
-    /**允许访问时间段*/
+    /**
+     * 允许访问时间段
+     */
     private LocalDateTime allowAccess;
 
-    /**允许访问时间段*/
+    /**
+     * 允许访问时间段
+     */
     private LocalDateTime allowNotAccess;
 
-    /**是否被锁定：0 未锁定 1锁定*/
+    /**
+     * 是否被锁定：0 未锁定 1锁定
+     */
     private Boolean locked;
 
-    /**单位类型*/
+    /**
+     * 单位类型
+     */
     private Boolean unitType;
 
-    /**数据权限类型（查询单位表，本级、本级及下级、自定义）*/
+    /**
+     * 数据权限类型（查询单位表，本级、本级及下级、自定义）
+     */
     private Integer dataAuthorityType;
 
-    /**固定ip (格式为*.*.*.* 星号只能是固定值0-255)*/
+    /**
+     * 固定ip (格式为*.*.*.* 星号只能是固定值0-255)
+     */
     private String loginIp;
 
-    /**0正常 1删除*/
+    /**
+     * 0正常 1删除
+     */
     private Boolean delFlag;
 
-    /**版本号*/
+    /**
+     * 版本号
+     */
     private Integer version;
 
     public String getId() {

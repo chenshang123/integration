@@ -29,9 +29,9 @@ public final class ResponseUtils {
     private ResponseUtils() {
     }
 
+
     /**
-     * @param obj 对象
-     * @Describe 后台数据以json方式输出到前台
+     * 后台数据以json方式输出到前台
      */
     public static void writeJson(HttpServletResponse response, Object obj) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
@@ -40,10 +40,6 @@ public final class ResponseUtils {
 
     /**
      * ajax跨域请求jsonP
-     *
-     * @param request  请求
-     * @param response 响应
-     * @param obj      对象
      */
     public static void writeJsonP(HttpServletRequest request, HttpServletResponse response,
                                   Object obj)
@@ -53,7 +49,7 @@ public final class ResponseUtils {
         response.setHeader(HttpHeaders.CACHE_CONTROL, "no-store");
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         try (PrintWriter out = response.getWriter()) {
-            String jsonString = JsonUtils.toJson(obj);
+            String jsonString = JacksonUtil.toJson(obj);
             if (StringUtils.isEmpty(callback)) {
                 out.write(jsonString);
             } else {
@@ -65,9 +61,6 @@ public final class ResponseUtils {
 
     /**
      * 输出html
-     *
-     * @param response 响应
-     * @param obj      对象
      */
     public static void writeHtml(HttpServletResponse response, Object obj) throws IOException {
         response.setContentType(MediaType.TEXT_HTML_VALUE);
@@ -77,9 +70,6 @@ public final class ResponseUtils {
 
     /**
      * 一般用于输出Image图片
-     *
-     * @param response  响应
-     * @param byteArray 字节数组
      */
     public static void writeImage(HttpServletResponse response, byte[] byteArray) throws IOException {
         response.setHeader(HttpHeaders.PRAGMA, "no-cache");
@@ -94,9 +84,6 @@ public final class ResponseUtils {
 
     /**
      * 一般用于输出Gif图片
-     *
-     * @param response  响应
-     * @param byteArray 字节数组
      */
     public static void writeGif(HttpServletResponse response, byte[] byteArray) throws IOException {
         response.setHeader(HttpHeaders.PRAGMA, "no-cache");
@@ -112,9 +99,6 @@ public final class ResponseUtils {
 
     /**
      * 内部的通用输出
-     *
-     * @param response 响应
-     * @param obj      输出对象
      */
     private static void writer(HttpServletResponse response, Object obj) throws IOException {
         response.setHeader(HttpHeaders.PRAGMA, "no-cache");
@@ -122,15 +106,13 @@ public final class ResponseUtils {
         response.setDateHeader(HttpHeaders.EXPIRES, 0);
         response.setCharacterEncoding(StandardCharsets.UTF_8.name());
         try (PrintWriter out = response.getWriter()) {
-            out.print(JsonUtils.toJson(obj));
+            out.print(JacksonUtil.toJson(obj));
             out.flush();
         }
     }
 
     /**
      * 允许 JS 跨域设置
-     *
-     * @param response 响应
      */
     public static void allowJsCrossDomain(HttpServletResponse response) {
         response.setHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");

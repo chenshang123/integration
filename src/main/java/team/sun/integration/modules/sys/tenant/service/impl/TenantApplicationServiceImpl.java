@@ -3,7 +3,7 @@ package team.sun.integration.modules.sys.tenant.service.impl;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.tenant.model.entity.TenantApplication;
 import team.sun.integration.modules.sys.tenant.model.vo.TenantApplicationVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantApplicationDao;
@@ -28,7 +28,7 @@ public class TenantApplicationServiceImpl extends ServiceImpl<TenantApplicationD
     @Override
     public List<TenantApplicationVO> getApplication(Predicate predicate) {
         Iterable<TenantApplication> iterable = this.get(predicate);
-        List<TenantApplicationVO> vos  = new ArrayList<>();
+        List<TenantApplicationVO> vos = new ArrayList<>();
         iterable.forEach(item -> {
             TenantApplicationVO vo = new TenantApplicationVO();
             BeanUtils.copyProperties(item, vo);

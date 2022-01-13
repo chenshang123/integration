@@ -10,11 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
-import team.sun.integration.modules.base.exception.UploadException;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.model.vo.Ret;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.exception.UploadException;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.model.vo.Ret;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.file.model.dto.save.FileSaveDTO;
 import team.sun.integration.modules.sys.file.model.dto.update.FileUpdateDTO;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
@@ -26,6 +26,7 @@ import team.sun.integration.modules.sys.file.service.FileService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -48,9 +49,10 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     private final FileProperties fileProperties;
 
     @Autowired(required = false)
-    public FileServiceImpl(FileProperties fileProperties){
+    public FileServiceImpl(FileProperties fileProperties) {
         this.fileProperties = fileProperties;
     }
+
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QFileEntity qFileEntity = QFileEntity.fileEntity;
@@ -66,7 +68,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     @Override
     public List<FileVO> get(String businessId) {
         List<FileEntity> fileEntities = dao.findByBusinessId(businessId);
-        return Optional.ofNullable(fileEntities).orElseGet(ArrayList :: new).stream().filter(Objects::nonNull).map(entity -> {
+        return Optional.ofNullable(fileEntities).orElseGet(ArrayList::new).stream().filter(Objects::nonNull).map(entity -> {
             FileVO fileVO = new FileVO();
             BeanUtils.copyProperties(entity, fileVO);
             return fileVO;
@@ -82,10 +84,10 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     @Override
     public String getPath(String name) {
         FileEntity vo = dao.findByName(name);
-        if(StringUtils.hasLength(vo.getName()) && StringUtils.hasLength(vo.getStorageUrl())){
-          return fileProperties.getUploadPath() + fileProperties.getSlash() +
-                  vo.getStorageUrl().replaceAll(fileProperties.getPathSpacer(), Matcher.quoteReplacement(fileProperties.getSlash())) +
-                  fileProperties.getSlash() + vo.getName();
+        if (StringUtils.hasLength(vo.getName()) && StringUtils.hasLength(vo.getStorageUrl())) {
+            return fileProperties.getUploadPath() + File.separator +
+                    vo.getStorageUrl().replaceAll(fileProperties.getPathSpacer(), Matcher.quoteReplacement(File.separator)) +
+                    File.separator + vo.getName();
         }
         return null;
     }
@@ -100,7 +102,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
     @Override
     public FileEntity update(FileUpdateDTO dto) {
         Optional<FileEntity> optional = this.getById(dto.getId());
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             BeanUtils.copyProperties(dto, optional.get());
             this.dao.save(optional.get());
         }
@@ -112,7 +114,7 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         String message = "";
         try {
             List<FileEntity> fileEntities = fileProperties.upload(request);
-            if(fileEntities.size()>0){
+            if (fileEntities.size() > 0) {
                 this.saveOrUpdateBatch(fileEntities);
                 return Ret.success(fileEntities.get(0).getBusinessId());
             }
@@ -122,13 +124,13 @@ public class FileServiceImpl extends ServiceImpl<FileDao, FileEntity> implements
         } catch (FileUploadBase.SizeLimitExceededException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_OVERRUN.getValue();
-        }catch (UploadException e){
+        } catch (UploadException e) {
             e.printStackTrace();
             message = e.getMessage();
-        } catch (IOException e){
+        } catch (IOException e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_IO_ERROR.getValue();
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
             message = BusRetEnum.BUS_FILE_UPLOAD_ERROR.getValue();
         }

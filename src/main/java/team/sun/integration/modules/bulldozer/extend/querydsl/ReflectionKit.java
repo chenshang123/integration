@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import org.reflections8.Reflections;
 import org.reflections8.scanners.TypeAnnotationsScanner;
 import org.springframework.util.NumberUtils;
-import team.sun.integration.modules.base.tool.reflect.TestVo;
+import team.sun.integration.common.base.tool.reflect.TestVo;
 import team.sun.integration.modules.sys.user.model.entity.User;
 
 import javax.persistence.Table;
@@ -25,12 +25,14 @@ public class ReflectionKit {
      */
     public static final List<String> PRIMITIVE_AND_WRAPPER_TYPE_LIST;
     public static final Map<String, Class<?>> CLASS_NAME_FIELD_CACHE;
+    public static final Map<Class<?>, List<Field>> CLASS_FIELD_CACHE = new ConcurrentHashMap<>();
     /**
      * class field cache
      */
     private static final String packageName = "team.sun.integration.modules";
-
-    public static final Map<Class<?>, List<Field>> CLASS_FIELD_CACHE = new ConcurrentHashMap<>();
+    /**
+     * 实体对象集合
+     */
     private static final Set<Class<?>> ENTITY_SET;
 
     static {

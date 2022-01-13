@@ -35,6 +35,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private RestAuthenticationAccessDeniedHandler accessDeniedHandler;
     @Autowired
     private JwtAuthenticationTokenFilter jwtAuthenticationTokenFilter;
+
     @Bean
     public PasswordEncoder getPasswordEncoderBean() {
         return new BCryptPasswordEncoder();

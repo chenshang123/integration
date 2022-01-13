@@ -18,7 +18,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
 import team.sun.integration.modules.sys.security.utils.JwtTokenUtil;
 
 /**

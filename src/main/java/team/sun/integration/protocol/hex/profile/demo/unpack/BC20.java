@@ -51,17 +51,17 @@ public class BC20 extends UnpackProfileAbstract {
     }
 
     @Override
-    public String toJsonString(Map<String, Object> data){
+    public String toJsonString(Map<String, Object> data) {
         return "";
     }
 
 
     @Override
     public Object unpack(Map<String, Object> param, Map<String, Object> data) {
-        if(null != param.get("field_name") && null != param.get("field_Data")){
+        if (null != param.get("field_name") && null != param.get("field_Data")) {
             String fieldName = (String) param.get("field_name");
             byte[] fieldData = (byte[]) param.get("field_Data");
-            if(StringUtils.hasLength(fieldName) && fieldData != null){
+            if (StringUtils.hasLength(fieldName) && fieldData != null) {
                 return BasicTypeCovert.Bytes2Int_LE(fieldData);
             }
         }

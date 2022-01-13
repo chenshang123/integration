@@ -47,10 +47,11 @@ public class HexStringCovert {
         }
         return s.toString();
     }
+
     public static String bytesToBinaryString(byte[] byte_array) {
         byte tByte;
         StringBuilder stringBuilder = new StringBuilder();
-        if(null != byte_array && byte_array.length > 0){
+        if (null != byte_array && byte_array.length > 0) {
             for (byte b : byte_array) {
                 tByte = b;
                 stringBuilder.append(

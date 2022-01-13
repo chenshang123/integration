@@ -70,7 +70,7 @@ public class JwtTokenUtil {
 
     /**
      * 从token获取用户信息
-     *
+     * <p>
      * param token
      * return
      */
@@ -80,7 +80,7 @@ public class JwtTokenUtil {
 
     /**
      * 从token中获取用户角色
-     *
+     * <p>
      * param token
      * return
      */
@@ -91,7 +91,7 @@ public class JwtTokenUtil {
 
     /**
      * 是否已过期
-     *
+     * <p>
      * param token
      * return
      */
@@ -105,7 +105,7 @@ public class JwtTokenUtil {
 
     /**
      * 验证token
-     *
+     * <p>
      * param token
      * param userDetails
      * return

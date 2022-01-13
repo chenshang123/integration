@@ -2,9 +2,16 @@ package team.sun.integration.modules.bulldozer.generate;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
+import freemarker.template.TemplateException;
+import org.hibernate.validator.internal.util.privilegedactions.GetResource;
+import team.sun.integration.common.base.exception.BusinessException;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
+import java.util.Objects;
 
 /**
  * <p>
@@ -16,30 +23,52 @@ import java.io.IOException;
  */
 public class LoadData {
 
-    public void ToFtl() throws IOException {
-        // 第一步：创建一个Configuration对象，直接new一个对象。构造方法的参数就是freemarker对于的版本号。
+    private final String directory = Objects.requireNonNull(
+            GetResource.class.getClassLoader().getResource("generates")).getPath();
+    private final String generatedDirectory = directory + File.separator + "generated";
+    // 第一步：创建一个Configuration对象，直接new一个对象。构造方法的参数就是freemarker对于的版本号。
+    Configuration configurationDefault = new Configuration(Configuration.getVersion());
+
+    public LoadData() throws IOException {
+        configurationDefault.setDirectoryForTemplateLoading(
+                new File(directory + File.separator + "templates"));
+        configurationDefault.setDefaultEncoding("utf-8");
+    }
+
+    private void ToJavaFtl(Configuration configuration, String fltName, String saveFilename, Map<String, Objects> dataModel, String generatedDirectory) {
+        Template template;
+        Writer out = null;
+        try {
+            template = configuration.getTemplate(fltName);
+            out = new FileWriter(generatedDirectory + File.separator + saveFilename);
+            template.process(dataModel, out);
+        } catch (IOException | TemplateException e) {
+            throw new BusinessException(e.getMessage());
+        } finally {
+            try {
+                assert out != null;
+                out.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+
+    public void ToJavaFtl(String fltName, String saveFilename, Map<String, Objects> dataModel) {
+        ToJavaFtl(configurationDefault, fltName, saveFilename, dataModel, generatedDirectory);
+    }
+
+    public void ToJavaFtl(String fltName, String saveFilename, Map<String, Objects> dataModel, String templateDirectory, String generatedDirectory) {
         Configuration configuration = new Configuration(Configuration.getVersion());
-
-        // 第二步：设置模板文件所在的路径。
-        configuration.setDirectoryForTemplateLoading(new File("D:\\Java\\Eclipse\\workspace_Test\\FreeMarker\\src\\main\\webapp\\WEB-INF\\ftl"));
-
-        // 第三步：设置模板文件使用的字符集。一般就是utf-8.
+        try {
+            configuration.setDirectoryForTemplateLoading(
+                    new File(templateDirectory));
+        } catch (IOException e) {
+            throw new BusinessException(e.getMessage());
+        }
         configuration.setDefaultEncoding("utf-8");
+        ToJavaFtl(configuration, fltName, saveFilename, dataModel, generatedDirectory);
+    }
 
-       /* // 第四步：加载一个模板，创建一个模板对象。
-        Template template = configuration.getTemplate("hello.ftl");
-        // 第五步：创建一个模板使用的数据集，可以是pojo也可以是map。一般是Map。
-        Map dataModel = new HashMap();
-        // 向数据集中添加数据
-        dataModel.put("hello", "this is my first freemarker test.");
-
-        // 第六步：创建一个Writer对象，一般创建一FileWriter对象，指定生成的文件名。
-        Writer out = new FileWriter(new File("D:\\Java\\Eclipse\\workspace_Test\\FreeMarker\\out\\hello.html"));
-
-        // 第七步：调用模板对象的process方法输出文件。
-        template.process(dataModel, out);
-
-        // 第八步：关闭流。
-        out.close();*/
-    };
 }

@@ -1,10 +1,13 @@
 package team.sun.integration.modules.sys.table.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
-import team.sun.integration.modules.sys.table.model.TableInfo;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.sys.table.model.entity.TableInfo;
 import team.sun.integration.modules.sys.table.repository.TableDao;
 import team.sun.integration.modules.sys.table.service.TableService;
+
+import java.util.List;
 
 
 /**
@@ -20,9 +23,13 @@ public class TableServiceImpl extends ServiceImpl<TableDao, TableInfo> implement
 
     private final TableDao tableDao;
 
+    @Autowired
     public TableServiceImpl(TableDao tableDao) {
         this.tableDao = tableDao;
     }
 
-
+    @Override
+    public List<TableInfo> get(String nameLike) {
+        return this.tableDao.findByTableNameLike(nameLike);
+    }
 }

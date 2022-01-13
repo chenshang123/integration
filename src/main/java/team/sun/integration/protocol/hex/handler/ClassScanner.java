@@ -1,4 +1,5 @@
 package team.sun.integration.protocol.hex.handler;
+
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.BeanDefinitionStoreException;
 import org.springframework.context.ResourceLoaderAware;
@@ -40,8 +41,8 @@ public class ClassScanner implements ResourceLoaderAware {
         ClassScanner cs = new ClassScanner();
 
         if (ArrayUtils.isNotEmpty(annotations)) {
-            for (Class anno : annotations) {
-                cs.addIncludeFilter(new AnnotationTypeFilter(anno));
+            for (Class annotation : annotations) {
+                cs.addIncludeFilter(new AnnotationTypeFilter(annotation));
             }
         }
 

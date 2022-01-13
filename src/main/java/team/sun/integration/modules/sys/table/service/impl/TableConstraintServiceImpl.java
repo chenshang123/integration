@@ -1,8 +1,9 @@
 package team.sun.integration.modules.sys.table.service.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
-import team.sun.integration.modules.sys.table.model.TableConstraint;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
+import team.sun.integration.modules.sys.table.model.entity.TableConstraint;
 import team.sun.integration.modules.sys.table.repository.TableConstraintDao;
 import team.sun.integration.modules.sys.table.service.TableConstraintService;
 
@@ -20,6 +21,7 @@ public class TableConstraintServiceImpl extends ServiceImpl<TableConstraintDao, 
 
     private final TableConstraintDao tableConstraintDao;
 
+    @Autowired
     public TableConstraintServiceImpl(TableConstraintDao tableConstraintDao) {
         this.tableConstraintDao = tableConstraintDao;
     }

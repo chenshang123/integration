@@ -30,6 +30,7 @@ public class PermissionService {
 
     /**
      * 判断接口是否有xxx:xxx权限
+     *
      * @param permission 权限
      * @return {boolean}
      */

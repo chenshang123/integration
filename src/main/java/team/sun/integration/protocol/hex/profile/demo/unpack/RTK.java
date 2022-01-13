@@ -24,7 +24,7 @@ public class RTK extends UnpackProfileAbstract {
     static {
         List<String> protocol = new ArrayList<>(4);
         //key : val (字节长度_别名) math
-        
+
         protocol.add(0, "4_type");
         protocol.add(1, "1_year");
         protocol.add(2, "1_month");
@@ -64,18 +64,18 @@ public class RTK extends UnpackProfileAbstract {
     }
 
     @Override
-    public String toJsonString(Map<String, Object> data){
+    public String toJsonString(Map<String, Object> data) {
         return "";
     }
 
 
     @Override
     public Object unpack(Map<String, Object> param, Map<String, Object> data) {
-        if(null != param.get("field_name") && null != param.get("field_Data")){
+        if (null != param.get("field_name") && null != param.get("field_Data")) {
             String fieldName = (String) param.get("field_name");
             byte[] fieldData = (byte[]) param.get("field_Data");
-            if(StringUtils.hasLength(fieldName) && fieldData != null){
-                if(fieldName.equals("status")){
+            if (StringUtils.hasLength(fieldName) && fieldData != null) {
+                if (fieldName.equals("status")) {
                     return HexStringCovert.bytesToBinaryString(fieldData);
                 }
                 return BasicTypeCovert.Bytes2Int_LE(fieldData);

@@ -8,8 +8,8 @@ import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.tenant.model.dto.save.TenantSaveDTO;
 import team.sun.integration.modules.sys.tenant.model.dto.update.TenantUpdateDTO;
 import team.sun.integration.modules.sys.tenant.model.entity.QTenant;
@@ -45,7 +45,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         List<TenantPageVO> pageVOS = new ArrayList<>();
-        pages.forEach(entity->{
+        pages.forEach(entity -> {
             TenantPageVO pageVO = new TenantPageVO();
             BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Tenant.class)), pageVO);
             pageVO.setApplicationNumber(entity.get(1, Long.class));

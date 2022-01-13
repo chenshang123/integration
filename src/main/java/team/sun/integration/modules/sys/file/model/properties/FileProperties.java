@@ -8,8 +8,8 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
-import team.sun.integration.modules.base.exception.UploadException;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.exception.UploadException;
 import team.sun.integration.modules.sys.file.model.entity.FileEntity;
 
 import javax.imageio.ImageIO;
@@ -39,7 +39,7 @@ public class FileProperties {
     // "doc","docx","ppt","pptx","xls","xlsx",
     //"pdf"
     Set<String> allowImgExtName =
-            ImmutableSet.of("gif","jpg","png");
+            ImmutableSet.of("gif", "jpg", "png");
     Set<String> allowOfficeExtName =
             ImmutableSet.of("doc", "docx", "ppt", "pptx", "xls", "xlsx", "pdf");
 
@@ -68,8 +68,6 @@ public class FileProperties {
      */
     private String codeSet;
 
-    private final String slash = File.separator;
-
     public String getPathSpacer() {
         return "_";
     }
@@ -96,9 +94,9 @@ public class FileProperties {
         g.dispose();
         // 根据图片尺寸压缩比得到新图的尺寸
         newImg.getGraphics().drawImage(
-                src.getScaledInstance(old_w, old_h, Image.SCALE_SMOOTH), 0,0, null);
+                src.getScaledInstance(old_w, old_h, Image.SCALE_SMOOTH), 0, 0, null);
         File newFile = new File(filePath);
-        String formatName = filePath.substring(filePath.lastIndexOf(".")+1).toLowerCase();
+        String formatName = filePath.substring(filePath.lastIndexOf(".") + 1).toLowerCase();
         ImageIO.write(newImg, formatName, newFile);
 
     }
@@ -109,11 +107,10 @@ public class FileProperties {
         String tempPath = this.getTempPath();
         File tmpFile = new File(tempPath);
         if (!tmpFile.exists()) {
-            if (!tmpFile.mkdirs()){
+            if (!tmpFile.mkdirs()) {
                 throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
             }
         }
-        String message = null;
         // 1、创建一个DiskFileItemFactory工厂
         DiskFileItemFactory factory = new DiskFileItemFactory();
         // 设置工厂的缓冲区的大小，当上传的文件大小超过缓冲区的大小时，就会生成一个
@@ -143,7 +140,7 @@ public class FileProperties {
 
             } else {
                 String filename = item.getName();
-                if(StringUtils.hasLength(filename) && filename.length() > 50){
+                if (StringUtils.hasLength(filename) && filename.length() > 50) {
                     throw new UploadException(BusRetEnum.BUS_FILE_NAME_SUPER_LONG.getMsg());
                 }
                 // 如果需要限制上传的文件类型，那么可以通过文件的扩展名来判断上传的
@@ -153,9 +150,9 @@ public class FileProperties {
                 item.delete();
                 FileEntity fileEntity = this.makeFileEntity(uuid, filename);
                 // 文件类型是否合法
-                if(this.extNameCheck(filename, this.getAllowImgExtName())){
+                if (this.extNameCheck(filename, this.getAllowImgExtName())) {
                     fileEntities.add(this.saveImg(fileEntity, fileBytes));
-                }else{
+                } else {
                     throw new UploadException(BusRetEnum.BUS_FILE_TYPE_NOT_SUPPORTED.getMsg());
                 }
             }
@@ -182,7 +179,7 @@ public class FileProperties {
             byte[] buffer = new byte[fis.available()];
             int total = fis.read(buffer);
             fis.close();
-            if(total < 1){
+            if (total < 1) {
                 response.sendError(404, "File not found!");
                 return;
             }
@@ -209,7 +206,7 @@ public class FileProperties {
     /**
      * download 2. 将输入流中的数据循环写入到响应输出流中，而不是一次性读取到内存，通过响应输出流输出到前端
      */
-    public void downloadLocal(String path, HttpServletResponse response) throws IOException  {
+    public void downloadLocal(String path, HttpServletResponse response) throws IOException {
         // 读到流中
         InputStream inputStream = new FileInputStream(path);// 文件的存放路径
         response.reset();
@@ -264,10 +261,10 @@ public class FileProperties {
         response.reset();
         response.setContentType(conn.getContentType());
         if (isOnLine) {
-        // 在线打开方式 文件名应该编码成UTF-8
+            // 在线打开方式 文件名应该编码成UTF-8
             response.setHeader("Content-Disposition", "inline; filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8));
         } else {
-        //纯下载方式 文件名应该编码成UTF-8
+            //纯下载方式 文件名应该编码成UTF-8
             response.setHeader("Content-Disposition", "attachment; filename=" + URLEncoder.encode(filename, StandardCharsets.UTF_8));
         }
 
@@ -283,7 +280,7 @@ public class FileProperties {
     /**
      * 文件后缀名-验证
      */
-    public boolean extNameCheck(String filename, Set<String> allowExtName){
+    public boolean extNameCheck(String filename, Set<String> allowExtName) {
         if (filename != null && !filename.trim().equals("")) {
             filename = filename.substring(filename.lastIndexOf("\\") + 1);
             // 得到上传文件的扩展名
@@ -305,12 +302,12 @@ public class FileProperties {
                 now.getDayOfMonth();
     }
 
-    public String makeUUID(){
+    public String makeUUID() {
         return UUID.randomUUID().toString().replaceAll("-", "");
     }
 
     /**
-     *为文件名组装uuid
+     * 为文件名组装uuid
      */
     private String makeFileName(String uuid, String fileName) {
         // 为防止文件覆盖的现象发生，要为上传文件产生一个唯一的文件名
@@ -320,17 +317,18 @@ public class FileProperties {
     /**
      * 组装文件全路径，并创建文件目录
      */
-    private String makeSavePath(FileEntity entity){
-        String dirs = this.getUploadPath() + this.getSlash() +
-                entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(this.getSlash()));
+    private String makeSavePath(FileEntity entity) {
+        String dirs = this.getUploadPath() + File.separator +
+                entity.getStorageUrl().replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(File.separator));
         File file = new File(dirs);
         if (!file.exists()) {
-            if (!file.mkdirs()){
+            if (!file.mkdirs()) {
                 throw new UploadException(BusRetEnum.BUS_FILE_PATH_ERROR.getMsg());
             }
         }
-        return  dirs + this.getSlash() + entity.getName();
+        return dirs + File.separator + entity.getName();
     }
+
     /**
      * 把InputStream首先转换成byte[].
      */
@@ -348,7 +346,7 @@ public class FileProperties {
     /**
      * 组装文件保存实体
      */
-    public FileEntity makeFileEntity(String uuid, String filename){
+    public FileEntity makeFileEntity(String uuid, String filename) {
         // 文件上传成功后，将对应的信息保存到数据库SYS_FILE表
         FileEntity entity = new FileEntity();
         entity.setName(makeFileName(uuid, filename));
@@ -412,10 +410,6 @@ public class FileProperties {
 
     public Set<String> getAllowOfficeExtName() {
         return allowOfficeExtName;
-    }
-
-    public String getSlash() {
-        return slash;
     }
 
 }

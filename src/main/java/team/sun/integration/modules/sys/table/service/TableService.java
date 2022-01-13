@@ -1,7 +1,9 @@
 package team.sun.integration.modules.sys.table.service;
 
-import team.sun.integration.modules.base.service.IService;
-import team.sun.integration.modules.sys.table.model.TableInfo;
+import team.sun.integration.common.base.service.IService;
+import team.sun.integration.modules.sys.table.model.entity.TableInfo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +15,5 @@ import team.sun.integration.modules.sys.table.model.TableInfo;
  */
 public interface TableService extends IService<TableInfo, String> {
 
+    List<TableInfo> get(String nameLike);
 }

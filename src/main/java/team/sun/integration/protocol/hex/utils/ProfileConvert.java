@@ -8,7 +8,8 @@ import java.util.List;
 
 /**
  * 解析配置文件
- *  Map转换成List
+ * Map转换成List
+ *
  * @author chens
  */
 @Component
@@ -16,8 +17,8 @@ public class ProfileConvert {
 
     /**
      * 字段对应字节长度
-     * @return
-     * profile index0 报文总长度
+     *
+     * @return profile index0 报文总长度
      * 格式如下：521（单位：字节）
      * profile index1 字段名称字符串，中间逗号隔开
      * 格式如下：字段1，字段2，...
@@ -36,7 +37,7 @@ public class ProfileConvert {
         StringBuilder forBytePara = new StringBuilder();
         StringBuilder forNamePara = new StringBuilder();
         int count = 0;
-        int forcount = 0;
+        int rowcount = 0;
 
         if (null != profile && profile.size() > 0) {
             for (String s : profile) {
@@ -46,7 +47,7 @@ public class ProfileConvert {
                     if (s.contains("for")) {
                         forBytePara.append(",").append(data[0]);
                         forNamePara.append(",").append(data[1]).append(1);
-                        forcount += Integer.parseInt(data[0]);
+                        rowcount += Integer.parseInt(data[0]);
                     } else if (data.length == 2) {
                         count += Integer.parseInt(data[0]);
                         bytes.append(",").append(data[0]);
@@ -62,11 +63,11 @@ public class ProfileConvert {
                         for (int j = 1; j < Integer.parseInt(data[4]) + 1; j++) {
                             names.append(nameStr.replaceAll("1", "" + j));
                             bytes.append(forBytePara);
-                            count += forcount;
+                            count += rowcount;
                         }
                         forBytePara = new StringBuilder();
                         forNamePara = new StringBuilder();
-                        forcount = 0;
+                        rowcount = 0;
                     }
                 }
             }
@@ -74,7 +75,7 @@ public class ProfileConvert {
         result.add(String.valueOf(count));
         result.add(names.toString().replaceFirst(",", ""));
         result.add(bytes.toString().replaceFirst(",", ""));
-        if(forField.size()>0)result.addAll(forField);
+        if (forField.size() > 0) result.addAll(forField);
         return result;
     }
 

@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-import team.sun.integration.modules.base.enums.ret.BusRetEnum;
-import team.sun.integration.modules.base.model.dto.PageDTO;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.model.vo.Ret;
+import team.sun.integration.common.base.enums.ret.BusRetEnum;
+import team.sun.integration.common.base.model.dto.PageDTO;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.model.vo.Ret;
 import team.sun.integration.modules.sys.file.model.dto.query.FileQueryDTO;
 import team.sun.integration.modules.sys.file.model.dto.save.FileSaveDTO;
 import team.sun.integration.modules.sys.file.model.dto.update.FileUpdateDTO;
@@ -56,7 +56,7 @@ public class FileController {
     @ApiOperation(value = "图片本地下载")
     @GetMapping("/download/Local/Img")
     public void downLoad(HttpServletResponse response,
-                        @ApiParam(name = "name", value = "name", required = true) @RequestParam String name){
+                         @ApiParam(name = "name", value = "name", required = true) @RequestParam String name) {
         fileService.downloadLocalImg(response, name);
 
     }
@@ -64,7 +64,7 @@ public class FileController {
     @ApiOperation(value = "获取文件路径集合")
     @GetMapping("/urls")
     @ResponseBody
-    public Ret urls(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId){
+    public Ret urls(@ApiParam(name = "businessId", value = "businessId", required = true) @RequestParam String businessId) {
         return Ret.success(fileService.getNames(businessId));
     }
 

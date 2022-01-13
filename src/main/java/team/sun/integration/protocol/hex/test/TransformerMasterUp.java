@@ -45,10 +45,7 @@ public class TransformerMasterUp {
     private static String FIN_D5 = "1"; //末帧标志FIN 单帧
     private static String CON_D4 = "1"; //请求确认标志位CON  CON位置“1”，表示需要对该帧报文进行确认；置“0”，表示不需要对该帧报文进行确认。
     private static String PSEQ_D3D0 = "0001"; //启动帧序号PSEQ  PSEQ取自1字节的启动帧计数器PFC的低4位计数值0～15。
-    private Integer PFC = 1; //0_255的启动帧帧序号计数器PFC
     private static String RSEQ = ""; //响应帧序号RSEQ
-
-
     /*信息点DA pn*/
     private static String DA;
     private static String DA1 = "FF"; //
@@ -62,27 +59,23 @@ public class TransformerMasterUp {
     private static String data_ts = "0016271220"; //分时日月年
     private static String data_m = "01"; //01 FE 冻结密度 密度m 1-15/30/45 254-5/10/15
     private static String data_n = "05"; //数据点数
-
     //组号
     private static String group_code_H = "02";
-
     /*Tp 时间标签*/
     private static String Tp;
-
     /*启动帧*/
     private static String PFC_H = "01";
-    /*启动帧发送时 秒分时日*/
-
     private static String send_time_s = "00000929";
+    /*启动帧发送时 秒分时日*/
     /*允许发送传输延时时间 */
     private static String delayed = "FF";
     /*CS 帧校验和*/
     /*帧校验和 控制域、地址域、链路用户数据（应用层）三部分。
      * 帧校验和是用户数据区所有字节的八位位组算术和*/
     private static String CS = "";
-
     /*结束*/
     private static String end = "16";
+    private Integer PFC = 1; //0_255的启动帧帧序号计数器PFC
 
     public static void main(String[] args) {
         /*
@@ -125,52 +118,53 @@ public class TransformerMasterUp {
         /* 解析 */
         String f450 = "6852005200687401510100020D71020102381516160121010106EF16";
         f450 = "6876007600688801510100020D610201023815161601210601012015060000000000002E16";
-        String headUp = f450.substring(0,12);
-        System.out.println("headUp报文："+headUp);
+        String headUp = f450.substring(0, 12);
+        System.out.println("headUp报文：" + headUp);
 
-        String msg_c = f450.substring(12,14);;//1
-        System.out.println("msg_c报文："+msg_c);
-        String msg_a = f450.substring(14,24);//5
-        System.out.println("msg_a报文："+msg_a);
-        String msg_afn = f450.substring(24,26);//1
-        System.out.println("msg_afn报文："+msg_afn);
-        String msg_seq = f450.substring(26,28);//1
-        System.out.println("msg_seq报文："+msg_seq);
-        String msg_da = f450.substring(28,32);//2
-        System.out.println("msg_da报文："+msg_da);
-        String msg_dt = f450.substring(32,36);//2
-        System.out.println("msg_dt报文："+msg_dt);
-
-
-        String msg_data_ts = f450.substring(36,46); //5
-        System.out.println("msg_data_ts时间 分时日月年："+msg_data_ts);
-        String msg_data_m = f450.substring(46,48); //1
-        System.out.println("msg_data_m冻结密度："+msg_data_m);
-        String msg_data_n = f450.substring(48,50); //1
-        System.out.println("msg_data_n数据点数："+msg_data_n);
-        String msg_data_num = f450.substring(50,52); //1
-        System.out.println("msg_data_num组号k："+msg_data_num);
-        String msg_data = f450.substring(52,f450.length()-4);
-        System.out.println("msg_data数据内容："+msg_data);
+        String msg_c = f450.substring(12, 14);
+        ;//1
+        System.out.println("msg_c报文：" + msg_c);
+        String msg_a = f450.substring(14, 24);//5
+        System.out.println("msg_a报文：" + msg_a);
+        String msg_afn = f450.substring(24, 26);//1
+        System.out.println("msg_afn报文：" + msg_afn);
+        String msg_seq = f450.substring(26, 28);//1
+        System.out.println("msg_seq报文：" + msg_seq);
+        String msg_da = f450.substring(28, 32);//2
+        System.out.println("msg_da报文：" + msg_da);
+        String msg_dt = f450.substring(32, 36);//2
+        System.out.println("msg_dt报文：" + msg_dt);
 
 
-        String end_cs = f450.substring(f450.length()-4,f450.length()-2);//1
-        System.out.println("end_cs报文："+end_cs);
-        String end_16h = f450.substring(f450.length()-2,f450.length());//1
-        System.out.println("end_16h报文："+end_16h);
+        String msg_data_ts = f450.substring(36, 46); //5
+        System.out.println("msg_data_ts时间 分时日月年：" + msg_data_ts);
+        String msg_data_m = f450.substring(46, 48); //1
+        System.out.println("msg_data_m冻结密度：" + msg_data_m);
+        String msg_data_n = f450.substring(48, 50); //1
+        System.out.println("msg_data_n数据点数：" + msg_data_n);
+        String msg_data_num = f450.substring(50, 52); //1
+        System.out.println("msg_data_num组号k：" + msg_data_num);
+        String msg_data = f450.substring(52, f450.length() - 4);
+        System.out.println("msg_data数据内容：" + msg_data);
 
 
-        byte[] bytes = HexUtil.decodeHex(f450.substring(12,f450.length()-4));
+        String end_cs = f450.substring(f450.length() - 4, f450.length() - 2);//1
+        System.out.println("end_cs报文：" + end_cs);
+        String end_16h = f450.substring(f450.length() - 2, f450.length());//1
+        System.out.println("end_16h报文：" + end_16h);
+
+
+        byte[] bytes = HexUtil.decodeHex(f450.substring(12, f450.length() - 4));
         int a = 0;
         byte[] bytes2 = new byte[1];
         for (int i = 0; i < bytes.length; i++) {
             bytes2[0] = bytes[i];
-            a+= BasicTypeCovert.Bytes2Int_LE(bytes2);
+            a += BasicTypeCovert.Bytes2Int_LE(bytes2);
         }
         bytes2[0] = BasicTypeCovert.getBytes(a)[0];
         String csStr = HexUtil.encodeHexStr(BasicTypeCovert.getBytes(a));
-        CS = csStr.substring(0,2);
-        System.out.println("校验："+CS);
+        CS = csStr.substring(0, 2);
+        System.out.println("校验：" + CS);
     }
 
 }

@@ -2,14 +2,15 @@ package team.sun.integration.modules.sys.application.service.impl;
 
 import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
+import com.google.common.collect.Sets;
 import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.application.model.dto.save.ApplicationSaveDTO;
 import team.sun.integration.modules.sys.application.model.dto.update.ApplicationUpdateDTO;
 import team.sun.integration.modules.sys.application.model.entity.Application;
@@ -46,12 +47,13 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
         PagedList<Tuple> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
         List<ApplicationPageVO> pageVOS = new ArrayList<>();
-        pages.forEach(entity->{
+        pages.forEach(entity -> {
+
             ApplicationPageVO pageVO = new ApplicationPageVO();
             BeanUtils.copyProperties(Objects.requireNonNull(entity.get(0, Application.class)), pageVO);
             pageVO.setTenantNumber(entity.get(1, Long.class));
             pageVOS.add(pageVO);
-                });
+        });
 
         return new PageRet(pageVOS, pages.getTotalPages());
     }
@@ -77,14 +79,16 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
     public ApplicationVO getApplicationById(String id) {
         Optional<Application> optional = this.getById(id);
         ApplicationVO applicationVO = new ApplicationVO();
+        List<ResourceVO> resourceVOS = new ArrayList<>();
         optional.ifPresent(entity -> {
             BeanUtils.copyProperties(entity, applicationVO);
             entity.getResources().stream().filter(Objects::nonNull).forEach(resource -> {
                 ResourceVO resourceVO = new ResourceVO();
                 BeanUtils.copyProperties(resource, resourceVO);
-                applicationVO.getResources().add(resourceVO);
+                resourceVOS.add(resourceVO);
             });
         });
+        applicationVO.setResources(Sets.newHashSet(resourceVOS));
         return applicationVO;
     }
 }

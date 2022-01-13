@@ -1,17 +1,21 @@
 package team.sun.integration.modules.sys.user.service.impl;
 
 import cn.hutool.core.util.RandomUtil;
+import com.blazebit.persistence.PagedList;
 import com.blazebit.persistence.querydsl.BlazeJPAQuery;
 import com.google.common.collect.Sets;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
 import org.springframework.util.StringUtils;
-import team.sun.integration.modules.base.model.vo.PageRet;
-import team.sun.integration.modules.base.service.impl.ServiceImpl;
+import team.sun.integration.common.base.model.vo.PageRet;
+import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.repository.RoleDao;
+import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
+import team.sun.integration.modules.sys.tenant.model.vo.page.TenantPageVO;
 import team.sun.integration.modules.sys.user.model.dto.save.UserSaveDTO;
 import team.sun.integration.modules.sys.user.model.dto.update.UserUpdateDTO;
 import team.sun.integration.modules.sys.user.model.entity.QUser;
@@ -74,6 +78,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     public UserVO getUserById(String id) {
         Optional<User> optional = this.dao.findById(id);
         UserVO vo = new UserVO();
+        
         optional.ifPresent(entity -> BeanUtils.copyProperties(entity, vo));
         return vo;
     }
@@ -81,20 +86,19 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
     @Override
     public PageRet page(Pageable pageable, Predicate predicate, OrderSpecifier<?>... spec) {
         QUser user = QUser.user;
-        BlazeJPAQuery<User> jpaQuery = new BlazeJPAQuery<User>(entityManager, criteriaBuilderFactory)
+        BlazeJPAQuery<User> blazeJPAQuery = new BlazeJPAQuery<User>(entityManager, criteriaBuilderFactory)
                 .select(user)
                 .from(user)
                 .where(predicate).orderBy(user.id.asc().nullsLast());
-        List<UserPageVo> data = new ArrayList<>();
-        Optional.ofNullable(
-                jpaQuery.offset(pageable.getOffset()).limit(pageable.getPageSize()).fetch()
-        ).orElseGet(ArrayList::new).stream().filter(Objects::nonNull).forEach(o -> {
-            UserPageVo vo = new UserPageVo();
-            BeanUtils.copyProperties(o, vo);
-            data.add(vo);
+        PagedList<User> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
+
+        List<UserPageVo> pageVOS = new ArrayList<>();
+        pages.forEach(entity -> {
+            UserPageVo pageVO = new UserPageVo();
+            BeanUtils.copyProperties(Objects.requireNonNull(entity), pageVO);
+            pageVOS.add(pageVO);
         });
-        long count = jpaQuery.fetchCount();
-        return new PageRet(data, count);
+        return new PageRet(pageVOS, pages.getTotalPages());
     }
 
     @Override

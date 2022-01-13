@@ -136,7 +136,9 @@ public class TenantVO implements Serializable {
         return tenantApplications;
     }
 
-    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) { this.tenantApplications = tenantApplications; }
+    public void setTenantApplications(Set<TenantApplicationVO> tenantApplications) {
+        this.tenantApplications = tenantApplications;
+    }
 
     public String getName() {
         return name;

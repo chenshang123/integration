@@ -1,6 +1,5 @@
 package team.sun.integration.modules.sys.user.model.entity;
 
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
@@ -64,7 +63,7 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
-    @JsonBackReference
+//    @JsonBackReference
     private Set<Role> roles;
 
     /**
@@ -76,7 +75,7 @@ public class User implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "position_id")
     )
-    @JsonBackReference
+//    @JsonBackReference
     private Set<Position> positions;
 
     /**
@@ -84,7 +83,7 @@ public class User implements Serializable {
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id", referencedColumnName = "org_id", nullable = false)
-    @JsonBackReference
+//    @JsonBackReference
     private Org org;
 
     /**
@@ -115,7 +114,6 @@ public class User implements Serializable {
      * 密码
      */
     @Column(name = "pwd")
-    @JSONField(serialize = false)
     private String pwd;
 
     /**

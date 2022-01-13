@@ -10,7 +10,7 @@ public class HandlerContext {
         this.handlerMap = handlerMap;
     }
 
-    public  Object getInstance(Integer type) {
+    public Object getInstance(Integer type) {
         Class clazz = handlerMap.get(type);
         if (clazz == null) {
             throw new IllegalArgumentException("not found handler for type: " + type);
