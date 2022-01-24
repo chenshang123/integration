@@ -8,6 +8,7 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import team.sun.integration.modules.sys.application.model.entity.Application;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.sun.integration.modules.sys.tenant.model.enums.TenantApplicationAction;
 
 import javax.persistence.*;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_tenant_application_mid")
 @SQLDelete(sql = "update sys_tenant_application_mid set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -110,7 +112,7 @@ public class TenantApplication implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -215,11 +217,11 @@ public class TenantApplication implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Character getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

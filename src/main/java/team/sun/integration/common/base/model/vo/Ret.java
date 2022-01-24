@@ -1,14 +1,13 @@
 package team.sun.integration.common.base.model.vo;
 
 
-import java.io.Serializable;
-
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.common.base.enums.ret.BaseKeyValue;
 import team.sun.integration.common.base.enums.ret.BusRetEnum;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 
 
 /**

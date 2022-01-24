@@ -34,7 +34,7 @@ public class QOrg extends EntityPathBase<Org> {
 
     public final StringPath creatorTenantId = createString("creatorTenantId");
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath explain = createString("explain");
 

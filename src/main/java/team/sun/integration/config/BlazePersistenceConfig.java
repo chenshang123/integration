@@ -6,7 +6,6 @@ import com.blazebit.persistence.spi.CriteriaBuilderConfiguration;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
-import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.*;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
@@ -16,7 +15,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 
 
-@EnableCaching
 //扫描 @Controller、@Service 注解
 @ComponentScan(basePackages = {"team.sun.integration.modules.**.controller", "team.sun.integration.modules.**.service"})
 //扫描 @Repository 注解
@@ -34,6 +32,7 @@ public class BlazePersistenceConfig {
     public CriteriaBuilderFactory createCriteriaBuilderFactory() {
         CriteriaBuilderConfiguration config = Criteria.getDefault();
         // do some configuration
+//        config.getProperties().setProperty(ConfigurationProperties.QUERY_PLAN_CACHE_ENABLED, "false");
         return config.createCriteriaBuilderFactory(entityManagerFactory);
     }
 

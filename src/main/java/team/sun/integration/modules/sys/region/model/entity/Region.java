@@ -6,6 +6,7 @@ import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -22,6 +23,7 @@ import java.time.LocalDateTime;
  */
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_region")
 @SQLDelete(sql = "update sys_region set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -116,7 +118,7 @@ public class Region implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -249,11 +251,11 @@ public class Region implements Serializable {
         this.modifierId = modifierId;
     }
 
-    public Character getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

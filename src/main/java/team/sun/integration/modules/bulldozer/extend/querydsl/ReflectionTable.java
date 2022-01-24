@@ -19,7 +19,7 @@ import java.util.stream.Stream;
 import static java.util.function.Function.identity;
 import static java.util.stream.Collectors.toMap;
 
-public class ReflectionKit {
+public class ReflectionTable {
     /**
      * 基本-包装类型
      */
@@ -30,18 +30,14 @@ public class ReflectionKit {
      * class field cache
      */
     private static final String packageName = "team.sun.integration.modules";
-    /**
-     * 实体对象集合
-     */
-    private static final Set<Class<?>> ENTITY_SET;
 
     static {
         Reflections reflections = new Reflections(packageName, new TypeAnnotationsScanner());
-        ENTITY_SET = reflections.getTypesAnnotatedWith(Table.class, true);
+        Set<Class<?>> ENTITY_SET = reflections.getTypesAnnotatedWith(Table.class, true);
         CLASS_NAME_FIELD_CACHE = new HashMap<>(ENTITY_SET.size());
         ENTITY_SET.stream().filter(Objects::nonNull).forEach(o -> {
             CLASS_NAME_FIELD_CACHE.put(o.getName(), o);
-            CLASS_FIELD_CACHE.put(o, ReflectionKit.getFieldList(o));
+            CLASS_FIELD_CACHE.put(o, ReflectionTable.getFieldList(o));
 
         });
 
@@ -142,11 +138,6 @@ public class ReflectionKit {
 
     /**
      * 字符串数组转其他类型数组
-     *
-     * @param values
-     * @param targetClass
-     * @param <T>
-     * @return
      */
     public static <T extends Number> T[] parseNumber(String[] values, Class<T> targetClass) {
         if (!ArrayUtil.isEmpty(values) && null != targetClass) {
@@ -165,10 +156,9 @@ public class ReflectionKit {
         TestVo testVo = new TestVo();
         testVo.setBaseInteger(1);
         CLASS_FIELD_CACHE.get(user.getClass()).forEach(o ->
-                System.out.println(o.getName() + "-------------" + o.getAnnotatedType() + "---------------" + ReflectionKit.isPrimitiveOrWrapper(o))
+                System.out.println(o.getName() + "-------------" + o.getAnnotatedType() + "---------------" + ReflectionTable.isPrimitiveOrWrapper(o))
         );
 
-        System.out.println(ReflectionKit.ENTITY_SET.size());
     }
 
 

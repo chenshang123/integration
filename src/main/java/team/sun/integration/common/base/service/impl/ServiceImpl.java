@@ -1,5 +1,6 @@
 package team.sun.integration.common.base.service.impl;
 
+import com.blazebit.persistence.ConfigurationProperties;
 import com.blazebit.persistence.CriteriaBuilderFactory;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
@@ -10,7 +11,6 @@ import team.sun.integration.common.base.repository.IDao;
 import team.sun.integration.common.base.service.IService;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -26,10 +26,11 @@ public class ServiceImpl<M extends IDao<T, String>, T> implements IService<T, St
     protected EntityManager entityManager;
 
     @Autowired
-    public void init(JPAQueryFactory jpaQueryFactory, CriteriaBuilderFactory criteriaBuilderFactory, final EntityManagerFactory entityManagerFactory) {
+    public void init(JPAQueryFactory jpaQueryFactory, CriteriaBuilderFactory criteriaBuilderFactory, EntityManager entityManager) {
         this.jpaQueryFactory = jpaQueryFactory;
         this.criteriaBuilderFactory = criteriaBuilderFactory;
-        this.entityManager = entityManagerFactory.createEntityManager();
+        criteriaBuilderFactory.getProperties().put(ConfigurationProperties.QUERY_PLAN_CACHE_ENABLED, "false");
+        this.entityManager = entityManager;
     }
 
     @Override

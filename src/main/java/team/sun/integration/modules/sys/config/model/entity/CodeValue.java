@@ -1,6 +1,7 @@
 package team.sun.integration.modules.sys.config.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -16,6 +17,7 @@ import java.io.Serializable;
  * @since 2021-03-03
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_code_value")
 public class CodeValue implements Serializable {
 

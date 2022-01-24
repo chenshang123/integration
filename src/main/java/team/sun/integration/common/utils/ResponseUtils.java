@@ -1,21 +1,21 @@
 package team.sun.integration.common.utils;
 
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import team.sun.integration.common.web.log.LogAspect;
+
+import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
-import javax.imageio.ImageIO;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import team.sun.integration.common.web.log.LogAspect;
-import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.MediaType;
 
 /**
  * 提供response输出的实用方法集

@@ -3,16 +3,13 @@ package team.sun.integration.modules.sys.role.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import team.sun.integration.modules.sys.group.model.vo.GroupVO;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.resource.model.vo.ElementVO;
 import team.sun.integration.modules.sys.resource.model.vo.ResourceVO;
-import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 

@@ -38,7 +38,7 @@ public class LoginLogServiceImpl extends ServiceImpl<LoginLogDao, LoginLog> impl
                 .where(predicate).orderBy(qLoginLog.id.asc().nullsLast());
         PagedList<LoginLog> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(pages, pages.getTotalPages());
+        return new PageRet(pages, pages.getTotalSize());
     }
 
     @Override

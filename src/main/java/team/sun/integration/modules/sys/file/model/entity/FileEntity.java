@@ -126,7 +126,7 @@ public class FileEntity implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -260,11 +260,11 @@ public class FileEntity implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Character getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

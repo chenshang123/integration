@@ -39,7 +39,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionDao, Position> impl
                 .where(predicate).orderBy(qPosition.id.asc().nullsLast());
         PagedList<Position> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(pages, pages.getTotalPages());
+        return new PageRet(pages, pages.getTotalSize());
     }
 
     @Override

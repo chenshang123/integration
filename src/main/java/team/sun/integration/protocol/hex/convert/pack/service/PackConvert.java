@@ -2,11 +2,8 @@ package team.sun.integration.protocol.hex.convert.pack.service;
 
 import cn.hutool.core.util.HexUtil;
 import team.sun.integration.protocol.hex.convert.pack.PackConvertService;
-import team.sun.integration.protocol.hex.handler.HandlerContext;
 import team.sun.integration.protocol.hex.profile.PackProfileAbstract;
-import team.sun.integration.protocol.hex.utils.HexStringCovert;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import team.sun.integration.protocol.hex.scann.ReflectionProfile;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -19,12 +16,7 @@ import java.util.Map;
  *
  * @author chens
  */
-@Component
 public class PackConvert implements PackConvertService {
-
-    @SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection")
-    @Autowired
-    private HandlerContext hexHandlerContext;
 
     @Override
     public int getProtocolCode(Map<String, Object> data) {
@@ -47,7 +39,7 @@ public class PackConvert implements PackConvertService {
         //当前字段长度修正系数(默认1)
         int field_length_correction_factor = 1;
         param.put("field_length_correction_factor", field_length_correction_factor);
-        PackProfileAbstract hexConventHandler = (PackProfileAbstract) hexHandlerContext.getInstance(getProtocolCode(data));
+        PackProfileAbstract hexConventHandler = (PackProfileAbstract) ReflectionProfile.getBean(getProtocolCode(data));
         //解释翻译对象
         List<String> profile = hexConventHandler.profileConvert();
         param.put("hex_string", "");
@@ -71,7 +63,7 @@ public class PackConvert implements PackConvertService {
 
     @Override
     public String getPackMap(Map<String, Object> data) {
-        PackProfileAbstract hexConventHandler = (PackProfileAbstract) hexHandlerContext.getInstance(getProtocolCode(data));
+        PackProfileAbstract hexConventHandler = (PackProfileAbstract) ReflectionProfile.getBean(getProtocolCode(data));
         return hexConventHandler.toJsonString(data);
     }
 

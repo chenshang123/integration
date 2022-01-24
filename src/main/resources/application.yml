@@ -2,7 +2,20 @@
 spring:
   profiles:
     active: dev
-  #让 Jackson 忽略异常
-#  jackson:
-#    serialization:
-#      fail-on-empty-beans: false
+  jackson:
+#    date-format: yyyy-MM-dd HH:mm:ss #格式化全局时间字段
+    time-zone: UTC
+    serialization:
+      indent_output: true #格式化输出
+      fail_on_empty_beans: false #忽略无法转换的对象
+    defaultPropertyInclusion: NON_EMPTY #设置空如何序列化
+    deserialization:
+      fail_on_unknown_properties: false #允许对象忽略json中不存在的属性
+    parser:
+      allow_unquoted_control_chars: false #允许出现特殊字符和转义符
+      allow_single_quotes: true #允许出现单引号
+
+netty:
+  tcp:
+    port: 8234
+    url: 192.168.35.160

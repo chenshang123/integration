@@ -55,7 +55,7 @@ public class ApplicationServiceImpl extends ServiceImpl<ApplicationDao, Applicat
             pageVOS.add(pageVO);
         });
 
-        return new PageRet(pageVOS, pages.getTotalPages());
+        return new PageRet(pageVOS, pages.getTotalSize());
     }
 
     @Override

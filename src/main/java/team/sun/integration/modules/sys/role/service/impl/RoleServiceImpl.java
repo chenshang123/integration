@@ -82,7 +82,7 @@ public class RoleServiceImpl extends ServiceImpl<RoleDao, Role> implements RoleS
                 .where(predicate).orderBy(qRole.id.asc().nullsLast());
         PagedList<Role> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(pages, pages.getTotalPages());
+        return new PageRet(pages, pages.getTotalSize());
     }
 
     @Override

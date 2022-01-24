@@ -1,6 +1,7 @@
 package team.sun.integration.modules.sys.table.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import javax.persistence.Table;
@@ -18,6 +19,7 @@ import java.io.Serializable;
  */
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_table_constraint")
 @NamedEntityGraphs(@NamedEntityGraph(name = "TableConstraint-relation", attributeNodes = {
         @NamedAttributeNode("table"),

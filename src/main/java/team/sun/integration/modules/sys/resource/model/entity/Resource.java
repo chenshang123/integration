@@ -12,6 +12,7 @@ import team.sun.integration.modules.sys.application.model.entity.Application;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceType;
 import team.sun.integration.modules.sys.resource.model.enums.ResourceVisitType;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.sun.integration.modules.sys.tenant.model.entity.Tenant;
 
 import javax.persistence.*;
@@ -31,6 +32,7 @@ import java.util.Set;
  * @since 2021-02-02
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_resource")
 @SQLDelete(sql = "update sys_resource set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -189,7 +191,7 @@ public class Resource implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -400,11 +402,11 @@ public class Resource implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Character getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

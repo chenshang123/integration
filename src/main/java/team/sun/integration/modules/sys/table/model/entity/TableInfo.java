@@ -1,5 +1,7 @@
 package team.sun.integration.modules.sys.table.model.entity;
 
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
@@ -16,6 +18,7 @@ import java.util.Set;
  */
 
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_table")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Table-relation", attributeNodes = {
         @NamedAttributeNode("tableAttrs"),

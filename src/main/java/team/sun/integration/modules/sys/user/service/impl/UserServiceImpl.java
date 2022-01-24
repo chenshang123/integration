@@ -98,7 +98,7 @@ public class UserServiceImpl extends ServiceImpl<UserDao, User> implements UserS
             BeanUtils.copyProperties(Objects.requireNonNull(entity), pageVO);
             pageVOS.add(pageVO);
         });
-        return new PageRet(pageVOS, pages.getTotalPages());
+        return new PageRet(pageVOS, pages.getTotalSize());
     }
 
     @Override

@@ -1,9 +1,14 @@
 package team.sun.integration.modules.sys.role.controller;
 
 import com.querydsl.core.types.Predicate;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.*;
 import team.sun.integration.common.base.model.dto.PageDTO;
 import team.sun.integration.common.base.model.vo.PageRet;
 import team.sun.integration.common.base.model.vo.Ret;
@@ -14,11 +19,6 @@ import team.sun.integration.modules.sys.role.model.entity.QRole;
 import team.sun.integration.modules.sys.role.model.entity.Role;
 import team.sun.integration.modules.sys.role.model.vo.RoleVO;
 import team.sun.integration.modules.sys.role.service.RoleService;
-
-import io.swagger.annotations.*;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;

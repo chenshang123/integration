@@ -1,7 +1,7 @@
 package team.sun.integration.protocol.hex.profile.demo.pack;
 
 import cn.hutool.core.util.HexUtil;
-import team.sun.integration.protocol.hex.handler.ProtocolCode;
+import team.sun.integration.protocol.hex.scann.ProtocolCode;
 import team.sun.integration.protocol.hex.profile.PackProfileAbstract;
 import team.sun.integration.protocol.hex.utils.BasicTypeCovert;
 import team.sun.integration.protocol.hex.utils.ProfileConvert;

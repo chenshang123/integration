@@ -4,7 +4,6 @@ package team.sun.integration.modules.sys.role.model.dto.update;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 
-
 import java.io.Serial;
 import java.io.Serializable;
 

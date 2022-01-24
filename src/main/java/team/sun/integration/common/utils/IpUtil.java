@@ -1,12 +1,12 @@
 package team.sun.integration.common.utils;
 
+import org.apache.commons.lang3.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
 import java.math.BigInteger;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.Arrays;
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 
 /**
  * IP工具类

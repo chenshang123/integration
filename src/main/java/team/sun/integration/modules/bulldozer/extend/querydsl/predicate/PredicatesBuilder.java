@@ -3,7 +3,7 @@ package team.sun.integration.modules.bulldozer.extend.querydsl.predicate;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.PathBuilder;
-import team.sun.integration.modules.bulldozer.extend.querydsl.ReflectionKit;
+import team.sun.integration.modules.bulldozer.extend.querydsl.ReflectionTable;
 import team.sun.integration.modules.bulldozer.extend.querydsl.criteria.SearchCriteria;
 
 import java.lang.reflect.Field;
@@ -22,7 +22,7 @@ public class PredicatesBuilder {
     }
 
     public BooleanExpression build() {
-        Class<?> entityClass = ReflectionKit.CLASS_NAME_FIELD_CACHE.get(searchCriteria.getTableName());
+        Class<?> entityClass = ReflectionTable.CLASS_NAME_FIELD_CACHE.get(searchCriteria.getTableName());
         Map<String, String> KeyMap = KeyMap(entityClass, searchCriteria.getKeys());
 
         if (KeyMap == null || searchCriteria == null || searchCriteria.getCriteriaList().size() == 0 || null == entityClass) {
@@ -45,7 +45,7 @@ public class PredicatesBuilder {
 
     private Map<String, String> KeyMap(Class<?> entityClass, List<String> keys) {
         if (!keys.isEmpty()) {
-            List<Field> fields = ReflectionKit.CLASS_FIELD_CACHE.get(entityClass);
+            List<Field> fields = ReflectionTable.CLASS_FIELD_CACHE.get(entityClass);
             Map<String, String> result = new HashMap<>(keys.size());
             if (!fields.isEmpty()) {
                 for (Field field : fields) {

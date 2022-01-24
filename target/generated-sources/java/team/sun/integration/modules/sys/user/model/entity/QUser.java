@@ -36,7 +36,7 @@ public class QUser extends EntityPathBase<User> {
 
     public final NumberPath<Integer> dataAuthorityType = createNumber("dataAuthorityType", Integer.class);
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath email = createString("email");
 

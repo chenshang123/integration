@@ -6,12 +6,10 @@ import team.sun.integration.modules.sys.group.model.vo.GroupVO;
 import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.position.model.vo.PositionVO;
 import team.sun.integration.modules.sys.role.model.vo.RoleVO;
-import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.HashSet;
 import java.util.Set;
 
 

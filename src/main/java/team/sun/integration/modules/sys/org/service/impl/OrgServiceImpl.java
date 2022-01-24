@@ -6,6 +6,7 @@ import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Predicate;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
 import team.sun.integration.common.base.model.vo.PageRet;
 import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.org.model.dto.save.OrgSaveDTO;
@@ -15,7 +16,6 @@ import team.sun.integration.modules.sys.org.model.entity.QOrg;
 import team.sun.integration.modules.sys.org.model.vo.OrgVO;
 import team.sun.integration.modules.sys.org.repository.OrgDao;
 import team.sun.integration.modules.sys.org.service.OrgService;
-import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
@@ -39,7 +39,7 @@ public class OrgServiceImpl extends ServiceImpl<OrgDao, Org> implements OrgServi
                 .where(predicate).orderBy(qOrg.id.asc().nullsLast());
         PagedList<Org> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(pages, pages.getTotalPages());
+        return new PageRet(pages, pages.getTotalSize());
     }
 
     @Override

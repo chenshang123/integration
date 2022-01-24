@@ -3,10 +3,12 @@ package team.sun.integration.modules.sys.group.model.entity;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.SQLInsert;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
 import team.sun.integration.modules.sys.role.model.entity.Role;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import team.sun.integration.modules.sys.user.model.entity.User;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -28,6 +30,7 @@ import java.util.Set;
  * @since 2021-02-01
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_group")
 @SQLDelete(sql = "update sys_group set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -127,7 +130,7 @@ public class Group implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -241,11 +244,9 @@ public class Group implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Character getDelFlag() {
-        return delFlag;
-    }
+    public Boolean getDelFlag() { return delFlag; }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

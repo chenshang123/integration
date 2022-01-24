@@ -1,10 +1,10 @@
 package team.sun.integration.common.base.model.dto;
 
-import java.io.Serial;
-import java.io.Serializable;
-
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiModelProperty;
+
+import java.io.Serial;
+import java.io.Serializable;
 
 /**
  * 前后端交互对象

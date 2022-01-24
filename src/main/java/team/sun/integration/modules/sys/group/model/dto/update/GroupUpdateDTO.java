@@ -31,9 +31,6 @@ public class GroupUpdateDTO implements Serializable {
     @ApiModelProperty(value = "相关说明")
     private String explain;
 
-    @ApiModelProperty(value = "0正常 1删除")
-    private Boolean delFlag;
-
     @ApiModelProperty(value = "版本号")
     private Integer version;
 
@@ -59,14 +56,6 @@ public class GroupUpdateDTO implements Serializable {
 
     public void setExplain(String explain) {
         this.explain = explain;
-    }
-
-    public Boolean getDelFlag() {
-        return delFlag;
-    }
-
-    public void setDelFlag(Boolean delFlag) {
-        this.delFlag = delFlag;
     }
 
     public Integer getVersion() {

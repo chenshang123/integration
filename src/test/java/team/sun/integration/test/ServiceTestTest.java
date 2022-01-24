@@ -23,6 +23,7 @@ import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
 import team.sun.integration.modules.sys.tenant.repository.TenantDao;
 import team.sun.integration.modules.sys.tenant.service.TenantService;
 import team.sun.integration.modules.sys.user.service.UserService;
+import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
 import team.sun.integration.protocol.hex.convert.unpack.sevice.UnpackConvert;
 
 import java.util.*;
@@ -30,8 +31,6 @@ import java.util.*;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class ServiceTestTest {
-    @Autowired
-    UnpackConvert unpackConvert;
     @Autowired
     private ResourceService resourceService;
     @Autowired
@@ -52,10 +51,13 @@ public class ServiceTestTest {
     private OrgDao orgDao;
     @Autowired
     private RoleDao roleDao;
+    private UnpackConvertService parsProfileConvertService;
+
 
     @Test
     public void testModelServiceServiceImpl() {
 
+        parsProfileConvertService.toString();
 //        tenantService
         TenantVO tenantVO = new TenantVO();
         TenantSaveDTO tenantSaveDTO = new TenantSaveDTO();

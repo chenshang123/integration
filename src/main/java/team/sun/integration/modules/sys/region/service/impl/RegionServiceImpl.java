@@ -38,7 +38,7 @@ public class RegionServiceImpl extends ServiceImpl<RegionDao, Region> implements
                 .where(predicate).orderBy(qRegion.id.asc().nullsLast());
         PagedList<Region> pages = blazeJPAQuery.fetchPage((int) pageable.getOffset(), pageable.getPageSize());
 
-        return new PageRet(pages, pages.getTotalPages());
+        return new PageRet(pages, pages.getTotalSize());
     }
 
     @Override

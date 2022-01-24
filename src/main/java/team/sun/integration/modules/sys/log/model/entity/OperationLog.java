@@ -7,6 +7,7 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.io.Serial;
@@ -23,6 +24,7 @@ import java.time.LocalDateTime;
  * @since 2021-02-02
  */
 @Entity
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_log_operation")
 @SQLDelete(sql = "update sys_log_operation set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
@@ -116,7 +118,7 @@ public class OperationLog implements Serializable {
      * 0正常 1删除
      */
     @Column(name = "del_flag")
-    private Character delFlag;
+    private Boolean delFlag = false;
 
     /**
      * 版本号
@@ -259,11 +261,11 @@ public class OperationLog implements Serializable {
         this.updateTime = updateTime;
     }
 
-    public Character getDelFlag() {
+    public Boolean getDelFlag() {
         return delFlag;
     }
 
-    public void setDelFlag(Character delFlag) {
+    public void setDelFlag(Boolean delFlag) {
         this.delFlag = delFlag;
     }
 

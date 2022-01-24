@@ -32,7 +32,7 @@ public class QRole extends EntityPathBase<Role> {
 
     public final StringPath creatorTenantId = createString("creatorTenantId");
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final SetPath<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement> elements = this.<team.sun.integration.modules.sys.resource.model.entity.Element, team.sun.integration.modules.sys.resource.model.entity.QElement>createSet("elements", team.sun.integration.modules.sys.resource.model.entity.Element.class, team.sun.integration.modules.sys.resource.model.entity.QElement.class, PathInits.DIRECT2);
 

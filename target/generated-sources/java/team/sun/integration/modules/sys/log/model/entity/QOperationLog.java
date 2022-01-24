@@ -29,7 +29,7 @@ public class QOperationLog extends EntityPathBase<OperationLog> {
 
     public final StringPath creatorTenantId = createString("creatorTenantId");
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final StringPath id = createString("id");
 

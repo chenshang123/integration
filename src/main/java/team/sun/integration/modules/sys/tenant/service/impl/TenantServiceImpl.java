@@ -52,7 +52,7 @@ public class TenantServiceImpl extends ServiceImpl<TenantDao, Tenant> implements
             pageVOS.add(pageVO);
         });
 
-        return new PageRet(pageVOS, pages.getTotalPages());
+        return new PageRet(pageVOS, pages.getTotalSize());
     }
 
     @Override

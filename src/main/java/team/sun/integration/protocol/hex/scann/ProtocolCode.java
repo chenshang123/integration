@@ -1,4 +1,4 @@
-package team.sun.integration.protocol.hex.handler;
+package team.sun.integration.protocol.hex.scann;
 
 import java.lang.annotation.*;
 

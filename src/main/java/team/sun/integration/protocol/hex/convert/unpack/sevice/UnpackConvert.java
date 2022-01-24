@@ -1,16 +1,12 @@
 package team.sun.integration.protocol.hex.convert.unpack.sevice;
 
-import cn.hutool.core.util.HexUtil;
 import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
-import team.sun.integration.protocol.hex.handler.HandlerContext;
+import team.sun.integration.protocol.hex.scann.ReflectionProfile;
 import team.sun.integration.protocol.hex.profile.UnpackProfileAbstract;
 import team.sun.integration.protocol.hex.utils.BasicTypeCovert;
 import team.sun.integration.protocol.hex.utils.HexStringCovert;
 import org.jetbrains.annotations.NotNull;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 
-import java.io.UnsupportedEncodingException;
 import java.util.*;
 
 /**
@@ -19,30 +15,7 @@ import java.util.*;
  *
  * @author chens
  */
-@Component
 public class UnpackConvert implements UnpackConvertService {
-
-    private final HandlerContext hexHandlerContext;
-
-    @Autowired
-    public UnpackConvert(@SuppressWarnings("SpringJavaInjectionPointsAutowiringInspection") HandlerContext hexHandlerContext) {
-        this.hexHandlerContext = hexHandlerContext;
-    }
-
-    public static void main(String[] args) throws UnsupportedEncodingException {
-
-//        String text = "AQJSAAAAAABe4zKaC/NjIQFkATkAPAUDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAC/PYUQFkAScAAAACAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAv0TYEBZgEjAACWeAAATiAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=";
-//        final Base64.Decoder decoder = Base64.getDecoder();
-//        byte[] decode = decoder.decode(text);
-
-        byte[] bytes = "大家好啊".getBytes("GB2312");
-        System.out.println(HexUtil.encodeHex(bytes));
-        bytes = HexUtil.decodeHex("B4F3BCD2BAC3B0A10000000");
-        System.out.println(new String(bytes, "GB2312"));
-        System.out.println(Integer.parseInt(String.format("%s", "1234567".charAt(4))));
-
-
-    }
 
     @Override
     public int getProtocolCode(byte[] data) {
@@ -63,7 +36,7 @@ public class UnpackConvert implements UnpackConvertService {
         //当前字段长度修正系数(默认1)
         int field_length_correction_factor = 1;
         param.put("field_length_correction_factor", field_length_correction_factor);
-        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) hexHandlerContext.getInstance(getProtocolCode(data));
+        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ReflectionProfile.getBean(getProtocolCode(data));
         //解释翻译对象
         List<String> profile = hexConventHandler.profileConvert();
 
@@ -172,6 +145,5 @@ public class UnpackConvert implements UnpackConvertService {
         data.put(listName, lst);
 
     }
-
 
 }

@@ -4,7 +4,7 @@ import cn.hutool.core.util.ArrayUtil;
 import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.dsl.*;
 import org.springframework.util.StringUtils;
-import team.sun.integration.modules.bulldozer.extend.querydsl.ReflectionKit;
+import team.sun.integration.modules.bulldozer.extend.querydsl.ReflectionTable;
 
 public class NumberOperation {
     /**
@@ -13,7 +13,7 @@ public class NumberOperation {
     public static <N extends Number & Comparable<N>> BooleanExpression booleanOperation(
             NumberPath<N> path, String operation, Class<N> targetClass, String[] values) {
         if (null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)) {
-            N[] nums = ReflectionKit.parseNumber(values, targetClass);
+            N[] nums = ReflectionTable.parseNumber(values, targetClass);
             if (nums != null) {
                 switch (operation) {
                     case "gt":
@@ -51,7 +51,7 @@ public class NumberOperation {
     public static <N extends Number & Comparable<N>> NumberExpression numberOperation(
             NumberPath<N> path, String operation, Class<N> targetClass, String[] values) {
         if (null != path && StringUtils.hasLength(operation) && null != targetClass && !ArrayUtil.isEmpty(values)) {
-            N[] nums = ReflectionKit.parseNumber(values, targetClass);
+            N[] nums = ReflectionTable.parseNumber(values, targetClass);
             if (nums != null) {
                 switch (operation) {
                     case "add":

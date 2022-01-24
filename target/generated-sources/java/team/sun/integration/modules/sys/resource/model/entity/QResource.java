@@ -32,7 +32,7 @@ public class QResource extends EntityPathBase<Resource> {
 
     public final StringPath creatorId = createString("creatorId");
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final SetPath<Element, QElement> elements = this.<Element, QElement>createSet("elements", Element.class, QElement.class, PathInits.DIRECT2);
 

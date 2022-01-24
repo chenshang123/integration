@@ -12,7 +12,7 @@ import team.sun.integration.modules.sys.user.service.UserService;
 import java.util.Optional;
 
 @Configuration
-public class UserIDAuditorConfig implements AuditorAware<String> {
+public class SecurityAuditorAware implements AuditorAware<String> {
 
     /**
      * 查询当前用户id

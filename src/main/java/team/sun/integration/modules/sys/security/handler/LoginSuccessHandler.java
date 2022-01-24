@@ -41,7 +41,8 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler {
 
             response.getWriter().write(objectMapper.writeValueAsString(Ret.success(token)));
         } catch (Exception e) {
-            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, BusRetEnum.BUS_LOGIN_CREATE_TOKEN_FAIL.getValue());
+            response.getWriter().write(objectMapper.writeValueAsString(Ret.fail(BusRetEnum.BUS_LOGIN_CREATE_TOKEN_FAIL)));
+//            response.sendError(HttpServletResponse.SC_UNAUTHORIZED, BusRetEnum.BUS_LOGIN_CREATE_TOKEN_FAIL.getValue());
 //            response.getWriter().write(objectMapper.writeValueAsString(MessageUtil.error(401,"创建token失败，请与管理员联系")));
         }
 

@@ -3,15 +3,11 @@ package team.sun.integration.modules.sys.file.model.vo;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.annotations.GenericGenerator;
-import team.sun.integration.modules.sys.org.model.vo.OrgVO;
-import team.sun.integration.modules.sys.tenant.model.vo.TenantVO;
-import team.sun.integration.modules.sys.user.model.vo.UserVO;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import java.io.Serial;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>

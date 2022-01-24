@@ -31,7 +31,7 @@ public class QSecurityParam extends EntityPathBase<SecurityParam> {
 
     public final StringPath creatorTenantId = createString("creatorTenantId");
 
-    public final ComparablePath<Character> delFlag = createComparable("delFlag", Character.class);
+    public final BooleanPath delFlag = createBoolean("delFlag");
 
     public final NumberPath<Integer> faultLimit = createNumber("faultLimit", Integer.class);
 
