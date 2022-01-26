@@ -1,13 +1,13 @@
 package team.sun.integration.protocol.tcp;
 
 import io.netty.channel.ChannelFuture;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 import team.sun.integration.protocol.tcp.service.EchoServer;
 
+@Component
 public class NettyApplication implements CommandLineRunner {
 
     @Value("${netty.tcp.port}")

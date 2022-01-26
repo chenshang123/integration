@@ -3,7 +3,7 @@ spring:
   profiles:
     active: dev
   jackson:
-#    date-format: yyyy-MM-dd HH:mm:ss #格式化全局时间字段
+    date-format: yyyy-MM-dd'T'HH:mm:ssz #格式化全局时间字段 yyyy-MM-dd HH:mm:ss
     time-zone: UTC
     serialization:
       indent_output: true #格式化输出

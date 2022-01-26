@@ -4,7 +4,9 @@ import io.swagger.annotations.ApiModelProperty;
 
 import java.io.Serial;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  *戒毒人员训练记录
@@ -39,7 +41,7 @@ public class JDRYXLJLBPageVO implements Serializable {
     private LocalDateTime XLRQ;
 
     @ApiModelProperty(value = "训练日期")
-    private LocalDateTime XLRQJS;
+    private LocalDate XLRQJS;
 
     @ApiModelProperty(value = "训练次数")
     private String numberRuns;
@@ -123,11 +125,11 @@ public class JDRYXLJLBPageVO implements Serializable {
         this.XLRQ = XLRQ;
     }
 
-    public LocalDateTime getXLRQJS() {
+    public LocalDate getXLRQJS() {
         return XLRQJS;
     }
 
-    public void setXLRQJS(LocalDateTime XLRQJS) {
+    public void setXLRQJS(LocalDate XLRQJS) {
         this.XLRQJS = XLRQJS;
     }
 

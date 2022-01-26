@@ -2,6 +2,7 @@ package team.sun.integration.protocol.hex.utils;
 
 import cn.hutool.core.util.HexUtil;
 
+import java.nio.ByteOrder;
 import java.nio.charset.Charset;
 
 public class BasicTypeCovert {
@@ -259,11 +260,16 @@ public class BasicTypeCovert {
     }
 
     public static void main(String[] a) {
-        System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(5001)));
-        System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(4001)));
-        System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(5001)));
-        System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(4001)));
-        System.out.println(Bytes2Int_LE(HexUtil.decodeHex("01400000")));
-        System.out.println(Bytes2Int_BE(HexUtil.decodeHex("01400000")));
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_LE(4000)));
+        System.out.println(HexUtil.encodeHexStr(Int2Bytes_BE(4000)));
+        System.out.println(Bytes2Int_LE(HexUtil.decodeHex("0FA0")));
+        System.out.println(Bytes2Int_BE(HexUtil.decodeHex("0FA0")));
+        System.out.println(HexUtil.hexToInt("a00f"));
+        System.out.println(HexUtil.hexToInt("0fa0"));
+        if (ByteOrder.nativeOrder() == ByteOrder.BIG_ENDIAN) {
+            System.out.println("BIG_ENDIAN");
+        } else {
+            System.out.println("LITTLE_ENDIAN");
+        }
     }
 }
