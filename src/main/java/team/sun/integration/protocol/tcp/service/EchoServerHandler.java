@@ -1,20 +1,21 @@
 package team.sun.integration.protocol.tcp.service;
 
+import cn.hutool.core.util.HexUtil;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-import team.sun.integration.protocol.hex.convert.pack.PackConvertService;
-import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
+import team.sun.integration.protocol.hex.convert.unpack.sevice.UnpackConvert;
 import team.sun.integration.protocol.hex.utils.HexStringCovert;
-import team.sun.integration.protocol.tcp.channel.ChannelHandlerContextMap;
+import team.sun.integration.protocol.tcp.channel.ChannelCatchMap;
+
+import java.util.Map;
 
 /***
  * 服务端自定义业务处理handler
  */
+
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelHandlerAdapter {
 
@@ -28,23 +29,24 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
         byte[] in = new byte[buf.readableBytes()];
         buf.readBytes(in);
         HexStringCovert.bytesToBinaryString(in);
-        System.out.println(HexStringCovert.bytesToBinaryString(in));
-        System.out.println();
-  /*      Map<String, Object> jsonMap = parsProfileConvertService.toMap(in);
+        String HexString = HexUtil.encodeHexStr(in);
+
+        UnpackConvert unpackConvert = new UnpackConvert();
+        Map<String, Object> jsonMap;
+        //不规范协议处理
+        if(HexString.endsWith("c33c")){
+            jsonMap = unpackConvert.toMap(in, unpackConvert.getProtocolCode(in, 0, 2));
+        }else{
+            jsonMap = unpackConvert.toMap(in);
+        }
         if(null != jsonMap && null != jsonMap.get("topic")){
             //更新缓存数据
             String topic = jsonMap.get("topic").toString();
-            boolean isContainsKey = ChannelHandlerContextMap.map.containsKey(topic);
+            boolean isContainsKey = ChannelCatchMap.map.containsKey(topic);
             if(!isContainsKey){
-                ChannelHandlerContextMap.add(topic, ctx);
+                ChannelCatchMap.add(topic, ctx);
             }
-            //解析报文数据，并发送http请求到服务器
-            String jsonStr = packProfileConvertService.getPackMap(jsonMap);
-
-            if(StringUtils.hasLength(jsonStr)){
-                System.out.println(jsonStr);
-            }
-        }*/
+        }
     }
 
 
@@ -73,7 +75,7 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
     public void channelInactive(ChannelHandlerContext ctx) throws Exception {
         // TODO Auto-generated method stub
         super.channelInactive(ctx);
-        ChannelHandlerContextMap.remove(ctx);
+        ChannelCatchMap.remove(ctx);
         System.out.println("服务端：客户端失去连接，已移除通道。");
 
     }

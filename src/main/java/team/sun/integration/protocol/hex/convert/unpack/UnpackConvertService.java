@@ -12,14 +12,16 @@ public interface UnpackConvertService {
      */
     int getProtocolCode(byte[] data);
 
+    int getProtocolCode(byte[] data, int index, int length);
     /**
      * byte数据转对象
      *
      * @param data 原始数据
      * @return 数组
      */
-    Map<String, Object> toMap(byte[] data);
+    Map<String, Object> toMap(byte[] data, int protocolCode);
 
+    Map<String, Object> toMap(byte[] data);
     /**
      * byte数据转对象
      * 报文协议不存在协议编号的时候，手动调用

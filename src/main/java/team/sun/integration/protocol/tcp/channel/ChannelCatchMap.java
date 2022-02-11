@@ -2,17 +2,19 @@ package team.sun.integration.protocol.tcp.channel;
 
 import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandlerContext;
-import org.springframework.stereotype.Component;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-@Component
-public class ChannelHandlerContextMap {
+public class ChannelCatchMap {
 
     public static Map<String, ChannelHandlerContext> map = new ConcurrentHashMap<String, ChannelHandlerContext>();
 
     public static void add(String clientId, ChannelHandlerContext socketChannel) {
+        boolean isContainsKey = ChannelCatchMap.map.containsKey(clientId);
+        if(!isContainsKey){
+            ChannelCatchMap.add(clientId, socketChannel);
+        }
         map.put(clientId, socketChannel);
     }
 

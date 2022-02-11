@@ -13,6 +13,8 @@ import java.util.TimeZone;
 public class Application {
     @PostConstruct
     void started() { TimeZone.setDefault(TimeZone.getTimeZone("UTC")); }
-    public static void main(String[] args) { SpringApplication.run(Application.class, args); }
+    public static void main(String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
 
 }

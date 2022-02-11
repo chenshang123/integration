@@ -2,7 +2,7 @@ package team.sun.integration.protocol.hex.convert.unpack.sevice;
 
 import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
 import team.sun.integration.protocol.hex.scann.ReflectionProfile;
-import team.sun.integration.protocol.hex.profile.UnpackProfileAbstract;
+import team.sun.integration.protocol.hex.profile.abstracts.UnpackProfileAbstract;
 import team.sun.integration.protocol.hex.utils.BasicTypeCovert;
 import team.sun.integration.protocol.hex.utils.HexStringCovert;
 import org.jetbrains.annotations.NotNull;
@@ -23,20 +23,20 @@ public class UnpackConvert implements UnpackConvertService {
         return BasicTypeCovert.Bytes2Int_LE(fieldData);
     }
 
-    /**
-     * 数据解析：字段与值对应,转为map
-     *
-     * @param data 报文hex数据
-     * @return Map(key ： 字段名称 value ： 值)
-     */
-    @NotNull
-    public Map<String, Object> toMap(byte[] data) {
+    @Override
+    public int getProtocolCode(byte[] data, int index, int length) {
+        byte[] fieldData = HexStringCovert.arraySub(data, index, length);
+        return BasicTypeCovert.Bytes2Int_LE(fieldData);
+    }
+
+    @Override
+    public Map<String, Object> toMap(byte[] data, int protocolCode) {
         Map<String, Object> param = new HashMap<>();
         //当前字段长度修正系数(默认1)，时间长度=字段长度*field_length_correction_factor
         //当前字段长度修正系数(默认1)
         int field_length_correction_factor = 1;
         param.put("field_length_correction_factor", field_length_correction_factor);
-        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ReflectionProfile.getBean(getProtocolCode(data));
+        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ReflectionProfile.getBean(protocolCode);
         //解释翻译对象
         List<String> profile = hexConventHandler.profileConvert();
 
@@ -64,7 +64,17 @@ public class UnpackConvert implements UnpackConvertService {
         }
 
         return toLayer(result, profile);
+    }
 
+    /**
+     * 数据解析：字段与值对应,转为map
+     *
+     * @param data 报文hex数据
+     * @return Map(key ： 字段名称 value ： 值)
+     */
+    @NotNull
+    public Map<String, Object> toMap(byte[] data) {
+        return toMap(data, getProtocolCode(data));
     }
     //以下方法后期优化，提出来重新处理
 

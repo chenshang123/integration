@@ -2,7 +2,7 @@ package team.sun.integration.protocol.hex.profile.demo.pack;
 
 import cn.hutool.core.util.HexUtil;
 import team.sun.integration.protocol.hex.scann.ProtocolCode;
-import team.sun.integration.protocol.hex.profile.PackProfileAbstract;
+import team.sun.integration.protocol.hex.profile.abstracts.PackProfileAbstract;
 import team.sun.integration.protocol.hex.utils.BasicTypeCovert;
 import team.sun.integration.protocol.hex.utils.ProfileConvert;
 import org.springframework.stereotype.Component;
@@ -39,11 +39,6 @@ public class DemoPackProtocol extends PackProfileAbstract {
     @Override
     public List<String> profileConvert() {
         return profile;
-    }
-
-    @Override
-    public String toJsonString(Map<String, Object> data) {
-        return null;
     }
 
     @Override

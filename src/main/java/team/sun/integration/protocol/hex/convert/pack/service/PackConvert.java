@@ -1,8 +1,9 @@
 package team.sun.integration.protocol.hex.convert.pack.service;
 
 import cn.hutool.core.util.HexUtil;
+import team.sun.integration.common.utils.JacksonUtil;
 import team.sun.integration.protocol.hex.convert.pack.PackConvertService;
-import team.sun.integration.protocol.hex.profile.PackProfileAbstract;
+import team.sun.integration.protocol.hex.profile.abstracts.PackProfileAbstract;
 import team.sun.integration.protocol.hex.scann.ReflectionProfile;
 
 import java.util.Arrays;
@@ -28,7 +29,6 @@ public class PackConvert implements PackConvertService {
                 protocolCode = (int) data.get("command");
             }
         }
-
         return protocolCode;
     }
 
@@ -64,7 +64,7 @@ public class PackConvert implements PackConvertService {
     @Override
     public String getPackMap(Map<String, Object> data) {
         PackProfileAbstract hexConventHandler = (PackProfileAbstract) ReflectionProfile.getBean(getProtocolCode(data));
-        return hexConventHandler.toJsonString(data);
+        return JacksonUtil.toJson(data);
     }
 
 }

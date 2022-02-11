@@ -5,11 +5,10 @@ public class HexStringCovert {
     /**
      * 截取数组并顺序排列
      */
-    public static byte[] arraySub(byte[] data, int start, int end) {
-        int size = end - start;
-        byte[] bytes = new byte[size];
+    public static byte[] arraySub(byte[] data, int index, int length) {
+        byte[] bytes = new byte[length];
         int j = 0;
-        for (int i = start; i < end; i++) {
+        for (int i = index; i < index+length; i++) {
             bytes[j] = data[i];
             j++;
         }

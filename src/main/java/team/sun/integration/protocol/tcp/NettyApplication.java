@@ -7,7 +7,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.stereotype.Component;
 import team.sun.integration.protocol.tcp.service.EchoServer;
 
-@Component
+//@Component
 public class NettyApplication implements CommandLineRunner {
 
     @Value("${netty.tcp.port}")
