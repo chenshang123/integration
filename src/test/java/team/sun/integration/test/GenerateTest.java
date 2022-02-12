@@ -21,20 +21,17 @@ import java.util.List;
 public class GenerateTest {
     @Autowired
     private TableService tableService;
-    @Autowired
-    private UserService userService;
-    @Autowired
-    private TableAttrService tableAttrService;
     ObjectMapper mapper = new ObjectMapper();
 
 
     @Test
     public void test() throws JsonProcessingException {
         mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
-        TableAttr t = tableAttrService.getUserById("1439");
         List<TableInfo> tableInfoList = tableService.get("sys_table");
         System.out.println(mapper.writeValueAsString(tableInfoList));
+        //属性循环
 
+        //
 
     }
 

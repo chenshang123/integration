@@ -6,7 +6,9 @@ import io.netty.buffer.Unpooled;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
-import team.sun.integration.protocol.hex.convert.unpack.sevice.UnpackConvert;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
 import team.sun.integration.protocol.hex.utils.HexStringCovert;
 import team.sun.integration.protocol.tcp.channel.ChannelCatchMap;
 
@@ -16,8 +18,14 @@ import java.util.Map;
  * 服务端自定义业务处理handler
  */
 
+@Component
 @ChannelHandler.Sharable
 public class EchoServerHandler extends ChannelHandlerAdapter {
+    @Autowired
+    public EchoServerHandler(UnpackConvertService unpackConvertService){
+        this.unpackConvertService = unpackConvertService;
+    }
+    private final UnpackConvertService unpackConvertService;
 
     /**
      * 对每一个传入的消息都要调用；
@@ -31,13 +39,12 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
         HexStringCovert.bytesToBinaryString(in);
         String HexString = HexUtil.encodeHexStr(in);
 
-        UnpackConvert unpackConvert = new UnpackConvert();
         Map<String, Object> jsonMap;
         //不规范协议处理
         if(HexString.endsWith("c33c")){
-            jsonMap = unpackConvert.toMap(in, unpackConvert.getProtocolCode(in, 0, 2));
+            jsonMap = unpackConvertService.toMap(in, unpackConvertService.getProtocolCode(in, 0, 2));
         }else{
-            jsonMap = unpackConvert.toMap(in);
+            jsonMap = unpackConvertService.toMap(in);
         }
         if(null != jsonMap && null != jsonMap.get("topic")){
             //更新缓存数据

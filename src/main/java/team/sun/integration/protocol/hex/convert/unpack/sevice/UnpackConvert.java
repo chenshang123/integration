@@ -1,8 +1,9 @@
 package team.sun.integration.protocol.hex.convert.unpack.sevice;
 
+import org.springframework.stereotype.Component;
 import team.sun.integration.protocol.hex.convert.unpack.UnpackConvertService;
-import team.sun.integration.protocol.hex.scann.ReflectionProfile;
 import team.sun.integration.protocol.hex.profile.abstracts.UnpackProfileAbstract;
+import team.sun.integration.protocol.hex.scann.ProfileHandlerProcessor;
 import team.sun.integration.protocol.hex.utils.BasicTypeCovert;
 import team.sun.integration.protocol.hex.utils.HexStringCovert;
 import org.jetbrains.annotations.NotNull;
@@ -15,6 +16,7 @@ import java.util.*;
  *
  * @author chens
  */
+@Component
 public class UnpackConvert implements UnpackConvertService {
 
     @Override
@@ -36,7 +38,7 @@ public class UnpackConvert implements UnpackConvertService {
         //当前字段长度修正系数(默认1)
         int field_length_correction_factor = 1;
         param.put("field_length_correction_factor", field_length_correction_factor);
-        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ReflectionProfile.getBean(protocolCode);
+        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ProfileHandlerProcessor.getBean(protocolCode);
         //解释翻译对象
         List<String> profile = hexConventHandler.profileConvert();
 

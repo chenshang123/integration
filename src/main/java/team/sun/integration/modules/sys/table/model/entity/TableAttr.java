@@ -1,6 +1,8 @@
 package team.sun.integration.modules.sys.table.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -19,6 +21,8 @@ import java.io.Serializable;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_table_attr")
 @NamedEntityGraphs(@NamedEntityGraph(name = "TableAttr-relation", attributeNodes = {

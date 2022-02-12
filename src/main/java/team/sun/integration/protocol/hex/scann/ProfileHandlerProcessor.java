@@ -2,13 +2,15 @@ package team.sun.integration.protocol.hex.scann;
 
 import org.reflections8.Reflections;
 import org.reflections8.scanners.TypeAnnotationsScanner;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
 /**
  * 协议解释文件扫描
  */
-public class ReflectionProfile {
+@Component
+public class ProfileHandlerProcessor  {
 
     private static final String HEX_PROFILE = "team.sun.integration.protocol.hex.profile";
     private static final Map<Integer, Class<?>> CLASS_NAME_FIELD_CACHE;
@@ -24,12 +26,13 @@ public class ReflectionProfile {
             CLASS_NAME_FIELD_CACHE.put(type, clazz);
         });
     }
+
     public static Object getBean(int protocolCode) {
         Class<?> clazz = CLASS_NAME_FIELD_CACHE.get(protocolCode);
         if (clazz == null) {
             throw new IllegalArgumentException("not found handler for type: " + protocolCode);
         }
-        return clazz;
+        return BeanTool.getBean(clazz);
     }
 
 }

@@ -18,8 +18,13 @@ import java.net.InetSocketAddress;
  * 4.使用一个EchoServerHandler的实例初始化每一个新的Channel。
  * 5.调用ServerBootstrap.bind()方法以绑定服务器。
  */
+@Component
 public class EchoServer {
-
+    @Autowired
+    public EchoServer(EchoServerHandler echoServerHandler){
+        this.echoServerHandler = echoServerHandler;
+    }
+    private final EchoServerHandler echoServerHandler;
     /**
      * NioEventLoop并不是一个纯粹的I/O线程，它除了负责I/O的读写之外
      * 创建了两个NioEventLoopGroup，
@@ -30,7 +35,6 @@ public class EchoServer {
     private final EventLoopGroup bossGroup = new NioEventLoopGroup(1); //用于处理服务器端接收客户端连接
     private final EventLoopGroup workerGroup = new NioEventLoopGroup(2); //进行网络通信(读写)
     private Channel channel;
-
 
     /**
      * 启动服务
@@ -47,7 +51,7 @@ public class EchoServer {
                         @Override
                         protected void initChannel(SocketChannel socketChannel){
 //                            为监听客户端read/write事件的Channel添加用户自定义的ChannelHandler
-                            socketChannel.pipeline().addLast(new EchoServerHandler());
+                            socketChannel.pipeline().addLast(echoServerHandler);
 
                         }
                     }).option(ChannelOption.SO_BACKLOG, 128) //设置TCP三次握手建立链接的缓冲区大小,超过缓冲区大小将无法建立链接.

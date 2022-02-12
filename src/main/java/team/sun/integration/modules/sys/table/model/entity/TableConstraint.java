@@ -1,6 +1,8 @@
 package team.sun.integration.modules.sys.table.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -19,6 +21,8 @@ import java.io.Serializable;
  */
 
 @Entity
+@DynamicInsert
+@DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_table_constraint")
 @NamedEntityGraphs(@NamedEntityGraph(name = "TableConstraint-relation", attributeNodes = {
@@ -43,7 +47,7 @@ public class TableConstraint implements Serializable {
     private TableInfo table;
 
     /**
-     * 关联表表名
+     * 多对一：关联表表名
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "referenced_table_name", referencedColumnName = "table_name", nullable = false)
