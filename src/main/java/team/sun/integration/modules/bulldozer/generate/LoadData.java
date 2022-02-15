@@ -71,7 +71,4 @@ public class LoadData {
         ToJavaFtl(configuration, fltName, saveFilename, dataModel, generatedDirectory);
     }
 
-    public static void main(String[] args) {
-
-    }
 }

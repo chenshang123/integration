@@ -8,7 +8,9 @@ public abstract class UnpackProfileAbstract {
     /**
      * 解析次数统计
      */
-    abstract public void count();
+    abstract public void count(String key);
+
+    abstract public String getKey(String HexString);
 
     abstract public List<String> profileConvert();
 

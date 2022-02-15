@@ -59,8 +59,13 @@ public class RTK extends UnpackProfileAbstract {
     }
 
     @Override
-    public void count() {
+    public void count(String key) {
 
+    }
+
+    @Override
+    public String getKey(String HexString) {
+        return null;
     }
 
     @Override

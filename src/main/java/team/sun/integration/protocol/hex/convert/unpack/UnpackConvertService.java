@@ -13,6 +13,8 @@ public interface UnpackConvertService {
     int getProtocolCode(byte[] data);
 
     int getProtocolCode(byte[] data, int index, int length);
+
+    void cont(String HexString, int protocolCode);
     /**
      * byte数据转对象
      *

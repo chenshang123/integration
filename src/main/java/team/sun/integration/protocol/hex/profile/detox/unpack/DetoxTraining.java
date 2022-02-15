@@ -22,21 +22,31 @@ public class DetoxTraining extends UnpackProfileAbstract {
     public static final List<String> profile;
 
     static {
-        List<String> protocol = new ArrayList<>(4);
+        List<String> protocol = new ArrayList<>(5);
         //key : val (字节长度_别名) math
 
         protocol.add(0, "2_protocolCode");
-        protocol.add(1, "2_collectorNo");
-        protocol.add(2, "58_reserve");
-        protocol.add(3, "2_end");
+        protocol.add(1, "1_collectorType");
+        protocol.add(2, "1_collectorNo");
+        protocol.add(3, "58_reserve");
+        protocol.add(4, "2_end");
 
         profile = ProfileConvert.getFieldAndLength(protocol);
 
     }
 
     @Override
-    public void count() {
-        //CatchMap.count.put();
+    public void count(String key) {
+        int cont = 1;
+        if(null != CatchMap.count.get(key)){
+            cont += CatchMap.count.get(key);
+        }
+        CatchMap.count.put(key, cont);
+    }
+
+    @Override
+    public String getKey(String HexString) {
+        return StringUtils.hasLength(HexString) ? HexString.substring(0, 8):null;
     }
 
     @Override
@@ -56,7 +66,6 @@ public class DetoxTraining extends UnpackProfileAbstract {
                 return BasicTypeCovert.Bytes2Int_LE(fieldData);
             }
         }
-
         return null;
     }
 

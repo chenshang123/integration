@@ -32,6 +32,12 @@ public class UnpackConvert implements UnpackConvertService {
     }
 
     @Override
+    public void cont(String HexString, int protocolCode) {
+        UnpackProfileAbstract hexConventHandler = (UnpackProfileAbstract) ProfileHandlerProcessor.getBean(protocolCode);
+        hexConventHandler.count(hexConventHandler.getKey(HexString));
+    }
+
+    @Override
     public Map<String, Object> toMap(byte[] data, int protocolCode) {
         Map<String, Object> param = new HashMap<>();
         //当前字段长度修正系数(默认1)，时间长度=字段长度*field_length_correction_factor

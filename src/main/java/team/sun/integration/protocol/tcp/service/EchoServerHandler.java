@@ -42,18 +42,11 @@ public class EchoServerHandler extends ChannelHandlerAdapter {
         Map<String, Object> jsonMap;
         //不规范协议处理
         if(HexString.endsWith("c33c")){
-            jsonMap = unpackConvertService.toMap(in, unpackConvertService.getProtocolCode(in, 0, 2));
+            unpackConvertService.cont(HexString, unpackConvertService.getProtocolCode(in, 0, 2));
         }else{
             jsonMap = unpackConvertService.toMap(in);
         }
-        if(null != jsonMap && null != jsonMap.get("topic")){
-            //更新缓存数据
-            String topic = jsonMap.get("topic").toString();
-            boolean isContainsKey = ChannelCatchMap.map.containsKey(topic);
-            if(!isContainsKey){
-                ChannelCatchMap.add(topic, ctx);
-            }
-        }
+
     }
 
 
