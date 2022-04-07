@@ -27,8 +27,8 @@ import java.time.LocalDateTime;
 
 @Entity
 @EntityListeners(AuditingEntityListener.class)
-@Table(name = "sys_tenant_application_mid")
-@SQLDelete(sql = "update sys_tenant_application_mid set del_flag = true where id = ? and version = ? ")
+@Table(name = "sys_tenant_mid_application")
+@SQLDelete(sql = "update sys_tenant_mid_application set del_flag = true where id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "TenantApplication-relation", attributeNodes = {
         @NamedAttributeNode("tenant"),
@@ -41,7 +41,7 @@ public class TenantApplication implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "tenant_application_mid_id")
+    @Column(name = "tenant_mid_application_id")
     private String id;
 
     /**

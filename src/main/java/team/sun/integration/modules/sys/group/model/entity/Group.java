@@ -55,7 +55,7 @@ public class Group implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_group_role_mid",
+            name = "sys_group_mid_role",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
@@ -67,7 +67,7 @@ public class Group implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_group_user_mid",
+            name = "sys_group_mid_user",
             joinColumns = @JoinColumn(name = "group_id"),
             inverseJoinColumns = @JoinColumn(name = "user_id")
     )

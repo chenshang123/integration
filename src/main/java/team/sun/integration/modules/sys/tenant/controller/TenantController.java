@@ -5,6 +5,7 @@ import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -26,6 +27,7 @@ import team.sun.integration.modules.sys.tenant.service.TenantService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -101,14 +103,16 @@ public class TenantController {
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
     public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        tenantService.removeById(id);
+        Optional<Tenant> entity = tenantService.getById(id);
+        entity.ifPresent(tenantService::remove);
         return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
     public Ret batchDelete(@RequestBody List<String> ids) {
-        tenantService.removeAllByIds(ids);
+        Iterable<Tenant> entities = tenantService.getByIds(ids);
+        tenantService.removeByIds(IterableUtils.toList(entities));
         return Ret.success();
     }
 }

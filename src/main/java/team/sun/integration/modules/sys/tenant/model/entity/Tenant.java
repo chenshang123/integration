@@ -54,7 +54,7 @@ public class Tenant implements Serializable {
      */
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_tenant_resource_mid",
+            name = "sys_tenant_mid_resource",
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
@@ -65,7 +65,7 @@ public class Tenant implements Serializable {
      */
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_tenant_element_mid",
+            name = "sys_tenant_mid_element",
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )
@@ -76,7 +76,7 @@ public class Tenant implements Serializable {
      */
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_tenant_application_mid",
+            name = "sys_tenant_mid_application",
             joinColumns = @JoinColumn(name = "tenant_id"),
             inverseJoinColumns = @JoinColumn(name = "application_id")
     )

@@ -27,7 +27,7 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_application_version")
-@SQLDelete(sql = "update sys_application_version set del_flag = true where id = ? and version = ? ")
+@SQLDelete(sql = "update sys_application_version set del_flag = true where application_version_id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "ApplicationVersion-relation", attributeNodes = {
         @NamedAttributeNode("application")

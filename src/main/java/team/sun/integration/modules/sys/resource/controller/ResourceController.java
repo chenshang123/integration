@@ -2,6 +2,7 @@ package team.sun.integration.modules.sys.resource.controller;
 
 import com.querydsl.core.types.ExpressionUtils;
 import com.querydsl.core.types.Predicate;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -101,14 +103,16 @@ public class ResourceController {
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
     public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        resourceService.removeById(id);
+        Optional<Resource> entity = resourceService.getById(id);
+        entity.ifPresent(resourceService::remove);
         return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
     public Ret batchDelete(@RequestBody List<String> ids) {
-        resourceService.removeAllByIds(ids);
+        Iterable<Resource> entities = resourceService.getByIds(ids);
+        resourceService.removeByIds(IterableUtils.toList(entities));
         return Ret.success();
     }
 }

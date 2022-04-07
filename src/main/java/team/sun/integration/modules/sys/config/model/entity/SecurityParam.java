@@ -4,6 +4,8 @@ import java.io.Serial;
 import java.time.LocalDateTime;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -25,6 +27,8 @@ import java.io.Serializable;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_security_param")
+@SQLDelete(sql = "update sys_security_param set del_flag = true where sys_security_param_id = ? and version = ? ")
+@Where(clause = "del_flag = false")
 public class SecurityParam implements Serializable {
 
     @Serial

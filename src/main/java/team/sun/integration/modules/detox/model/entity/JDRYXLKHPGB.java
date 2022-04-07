@@ -21,7 +21,7 @@ import java.time.LocalDateTime;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "detox_training_assess")
-@SQLDelete(sql = "update detox_training_assess set del_flag = true where id = ? and version = ? ")
+@SQLDelete(sql = "update detox_training_assess set del_flag = true where training_assess_id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 public class JDRYXLKHPGB implements Serializable {
 

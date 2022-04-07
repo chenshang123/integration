@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.user.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.SQLDelete;
 import org.hibernate.annotations.Where;
 import org.springframework.data.annotation.CreatedBy;
@@ -60,7 +61,7 @@ public class User implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_user_role_mid",
+            name = "sys_user_mid_role",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
@@ -72,11 +73,11 @@ public class User implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_user_position_mid",
+            name = "sys_user_mid_position",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "position_id")
     )
-//    @JsonBackReference
+    @JsonBackReference
     private Set<Position> positions;
 
     /**
@@ -84,7 +85,7 @@ public class User implements Serializable {
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "org_id", referencedColumnName = "org_id", nullable = false)
-//    @JsonBackReference
+    @JsonBackReference
     private Org org;
 
     /**

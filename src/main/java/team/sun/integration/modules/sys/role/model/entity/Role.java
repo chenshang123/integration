@@ -55,7 +55,7 @@ public class Role implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_role_resource_mid",
+            name = "sys_role_mid_resource",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "resource_id")
     )
@@ -66,7 +66,7 @@ public class Role implements Serializable {
      **/
     @ManyToMany(cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinTable(
-            name = "sys_role_element_mid",
+            name = "sys_role_mid_element",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "element_id")
     )

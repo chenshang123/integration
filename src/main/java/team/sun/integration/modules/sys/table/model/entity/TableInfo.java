@@ -39,7 +39,7 @@ public class TableInfo implements Serializable {
     private String id;
 
     /**
-     * 一对多：表信息-表属性
+     * 一对多：表关系-单表关联
      **/
     @OneToMany(mappedBy = "table", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<TableAttr> tableAttrs;
@@ -51,7 +51,7 @@ public class TableInfo implements Serializable {
     private Set<TableConstraint> tableConstraints;
 
     /**
-     * 一对多：表信息-表关系
+     * 一对多：表关系-中间表关联
      **/
     @OneToMany(mappedBy = "referencedTable", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
     private Set<TableConstraint> referencedTableConstraints;

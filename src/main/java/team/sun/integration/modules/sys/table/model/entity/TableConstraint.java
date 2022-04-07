@@ -39,7 +39,7 @@ public class TableConstraint implements Serializable {
     private String id;
 
     /**
-     * 多对一： 表关系-表信息
+     * 多对一： 表关系-单表关联
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "table_name", referencedColumnName = "table_name", nullable = false)
@@ -47,7 +47,7 @@ public class TableConstraint implements Serializable {
     private TableInfo table;
 
     /**
-     * 多对一：关联表表名
+     * 多对一：表关系-中间表关联
      */
     @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, fetch = FetchType.LAZY)
     @JoinColumn(name = "referenced_table_name", referencedColumnName = "table_name", nullable = false)

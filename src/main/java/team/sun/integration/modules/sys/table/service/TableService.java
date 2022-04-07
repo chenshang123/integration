@@ -15,5 +15,5 @@ import java.util.List;
  */
 public interface TableService extends IService<TableInfo, String> {
 
-    List<TableInfo> get(String nameLike);
+    List<TableInfo> get(String ...tableName);
 }

@@ -23,7 +23,7 @@ import java.time.LocalDateTime;
 @DynamicUpdate
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "detox_training_record")
-@SQLDelete(sql = "update detox_training_record set del_flag = true where id = ? and version = ? ")
+@SQLDelete(sql = "update detox_training_record set del_flag = true where training_record_id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 public class JDRYXLJLB implements Serializable {
 

@@ -4,6 +4,7 @@ import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -83,14 +84,16 @@ public class RegionController {
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
     public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        regionService.removeById(id);
+        Optional<Region> entity = regionService.getById(id);
+        entity.ifPresent(regionService::remove);
         return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
     public Ret batchDelete(@RequestBody List<String> ids) {
-        regionService.removeAllByIds(ids);
+        Iterable<Region> entities = regionService.getByIds(ids);
+        regionService.removeByIds(IterableUtils.toList(entities));
         return Ret.success();
     }
 }

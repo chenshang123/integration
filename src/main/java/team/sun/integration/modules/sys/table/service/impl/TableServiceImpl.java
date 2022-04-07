@@ -1,6 +1,5 @@
 package team.sun.integration.modules.sys.table.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.table.model.entity.TableInfo;
@@ -21,15 +20,9 @@ import java.util.List;
 @Service
 public class TableServiceImpl extends ServiceImpl<TableDao, TableInfo> implements TableService {
 
-    private final TableDao tableDao;
-
-    @Autowired
-    public TableServiceImpl(TableDao tableDao) {
-        this.tableDao = tableDao;
-    }
-
     @Override
-    public List<TableInfo> get(String nameLike) {
-        return this.tableDao.findByTableNameLike(nameLike);
+    public List<TableInfo> get(String ...tableNameLike) {
+        return this.dao.findByTableNameIn(tableNameLike);
     }
+
 }

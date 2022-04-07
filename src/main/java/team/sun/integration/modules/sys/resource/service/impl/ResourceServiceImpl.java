@@ -36,11 +36,6 @@ import java.util.*;
 @Service
 public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> implements ResourceService {
 
-    public static void main(String[] args) {
-        List<Resource> all = null;
-        all.forEach(item -> item.getWeight());
-    }
-
     private List<Tree<String>> buildTree(List<Resource> all, String parentId) {
         //parentId 可以控制展示层级,默认展示所有
         if (!StringUtils.hasLength(parentId)) {
@@ -71,11 +66,6 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceDao, Resource> impl
         OrderSpecifier[] orderSpecifiers = {resource.layer.asc().nullsLast(), resource.weight.asc().nullsLast()};
         Iterable<Resource> resourceIterable = this.get(predicate, orderSpecifiers);
         return this.buildTree(Lists.newArrayList(resourceIterable));
-    }
-
-    @Override
-    public void clearResourceCache() {
-
     }
 
     @Override

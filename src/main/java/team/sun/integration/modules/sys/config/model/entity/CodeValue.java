@@ -1,6 +1,8 @@
 package team.sun.integration.modules.sys.config.model.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
@@ -19,6 +21,8 @@ import java.io.Serializable;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_code_value")
+@SQLDelete(sql = "update sys_code_value set del_flag = true where code_value_id = ? and version = ? ")
+@Where(clause = "del_flag = false")
 public class CodeValue implements Serializable {
 
     @Serial

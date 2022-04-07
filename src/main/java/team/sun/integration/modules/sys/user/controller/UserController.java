@@ -3,6 +3,7 @@ package team.sun.integration.modules.sys.user.controller;
 import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.*;
 
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -21,6 +22,7 @@ import team.sun.integration.modules.sys.user.service.UserService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -80,14 +82,16 @@ public class UserController {
     @ApiOperation(value = "单个删除")
     @PostMapping("/delete")
     public Ret delete(@ApiParam(name = "id", value = "id", required = true) @RequestParam String id) {
-        userService.removeById(id);
+        Optional<User> entity = userService.getById(id);
+        entity.ifPresent(userService::remove);
         return Ret.success();
     }
 
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
     public Ret batchDelete(@RequestBody List<String> ids) {
-        userService.removeAllByIds(ids);
+        Iterable<User> entities = userService.getByIds(ids);
+        userService.removeByIds(IterableUtils.toList(entities));
         return Ret.success();
     }
 }

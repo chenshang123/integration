@@ -70,19 +70,23 @@ public class ServiceImpl<M extends IDao<T, String>, T> implements IService<T, St
     }
 
     @Override
-    public void removeById(String s) {
-        dao.deleteById(s);
+    public void removeById(String id) {
+        dao.deleteById(id);
     }
 
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    public void removeAllByIds(Collection<String> entities) {
-        dao.deleteAllById(entities);
+    public void remove(T entity) {
+        dao.delete(entity);
     }
 
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void removeByIds(Collection<T> entities) {
         dao.deleteAll(entities);
+    }
+
+    @Override
+    public void removeAllByIds(Collection<String> ids) {
+        dao.deleteAllById(ids);
     }
 }

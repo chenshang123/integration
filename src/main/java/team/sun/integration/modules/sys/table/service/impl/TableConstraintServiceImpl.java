@@ -4,8 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.sun.integration.common.base.service.impl.ServiceImpl;
 import team.sun.integration.modules.sys.table.model.entity.TableConstraint;
+import team.sun.integration.modules.sys.table.model.vo.EntityRelation;
 import team.sun.integration.modules.sys.table.repository.TableConstraintDao;
 import team.sun.integration.modules.sys.table.service.TableConstraintService;
+
+import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -27,4 +31,13 @@ public class TableConstraintServiceImpl extends ServiceImpl<TableConstraintDao, 
     }
 
 
+    @Override
+    public List<EntityRelation> getActiveRelation(Set<TableConstraint> tableConstraints) {
+        return null;
+    }
+
+    @Override
+    public List<EntityRelation> getPassiveRelation(Set<TableConstraint> tableConstraints) {
+        return null;
+    }
 }

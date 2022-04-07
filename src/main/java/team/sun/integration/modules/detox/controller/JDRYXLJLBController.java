@@ -4,6 +4,7 @@ import com.querydsl.core.types.Predicate;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+import org.apache.commons.collections4.IterableUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -22,6 +23,7 @@ import team.sun.integration.modules.detox.service.JDRYXLJLBService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * <p>
@@ -88,6 +90,7 @@ public class JDRYXLJLBController {
     @ApiOperation(value = "批量删除")
     @PostMapping("/batchDelete")
     public Ret batchDelete(@RequestBody List<String> ids) {
+        Iterable<JDRYXLJLB> entities = JDRYXLJLBService.getByIds(ids);
         JDRYXLJLBService.removeAllByIds(ids);
         return Ret.success();
     }

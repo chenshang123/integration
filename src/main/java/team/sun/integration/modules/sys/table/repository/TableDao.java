@@ -19,7 +19,6 @@ import java.util.List;
 public interface TableDao extends IDao<TableInfo, String> {
 
     @EntityGraph("Table-relation")
-    List<TableInfo> findByTableNameLike(String name);
-
+    List<TableInfo> findByTableNameIn(String ...name);
 
 }

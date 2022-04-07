@@ -31,7 +31,7 @@ import java.util.Set;
 @Entity
 @EntityListeners(AuditingEntityListener.class)
 @Table(name = "sys_application")
-@SQLDelete(sql = "update sys_application set del_flag = true where id = ? and version = ? ")
+@SQLDelete(sql = "update sys_application set del_flag = true where application_id = ? and version = ? ")
 @Where(clause = "del_flag = false")
 @NamedEntityGraphs(@NamedEntityGraph(name = "Application-relation", attributeNodes = {
         @NamedAttributeNode("resources"),
