@@ -1,7 +1,9 @@
 package team.sun.integration.modules.sys.table.model.vo;
 
+import java.util.List;
+
 /**
- * 表数据集合
+ * 表转实体对象: 属性
  */
 public class EntityAttr {
 
@@ -22,6 +24,12 @@ public class EntityAttr {
 
     /** 属性是否允许为空 */
     private String isNullable;
+
+    /** 属性是否允许为空 */
+    private List<EntityRelation> activeRelation;
+
+    /** 属性是否允许为空 */
+    private List<EntityRelation> passiveRelation;
 
     public String getHumpName() {
         return humpName;
@@ -69,5 +77,21 @@ public class EntityAttr {
 
     public void setIsNullable(String isNullable) {
         this.isNullable = isNullable;
+    }
+
+    public List<EntityRelation> getActiveRelation() {
+        return activeRelation;
+    }
+
+    public void setActiveRelation(List<EntityRelation> activeRelation) {
+        this.activeRelation = activeRelation;
+    }
+
+    public List<EntityRelation> getPassiveRelation() {
+        return passiveRelation;
+    }
+
+    public void setPassiveRelation(List<EntityRelation> passiveRelation) {
+        this.passiveRelation = passiveRelation;
     }
 }

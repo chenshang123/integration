@@ -79,6 +79,12 @@ public class TableConstraint implements Serializable {
     private String columnName;
 
     /**
+     * 字段别名
+     */
+    @Column(name = "column_comment")
+    private String columnComment;
+
+    /**
      * 关联表库名
     */
     @Column(name = "referenced_table_schema")
@@ -94,10 +100,13 @@ public class TableConstraint implements Serializable {
     public String toString() {
         return "TableConstraint{" +
                 "id='" + id + '\'' +
+                ", table=" + table +
+                ", referencedTable=" + referencedTable +
                 ", constraintSchema='" + constraintSchema + '\'' +
                 ", constraintName='" + constraintName + '\'' +
                 ", tableSchema='" + tableSchema + '\'' +
                 ", columnName='" + columnName + '\'' +
+                ", columnComment='" + columnComment + '\'' +
                 ", referencedTableSchema='" + referencedTableSchema + '\'' +
                 ", referencedColumnName='" + referencedColumnName + '\'' +
                 '}';
@@ -158,6 +167,10 @@ public class TableConstraint implements Serializable {
     public void setColumnName(String columnName) {
         this.columnName = columnName;
     }
+
+    public String getColumnComment() { return columnComment; }
+
+    public void setColumnComment(String columnComment) { this.columnComment = columnComment; }
 
     public String getReferencedTableSchema() {
         return referencedTableSchema;

@@ -16,10 +16,13 @@ import java.util.Set;
  * @since 2021-11-30
  */
 public interface TableConstraintService extends IService<TableConstraint, String> {
+
+    /** 关系设置 **/
+    List<EntityRelation> getEntityRelation(Set<TableConstraint> tableConstraints);
     /** 主动关系记录 **/
-    List<EntityRelation> getActiveRelation(Set<TableConstraint> tableConstraints);
+    List<EntityRelation> getActiveRelation(Set<EntityRelation> entityRelations);
     /** 被动关系记录 **/
-    List<EntityRelation> getPassiveRelation(Set<TableConstraint> tableConstraints);
+    List<EntityRelation> getPassiveRelation(Set<EntityRelation> entityRelations);
 
 }
 

@@ -1,7 +1,7 @@
 package team.sun.integration.modules.sys.table.model.vo;
 
 /**
- * 表关联关系集合
+ * 表转实体对象: 关联关系集合
  * 2022-02-21
  */
 public class EntityRelation {
@@ -20,6 +20,9 @@ public class EntityRelation {
 
     /** 主表关联字段 */
     private String attrName;
+
+    /** 主表关联字段注解说明 */
+    private String attrNameComment;
 
     /** 外键关系表 */
     private String referencedTableName;
@@ -65,6 +68,14 @@ public class EntityRelation {
 
     public void setAttrName(String attrName) {
         this.attrName = attrName;
+    }
+
+    public String getAttrNameComment() {
+        return attrNameComment;
+    }
+
+    public void setAttrNameComment(String attrNameComment) {
+        this.attrNameComment = attrNameComment;
     }
 
     public String getReferencedTableName() {
