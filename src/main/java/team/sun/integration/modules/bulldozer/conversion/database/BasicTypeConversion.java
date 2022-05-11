@@ -16,6 +16,7 @@ public class BasicTypeConversion {
     public static final Map<String, String> MysqlAndJava = new HashMap<>(20);
 
     static {
+        MysqlAndJava.put("int", java.lang.Integer.class.getSimpleName());
         MysqlAndJava.put("tinyint", java.lang.Integer.class.getSimpleName());
         MysqlAndJava.put("smallint", java.lang.Integer.class.getSimpleName());
         MysqlAndJava.put("mediumint", java.lang.Integer.class.getSimpleName());

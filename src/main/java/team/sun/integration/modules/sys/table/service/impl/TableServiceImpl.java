@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.table.service.impl;
 
+import com.google.common.base.CaseFormat;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import team.sun.integration.common.base.service.impl.ServiceImpl;
@@ -53,13 +54,15 @@ public class TableServiceImpl extends ServiceImpl<TableDao, TableInfo> implement
             List<EntityRelation> activeRelations = tableConstraintService.getEntityRelation(tableInfo.getTableConstraints());
             //被动关系
             List<EntityRelation> passiveRelations = tableConstraintService.getEntityRelation(tableInfo.getReferencedTableConstraints());
-
+            //设置基本信息
             tableEntity.setTableSchema(tableInfo.getTableSchema());
             tableEntity.setTableName(tableInfo.getTableName());
+            tableEntity.setClassName(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, tableInfo.getTableName()));
             tableEntity.setTableComment(tableInfo.getTableComment());
             tableEntity.setAttrs(attrs);
             tableEntity.setActiveRelations(activeRelations);
             tableEntity.setPassiveRelations(passiveRelations);
+
             tableEntities.add(tableEntity);
             tableEntity = new TableEntity();
         }

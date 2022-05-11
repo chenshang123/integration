@@ -42,6 +42,7 @@ public class TableInfo implements Serializable {
      * 一对多：表关系-单表关联
      **/
     @OneToMany(mappedBy = "table", cascade = {CascadeType.DETACH}, fetch = FetchType.LAZY)
+    @OrderBy
     private Set<TableAttr> tableAttrs;
 
     /**

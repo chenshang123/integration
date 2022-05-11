@@ -1,8 +1,9 @@
-package team.sun.integration.modules.bulldozer.generate;
+package team.sun.integration.modules.bulldozer.generate.freemarker;
 
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.commons.io.FileUtils;
 import org.hibernate.validator.internal.util.privilegedactions.GetResource;
 import team.sun.integration.common.base.exception.BusinessException;
 
@@ -30,12 +31,14 @@ public class LoadData {
     Configuration configurationDefault = new Configuration(Configuration.getVersion());
 
     public LoadData() throws IOException {
+        new File(directory).mkdirs();
+        new File(directory).mkdirs();
         configurationDefault.setDirectoryForTemplateLoading(
                 new File(directory + File.separator + "templates"));
         configurationDefault.setDefaultEncoding("utf-8");
     }
 
-    private void ToJavaFtl(Configuration configuration, String fltName, String saveFilename, Map<String, Objects> dataModel, String generatedDirectory) {
+    private void ToJavaFtl(Configuration configuration, String fltName, String saveFilename, Object dataModel, String generatedDirectory) {
         Template template;
         Writer out = null;
         try {
@@ -46,7 +49,7 @@ public class LoadData {
             throw new BusinessException(e.getMessage());
         } finally {
             try {
-                assert out != null;
+                if(out != null)
                 out.close();
             } catch (IOException e) {
                 e.printStackTrace();
@@ -55,11 +58,11 @@ public class LoadData {
     }
 
 
-    public void ToJavaFtl(String fltName, String saveFilename, Map<String, Objects> dataModel) {
+    public void ToJavaFtl(String fltName, String saveFilename, Object dataModel) {
         ToJavaFtl(configurationDefault, fltName, saveFilename, dataModel, generatedDirectory);
     }
 
-    public void ToJavaFtl(String fltName, String saveFilename, Map<String, Objects> dataModel, String templateDirectory, String generatedDirectory) {
+    public void ToJavaFtl(String fltName, String saveFilename, Object dataModel, String templateDirectory, String generatedDirectory) {
         Configuration configuration = new Configuration(Configuration.getVersion());
         try {
             configuration.setDirectoryForTemplateLoading(

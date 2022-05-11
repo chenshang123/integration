@@ -1,5 +1,6 @@
 package team.sun.integration.modules.sys.table.model.vo;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -13,6 +14,9 @@ public class TableEntity {
     /** 表名 */
     private String tableName;
 
+    /** 表名 */
+    private String className;
+
     /** 表名注释 */
     private String tableComment;
 
@@ -24,6 +28,9 @@ public class TableEntity {
 
     /** 属性是否允许为空 */
     private List<EntityRelation> passiveRelations;
+
+    /** 创建时间 */
+    private LocalDateTime createTime = LocalDateTime.now();
 
     public String getTableSchema() {
         return tableSchema;
@@ -71,5 +78,21 @@ public class TableEntity {
 
     public void setPassiveRelations(List<EntityRelation> passiveRelations) {
         this.passiveRelations = passiveRelations;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public void setClassName(String className) {
+        this.className = className;
+    }
+
+    public LocalDateTime getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(LocalDateTime createTime) {
+        this.createTime = createTime;
     }
 }

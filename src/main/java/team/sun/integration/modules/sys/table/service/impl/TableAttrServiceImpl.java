@@ -48,7 +48,9 @@ public class TableAttrServiceImpl extends ServiceImpl<TableAttrDao, TableAttr> i
                         attr.getColumnComment().startsWith("otm") && attr.getColumnComment().startsWith("oto") &&
                         attr.getColumnComment().startsWith("mtm"))){
                     EntityAttr entityAttr = new EntityAttr();
-                    entityAttr.setHumpName(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, attr.getColumnName()));
+                    entityAttr.setName(attr.getColumnName());
+                    entityAttr.setLowerCamelName(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.LOWER_CAMEL, attr.getColumnName()));
+                    entityAttr.setUpperCamel(CaseFormat.LOWER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, attr.getColumnName()));
                     entityAttr.setDataType(BasicTypeConversion.MysqlAndJava.get(attr.getDataType()));
                     entityAttr.setComment(attr.getColumnComment());
                     entityAttr.setAttrDefault(attr.getColumnDefault());

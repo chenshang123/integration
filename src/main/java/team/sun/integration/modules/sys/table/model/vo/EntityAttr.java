@@ -7,8 +7,14 @@ import java.util.List;
  */
 public class EntityAttr {
 
-    /** 属性名（驼峰命名）*/
-    private String humpName;
+    /** 表属性名*/
+    private String name;
+
+    /** 属性名（下驼峰命名）*/
+    private String lowerCamelName;
+
+    /** 属性名（下驼峰命名）*/
+    private String upperCamel;
 
     /** Java属性类型 */
     private String dataType;
@@ -31,12 +37,28 @@ public class EntityAttr {
     /** 属性是否允许为空 */
     private List<EntityRelation> passiveRelation;
 
-    public String getHumpName() {
-        return humpName;
+    public String getName() {
+        return name;
     }
 
-    public void setHumpName(String humpName) {
-        this.humpName = humpName;
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getLowerCamelName() {
+        return lowerCamelName;
+    }
+
+    public void setLowerCamelName(String lowerCamelName) {
+        this.lowerCamelName = lowerCamelName;
+    }
+
+    public String getUpperCamel() {
+        return upperCamel;
+    }
+
+    public void setUpperCamel(String upperCamel) {
+        upperCamel = upperCamel;
     }
 
     public String getAttrDefault() {
