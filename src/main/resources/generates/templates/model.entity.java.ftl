@@ -1,4 +1,4 @@
-package ${packagePath} #end.dto.query;
+package ${packagePath}.entity.dto.query;
 
 
 import io.swagger.annotations.ApiModel;
@@ -17,6 +17,11 @@ import java.time.LocalDateTime;
 */
 
 @ApiModel(value="${entity.className}-entity", description="实体-对象")
+@Entity
+@EntityListeners(AuditingEntityListener.class)
+@Table(name = "${entity.tableName}")
+@SQLDelete(sql = "update sys_user set del_flag = true where id = ? and version = ? ")
+@Where(clause = "del_flag = false")
 public class ${entity.className} implements Serializable{
 
 private static final long serialVersionUID = 1L;
@@ -41,9 +46,7 @@ private static final long serialVersionUID = 1L;
 </#if>
 
 <#if (entity.attrs)??>
-    123
     <#list entity.attrs as attr>
-        123
         <#if (attr.name)??>
         public String get${attr.lowerCamelName}() { return ${attr.lowerCamelName}; }
 

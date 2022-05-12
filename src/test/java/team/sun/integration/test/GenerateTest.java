@@ -35,14 +35,16 @@ public class GenerateTest {
         List<TableInfo> tableInfoList = tableService.get("sys_user");
         List<TableEntity> tableEntities = tableService.getTableEntity(tableInfoList);
 
+        PathProperties pathProperties = new PathProperties("sys");
         Map<String, Object> data = new HashMap<>();
-        data.put("packagePath", PathProperties.getPackagePath());
+        data.put("packagePath", pathProperties.getPackagePath());
+
         try {
             LoadData loadData = new LoadData();
             tableEntities.forEach(o -> {
                 data.put("entity", o);
-                loadData.ToJavaFtl(PathProperties.getModelEntityFtlPath(), PathProperties.getModelEntityOutPath()+o.getClassName()+".java", data);
-//                replaceAll(this.getPathSpacer(), Matcher.quoteReplacement(File.separator))
+                loadData.ToJavaFtl(pathProperties.getModelEntityFtlPath(),
+                        pathProperties.getOutPath(pathProperties.getModelEntityFtlPath(), o.getClassName()), data);
 
             });
         } catch (IOException e) {
